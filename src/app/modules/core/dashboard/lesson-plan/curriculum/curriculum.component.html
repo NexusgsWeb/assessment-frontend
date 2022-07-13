@@ -1,302 +1,255 @@
-<div class="curriculum-mapping">
-  <mat-grid-list cols="1">
-    <!--choosing class-->
-    <mat-form-field
-      [floatLabel]="'never'"
-      class="select-custom"
-      *ngIf="classes$ | async as classes"
-    >
-      <mat-label class="text-white">Select Class</mat-label>
-      <mat-select
-        name="class"
-        [(ngModel)]="selectedClass"
-        (selectionChange)="filter()"
-      >
-        <mat-option *ngFor="let class of classes" [value]="class">
-          {{ class.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+<mat-drawer-container class="curriculum-update-container" autosize [hasBackdrop]="true">
+    <!--mat drawer starts here-->
+    <mat-drawer #drawer mode="side" position="end">
 
-    <!--choosing subject-->
-    <mat-form-field
-      [floatLabel]="'never'"
-      class="select-custom select-space"
-      *ngIf="subjects$ | async as subjects"
-    >
-      <mat-label class="text-white">Select Subject</mat-label>
-      <mat-select
-        [(ngModel)]="selectedSubject"
-        name="subject"
-        (selectionChange)="filter()"
-      >
-        <mat-option *ngFor="let subject of subjects" [value]="subject">
-          {{ subject.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </mat-grid-list>
-
-  <div class="settings">
-    <!--choosing curriculum-->
-    <div class="curriculum">
-      <label>Curriculum:</label>
-      <ng-container *ngIf="customCurriculum$ | async as customCurriculum">
-        <ng-container
-          *ngIf="
-            customCurriculum.defaultConfiguration || newCustomCurriculumStatus;
-            else notApplied
-          "
-        >
-          <span class="labeled">{{ customCurriculum.type.title }}</span>
+        <!--adding new unit starts here-->
+        <ng-container *ngIf="action === 'unit'; else learningStandard">
+            <h1>New Unit</h1>
+            <form [formGroup]="addUnitForm" (ngSubmit)="onAddUnit()">
+                <mat-form-field>
+                    <div class="input-container">
+                        <label for="code"><strong>Code</strong></label>
+                        <input type="text" matInput formControlName="code" required>
+                    </div>
+                    <mat-error *ngIf="(addUnitForm.controls['code'].touched || addUnitForm.controls['code'].dirty) && addUnitForm.controls['code'].invalid">Please enter a code</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <div class="input-container">
+                        <label for="title"><strong>Title</strong></label>
+                        <input type="text" matInput formControlName="title" required>
+                    </div>
+                    <mat-error *ngIf="(addUnitForm.controls['title'].touched || addUnitForm.controls['title'].dirty) && addUnitForm.controls['title'].invalid">Please enter a title
+                    </mat-error>
+                </mat-form-field>
+                <div class="submit-container">
+                    <button mat-raised-button>Save</button>
+                </div>
+            </form>
         </ng-container>
-        <ng-template #notApplied>
-          <mat-form-field
-            [floatLabel]="'never'"
-            class="select-basic select-space"
-            *ngIf="types$ | async as types"
-          >
-            <mat-label>Select Curriculum</mat-label>
-            <mat-select
-              (selectionChange)="
-                getCurrType($event);
-                filter();
-                selectedCurriculumType.id != 0
-                  ? (curriculumError = undefined)
-                  : ''
-              "
-              [(ngModel)]="selectedCurriculumType"
-              name="curriculum"
-            >
-              <mat-option *ngFor="let curriculum of types" [value]="curriculum">
-                {{ curriculum.title }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="text-danger" *ngIf="curriculumError">
-            {{ curriculumError }}
-          </div>
+        <!--adding new unit ends here-->
+
+        <!--adding new Learning Standard starts here-->
+        <ng-template #learningStandard>
+            <h1>New Learning Standard</h1>
+            <form [formGroup]="addLearningStandardForm" (ngSubmit)="onAddLearningStandard()">
+                <mat-form-field>
+                    <div class="input-container no-margin">
+                        <label for="code"><strong>Code</strong></label>
+                        <input type="text" matInput formControlName="code" required>
+                    </div>
+                    <mat-error class="mt-3" *ngIf="(addLearningStandardForm.controls['code'].touched || addLearningStandardForm.controls['code'].dirty) && addLearningStandardForm.controls['code'].invalid">Please
+                        enter a code</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <label for="description"><strong>Description</strong></label>
+                    <textarea matInput formControlName="description" required>
+                  </textarea>
+                    <mat-error class="mt-3"
+                        *ngIf="(addLearningStandardForm.controls['description'].touched || addLearningStandardForm.controls['description'].dirty) && addLearningStandardForm.controls['description'].invalid">Please enter a
+                        description</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <label><strong>Select Learning Standard (s)</strong></label>
+                    <mat-select formControlName="relatedTo" multiple>
+                        <mat-select-trigger>
+                            {{this.addLearningStandardForm.controls['relatedTo'].value?.[0]?.description || ''}}
+                            <span *ngIf="(this.addLearningStandardForm.controls['relatedTo'].value?.length || 0) > 1"
+                                class="additional-selection">
+                                (+{{(this.addLearningStandardForm.controls['relatedTo'].value?.length || 0) - 2}}
+                                {{this.addLearningStandardForm.controls['relatedTo'].value?.length === 2 ? 'other' :
+                                'others'}})
+                            </span>
+                        </mat-select-trigger>
+                        <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">All</mat-option>
+                        <mat-option *ngFor="let learningStandard of learningStandards" [value]="learningStandard">
+                            {{learningStandard.description}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error class="mt-3" *ngIf="(addLearningStandardForm.controls['relatedTo'].touched || addLearningStandardForm.controls['relatedTo'].dirty) && addLearningStandardForm.controls['relatedTo'].invalid">
+                        Please add at least one related learning standard</mat-error>
+                </mat-form-field>
+
+                <div class="submit-container">
+                    <button mat-raised-button>Save</button>
+                </div>
+            </form>
         </ng-template>
-      </ng-container>
-    </div>
+        <!--adding new Learning Standard starts here-->
 
-    <!--choosing configuration-->
-    <div class="configuration">
-      <button
-        (click)="changeToDefault()"
-        class="{{ defaultConf ? 'raised' : 'stroked' }} spaced"
-        mat-button
-        [class.mat-raised-button]="defaultConf"
-        [class.mat-stroked-button]="!defaultConf"
-      >
-        Default Configuration
-      </button>
-      <button
-        (click)="changeToDefault(false)"
-        mat-button
-        class="{{ defaultConf ? 'stroked' : 'raised' }}"
-        mat-button
-        [class.mat-raised-button]="!defaultConf"
-        [class.mat-stroked-button]="defaultConf"
-      >
-        My Configuration
-      </button>
-    </div>
-  </div>
+    </mat-drawer>
+    <!--mat drawer ends here-->
 
-  <!--displaying default curriculum data starts here-->
-  <div *ngIf="defaultConf; else myConf" class="conf-action-container">
-    <ng-container *ngIf="customCurriculum$ | async as customCurriculum">
-      <mat-checkbox
-        *ngIf="
-          selectedClass.id > 0 &&
-          selectedSubject.id > 0 &&
-          !customCurriculum.defaultConfiguration &&
-          customCurriculum.units.length === 0
-        "
-        (change)="applyDefaultConf()"
-        #applyDefConf
-        [checked]="customCurriculum.defaultConfiguration"
-        >Apply same Configuration</mat-checkbox
-      >
-    </ng-container>
+    <!--mat drawer content starts here-->
+    <mat-drawer-content>
+        <div class="curriculum-mapping">
 
-    <ng-container *ngIf="defaultCurriculum$ | async as defaultCurriculum">
-      <ng-container *ngFor="let unit of defaultCurriculum.units; let i = index">
-        <div class="unit">{{ unit.code }}. {{ unit.title }}</div>
-        <div *ngFor="let lesson of unit.learningStandards; let j = index">
-          <div class="learningStandards">
-            <div class="lesson bg-white">
-              {{ lesson.code }}. {{ lesson.description }}
+            <!--choosing class-->
+            <mat-grid-list cols="1">
+                <mat-form-field [floatLabel]="'never'" class="select-custom" *ngIf="classes$ | async as classes">
+                    <mat-label class="text-white">Select Class</mat-label>
+                    <mat-select name="class" [(ngModel)]="selectedClass" (selectionChange)="filter()">
+                        <mat-option *ngFor="let class of classes" [value]="class">
+                            {{ class.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <!--choosing subject-->
+                <mat-form-field [floatLabel]="'never'" class="select-custom select-space"
+                    *ngIf="subjects$ | async as subjects">
+                    <mat-label class="text-white">Select Subject</mat-label>
+                    <mat-select [(ngModel)]="selectedSubject" name="subject" (selectionChange)="filter()">
+                        <mat-option *ngFor="let subject of subjects" [value]="subject">
+                            {{ subject.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-list>
+
+            <div class="settings">
+                <!--choosing curriculum-->
+                <div class="curriculum">
+                    <label>Curriculum:</label>
+                    <ng-container *ngIf="customCurriculum$ | async as customCurriculum">
+                        <ng-container
+                            *ngIf="customCurriculum.defaultConfiguration || newCustomCurriculumStatus; else notApplied">
+                            <span class="labeled">{{ customCurriculum.type.title }}</span>
+                        </ng-container>
+                        <ng-template #notApplied>
+                            <mat-form-field [floatLabel]="'never'" class="select-basic select-space"
+                                *ngIf="types$ | async as types">
+                                <mat-label>Select Curriculum</mat-label>
+                                <mat-select (selectionChange)="getCurrType($event);filter();
+                    selectedCurriculumType.id != 0
+                      ? (curriculumError = undefined)
+                      : ''
+                  " [(ngModel)]="selectedCurriculumType" name="curriculum">
+                                    <mat-option *ngFor="let curriculum of types" [value]="curriculum">
+                                        {{ curriculum.title }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div class="text-danger" *ngIf="curriculumError">
+                                {{ curriculumError }}
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </div>
+
+                <!--choosing configuration-->
+                <div class="configuration" *ngIf="selectedClass.id > 0 && selectedSubject.id > 0">
+                    <button (click)="changeToDefault()" class="{{ defaultConf ? 'raised' : 'stroked' }} spaced"
+                        mat-button [class.mat-raised-button]="defaultConf" [class.mat-stroked-button]="!defaultConf">
+                        Default Configuration
+                    </button>
+                    <button (click)="changeToDefault(false)" mat-button class="{{ defaultConf ? 'stroked' : 'raised' }}"
+                        mat-button [class.mat-raised-button]="!defaultConf" [class.mat-stroked-button]="defaultConf">
+                        My Configuration
+                    </button>
+                </div>
             </div>
-          </div>
-        </div>
-      </ng-container>
-    </ng-container>
-  </div>
-  <!--displaying default curriculum data ends here-->
 
-  <!--displaying custom curriculum data starts here-->
-  <ng-template #myConf>
-    <ng-container *ngIf="customCurriculum$ | async as customCurriculum">
-      <div
-        class="conf-action-container new-unit"
-        *ngIf="selectedClass.id !== 0 && selectedSubject.id !== 0"
-      >
-        <span (click)="add('unit', customCurriculum.defaultConfiguration)"
-          ><strong>+</strong> Add New Unit</span
-        >
-      </div>
-      <ng-container *ngFor="let unit of customCurriculum.units; let i = index">
-        <div
-          class="unit {{
-            isUEditing && unit.id === currEditUnit?.id ? 'editing' : ''
-          }}"
-        >
-          <span *ngIf="!isUEditing || unit.id !== currEditUnit?.id"
-            >{{ unit.code }}. {{ unit.title }}</span
-          >
-          <input
-            type="text"
-            id="{{ unit.id }}"
-            style="width: 70%; border-radius: 0"
-            class="input"
-            *ngIf="isUEditing && unit.id === currEditUnit?.id"
-            value="{{ unit.code }}. {{ unit.title }}"
-          />
-          <div class="update-buttons">
-            <button
-              mat-stroked-button
-              class="mr-4"
-              color="warn"
-              *ngIf="isUEditing && unit.id === currEditUnit?.id"
-              (click)="isUEditing = false"
-            >
-              cancel
-            </button>
-            <button
-              mat-raised-button
-              class="save"
-              *ngIf="isUEditing && unit.id === currEditUnit?.id"
-              (click)="
-                onUnitUpdate(customCurriculum.defaultConfiguration, unit.id)
-              "
-            >
-              update
-            </button>
-          </div>
-          <div class="actions">
-            <mat-icon (click)="editUnit(unit)">edit</mat-icon>
-            <mat-icon
-              (click)="
-                deleteUnit(customCurriculum.defaultConfiguration, unit.id)
-              "
-              >delete</mat-icon
-            >
-          </div>
-        </div>
-        <div
-          *ngFor="let learningStandard of unit.learningStandards; let j = index"
-        >
-          <div
-            class="learningStandards {{
-              isLSEditing &&
-              learningStandard.id === currEditLearningStandard?.id
-                ? 'editing'
-                : ''
-            }}"
-          >
-            <div
-              class="lesson bg-white {{
-                isLSEditing &&
-                learningStandard.id === currEditLearningStandard?.id
-                  ? 'editing'
-                  : ''
-              }}"
-              style="padding: 6px"
-            >
-              <span
-                *ngIf="
-                  !isLSEditing ||
-                  learningStandard.id !== currEditLearningStandard?.id
-                "
-                >{{ learningStandard.code }}.
-                {{ learningStandard.description }}</span
-              >
-              <input
-                type="text"
-                id="{{ learningStandard.id }}"
-                class="input"
-                *ngIf="
-                  isLSEditing &&
-                  learningStandard.id === currEditLearningStandard?.id
-                "
-                value="{{ learningStandard.code }}. {{
-                  learningStandard.description
-                }}"
-              />
-              <div class="update-buttons">
-                <button
-                  mat-icon-button
-                  color="warn"
-                  aria-label="delete learning standard"
-                  *ngIf="
-                    isLSEditing &&
-                    learningStandard.id === currEditLearningStandard?.id
-                  "
-                  (click)="isLSEditing = false"
-                >
-                  <mat-icon>do_disturb_on</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  color="primary"
-                  aria-label="update learning standard"
-                  *ngIf="
-                    isLSEditing &&
-                    learningStandard.id === currEditLearningStandard?.id
-                  "
-                  (click)="
-                    onLsUpdate(
-                      customCurriculum.defaultConfiguration,
-                      learningStandard.id
-                    )
-                  "
-                >
-                  <mat-icon>check_circle</mat-icon>
-                </button>
-              </div>
-              <div class="actions">
-                <mat-icon (click)="editLearningStandard(learningStandard)"
-                  >edit</mat-icon
-                >
-                <mat-icon
-                  (click)="
-                    deleteLearningStandard(
-                      customCurriculum.defaultConfiguration,
-                      learningStandard.id
-                    )
-                  "
-                  >delete</mat-icon
-                >
-              </div>
+            <div class="curriculum-container" *ngIf="selectedClass.id > 0 && selectedSubject.id > 0">
+                <!--displaying default curriculum data starts here-->
+                <div *ngIf="defaultConf; else myConf" class="conf-action-container">
+                    <ng-container *ngIf="customCurriculum$ | async as customCurriculum">
+                        <mat-checkbox
+                            *ngIf="selectedClass.id > 0 && selectedSubject.id > 0 && !customCurriculum.defaultConfiguration && customCurriculum.units.length === 0"
+                            (change)="applyDefaultConf()" #applyDefConf
+                            [checked]="customCurriculum.defaultConfiguration">Apply same Configuration</mat-checkbox>
+                    </ng-container>
+
+                    <ng-container *ngIf="defaultCurriculum$ | async as defaultCurriculum">
+                        <ng-container *ngFor="let unit of defaultCurriculum.units; let i = index">
+                            <div class="unit">{{ unit.code }}. {{ unit.title }}</div>
+                            <div *ngFor="let lesson of unit.learningStandards; let j = index">
+                                <div class="learningStandards">
+                                    <div class="lesson bg-white">
+                                        {{ lesson.code }}. {{ lesson.description }}
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+                <!--displaying default curriculum data ends here-->
+
+                <!--displaying custom curriculum data starts here-->
+                <ng-template #myConf>
+                    <ng-container *ngIf="customCurriculum$ | async as customCurriculum">
+                        <div class="conf-action-container new-unit"
+                            *ngIf="selectedClass.id !== 0 && selectedSubject.id !== 0">
+                            <span (click)="add('unit', customCurriculum.defaultConfiguration)"><strong>+</strong> Add
+                                New Unit</span>
+                        </div>
+                        <ng-container *ngFor="let unit of customCurriculum.units; let i = index">
+                            <div class="unit {{isUEditing && unit.id === currEditUnit?.id ? 'editing' : ''}}">
+                                <span *ngIf="!isUEditing || unit.id !== currEditUnit?.id">{{ unit.code }}. {{ unit.title
+                                    }}</span>
+                                <input type="text" id="{{unit.id}}" style="width:70%;border-radius:0;" class="input"
+                                    *ngIf="isUEditing && unit.id === currEditUnit?.id"
+                                    value="{{ unit.code }}. {{ unit.title }}">
+                                <div class="update-buttons">
+                                    <button mat-stroked-button class="mr-4" color="warn"
+                                        *ngIf="isUEditing && unit.id === currEditUnit?.id"
+                                        (click)="isUEditing = false">cancel</button>
+                                    <button mat-raised-button class="save"
+                                        *ngIf="isUEditing && unit.id === currEditUnit?.id"
+                                        (click)="onUnitUpdate(customCurriculum.defaultConfiguration, unit.id)">update</button>
+                                </div>
+                                <div class="actions">
+                                    <mat-icon (click)="editUnit(unit)">edit</mat-icon>
+                                    <mat-icon (click)="deleteUnit(customCurriculum.defaultConfiguration, unit.id)">
+                                        delete</mat-icon>
+                                </div>
+                            </div>
+                            <div *ngFor="let learningStandard of unit.learningStandards; let j = index">
+                                <div
+                                    class="learningStandards {{isLSEditing && learningStandard.id === currEditLearningStandard?.id ? 'editing' : ''}}">
+                                    <div class="lesson bg-white {{isLSEditing && learningStandard.id === currEditLearningStandard?.id ? 'editing' : ''}}"
+                                        style="padding: 6px">
+                                        <span
+                                            *ngIf="!isLSEditing || learningStandard.id !== currEditLearningStandard?.id">{{
+                                            learningStandard.code }}. {{ learningStandard.description }}</span>
+                                        <input type="text" id="{{learningStandard.id}}" class="input"
+                                            *ngIf="isLSEditing && learningStandard.id === currEditLearningStandard?.id"
+                                            value="{{ learningStandard.code }}. {{ learningStandard.description }}">
+                                        <div class="update-buttons">
+                                            <button mat-icon-button color="warn" aria-label="delete learning standard"
+                                                *ngIf="isLSEditing && learningStandard.id === currEditLearningStandard?.id"
+                                                (click)="isLSEditing = false">
+                                                <mat-icon>do_disturb_on</mat-icon>
+                                            </button>
+                                            <button mat-icon-button color="primary"
+                                                aria-label="update learning standard"
+                                                *ngIf="isLSEditing && learningStandard.id === currEditLearningStandard?.id"
+                                                (click)="onLsUpdate(customCurriculum.defaultConfiguration, learningStandard.id)">
+                                                <mat-icon>check_circle</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="actions">
+                                            <mat-icon (click)="editLearningStandard(learningStandard)">edit</mat-icon>
+                                            <mat-icon
+                                                (click)="deleteLearningStandard(customCurriculum.defaultConfiguration, learningStandard.id)">
+                                                delete</mat-icon>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="conf-action-container new-unit" style="font-size: 0.8rem">
+                                <span
+                                    (click)="add('learningStandard', customCurriculum.defaultConfiguration, unit.id)"><strong>+</strong>
+                                    Add New Learning Standard</span>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </ng-template>
+                <!--displaying custom curriculum data ends here-->
             </div>
-          </div>
         </div>
-        <div class="conf-action-container new-unit" style="font-size: 0.8rem">
-          <span
-            (click)="
-              add(
-                'learningStandard',
-                customCurriculum.defaultConfiguration,
-                unit.id
-              )
-            "
-            ><strong>+</strong> Add New Learning Standard</span
-          >
-        </div>
-      </ng-container>
-    </ng-container>
-  </ng-template>
-  <!--displaying custom curriculum data ends here-->
-</div>
+    </mat-drawer-content>
+    <!--mat drawer content ends  here-->
+
+</mat-drawer-container>
