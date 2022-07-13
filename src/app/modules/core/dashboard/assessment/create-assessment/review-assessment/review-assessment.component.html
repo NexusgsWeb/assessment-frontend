@@ -1,0 +1,152 @@
+<div>
+    <div>
+      <div>
+
+        <div>
+
+
+          <div class="columns  is-mobile ">
+            <!---------->
+            <div class="column   px-0 py-0">
+
+                <div class="section is-small has-background-white pt-2 px-3 " style="border-radius: 13px;">
+
+                  <div class="columns is-multiline">
+                    <div class="column is-4">
+                      <div class="text has-text-left  is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5">  Title:</span><span class="has-text-weight-medium has-text-black-bis"> {{assessment.title}} </span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Planned Duration:</span><span class="has-text-weight-medium has-text-black-bis"> {{time.plannedTime}}</span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Start Date:</span><span class="has-text-weight-medium has-text-black-bis"> {{assessment.startDate}}</span></div>
+                    </div>
+
+                    <div class="column is-4">
+                      <div class="text has-text-left  is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5">  Subject:</span><span class="has-text-weight-medium has-text-black-bis"> {{assessment.subject.name}} </span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Estimated Duration:</span><span class="has-text-weight-medium has-text-black-bis"> {{time.actualTime}}</span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> End Date:</span><span class="has-text-weight-medium has-text-black-bis"> {{assessment.endDate}}</span></div>
+                    </div>
+                    <div class="column is-4">
+                      <div class="text has-text-left  is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5">  Class and Sections:</span><span class="has-text-weight-medium has-text-black-bis"> {{className}} </span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Average Difficulty:</span><span class="has-text-weight-medium has-text-black-bis"> {{averageDifficulty}}</span></div>
+                    </div>
+                  </div>
+                  <div class="text has-text-left  is-family-primary  is-size-6-desktop is-size-7-tablet my-5 pl-5">
+                    <label class="checkbox">
+                      <input type="checkbox" [(ngModel)] = "randomOrder">
+                      <span class="has-text-weight-bold has-text-dark pl-2">  Randomly Order Questions</span>
+                    </label>
+                  </div>
+                  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" >
+                  <div class="columns is-multiline mb-0 example-box" *ngFor = "let question of selectedQuestions; let i = index;" cdkDrag [cdkDragDisabled]="randomOrder">
+                    <div class="column is-9 is-10-widescreen" >
+                      <span class="column is-inline-block" style="vertical-align:middle;">
+                        <button class="button btn-icon is-medium has-text-blue">
+                          <span class="is-size-3 is-size-7-desktop is-size-5-tablet is-family-primary "> <i class="fas fa-expand-arrows-alt  has-text-blue"></i>  </span>
+                        </button>
+                      </span>
+
+
+                      <span class="column is-9-tablet is-8-desktop is-9-widescreen is-half-tablet is-inline-block  has-background-white-ter" style="vertical-align:middle;">
+                        <span class="box is-inline-block  is-family-primary has-text-weight-bold is-size-6 has-background-white-ter has-text-dark mb-0 pr-0">
+                          Q{{i}}:
+                        </span>
+
+                        <span class="box is-inline-block  is-family-primary has-text-weight-medium is-size-6 has-background-white-ter pl-0" >
+                          <div *ngIf = "containsNBSP(question.questionText) == false"
+                          [mathjax]="question.questionText"></div>
+
+                      <div *ngIf = "containsNBSP(question.questionText) == true"
+                      [innerHTML]="question.questionText" ></div>
+
+                        </span>
+
+                      </span>
+
+
+                      <span class="column  is-1 is-inline-block" style="vertical-align:middle;" >
+                        <button class="button btn-icon is-medium has-text-blue" (click) = "removeQuestion(i)">
+                          <span class="is-size-3 is-size-7-desktop is-size-5-tablet is-family-primary "> <i class="fas fa-times  has-text-blue"></i>  </span>
+                        </button>
+                      </span>
+
+                    </div>
+                    <div class="column text has-text-right  is-family-primary  is-size-5-desktop is-size-6-tablet mt-3">
+                      <span class="has-text-weight-bold has-text-weight-medium has-text-dark pr-3">
+                        Mark
+                      </span>
+                    </div>
+                    <span class="column is-1 is-inline-block  has-background-white mt-2 mb-3" style="border:1px solid #707070;border-radius:4.6px;">
+                      <input class="input is-inline-block  is-family-primary has-text-weight-medium is-size-6 has-background-white " type = "number"
+                      style="border: none;" [(ngModel)] = "question.mark">
+
+
+                    </span>
+                    <div class="column ">
+
+                    </div>
+
+                <div class="column is-9" *ngFor = "let questionAnswer of question.answers; let j = index; ">
+                  <span class="column is-1 is-inline-block" style="vertical-align:middle;">
+                  </span>
+                  <span class="column is-9-tablet is-8-desktop is-10-widescreen is-half-tablet is-inline-block  has-background-white-ter is-inline-block px-4">
+                    <span class="is-inline-block is-family-primary has-text-weight-bold has-text-blue has-text-left is-size-5-desktop is-size-6-tablet">
+                      {{j}}
+                    </span>
+                    <span class="is-inline-block" style="color: #8b8b8b;">|</span>
+                    <span
+                    [ngClass]="
+                      questionAnswer.isCorrect
+                        ? 'is-inline-block is-answer is-family-primary has-text-weight-bold has-text-left is-size-6-desktop is-size-7-tablet'
+                        : 'is-inline-block is-family-primary has-text-weight-bold has-text-left is-size-6-desktop is-size-7-tablet'
+                    "
+                    >
+                    <div [mathjax]="questionAnswer.answerText"></div>
+
+                    </span>
+                  </span>
+                  <span class="column is-1 is-hidden-widescreen is-inline-block" style="vertical-align:middle;">
+                  </span>
+                </div>
+                <div class="column py-0">
+                </div>
+
+
+
+
+
+
+
+
+
+                </div>
+                </div>
+                <div class="column is-12-tablet is-12-desktop is-hidden-mobile">
+                    <div class="field is-grouped is-grouped-right  pb-2 px-2">
+
+                      <div class="control">
+                        <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="" (click) = "checkFinish(selectedQuestions)">
+                          <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Finish</span></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class=" is-hidden-tablet">
+                    <div class="column is-7-mobile">
+                      <div class="field is-grouped is-grouped-right  pb-2 px-2">
+                        <div class="control column is-half-mobile">
+                          <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="" (click) = "checkFinish(selectedQuestions)">
+                            <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Finish</span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>

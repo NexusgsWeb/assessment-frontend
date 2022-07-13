@@ -1,0 +1,136 @@
+<div class="section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <ul>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+          >My Home</a
+        >
+      </li>
+
+      <li class="is-active is-family-primary has-text-weight-bold is-size-5">
+        <a
+          href="#"
+          aria-current="page"
+          class="is-family-primary has-text-weight-bold is-size-6"
+          >Assessment
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    class="section is-large has-background-white pt-2 px-3"
+    style="border-radius: 13px"
+  >
+    <app-timer
+      *ngIf="(ExamMetaData | async).ExamIsFinished === false"
+      [ExamMetaData]="ExamMetaData"
+      [AssessmentMetaData]="AssessmentMetaData"
+    ></app-timer>
+    <app-percentage
+    [ExamMetaData]="ExamMetaData"
+    [AssessmentMetaData]="AssessmentMetaData"
+    ></app-percentage>
+    <div class="columns is-centered">
+      <div class="column is-11">
+        <div class="section paper-shadow pt-2 px-3">
+          <div class="columns is-centered">
+            <div
+              *ngIf="(ExamMetaData | async).ExamIsFinished"
+              class="column is-10 py-6"
+              style="text-align: center; font-size: 20px; font-weight: bold"
+            >
+              <p>Good Luck.</p>
+              <button MADBtn class="mt-4" (click)="navigateBackToAssessments()">
+                My Assessments
+              </button>
+            </div>
+            <div
+              class="column is-10 py-6"
+              *ngIf="(ExamMetaData | async).ExamIsFinished === false"
+            >
+              <div class="columns is-multiline">
+                <!-- Question Place Here -->
+                <div class="column is-12 is-fullwidth">
+                  <ng-template
+                    #container
+                    (QuestionDoneEmitter)="questionDone($event)"
+                  >
+                  </ng-template>
+                </div>
+                <!-- Question Place Here -->
+              </div>
+              <div class="column is-12">
+                <div class="field is-grouped is-grouped-right py-6 px-2">
+                  <div class="control"></div>
+                </div>
+                <div class="columns is-centered">
+                  <div class="column is-12">
+                    <nav
+                      class="pagination is-rounded is-medium"
+                      role="navigation"
+                      aria-label="pagination"
+                    >
+                      <ul
+                        class="pagination-list"
+                        style="justify-content: center"
+                      >
+                        <!-- <li>
+                          <a
+                            class="pagination-link previous-page"
+                            aria-label="Goto page 2"
+                            ><i
+                              class="fas fa-chevron-left"
+                              style="color: white"
+                            ></i
+                          ></a>
+                        </li> -->
+                        <li
+                          *ngFor="
+                            let questions of [].constructor(
+                              (ExamMetaData | async)?.Questions.length
+                            );
+                            let i = index
+                          "
+                        >
+                          <a
+                            class="pagination-link previous-page"
+                            [ngClass]="{
+                              current:
+                                (ExamMetaData | async)?.CurrentQuestionIndex ===
+                                i
+                            }"
+                            aria-label="Goto page 2"
+                            (click)="didClickSpecificQuestions(i)"
+                            >{{ i + 1 }}</a
+                          >
+                        </li>
+                        <!-- <li>
+                          <a
+                            class="pagination-link previous-page"
+                            aria-label="Goto page 2"
+                            ><i
+                              class="fas fa-chevron-right"
+                              style="color: white"
+                            ></i
+                          ></a>
+                        </li> -->
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4" style="text-align: center">
+                <button MADBtn (click)="endExam()">End Exam</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

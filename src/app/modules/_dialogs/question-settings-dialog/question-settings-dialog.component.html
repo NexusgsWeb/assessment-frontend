@@ -1,0 +1,322 @@
+<div id="modal" class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-content responsiveness">
+    <div
+      class="section is-small has-background-white pt-2 px-3"
+      style="border-radius: 13px"
+    >
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left has-text-info
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          pl-2
+          pt-5
+        "
+        style="font-weight: 800"
+      >
+        Question Settings
+      </div>
+<div >
+  <div class="columns is-multiline pl-4 pr-6 mr-6 pt-3" *ngFor = "let m of selectedMap; let i = index">
+
+  <div class="columns column is-half mr-3">
+    <div class="column is-2" *ngIf = "selectedMap.length > 1">
+      <button
+        class="button btn-icon is-medium has-text-blue"
+        (click)="RequestDeleteQuestion(i)"
+      >
+        <i class="fas fa-times has-text-blue"></i>
+      </button>
+    </div>
+    <div
+      class="
+        is-3
+        column
+        is-inline-block
+        has-text-weight-bold
+        is-size-5
+        has-text-left has-text-dark
+        pt-4
+      "
+    >
+      Domain
+    </div>
+    <div
+      class="
+        column
+        select
+        is-normal is-fullwidth is-family-primary
+        has-text-weight-medium
+      "
+    >
+      <ng-select
+        placeholder="Select Domain"
+        [(ngModel)]="selectedMap[i].domain"
+        (change)="didSelectDomain($event, i)"
+
+      >
+        <ng-option *ngFor="let domain of domains | async" [value]="domain.name">{{
+          domain.name
+        }}</ng-option>
+      </ng-select>
+    </div>
+  </div>
+  <div class="columns column is-half">
+    <div
+      class="
+        is-3
+        column
+        is-inline-block
+        has-text-weight-bold
+        is-size-10
+        has-text-left has-text-dark
+      "
+    >
+      Learning Objective
+    </div>
+    <div
+      class="
+        column
+        select
+        is-normal is-fullwidth is-family-primary
+        has-text-weight-medium
+      "
+    >
+
+    <ng-select
+    #ClassSelector
+    id="ngSelect"
+    [items]="domainLoMap[i].los"
+    (change)="onChangeLO($event)"
+    bindLabel="displayName"
+    notFoundText="Not Found"
+    placeholder="Select Learning Objective"
+    [searchable]="true"
+    [hideSelected]="true"
+    [(ngModel)]="selectedMap[i].lo"
+    style="min-width: 200px"
+  >
+  <ng-template ng-option-tmp let-item="item">
+    <div title="{{ item.displayName }}">{{ item.displayName }}</div>
+  </ng-template>
+
+  </ng-select>
+
+      <!-- <ng-select
+        placeholder="Select Learning Objective"
+        [(ngModel)]="selectedMap[i].lo"
+        (change) = "onChangeLO()"
+      >
+        <ng-option
+          *ngFor="let LO of domainLoMap[i].los"
+          [value]="LO"
+          >{{ LO.code + " " + LO.description }}</ng-option
+        >
+      </ng-select> -->
+    </div>
+  </div>
+
+</div>
+
+
+      <!-- <div class="columns is-multiline pl-4 pr-6 mr-6 pt-3">
+        <app-learning-objective-item
+          *ngFor="let learningobjective of LearningObjectives | async"
+          class="column is-12 columns pl-3"
+          [LOReference]="LearningObjectives"
+          [LOsFullList]="LearningObjectivesResults"
+          [LearningObjectiveDetails]="learningobjective"
+          [LearningObjectivesFinal]="LearningObjectivesFinal"
+          [selectedD] = "getSelectedDomain(learningobjective.id)"
+          [selectedLO] = "getSelectedLO(learningobjective.id)"
+          [domainLOMap] = "domainLOMap"
+        >
+        </app-learning-objective-item> -->
+
+        <div class="column is-11-tablet is-12-desktop is-hidden-mobile">
+          <div class="field is-grouped is-grouped-right pb-2 pr-5 pt-5">
+            <div class="control">
+              <button
+                class="button is-link is-outlined is-rounded"
+                (click)="addLearningObjective()"
+              >
+                <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                  <i class="fas fa-plus has-text-blue"></i>
+                </figure>
+                <span
+                  class="
+                    ml-1
+                    is-size-7 is-family-primary
+                    has-text-weight-normal
+                  "
+                  id="lanuchModal"
+                  >Add Learning Objective
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="hr-line my-4" />
+
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          pl-2
+          pt-0
+        "
+        style="font-weight: 800; color: rgba(63, 128, 191, 0.61)"
+      >
+        Blooms Taxonomy
+      </div>
+
+      <div class="columns is-multiline pl-2 pr-6 mr-6 pt-3 mb-0">
+        <span
+          class="
+            column
+            is-3 is-inline-block
+            has-text-weight-bold
+            is-size-5-desktop is-size-7-tablet
+            has-text-left has-text-dark
+            pt-4
+          "
+          >Category of Learning</span
+        >
+
+        <div class="column pb-4">
+          <div
+            class="
+              select
+              is-normal is-fullwidth is-family-primary
+              has-text-weight-medium
+              is-size-7
+            "
+          >
+            <ng-select
+              (change)="onChangeCategoryOfLearning()"
+              placeholder="Select Category Of Learning"
+              [(ngModel)]="SelectedCategoryOfLearning"
+              (clear) = "deleteDOK()"
+            >
+              <ng-option
+                *ngFor="let COL of CategoryOfLearnings"
+                [value]="COL"
+                >{{ COL }}</ng-option
+              >
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="column is-3 has-text-right pr-4">
+          <span
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5-desktop is-size-7-tablet
+              has-text-left has-text-dark
+              pt-4
+            "
+            >Knowledge Dimension</span
+          >
+        </div>
+        <div class="column">
+          <div
+            class="
+              select
+              is-normal is-fullwidth is-family-primary
+              has-text-weight-medium
+              is-size-7
+            "
+          >
+            <ng-select
+              [disabled]="SelectedCategoryOfLearning === undefined"
+              placeholder="Select Your DOK"
+              [(ngModel)]="SelectedDimensionOfKnowledge"
+            >
+              <ng-option
+                *ngFor="let DOK of DimensionOfKnowledges"
+                [value]="DOK"
+                >{{ DOK }}</ng-option
+              >
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <hr class="hr-line my-0" />
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          pl-2
+          py-5
+        "
+        style="font-weight: 800; color: rgba(63, 128, 191, 0.61)"
+      >
+        Answer Key
+      </div>
+      <div
+        class="
+          is-normal is-family-primary
+          has-text-weight-medium
+          control
+          is-expanded is-fullwidth
+          has-background-white-ter
+          column
+          is-12
+        "
+        style="border: 2px solid #3f80bf; min-height: 45px"
+      >
+        <div [mathjax]="htmlContent || 'Answer Key Preview..'"></div>
+      </div>
+      <div class="column is-12">
+        <angular-editor
+          [(ngModel)]="htmlContent"
+          [config]="config"
+        ></angular-editor>
+      </div>
+
+      <div class="column is-11-tablet is-12-desktop is-hidden-mobile">
+        <div class="field is-grouped is-grouped-right pb-2 pr-6 mr-6 pt-5">
+          <div class="control">
+            <button
+              class="
+                button
+                is-fullwidth is-family-primary
+                has-text-weight-bold
+                is-size-5 is-link
+                has-text-white
+                px-6
+                mx-4
+              "
+              (click)="didClickClose()"
+              type="submit"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      (click)="didClickClose1()"
+      class="modal-close is-large"
+      aria-label="close"
+    ></button>
+  </div>
+</div>

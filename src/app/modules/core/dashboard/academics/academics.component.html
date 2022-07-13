@@ -1,0 +1,655 @@
+
+<div>
+    <div>
+          <section class="section is-large has-background-grey-light pt-3 px-4">
+
+            <nav class="breadcrumb has-succeeds-separator py-1 mb-3" aria-label="breadcrumbs">
+              <breadcrumb #parent>
+                <ol>
+                  <!-- <li *ngIf="!parent.breadcrumbs[0].terminal">
+                    <a
+                      href=""
+                      class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+                      [routerLink]="[parent.breadcrumbs[0].url]"
+                      >My Home</a
+                    >
+                  </li> -->
+                  <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+                    <li *ngIf="!route.terminal">
+                      <a
+                        href=""
+                        class="is-family-primary has-text-weight-bold is-size-5"
+                        [routerLink]="[route.url]"
+                        >{{ route.displayName }}</a
+                      >
+                    </li>
+                    <li
+                      class="is-active is-family-primary has-text-weight-bold is-size-5"
+                      *ngIf="route.terminal"
+                    >
+                      <a aria-current="page"> {{ route.displayName }} </a>
+                    </li>
+                  </ng-template>
+                </ol>
+              </breadcrumb>
+            </nav>
+
+            <div class="columns is-multiline is-mobile ">
+
+              <span class="column has-background-white is-inline-block is-pulled-left px-0 py-0" style="border-radius: 13px;">
+
+                <div class="columns is-multiline is-mobile ">
+                  <div class=" py-5">
+                    <span class=" is-family-primary has-text-weight-bold is-size-5 mt-0  mb-0 px-5" style="color:#3f81c3;">
+                      Create and Manage Academic Settings</span>
+                  </div>
+
+                  <div class="column is-full px-5" style="border-radius: 4.6px;">
+                    <nav class="navbar is-fullwidth has-background-light px-0 py-0">
+
+                      <div class="navbar-menu py-1">
+                        <span class="navbar-start total-users has-text-weight-bold  is-size-6 has-text-left is-family-primary has-text-dark py-3 px-3 ">Total number of Academic Years: {{academicYears.length}} </span>
+                        <span class="navbar-end px-3">
+                          <ul class="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-space-between py-0">
+                            <li class="is-flex-grow-1 ">
+                              <a class="navbar-item has-text-info is-size-4">
+                                <form action="" class=" search-bar2 search-icon px-0 py-0"  style=" margin-right: -10px;">
+                                  <input class="search  pl-5 has-text-dark" type="text" #myInput [(ngModel)] = "yearCode" (input) = "searchAcademicYear();" name="search" pattern=".*\S.*" required="" placeholder="Search here...">
+                                  <button class="search-btn blue" type="submit"><i class="fa fa-search is-size-4" style=""></i>
+                                  </button>
+
+                                </form>
+                              </a></li>
+
+                              <li class="hr-separator  is-flex-grow-1 "> <a class="navbar-item has-text-info is-size-4 mt-1"><i class="fa fa-download"></i></a> </li>
+
+                            <!-- <li class="hr-separator is-flex-grow-1 "> <a class="navbar-item has-text-info is-size-4" href="#"><i class="fa fa-search"></i></a> </li> -->
+                            <li class="hr-separator is-flex-grow-1 "> <a class="navbar-item has-text-info is-size-4" ><i class="fa fa-upload"></i></a> </li>
+                            <!-- <li class="hr-separator is-flex-grow-1 ">  <a class="navbar-item has-text-info is-size-4" id="launchModal"><i class="fas fa-trash "></i></a> </li> -->
+                            <li class="hr-separator is-flex-grow-1 "  >
+                              <p class="control" style="width: 150px;">
+                                 <mat-form-field
+                              (click)="picker.open()"
+                              class="button is-link is-rounded calender-form"
+                              style = "display:flex;"
+                            >
+                          <mat-date-range-input
+                            [rangePicker]="picker"
+                            [formGroup]="dateRange"
+                            style="
+
+                            width: 150px;
+
+                              color: white !important;
+                              font-size: 15px;
+                              margin-top: 0px;
+                              border-top: 0px;
+                            "
+                          >
+                            <input
+
+                              matStartDate
+                              matTooltip = "filter by date"
+                              formControlName="start"
+                              style="color: white !important; text-align: right;"
+                              readonly
+                            />
+                            <input
+                              matEndDate
+                              matTooltip = "filter by date"
+                              formControlName="end"
+                              style="color: white"
+                              readonly
+                            />
+                          </mat-date-range-input>
+
+                          <mat-date-range-picker #picker>
+                            <mat-date-range-picker-actions>
+                              <!-- <button mat-button>Reset</button> -->
+
+                              <button mat-button matDateRangePickerCancel (click) = "cancelDates()">Cancel</button>
+                              <button mat-raised-button matDateRangePickerApply (click) = "FilterByDate()">
+                                Apply
+                              </button>
+                            </mat-date-range-picker-actions>
+                          </mat-date-range-picker>
+                            <mat-datepicker-toggle matSuffix >
+                                  <mat-icon
+                                    matDatepickerToggleIcon
+                                    style="padding-bottom: 20px; padding-left: 5px;"
+
+                                  >
+                                  <i class="fas fa-angle-down"></i>
+                                  </mat-icon>
+                                    </mat-datepicker-toggle>
+                                  </mat-form-field>
+                              </p>
+                      </li>
+
+                          </ul>
+                        </span>
+                      </div>
+                    </nav>
+                  </div>
+                </div>
+                <div class="column is-full  has-background-white " style="border-radius: 4.6px;">
+                  <div class="container ">
+
+                    <table id="newYearTable" class="mx-6 mt-3" style="display: none;">
+
+                      <tbody><tr>
+
+                        <td class="td-users  pr-4 mr-4"><input name = "code" #code = ngModel [ngClass]="(code.touched &&!code.valid)?
+                          'input td-content is-info is-danger txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2':
+                          'input td-content is-info is-focused txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2'"
+                          type="text" [(ngModel)] = "newYearCredentials.code" placeholder="Code" required = "" matTooltip="Academic year code"></td>
+                        <td class="td-users  pr-4 mr-4">
+                          <span class="control has-icons-right is-inline-block">
+                            <input name = "startDate" #startDate = ngModel [ngClass]="(startDate.touched &&!startDate.valid)?
+                            'input td-content is-info is-danger txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0':
+                            'input td-content is-info is-focused txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0'"
+                            type="date" [(ngModel)] = "newYearCredentials.start_date"  placeholder="Name" placeholder="Start Date" required = ""         matTooltip="Start date"
+                            >
+
+                            <span class="icon is-medium is-right has-text-info is-inline-block has-text-right pr-3 py-1">
+                              <i class="fa fa-calendar"></i>
+                            </span>
+                          </span>
+                        </td>
+                        <td class="td-users  pr-4 ">
+                          <span class="control has-icons-right is-inline-block">
+                            <input name = "endDate" #endDate = ngModel [ngClass]="(endDate.touched &&!endDate.valid)?
+                            'input td-content is-info is-danger txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0':
+                            'input td-content is-info is-focused txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0'"
+                            type="date" value=" End Date" [(ngModel)] = "newYearCredentials.end_date" placeholder="End Date" required = "" matTooltip="End date">
+
+                            <span class="icon is-medium is-right has-text-info is-inline-block has-text-right pr-3 py-1">
+                              <i class="fa fa-calendar"></i>
+                            </span>
+                          </span>
+                        </td>
+                        <td class="td-users  has-text-left ">
+                          <button class="button is-outlined  has-background-info   is-small mr-2" style=""
+                          [disabled] = "code.invalid || startDate.invalid || endDate.invalid">
+                            <span class=" has-text-white is-family-primary has-text-weight-bold is-size-7 px-3" id="next" (click) = "createNewAcademicYear()">Save</span></button>
+
+
+                          <button class="button  is-small is-outlined  has-background-white" (click)="cancelYearDialog();">
+                            <span class=" has-text-info is-family-primary has-text-weight-bold is-size-7 px-3" id="closebtn">Cancel</span>
+                          </button></td>
+
+                        </tr>
+
+                      </tbody>
+                    </table>
+
+                    <nav class="navbar is-fullwidth has-background-white-bis my-3 mx-6">
+                      <div class="navbar-menu">
+                        <a class="navbar-item is-family-primary has-text-info has-text-weight-semibold py-0 pl-5 " (click)="newYearDialog();">
+                          <i class="fa fa-plus is-size-5"></i>
+                          <span class="is-size-6">&nbsp;&nbsp;Add new Academic Year</span></a>
+                      </div>
+                    </nav>
+                    <!-- <table class="table add-modal is-fullwidth " style="border-radius: 10px;">
+                    <thead class="is-size-6">
+                      <tr>
+                        <th class="td-users is-family-primary has-text-weight-normal has-text-left px-2">
+                          <input type="checkbox" class="mt-2"></th>
+                        <th class=" is-family-primary has-text-weight-semibold px-0" scope="col">Code</th>
+                        <th class="is-family-primary has-text-weight-semibold px-0" scope="col">Start date</th>
+                        <th class=" is-family-primary has-text-weight-semibold px-0" scope="col">End date</th>
+                        <th class="td-width-sm is-family-primary has-text-weight-semibold has-text-left px-0" scope="col">Status</th>
+                        <th class="is-family-primary has-text-weight-semibold has-text-centered px-0" scope="col">Action</th></tr>
+
+                    </thead>
+                    </table> -->
+                    <!-- <div class="column is-12-desktop px-6" style = "padding-bottom: 5px;">
+                      <div class="message-header  mt-2" >
+                        <input type="checkbox" class="mt-2">
+                        <span class="column is-one-fifth is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5">Code</span>
+                        <span class = "control has-icons-right is-inline-block">Start Date</span>
+                        <span class = "control has-icons-right is-inline-block">End Date</span>
+                        <span class="column is-one-quarter is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5">Status</span>
+                        <span class="column  is-one-fifth is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5">Action</span>
+                      </div>
+                    </div> -->
+                    <div cdkDropList id="accordion_second" class="column is-12-desktop px-6" (cdkDropListDropped)="drop($event)" >
+                      <article
+                        style = "padding-bottom: 5px;">
+                          <div class="message-header  mt-2" >
+                            <span class="column is-one-fifth is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5"
+                           >
+
+                              <span class=" is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5">
+                              Code<i class="fa fa-caret-down px-2" (click)="sortCodeASC();"></i>
+                              </span>
+                            </span>
+
+
+                            <span class="column is-one-fifth is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5"
+                            >
+                              Start Date<i class="fa fa-caret-down px-2" (click)="sortStartASC();" ></i>
+                            </span>
+
+
+
+
+                            <span class="column is-one-quarter is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5" >
+                              End Date<i class="fa fa-caret-down px-2" (click)="sortEndASC();"></i>
+                            </span>
+                            <span class="column is-one-quarter is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5" >
+                              Active
+                            </span>
+                            <span class="column is-one-quarter is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5" >
+                              Action
+                            </span>
+
+                          </div>
+                        </article>
+
+                  </div>
+
+                    <div cdkDropList id="accordion_second" class="column is-12-desktop px-6" (cdkDropListDropped)="drop($event)" >
+                        <article  *ngFor = "let year of academicYears  | paginate
+                        : {
+                            itemsPerPage: 10,
+                            currentPage: currentPage,
+                            year: academicYears.length
+                          };
+                          let i = index;" cdkDrag
+                          cdkDragLockAxis="y"
+                          (cdkDragStarted)="dragEnter($event)"
+                          style = "padding-bottom: 5px;">
+                            <div class="message-header  mt-2" >
+
+                              <span class = "column is-inline-block is-one-fifth" *ngIf = "this.academicYears[i].edit == true">
+                                <input class="input td-content is-info is-focused txt-code is-info is-small is-size-7
+                                is-family-primary has-text-weight-normal has-background-white pl-2" type="text"  [(ngModel)] = "newYearCredentials.code">
+                              </span>
+
+
+                              <span class="column is-one-fifth is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5"
+                               *ngIf = "this.academicYears[i].edit == false">
+                                <i id = "expandArrow{{i}}" class="angle-up fa fa-angle-down pr-5" (click)="expandCollapse(i);"  [matTooltip] = "
+                                this.academicYears[i].expand
+                                  ? 'Collapse'
+                                  : 'Expand'"></i>
+
+                                <span class=" is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5">
+                                {{year.code}}
+                                </span>
+                              </span>
+
+                              <span class = "control has-icons-right is-inline-block" *ngIf = "this.academicYears[i].edit == true">
+                                <input *ngIf = "this.academicYears[i].edit == true" #startDateEdit = ngModel  [ngClass]="(startDateEdit.touched &&!startDateEdit.valid)?
+                                'input td-content is-info is-danger txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0':
+                                'input td-content is-info is-focused txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0'"
+                                type="date" required = ""  [(ngModel)] = "newYearCredentials.start_date">
+                                <span class="icon is-medium is-right has-text-info is-inline-block has-text-right pr-3 py-1">
+                                  <i class="fa fa-calendar"></i>
+                                </span>
+                              </span>
+
+
+                              <span class="column is-one-fifth is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5"
+                               *ngIf = "this.academicYears[i].edit == false">
+                                {{year.start_date.substring(0, 10)}}
+                              </span>
+
+                              <span class = "control has-icons-right is-inline-block" *ngIf = "this.academicYears[i].edit == true">
+                                <input *ngIf = "this.academicYears[i].edit == true" #endDateEdit = ngModel [ngClass]="(endDateEdit.touched &&!endDateEdit.valid)?
+                                'input td-content is-info is-danger txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0':
+                                'input td-content is-info is-focused txt-code  is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2 pr-0'"
+                                type="date" required = "" [(ngModel)] = "newYearCredentials.end_date">
+                                <span class="icon is-medium is-right has-text-info is-inline-block has-text-right pr-3 py-1">
+                                  <i class="fa fa-calendar"></i>
+                                </span>
+                              </span>
+                              <span class="column is-one-quarter is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5" *ngIf = "this.academicYears[i].edit == false">
+                                {{year.end_date.substring(0, 10)}}
+                              </span>
+                              <span [ngClass]="(this.academicYears[i].edit)?
+                              'column is-1 is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5':
+                              'column is-3 is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5'"
+                              >
+                                <label class="switch is-rounded is-info is-small">
+                                  <input id = "activeSwitch" type="checkbox" [checked] = "year.is_active"  (change) = "isActiveYear(i, $event.target.checked)" >
+
+                                  <span class="check"></span> </label>
+
+                              </span>
+
+                              <span *ngIf = "this.academicYears[i].edit == true" class="column is-3 is-inline-block has-text-right is-family-primary has-text-weight-medium is-size-5">
+                                <button class="button is-outlined  has-background-info   is-small mx-1" style="">
+                                  <span class=" has-text-white is-family-primary has-text-weight-bold is-size-7 px-3" id="next" (click) = "editAcademicYear(i)">Save</span>
+                                </button>
+
+                                <button class="button  is-small is-outlined  has-background-white" (click)="editAcademicYearDialog(i);">
+                                  <span class=" has-text-info is-family-primary has-text-weight-bold is-size-7 px-3" id="closebtn">Cancel</span>
+                                </button>
+
+                              </span>
+
+
+
+                              <span class="column  is-one-fifth is-inline-block has-text-left  is-family-primary has-text-weight-medium is-size-5">
+                                <a class="action-icons "  matTooltip = "Edit"(click) = "editAcademicYearDialog(i);"><i class="fa fa-pen  pr-2"></i></a><a (click) = "HandleDeleteAcademicYear(year)" class="action-icons"  matTooltip = "Delete"><i class="fa fa-trash-alt pr-2"></i></a>
+                              </span>
+
+
+                            </div>
+                            <div id = "collapsible-message-accordion-{{year.id}}" style="display: none; margin: 10px;">
+                                <div class="message-body is-collapsible has-background-white " data-parent="accordion_second" data-allow-multiple="true" style="border-width: 0px;">
+                                    <div class="message-body-content is-family-primary has-text-weight-semibold  has-text-black-bis" >
+                                      <span class="column is-one-fifth is-inline-block has-text-left  is-size-7">Name</span>
+                                      <span class="column is-one-third is-inline-block has-text-left  is-size-7 pl-5">Second Language Name</span>
+                                      <span class="column is-one-fifth is-inline-block has-text-left  is-size-7">Code</span>
+                                      <span class="column is-one-fifth is-inline-block has-text-left  is-size-7 pl-6">Cycle</span>
+                                    </div>
+                                  </div>
+                                  <div >
+                                    <mat-list class="message-body-content is-collapsible has-background-white sa" data-parent="accordion_second" data-allow-multiple="true" >
+                                      <mat-list-item class="message-body is-family-primary has-text-weight-medium" id = "classRow{{j}}" *ngFor="let class of year.cays; let j = index" (click) = "viewClassDetails(i, j);">
+                                        <span class="column is-one-fifth is-inline-block has-text-left  is-size-7"> {{class.name }} </span>
+                                        <span class="column is-one-third is-inline-block has-text-left  is-size-7 pl-5"> {{class.second_language_name}} </span>
+                                        <span class="column is-one-fifth is-inline-block has-text-left  is-size-7"> {{class.code}} </span>
+                                        <span class="column is-one-fifth is-inline-block has-text-left  is-size-7 pl-6"> {{class.Cycle.code}} </span>
+
+                                      </mat-list-item>
+                                    </mat-list>
+
+                                  <!-- <div class="message-body is-collapsible has-background-white" data-parent="accordion_second" data-allow-multiple="true" *ngFor = "let class of year.CAYs">
+                                          <div class="message-body-content is-family-primary has-text-weight-medium " (click) = "viewClassDetails(class);">
+                                            <span class="column is-one-fifth is-inline-block has-text-left  is-size-7">{{class.name}}</span>
+                                            <span class="column is-one-third is-inline-block has-text-left  is-size-7 pl-5">{{class.secondLanguageName}}</span>
+                                            <span class="column is-one-fifth is-inline-block has-text-left  is-size-7">{{class.code}}</span>
+                                            <span class="column is-one-fifth is-inline-block has-text-left  is-size-7 pl-6">{{class.Cycle.name}}</span>
+                                          </div>
+                                        </div> -->
+                                  </div>
+
+
+                                  <div class=" is-collapsible has-background-white" data-parent="accordion_second" data-allow-multiple="true" style="text-decoration: none; background-color: red;">
+
+                                    <div class="message-body-content is-family-primary has-text-weight-medium  ">
+                                      <nav class="navbar is-fullwidth has-background-white-bis" >
+                                        <div class="navbar-menu is-fullwidth mt-1" (click) = "addClassDialog(i);" matTooltip = "Add new class">
+                                          <a class="navbar-item is-family-primary  has-text-weight-semibold py-0 pl-5 " style="text-decoration: none;color:rgba(63, 129, 195, 0.7);">
+                                            <i class="fa fa-plus is-size-5"></i>
+                                            <span class="is-size-6">&nbsp;&nbsp;
+                                              Add new class</span></a>
+                                        </div>
+                                      </nav>
+                                    </div>
+                                  </div>
+                            </div>
+
+                          </article>
+                          <nav class="has-background-white" *ngIf = "enablePagination">
+                            <div class="container">
+                              <div
+                                class="pagination is-right pr-6 pt-3"
+                                role="navigation"
+
+
+
+                              >
+                                <ul class="pagination-list mt-1" >
+                                  <pagination-controls
+                                    maxSize="6"
+                                    class="my-pagination"
+                                    autoHide="true"
+                                    directionLinks="false"
+                                    (pageChange)="currentPage = $event"
+                                  ></pagination-controls>
+                                </ul>
+                              </div>
+                            </div>
+                          </nav>
+
+                    </div>
+
+
+                  </div>
+                </div>
+              </span>
+
+
+              <div id = "addClassForm"class="column is-4-desktop has-background-white is-inline-block is-pulled-right px-0 py-0 ml-3" [@widthGrow]="state" style="border-radius: 13px;">
+                <!-- <form> -->
+                  <table class="table add-modal  is-fullwidth " style="border-radius: 13px;" *ngIf = "cyclesBool == false">
+
+                    <tbody>
+                      <tr>
+                        <td class=" pt-2 pl-3">
+                          <i class="fas fa-backward fa-lg" matTooltip = "Hide Dialog" style="color: #3f81c3;" (click) = "hideClassDialog()"></i>
+
+                        </td>
+                      </tr>
+                      <tr *ngIf = "editClass == true">
+
+                        <td class=" pt-5 pl-6">
+                          <span class=" is-family-primary has-text-weight-bold is-size-5   mb-0" style="color:#3f81c3;">
+                            Manage Class of {{this.currentYear.code}}</span></td>
+                        <td class=" pt-5 is-pulled-right"> <a class=" fas fa-cog is-size-4 px-6" style="color:#808080" (click) = "viewCycles()" matTooltip = "Manage Cycles"></a>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class=" pt-5 pl-6">
+                          <span class=" has-text-dark is-family-primary has-text-weight-medium is-size-6 mt-0  mb-0 ">
+                            Name</span>
+                        </td>
+                        <td class="pt-5 pr-6">
+                          <span class="span is-focused is-medium is-size-6 is-family-primary has-text-weight-normal"
+                           type="text" *ngIf="editClass == false">{{this.currentAcademicClass.name}} </span>
+
+                          <input
+                          id = "nameClass"
+                          name="nameClass"
+                          #nameClass="ngModel"
+
+                          [ngClass]="
+                          nameClass.touched && !nameClass.valid
+                            ? 'input is-medium is-size-6 is-family-primary has-text-weight-normal is-danger'
+                            : 'input is-focused is-medium is-size-6 is-family-primary has-text-weight-normal'
+                        "
+                          type="text" [(ngModel)] = "academicClassCredentials.name"  *ngIf="editClass == true" required>
+                        </td>
+
+
+
+                      </tr>
+                      <tr>
+                        <td class=" pt-3 pl-6 " style="white-space:nowrap;">
+                          <span class="has-text-dark is-family-primary has-text-weight-medium is-size-6 mt-0  mb-0 ">
+                            Second Language Name</span>
+                        </td>
+                        <td class="pt-3 pr-6">
+                          <span class="span is-focused is-medium is-size-6 is-family-primary has-text-weight-normal"
+                           *ngIf="editClass == false">{{this.currentAcademicClass.second_language_name}}  </span>
+
+
+                           <input
+                           name="secondLang"
+                           #secondLang="ngModel"
+
+                           [ngClass]="
+                           secondLang.touched && !secondLang.valid
+                             ? 'input is-medium is-size-6 is-family-primary has-text-weight-normal is-danger'
+                             : 'input is-focused is-medium is-size-6 is-family-primary has-text-weight-normal'
+                         "
+                           type="text" [(ngModel)] = "academicClassCredentials.second_language_name"  *ngIf="editClass == true" required>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class=" pt-3 pl-6">
+                          <span class=" has-text-dark is-family-primary has-text-weight-medium is-size-6 mt-0  mb-0 ">
+                            Code</span>
+                        </td>
+                        <td class="pt-3 pr-6">
+                          <span class="span is-focused is-medium is-size-6 is-family-primary has-text-weight-normal"
+                             *ngIf="editClass == false">{{this.currentAcademicClass.code}}</span>
+
+
+
+                           <input
+                           name="codeClass"
+                           #codeClass="ngModel"
+
+                           [ngClass]="
+                           codeClass.touched && !codeClass.valid
+                             ? 'input is-medium is-size-6 is-family-primary has-text-weight-normal is-danger'
+                             : 'input is-focused is-medium is-size-6 is-family-primary has-text-weight-normal'
+                         "
+                           type="text" [(ngModel)] = "academicClassCredentials.code"  *ngIf="editClass == true" required>
+
+
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class=" pt-3 pl-6">
+                          <span class=" has-text-dark is-family-primary has-text-weight-medium is-size-6 mt-0  mb-0 ">
+                            Cycle</span>
+                        </td>
+                        <td class="pt-3 pr-6">
+                          <div class="select is-fullwidth is-family-primary is-normal"  *ngIf="editClass == true">
+                            <ng-select id ="ngSelect" [items]="cycles" name="cycleID"
+                            #cycleID="ngModel"
+
+                            bindLabel="name"
+                            notFoundText={{addCycle()}}
+                            placeholder="Select Cycle"
+                            [hideSelected]="true"
+                            style="overflow: visible;"
+                            [addTag]="addTagPromise"
+                            [(ngModel)]="academicClassCredentials.Cycle">
+
+                            <ng-template ng-tag-tmp let-search="searchTerm">
+                                <p>{{search}} (New Cycle)</p>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{ item.name }}">{{ item.name }}</div>
+                            </ng-template>
+
+                             </ng-select>
+                            <!-- <select class="select-cycle is-focused is-multiple">
+                              <option value="None" hidden="">None</option>
+                              <option class="option">C1</option>
+                              <option class="option">C2</option>
+                              <option class="option">C3</option>
+                              <option class="option">C4</option>
+                              <option class="option">C5 (New Cycle)</option>
+                            </select> -->
+                          </div>
+
+                          <span class="span is-focused is-medium is-size-6 is-family-primary has-text-weight-normal"
+                           type="text"  *ngIf="editClass == false">{{this.currentAcademicClass.Cycle.code}}</span>
+
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="pt-3"> </td>
+                        <td class=" pt-3 pr-6" *ngIf="editClass == true">
+                          <button class="button is-outlined  has-background-info is-fullwidth is-normal" (click) = "createAcademicClass(this.currentYear)"
+                          [disabled] = "academicClassCredentials.name === undefined ||
+                          academicClassCredentials.code === undefined || academicClassCredentials.Cycle === undefined">
+                            <span class=" has-text-white is-family-primary has-text-weight-bold is-size-6  " id="next">Save</span>
+                          </button>
+                        </td>
+
+                      </tr>
+
+                      <tr *ngIf = "editClass == false">
+                        <td class="pt-3 pb-0" colspan="2">
+                          <nav class="navbar  has-background-white-bis my-3 mx-3">
+                            <div class="navbar-menu">
+                              <a class="navbar-item is-family-primary has-text-weight-semibold py-0 pl-5 " (click) = "addSectionForm();" style="color:rgba(63, 129, 195, 0.7);">
+                                <i class="fa fa-plus is-size-5 pr-3"></i>
+                                <span class="is-size-6">Add Section</span></a>
+                            </div>
+                          </nav>
+
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <!--------------------------------------------------------------------------------------------------------------------------------------------->
+                  <table class="table add-modal  is-fullwidth " style="border-radius: 13px;" *ngIf = "cyclesBool == true">
+
+                    <tbody>
+                      <tr>
+
+                          <td class=" pt-2 pl-3">
+                            <i class="fas fa-backward fa-lg" matTooltip = "Hide Dialog" style="color: #3f81c3;" (click) = "hideClassDialog()"></i>
+
+                          </td>
+                        <td class=" pt-3 pl-5">
+                          <span class=" is-family-primary has-text-weight-bold is-size-5   mb-0" style="color:#3f81c3;">
+                            Manage Cycles</span></td>
+
+                      </tr>
+
+
+                      <tr *ngFor = "let cycle of cycles; let i = index;">
+                        <td class=" pt-5 pl-5">
+                          <span class=" has-text-dark is-family-primary has-text-weight-medium is-size-6 mt-0  mb-0 " *ngIf = "cycle.edit == false">
+                            {{cycle.name}}</span>
+                            <input class="input has-background-white is-focused has-text-dark is-family-primary has-text-weight-medium is-size-6 mt-0  mb-0 " type = "text"
+                            [(ngModel)] = "cycleCredentials.name" value = "{{cycleCredentials.name}}"*ngIf = "cycle.edit == true">
+
+                        </td>
+                        <td class="pt-5 ">
+                          <a class="action-icons "  matTooltip = "Edit"><i class="fa fa-pen  pr-2" (click) = "editCycleDialog(i)"></i></a><a class="action-icons" matTooltip = "Delete"><i class="fa fa-trash-alt pr-2 "(click) = "deleteCycle(i)"></i></a>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class=" pt-3 pr-6" *ngIf="editClass == true">
+                          <button class="button is-outlined  has-background-info is-fullwidth is-normal" (click) = "editCycle();">
+                            <span class=" has-text-white is-family-primary has-text-weight-bold is-size-6  " id="next">Save</span>
+                          </button>
+                        </td>
+
+                      </tr>
+
+
+                      </tbody></table>
+
+
+                     <div id = "sectionsList" class = "is-hidden" >
+                      <mat-nav-list>
+                        <a mat-list-item *ngFor="let section of sections"> {{ section.code }} </a>
+                     </mat-nav-list>
+                      </div>
+
+
+                  <div id = "addSectionForm" class = "is-hidden" *ngIf = "editClass == false">
+                    <div class="column is-one-third ml-5 pb-5">
+                      <input id = "sectionName" placeholder = "Section Name"class="input add-section is-focused" type="text" [(ngModel)] = "sectionCredentials.code">
+                    </div>
+
+                          <div class="column is-one-third ml-3">
+                            <button class="button is-outlined  has-background-info is-fullwidth is-normal ml-3" (click) = "createSection();">
+                              <span class=" has-text-white is-family-primary has-text-weight-bold is-size-6 " id="next">Save</span>
+                            </button>
+                          </div>
+                    </div>
+
+
+                <!-- </form> -->
+                <span class="section is-large has-background-white is-inline-block pt-2  px-2 " style="border-radius: 13px;">
+                </span>
+
+
+              </div>
+
+            </div>
+          </section>
+          <div class="section is-medium has-background-grey-light">
+          </div>
+    </div>
+  </div>
+

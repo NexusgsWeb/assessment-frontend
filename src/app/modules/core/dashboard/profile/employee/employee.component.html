@@ -1,0 +1,206 @@
+<div class="columns is-mobile" style="height: 100vh">
+  <div class="column px-0 py-0 pt-3 ml-1" style="background-color: #f3f4f5">
+    <div class="hero-head px-0 py-0">
+      <aside
+        class="
+          column
+          is-2-desktop is-2-widescreen is-2-tablet is-3-mobile
+          has-text-centered
+          is-pulled-left
+          p-0
+          pl-3
+        "
+        id="aside2"
+      >
+        <div class="box px-0 py-0" style="border-radius: 13px">
+          <div class="pt-4">
+            <!-- *ngIf="EmployeeMetaData.user.profilePictureUrl == null" -->
+
+            <button
+              class="button btn-profile large"
+              style="width: 75px; height: 75px"
+            >
+              <span
+                class="has-text-centered has-text-weight-medium is-size-2"
+                style="color: #4a9894"
+                >{{
+                  SelectedEmployee.first_name.charAt(0) +
+                    "" +
+                    SelectedEmployee.last_name.charAt(0)
+                }}</span
+              >
+            </button>
+            <!-- *ngIf="EmployeeMetaData.user.profilePictureUrl != null" -->
+
+            <img
+              src="{{ S3Link }}"
+              style="height: 100px; width: 100px; border-radius: 25px"
+              alt="No Image Set"
+            />
+          </div>
+          <p
+            class="
+              text
+              is-family-primary
+              has-text-weight-bold has-text-info
+              is-size-5
+              pt-1
+            "
+          >
+            {{ SelectedEmployee.first_name }}
+          </p>
+          <p
+            class="
+              text
+              is-family-primary
+              has-text-weight-bold has-text-primary
+              is-size-7
+              pb-5
+            "
+          >
+            Employee: {{EmployeeMetaData.employee_number}}
+          </p>
+
+          <hr class="mt-3" />
+          <p
+            class="
+              text
+              is-family-primary
+              has-text-weight-bold has-text-primary
+              is-size-6
+              pt-4
+            "
+          >
+            Department
+          </p>
+          <p
+            class="
+              text
+              is-family-primary
+              has-text-weight-bold has-text-info
+              is-size-6
+            "
+          >
+            {{EmployeeMetaData.dep_name}}
+          </p>
+
+          <p
+            class="
+              text
+              is-family-primary
+              has-text-weight-bold has-text-primary
+              is-size-6
+              pt-2
+            "
+          >
+            Join Date
+          </p>
+          <p
+            class="
+              text
+              is-family-primary
+              has-text-weight-bold has-text-info
+              is-size-6
+            "
+          >
+            {{ EmployeeMetaData.join_date }}
+          </p>
+          <div class="px-4 is-hidden-touch">
+            <button
+              class="
+                button
+                is-outlined
+                has-background-info
+                is-fullwidth is-normal
+                my-5
+              "
+            >
+              <span
+                class="
+                  has-text-white
+                  is-family-primary
+                  has-text-weight-bold
+                  is-size-6
+                "
+                id="next"
+                >Send Message</span
+              >
+            </button>
+          </div>
+          <div class="px-0 is-hidden-desktop">
+            <button
+              class="
+                button
+                is-outlined is-hidden-desktop
+                has-background-info
+                is-fullwidth is-normal
+                my-5
+              "
+            >
+              <span
+                class="
+                  has-text-white
+                  is-family-primary
+                  has-text-weight-bold
+                  is-size-7-mobile
+                "
+                id="next"
+                >Send Message</span
+              >
+            </button>
+          </div>
+          <hr class="" />
+          <a
+            href="#"
+            class="
+              is-family-primary
+              has-text-weight-medium
+              is-size-6 is-block
+              has-text-primary
+              py-5
+            "
+          >
+            Reports
+          </a>
+          <a
+            href="#"
+            class="
+              is-family-primary
+              has-text-weight-medium
+              is-size-6 is-block
+              has-text-primary
+            "
+          >
+            Assignments</a
+          >
+          <a
+            href="#"
+            class="
+              is-family-primary
+              has-text-weight-medium
+              is-size-6 is-block
+              has-text-primary
+              pt-5
+              pb-6
+            "
+          >
+            Learning Path</a
+          >
+        </div>
+      </aside>
+
+      <mat-tab-group mat-align-tabs="start">
+        <mat-tab label="Personal Details">
+          <app-employee-personal-details
+            [EmployeeMetaData]="EmployeeMetaData"
+          ></app-employee-personal-details>
+        </mat-tab>
+        <mat-tab label="Contact Details"
+          ><app-employee-contact-details
+            [EmployeeMetaData]="EmployeeMetaData"
+          ></app-employee-contact-details
+        ></mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

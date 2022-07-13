@@ -1,0 +1,51 @@
+<div class="columns is-multiline mb-0 mt-5" *ngIf = "studentLOInfo.show">
+  <div class="column is-narrow">
+    <button
+      class="button is-rounded px-2"
+      style="
+        border-color: #207dd3;
+        border-width: 1px;
+        background-color: #dbefee;
+      "
+    >
+      <span class="has-text-centered" style="color: #4a9894">SN</span>
+    </button>
+  </div>
+  <div class="column is-4 is-7-tablet is-5-desktop pt-3">
+    <span
+      class="
+        is-family-primary
+        has-text-weight-bold has-text-black
+        is-size-6-desktop is-size-7-tablet is-size-7-mobile
+      "
+      >{{studentLOInfo.name}}</span
+    >
+  </div>
+  <div
+    class="column is-12-mobile is-4-tablet is-4-desktop is-5-widescreen pt-3"
+  >
+  <progress
+  *ngIf = "studentEvaluation(studentLOInfo.value) == 1"
+    class="progress is-success is-large"
+    value="{{studentLOInfo.value}}"
+    max="100"
+    matTooltip = "{{studentLOInfo.value}}%"
+
+  ></progress>
+    <progress
+    *ngIf = "studentEvaluation(studentLOInfo.value) == 2"
+      class="progress is-warning is-large"
+      value="{{studentLOInfo.value}}"
+      max="100"
+      matTooltip = "{{studentLOInfo.value}}%"
+
+    ></progress>
+    <progress
+    *ngIf = "studentEvaluation(studentLOInfo.value) == 3"
+      class="progress is-danger is-large"
+      value="{{studentLOInfo.value}}"
+      matTooltip = "{{studentLOInfo.value}}%"
+      max="100"
+    ></progress>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<mat-expansion-panel style="margin-bottom: 20px">
+  <mat-expansion-panel-header style="background-color: #f3f3f4">
+    <mat-panel-title> {{ school.english_name }} </mat-panel-title>
+    <mat-panel-description>
+      <span class="column is-inline-block has-text-right is-size-7">
+        <button
+          class="action-link"
+          style="text-decoration: none; color: #aaaaaa"
+          style="
+            text-decoration: none;
+            background-color: transparent;
+            cursor: pointer;
+          "
+        >
+          Web
+        </button>
+        <span class="action-link mx-2">|</span>
+        <button
+          class="action-link"
+          style="
+            text-decoration: none;
+            background-color: transparent;
+            cursor: pointer;
+          "
+        >
+          Mobile
+        </button>
+      </span>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <mat-panel-description
+    style="margin-top: 10px; border-bottom: solid 1px #aaaaaa50"
+  >
+    <div class="container">
+      <app-school-plugin-toggle  [currentPlugin] = "plugin"*ngFor="let plugin of PluginModel" class="child">
+      </app-school-plugin-toggle>
+    </div>
+  </mat-panel-description>
+</mat-expansion-panel>

@@ -1,0 +1,22 @@
+<div class="columns mt-3 mx-3 is-fullwidth">
+  <span class="column">
+    <span
+      class="
+        has-text-dark has-text-left
+        is-family-primary
+        has-text-weight-medium
+        is-size-6
+      "
+      >{{ currentPlugin.name }}</span
+    >
+  </span>
+  <label class="column is-1 switch is-rounded is-info is-small">
+    <input
+      id="activeSwitch"
+      type="checkbox"
+      [checked]="currentPlugin.status"
+      (change)="actDeactPlugin($event.target.checked)"
+    />
+    <span class="check"></span>
+  </label>
+</div>

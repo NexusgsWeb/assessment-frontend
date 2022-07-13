@@ -1,0 +1,974 @@
+<div class="columns">
+  <aside
+    class="column has-text-left has-background-info is-pulled-left is-hidden-touch"
+    id="aside2"
+  >
+    <!--<div class="menu mx-3">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <button class="button is-large is-fullwidth  my-5" aria-haspopup="true" aria-controls="dropdown-menu" style="border-radius:10px;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <span class="icon "> <i class="fa fa-circle has-text-white is-size-2"></i></span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                              <span class="text  has-text-white is-family-primary has-text-weight-medium is-size-6"> School name</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          </div>-->
+    <div class="menu has-text-centered pl-2 pr-0" *ngIf="!sideBarOpen">
+      <!-- <mat-drawer mode="side" opened="true"> -->
+      <mat-nav-list style="width: 100%; height: 100%">
+        <div class="menu has-text-centered pl-2 pr-0">
+          <article
+            class="media my-5 py-4 mx-4"
+            style="
+              background-color: rgba(126, 180, 228, 0.52);
+              border-radius: 13px;
+            "
+          >
+            <div class="media-left menu-icon pl-4">
+              <figure
+                class="image is-32x32 is-inline-block my-0 ml-0"
+                matTooltip="{{ schoolName }}"
+              >
+                <img
+                  class="is-rounded"
+                  class=""
+                  src="assets/images/dashboard/Calendar.png"
+                />
+              </figure>
+            </div>
+          </article>
+        </div>
+        <br />
+        <!-- <h2 matSubheader class="mt-2">APPLICATIONS</h2> -->
+
+        <div
+          *ngIf="configurationsLink"
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          (click)="didClickNavigate('/')"
+        >
+          <a class="py-3 px-0">
+            <article class="media pl-4">
+              <div
+                class="media-left menu-icon mx-0"
+                matTooltip="Configurations"
+              >
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/Calendar.png" />
+                </figure>
+              </div>
+            </article>
+          </a>
+        </div>
+        <div
+          *ngIf="studentsLink"
+          mat-list-item
+          routerLinkActive="list-item-active"
+          [routerLink]="'student/admissionApplication'"
+          class="pt-2 mb-5"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0" matTooltip="Students">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/Attendance.png" />
+                </figure>
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          *ngIf="EmployeesLink"
+          routerLinkActive="list-item-active"
+          (click)="didClickNavigate('/dashboard/employee/employeeApplication')"
+          class="pt-2 mb-5"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0" matTooltip="Employees">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/Agenda.png" />
+                </figure>
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          *ngIf="AssessmentStudentLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0" matTooltip="Assessment">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/assessment.png" />
+                </figure>
+              </div>
+            </article>
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="View Assessment"
+              (click)="didClickNavigate('assessment/viewAssessments/student')"
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+
+            <!-- <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('assessment/viewAssessments/student')"
+            >
+              <p>- View Assessment</p>
+            </div> -->
+
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="View Results"
+              (click)="didClickNavigate('assessment/assessmentResults')"
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+
+            <!-- <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('assessment/assessmentResults')"
+            >
+              <p>- View Results</p>
+            </div> -->
+
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="Improve Performance"
+              (click)="
+                didClickNavigate('/assessment/improvemyperformance/student')
+              "
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+            <!--
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="
+                didClickNavigate('/assessment/improvemyperformance/student')
+              "
+            >
+              <p>- Improve Performance</p>
+            </div> -->
+          </a>
+        </div>
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          *ngIf="AssessmentTeacherLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0" matTooltip="Assessment">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/assessment.png" />
+                </figure>
+              </div>
+            </article>
+            <!-- <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('assessment/viewAssessments')"
+            >
+              <p>- View Assessment</p>
+            </div> -->
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="View Assessment"
+              (click)="didClickNavigate('assessment/viewAssessments')"
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+
+            <!-- <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('assessment/assessmentResults')"
+            >
+              <p>- View Results</p>
+            </div> -->
+
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="View Results"
+              (click)="didClickNavigate('assessment/assessmentResults')"
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+
+            <!-- <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="
+                didClickNavigate('/assessment/improvemyperformance/teacher')
+              "
+            >
+              <p>- Improve Performance</p>
+            </div> -->
+
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="Improve Performance"
+              (click)="
+                didClickNavigate('assessment/improvemyperformance/teacher')
+              "
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          *ngIf="AssessmentParentLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div
+                class="media-left menu-icon mx-0"
+                matTooltip="Assesment - Parent"
+              >
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/assessment.png" />
+                </figure>
+              </div>
+            </article>
+            <!-- <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('/assessment/assessmentResults')"
+            >
+              <p>- View Results</p>
+            </div> -->
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="View Results"
+              (click)="didClickNavigate('assessment/assessmentResults')"
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+
+            <!-- <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="
+                didClickNavigate('/assessment/improvemyperformance/student')
+              "
+            >
+              <p>- Improve Performance</p>
+            </div> -->
+
+            <div
+              class="media-left menu-icon mx-0"
+              matTooltip="Improve Performace"
+              (click)="
+                didClickNavigate('assessment/improvemyperformance/student')
+              "
+            >
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/assessment.png" />
+              </figure>
+            </div>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          [routerLink]="['/assessment/questionbank']"
+          [queryParams]="{ type: 'superadmin' }"
+          class="pt-2 mb-5"
+          *ngIf="QuestionBankAdminLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0" matTooltip="Question Bank">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img
+                    class=""
+                    src="assets/images/dashboard/question-bank.png"
+                  />
+                </figure>
+              </div>
+            </article>
+          </a>
+        </div>
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          routerLink="/assessment/questionbank"
+          [queryParams]="{ type: 'teacher' }"
+          class="pt-2 mb-5"
+          *ngIf="QuestionBankLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0" matTooltip="Question Bank">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img
+                    class=""
+                    src="assets/images/dashboard/question-bank.png"
+                  />
+                </figure>
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          routerLink="/assessment/improvemyperformance/teacher"
+          class="pt-2 mb-5"
+          *ngIf="ImprovePerformanceLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div
+                class="media-left menu-icon mx-0"
+                matTooltip="Improve Performance"
+              >
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img
+                    class=""
+                    src="assets/images/dashboard/mylearningpath.png"
+                  />
+                </figure>
+              </div>
+            </article>
+          </a>
+        </div>
+      </mat-nav-list>
+    </div>
+  </aside>
+
+  <mat-drawer-container
+    style="width: 100%; height: 100%"
+    class="example-container"
+  >
+    <mat-drawer
+      mode="side"
+      [opened]="sideBarOpen"
+      class="is-2-desktop is-4-mobile is-3-tablet has-text-left has-background-info is-pulled-left is-hidden-touch"
+      style="width: 15%"
+    >
+      <!-- <button (click) = "datat()" style="width: 50px; height: 50px; background-color: red;">
+      final
+    </button> -->
+      <!-- <button (click) = "createQuestions()" style="width: 50px; height: 50px; background-color: red;">
+      run
+    </button>
+    <button (click) = "getTeacherQuestions()" style="width: 50px; height: 50px; background-color: red;">
+      start
+    </button> -->
+
+      <!-- <mat-drawer mode="side" opened="true"> -->
+      <mat-nav-list style="width: 100%; height: 100%">
+        <div class="menu has-text-centered pl-2 pr-0">
+          <article
+            class="media my-5 py-4 mx-4"
+            style="
+              background-color: rgba(126, 180, 228, 0.52);
+              border-radius: 13px;
+            "
+          >
+            <div class="media-left menu-icon pl-4">
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img
+                  class="is-rounded"
+                  class=""
+                  src="assets/images/dashboard/logo-iquad.png"
+                />
+              </figure>
+            </div>
+            <div class="media-content has-text-left">
+              <span
+                class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+              >
+                {{ schoolName }}</span
+              >
+            </div>
+          </article>
+        </div>
+        <br />
+        <!-- <h2 matSubheader class="mt-2">APPLICATIONS</h2> -->
+
+        <div
+          *ngIf="configurationsLink"
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          [routerLink]="'../dashboard/academics'"
+        >
+          <a class="py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/Calendar.png" />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Configurations</span
+                >
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <div
+          *ngIf="configurationsLink"
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          [routerLink]="'../dashboard/subjects'"
+        >
+          <a class="py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/Calendar.png" />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Subjects</span
+                >
+              </div>
+            </article>
+          </a>
+        </div>
+        <div
+          *ngIf="studentsLink"
+          mat-list-item
+          routerLinkActive="list-item-active"
+          [routerLink]="'../dashboard/student/admissionApplication'"
+          class="pt-2 mb-5"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/Attendance.png" />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Students</span
+                >
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          *ngIf="EmployeesLink"
+          routerLinkActive="list-item-active"
+          [routerLink]="'../dashboard/employee/employeeApplication'"
+          class="pt-2 mb-5"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/Agenda.png" />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Employees</span
+                >
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          *ngIf="AssessmentStudentLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/assessment.png" />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Assessment</span
+                >
+              </div>
+            </article>
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('assessment/viewAssessments/student')"
+            >
+              <p>- View Assessment</p>
+            </div>
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('assessment/viewStudentResults')"
+            >
+              <p>- View Results</p>
+            </div>
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="
+                didClickNavigate('/assessment/improvemyperformance/student')
+              "
+            >
+              <p>- Improve Performance</p>
+            </div>
+          </a>
+        </div>
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          *ngIf="AssessmentTeacherLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/assessment.png" />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Assessment</span
+                >
+              </div>
+            </article>
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="
+                didClickNavigate('assessment/viewAssessments/createAssessment')
+              "
+            >
+              <p>- Add Assessment</p>
+            </div>
+
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('assessment/viewAssessments')"
+            >
+              <p>- View Assessments</p>
+            </div>
+
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="
+                didClickNavigate('/assessment/improvemyperformance/teacher')
+              "
+            >
+              <p>- Improve Performance</p>
+            </div>
+
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('/assessment/resetAssessment')"
+            >
+              <p>- Reset Assessment</p>
+            </div>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          class="pt-2 mb-5"
+          *ngIf="AssessmentParentLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img class="" src="assets/images/dashboard/assessment.png" />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Assessment - Parent</span
+                >
+              </div>
+            </article>
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="didClickNavigate('/assessment/assessmentResults')"
+            >
+              <p>- View Results</p>
+            </div>
+            <div
+              style="
+                font-size: 15px;
+                margin-top: 10px;
+                margin-left: 25px;
+                color: white;
+              "
+              (click)="
+                didClickNavigate('/assessment/improvemyperformance/student')
+              "
+            >
+              <p>- Improve Performance</p>
+            </div>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          [routerLink]="['/assessment/questionbank']"
+          [queryParams]="{ type: 'superadmin' }"
+          class="pt-2 mb-5"
+          *ngIf="QuestionBankAdminLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img
+                    class=""
+                    src="assets/images/dashboard/question-bank.png"
+                  />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Question Bank</span
+                >
+              </div>
+            </article>
+          </a>
+        </div>
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          routerLink="/assessment/questionbank"
+          [queryParams]="{ type: 'teacher' }"
+          class="pt-2 mb-5"
+          *ngIf="QuestionBankLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img
+                    class=""
+                    src="assets/images/dashboard/question-bank.png"
+                  />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Question Bank</span
+                >
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <div
+          mat-list-item
+          routerLinkActive="list-item-active"
+          routerLink="/assessment/improvemyperformance/teacher"
+          class="pt-2 mb-5"
+          *ngIf="ImprovePerformanceLink"
+        >
+          <a class="menu-item devices py-3 px-0">
+            <article class="media pl-4">
+              <div class="media-left menu-icon mx-0">
+                <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                  <img
+                    class=""
+                    src="assets/images/dashboard/mylearningpath.png"
+                  />
+                </figure>
+              </div>
+              <div class="media-content has-text-left">
+                <span
+                  class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+                >
+                  Improve Performance</span
+                >
+              </div>
+            </article>
+          </a>
+        </div>
+      </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content
+      [ngStyle]="{ width: sideBarOpen ? '85%' : '100%' }"
+      style="overflow-x: hidden; height: 100vh"
+    >
+      <div>
+        <div class="hero-head pt-0 px-0 pb-0">
+          <nav class="navbar is-mobile has-background-grey-lighter pt-1">
+            <button mat-icon-button (click)="toggleSidebar()">
+              <i class="fas fa-bars fa-2x mx-3 mt-3"></i>
+            </button>
+            <div class="navbar-menu has-background-grey-lighter py-1">
+              <span class="navbar-start"> </span>
+              <span class="navbar-end">
+                <a class="navbar-item has-text-dark pr-1 py-0">
+                  <form action="" class="search-bar px-0 py-0">
+                    <input
+                      class="search pl-5 has-text-dark"
+                      type="search"
+                      name="search"
+                      pattern=".*\S.*"
+                      required=""
+                      placeholder="Search here..."
+                    />
+                    <button class="search-btn" type="submit">
+                      <i class="fa fa-search is-size-5" style=""></i>
+                    </button>
+                  </form>
+                </a>
+                <hr class="hr-head" style="margin: 0.75rem 0" />
+                <a
+                  class="navbar-item is-family-primary has-text-dark pr-0 py-0"
+                  href=""
+                  ><i class="far fa-bell is-size-3 has-text-black"></i
+                ></a>
+                <div class="navbar-item dropdown is-hoverable pr-0 py-0">
+                  <span
+                    class="dropdown-trigger has-text-grey-dark is-size-7 is-family-primary has-text-weight-medium"
+                  >
+                    EN
+                    <span class="icon is-medium">
+                      <i
+                        class="fa fa-caret-down has-text-black is-size-6"
+                        aria-hidden="true"
+                      ></i> </span
+                  ></span>
+
+                  <div
+                    class="dropdown-menu"
+                    id="dropdown-menu"
+                    role="menu"
+                    style="min-width: 3rem"
+                  >
+                    <div class="dropdown-content has-text-centered">
+                      <a
+                        href=""
+                        class="dropdown-item has-text-centered is-family-primary has-text-weight-bold is-size-7"
+                      >
+                        English
+                        <label class="container ml-5 mb-2 pb-3">
+                          <input type="radio" checked="checked" name="radio" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </a>
+                      <hr class="dropdown-divider" />
+                      <a
+                        href=""
+                        class="dropdown-item is-family-primary has-text-weight-bold is-size-7"
+                      >
+                        Arabic &nbsp;
+                        <label class="container ml-5 mb-2 pb-3 mr-1">
+                          <input type="radio" name="radio" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </a>
+                      <hr class="dropdown-divider" />
+                      <a
+                        href=""
+                        class="dropdown-item is-family-primary has-text-weight-bold is-size-7"
+                      >
+                        French &nbsp;<label
+                          class="container ml-5 mb-2 pb-3 mr-1"
+                        >
+                          <input type="radio" name="radio" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </a>
+                      <hr class="dropdown-divider" />
+                      <a
+                        href=""
+                        class="dropdown-item is-family-primary has-text-weight-bold is-size-7"
+                      >
+                        Armenian
+                        <label class="container ml-4 mb-2 pb-3 mr-1">
+                          <input type="radio" name="radio" />
+                          <span class="checkmark"></span>
+                        </label>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="navbar-item dropdown is-hoverable pr-0 py-0">
+                  <a
+                    class="navbar-item has-text-grey-dark is-size-7 is-family-primary has-text-weight-medium pt-0 py-0 pl-1 pr-3"
+                    href=""
+                    >{{ name }}</a
+                  >
+                  <a class="navbar-item mr-3 pt-0 py-0 px-0 mr-4">
+                    <button
+                      class="button is-rounded px-2"
+                      style="
+                        border-color: #207dd3;
+                        border-width: 1px;
+                        background-color: #dbefee;
+                      "
+                    >
+                      <span class="has-text-centered has-text-success">{{
+                        nameSybmol
+                      }}</span>
+                    </button>
+                  </a>
+
+                  <div
+                    class="dropdown-menu"
+                    id="dropdown-menu"
+                    role="menu"
+                    style="min-width: 3rem"
+                  >
+                    <div class="dropdown-content has-text-centered">
+                      <a
+                        (click)="logout()"
+                        class="dropdown-item has-text-centered is-family-primary has-text-weight-bold is-size-6"
+                      >
+                        Logout
+                        <label class="container ml-5 mb-2 pb-3"> </label>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </div>
+          </nav>
+        </div>
+        <div>
+          <!-- <div [@routeAnimations]="prepareRoute(outlet)" class="route">
+            <router-outlet #outlet="outlet"></router-outlet>
+          </div> -->
+          <div>
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

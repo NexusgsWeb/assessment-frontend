@@ -1,0 +1,46 @@
+.ls-details{
+    background-color: rgba(243, 243, 244, 0.38);
+    border: solid 1px rgba(191, 191, 191, 0.38);
+    border-radius: 4.6px;
+  }
+  .learning-standards-options{
+    color:#a9a8a8;
+  }
+  .total-col{
+    border-radius: 4.6px;
+    border: solid 1px rgba(203, 203, 203, 0.29);
+    background-color: rgba(203, 203, 203, 0.29);
+  }
+  .select:not(.is-multiple):not(.is-loading)::after {
+    border-color: #232323;
+  }
+  /*.button.is-outlined2 {
+  border-radius: 14px; 
+  background-color: #3f80bf; 
+  opacity: 0.05; 
+  border-color: #ffffff; 
+  color: #3f80bf; }*/
+
+  .button.is-info.is-outlined {
+    background-color: rgba(63, 128, 191, 0.05);
+    border-color: rgba(63, 128, 191, 0.05);
+    color: #3f80bf;
+    border-radius:14px;
+  }
+
+  .backSelect {
+      background-color: rgba(203, 203, 203, 0.29);
+  }
+
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    opacity: 0 !important;     /*click effect color change*/
+    background-color: white !important;
+  }
+  
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #3f80bf!important;   /*inner circle color change*/
+  }
+  
+  ::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color:#3f80bf!important; /*outer ring color change*/
+  }

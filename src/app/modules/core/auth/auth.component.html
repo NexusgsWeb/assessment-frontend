@@ -1,0 +1,18 @@
+<div class="columns" style="height: 100vh">
+  <div class="column is-three-fifths is-hidden-mobile fix">
+    <img
+      src="{{ defaultWallpaper }}"
+      style="object-fit: cover; width: 100%; height: 100%"
+      alt="test"
+    />
+  </div>
+  <div class="column fix2">
+    <div [@routeAnimations]="prepareRoute(outlet)" class="route">
+      <router-outlet
+        #outlet="outlet"
+      ></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!-- <app-sendresetpassword> </app-sendresetpassword> -->

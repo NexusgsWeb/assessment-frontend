@@ -1,0 +1,13 @@
+<mat-accordion>
+  <app-viewschool-item
+    (didDeleteSchoolListener)="didDeleteSchool($event)"
+    (didAddSchoolListener)="didAddSchool($event)"
+    *ngFor="let school of SelectedOrganization.schools"
+    [school]="school"
+    [SelectedOrganization]="SelectedOrganization"
+    [schoolId]="schoolId"
+    style="background-color: transparent; padding: 5px"
+  >
+  </app-viewschool-item>
+</mat-accordion>
+<div></div>

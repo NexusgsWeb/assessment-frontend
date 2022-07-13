@@ -1,0 +1,293 @@
+<div class="section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <ul>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+          >My Home</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 pl-2"
+          >My Question Bank</a
+        >
+      </li>
+      <li class="is-active is-family-primary has-text-weight-bold is-size-5">
+        <a
+          href="#"
+          aria-current="page"
+          class="is-family-primary has-text-weight-bold is-size-6"
+          >Create Question
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <section class="hero is-fullheight has-background-grey-light pt-3 pl-2 pr-0">
+    <div class="hero-head px-0 py-0">
+     
+      <div
+        class="
+          column
+          is-12-desktop is-9-tablet is-four-fifths-mobile is-pulled-left
+          pt-0
+        "
+      >
+      <div class="section has-background-white pl-2 columns"
+      style="border-radius: 13px">
+        <div>
+          <span class="column is-6 is-inline-block">
+            <span
+              class="
+                is-family-primary
+                has-text-weight-normal has-text-left has-text-normal
+                is-size-12
+                pr-3
+              "
+              >Select Class</span
+            >
+
+            <ng-select
+              #ClassSelector
+              id="ngSelect"
+              [items]="classes"
+              (change)="didSelectClass()"
+              bindLabel="code"
+              notFoundText="Not Found"
+              placeholder="Select class"
+              [searchable]="true"
+              [hideSelected]="true"
+              [(ngModel)]="Class"
+              style="min-width: 200px"
+            >
+            </ng-select>
+          </span>
+
+        </div>
+        <div>
+          <span class="column is-6 is-inline-block">
+            <span
+              class="
+                is-family-primary
+                has-text-weight-normal has-text-left has-text-normal
+                is-size-12
+                pr-3
+              "
+              >Select Subject</span
+            >
+
+            <ng-select
+              #ClassSelector
+              id="ngSelect"
+              [items]="subjects"
+              bindLabel="name"
+              notFoundText="Not Found"
+              placeholder="Select subject"
+              [searchable]="true"
+              [hideSelected]="true"
+              [(ngModel)]="Subject"
+              (change) = "didSelectSubject($event)"
+              style="min-width: 200px"
+            >
+         
+            </ng-select>
+          </span>
+        </div>
+       
+      </div>
+        <div
+          class="section has-background-white pl-2 columns"
+          style="border-radius: 13px"
+        >
+       
+          <div
+            class="
+              column
+              is-2
+              text
+              has-text-left has-text-dark
+              is-family-primary is-size-6-desktop is-size-7-tablet
+            "
+            *ngIf = "edit == false"
+          >
+            <span class="has-text-weight-bold pl-5"> Subject:</span
+            ><span class="has-text-weight-medium">
+              {{ Subject.name || "Subject Not Found" }}</span
+            >
+            <div>
+              <span class="has-text-weight-bold pl-5"> Class:</span
+              ><span class="has-text-weight-medium">
+                {{ Class.name || "Class Not Found" }}</span
+              >
+            </div>
+          </div>
+          <div class="column columns" *ngIf = "edit == undefined || this.edit == false">
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('MCQ')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  Multiple Choice
+                </span>
+              </button>
+            </div>
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('SCQ')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  Single Choice
+                </span>
+              </button>
+            </div>
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('Descriptive')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  Descriptive
+                </span>
+              </button>
+            </div>
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('Blank')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  Fill in the blanks
+                </span>
+              </button>
+            </div>
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('TF')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  True/False
+                </span>
+              </button>
+            </div>
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('ShortText')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  Short Text
+                </span>
+              </button>
+            </div>
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('Number')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  Number
+                </span>
+              </button>
+            </div>
+            <div class="column">
+              <button
+                class="button is-info is-outlined is-medium is-fullwidth"
+                (click)="addQuestion('Date')"
+                [disabled] = "this.createQuestionService.oneQuestion.getValue() == true"
+              >
+                <span
+                  class="
+                    is-size-5 is-size-7-desktop is-family-primary
+                    has-text-weight-semibold
+                    is-fullwidth
+                    pl-0
+                    mr-0
+                  "
+                >
+                  Date
+                </span>
+              </button>
+            </div>
+          </div>
+          <!-- <app-madquestion-blanks></app-madquestion-blanks> -->
+        </div>
+        <div>
+          <div style="background-color: white; padding: 50px">
+            <ng-template #container> </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

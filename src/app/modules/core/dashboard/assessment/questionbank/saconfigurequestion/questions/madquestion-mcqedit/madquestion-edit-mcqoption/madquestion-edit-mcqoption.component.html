@@ -1,0 +1,68 @@
+<div class="columns">
+  <span class="column is-1"> </span>
+  <span class="column is-1">
+    <button class="button btn-icon is-medium" (click)="handleDidDelete(answer)">
+      <i class="fas fa-times has-text-blue"></i>
+    </button>
+  </span>
+  <span class="column is-half-desktop">
+    <span class="field">
+      <div class="columns is-multiline" style="height: 100%; width: 100%">
+        <div
+          class="
+            is-normal is-family-primary
+            has-text-weight-medium
+            control
+            is-expanded is-fullwidth
+            has-background-white-ter
+            column
+            is-12
+          "
+          style="border: 2px solid #3f80bf; min-height: 45px"
+          (click)="handleEditorToggle()"
+        >
+          <div
+            [mathjax]="answer.answerText || 'Click here to type an Answer'"
+          ></div>
+        </div>
+        <div class="column is-12" *ngIf="editorisToggled">
+          <angular-editor
+            [(ngModel)]="answer.answerText"
+            [config]="config"
+          ></angular-editor>
+        </div>
+      </div>
+    </span>
+  </span>
+  <span class="column is-1" style="text-align: center">
+    <button
+      class="button btn-sub-icon is-medium has-text-blue"
+      (click)="handleEditorToggle()"
+    >
+      <i class="fas fa-expand-arrows-alt has-text-blue"></i>
+    </button>
+  </span>
+  <span class="column is-1">
+    <button
+      class="button btn-sub-icon is-medium"
+      (click)="handleToggleCorrectAnswer()"
+    >
+      <i
+        [ngClass]="{
+          'correct-option': this.answer.isCorrect
+        }"
+        class="fas fa-check has-text-blue"
+      ></i>
+    </button>
+  </span>
+  <span class="column" style="text-align: start" *ngIf="isLastElement">
+    <span style="display: inline-block">
+      <button class="button btn-icon-plus is-medium" (click)="didAdd()">
+        <span
+          class="is-size-3 is-size-7-desktop is-size-5-tablet is-family-primary"
+          ><i class="fas fa-plus has-text-blue"></i>
+        </span>
+      </button>
+    </span>
+  </span>
+</div>

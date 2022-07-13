@@ -1,0 +1,35 @@
+<app-intro-page
+  *ngIf="ExamDidStart === false"
+  [ExamMetaData]="ExamMetaData"
+  (ExamQuestionStart)="StartExam()"
+  (ExamQuestionResume)="ResumeExam()"
+></app-intro-page>
+<div *ngIf="ExamDidStart === true">
+  <!-- <div>
+    <h1>Testing Panel</h1>
+    <button (click)="PreviewQuestion('MCQ')" MADBtn>
+      Preview Question MCQ
+    </button>
+
+    <button (click)="ResetTimer()" MADBtn>ResetTimer</button>
+    <button (click)="NextQuestion()" MADBtn>NextQuestion</button>
+    <button (click)="PreviousQuestion()" MADBtn>PreviousQuestion</button>
+    <button (click)="IncreaseOneMinute()" MADBtn>Increase 1 minute</button>
+    <button (click)="IncreaseProgressTen()" MADBtn>
+      Increase Progress by 10%
+    </button>
+    <button (click)="decreaseProgressTen()" MADBtn>
+      Decrease Progress by 10%
+    </button>
+
+    <button MADBtn (click)="EndAssessment()">End Assessment</button>
+    <button MADBtn (click)="LogExamInfoToConsole()">Console Exam Info</button>
+  </div> -->
+  <app-exam-page-template
+    (QuestionDoneEmitter)="didAnswerQuestionAndSubmitted($event)"
+    [ExamMetaData]="ExamMetaData"
+    [AssessmentMetaData]="AssessmentMetaData"
+    [didReachReviewQuestions]="didReachReviewQuestions"
+  ></app-exam-page-template>
+  <!-- <app-review-questions></app-review-questions> -->
+</div>

@@ -1,0 +1,169 @@
+<div
+  class="section is-large has-background-grey-light pt-3 px-4"
+  style="height: 100%"
+>
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <breadcrumb #parent>
+      <ol>
+        <li *ngIf="parent.breadcrumbs[0].terminal">
+          <a
+            href=""
+            class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+            [routerLink]="[parent.breadcrumbs[0].url]"
+            >My Home</a
+          >
+        </li>
+        <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+          <li *ngIf="!route.terminal">
+            <a
+              href=""
+              class="is-family-primary has-text-weight-bold is-size-5"
+              [routerLink]="[route.url]"
+              >{{ route.displayName }}</a
+            >
+          </li>
+          <li
+            class="is-active is-family-primary has-text-weight-bold is-size-5"
+            *ngIf="route.terminal"
+          >
+            <a aria-current="page"> {{ route.displayName }} </a>
+          </li>
+        </ng-template>
+      </ol>
+    </breadcrumb>
+  </nav>
+  <div
+    class="is-medium has-background-white pt-2 px-3"
+    style="border-radius: 13px"
+  >
+    <p
+      class="
+        has-text-right
+        is-family-primary
+        has-text-weight-semibold
+        is-size-7
+        mr-2
+        mb-3
+      "
+      routerLink="../newOrganization"
+    >
+      <figure
+        class="image is-16x16 has-text-right is-inline-block my-0 ml-0 pt-1"
+      >
+        <img class="" src="{{ newOrganizationImage }}" />
+      </figure>
+      <a
+        class="is-family-primary has-text-weight-semibold is-size-7 mr-2 ml-2"
+        style="color: #3f81c3"
+        matTooltip="Create a new Organization"
+      >
+        New Organization</a
+      >
+    </p>
+    <div
+      *ngIf="(loadingService.isLoading | async) && organizations === undefined"
+    >
+      <shimmer
+        *ngFor="let i of [].constructor(10)"
+        [height]="'50px'"
+        [type]="'line'"
+        [rounded]="true"
+      ></shimmer>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel
+        *ngFor="let organization of organizations"
+        class="mat-elevation-z0"
+        style="
+          background-color: transparent;
+          padding: 5px;
+          border-radius: 4.6px;
+        "
+      >
+        <mat-expansion-panel-header style="background-color: #f3f3f4">
+          <mat-panel-title class="is-family-primary">
+            {{ organization.english_name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <span class="column is-inline-block has-text-right is-size-7">
+              <a
+                class="action-link is-family-primary"
+                (click)="
+                  handleViewOrganization(organization);
+                  $event.stopPropagation()
+                "
+                style="color: #8b8b8b"
+                matTooltip="View An Organization"
+                >View</a
+              >
+              <span class="action-link mx-2">|</span>
+              <span
+                matTooltip="Cannot delete an organization with schools."
+                [matTooltipDisabled]="!(organization.schools.length !== 0)"
+              >
+                <button
+                  class="action-link is-family-primary"
+                  (click)="HandleDeleteOrganization(organization.id)"
+                  style="
+                    cursor: pointer;
+                    background-color: transparent;
+                    color: #8b8b8b;
+                  "
+                  [ngStyle]="{
+                    opacity: organization.schools.length !== 0 ? '0.4' : '1'
+                  }"
+                  [disabled]="organization.schools.length !== 0"
+                  (click)="$event.stopPropagation()"
+                  matTooltip="Delete An Organization"
+                >
+                  Delete
+                </button>
+              </span>
+            </span>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-panel-description
+          *ngFor="let school of organization.schools"
+          class="is-family-primary"
+          style="
+            margin: 0;
+            margin-top: 10px;
+            border-bottom: solid 1px #aaaaaa50;
+            border-radius: 15px;
+          "
+        >
+          {{ school.english_name }}
+
+          <span class="column is-inline-block has-text-right is-size-7">
+            <a
+              class="action-link is-family-primary"
+              style="text-decoration: none; color: #aaaaaa"
+              (click)="
+                handleViewSchool(organization.id, school.id);
+                $event.stopPropagation($e)
+              "
+            >
+              View
+            </a>
+            <span class="action-link mx-2">|</span>
+
+            <a
+              id="deleteSchool"
+              class="action-link is-family-primary"
+              style="text-decoration: none; color: #aaaaaa"
+              (click)="HandleSchoolActivationToggle(school.id, organization.id)"
+            >
+              {{ school.is_active ? "Deactivate" : "Activate" }}
+            </a>
+          </span>
+          <hr />
+        </mat-panel-description>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

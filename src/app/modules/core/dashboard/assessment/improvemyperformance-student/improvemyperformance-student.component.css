@@ -1,0 +1,11 @@
+.hr.hr-line1 {
+  border: solid 0.8px #d1d1d1;
+  width: 100%;
+}
+
+.button.is-info.is-outlined {
+  background-color: rgba(63, 128, 191, 0.05);
+  border-color: rgba(63, 128, 191, 0.05);
+  color: #3f80bf;
+  border-radius: 14px;
+}

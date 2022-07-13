@@ -1,0 +1,404 @@
+<section class="section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <breadcrumb #parent>
+      <ol>
+        <!-- <li *ngIf="!parent.breadcrumbs[0].terminal">
+        <a
+          href=""
+          class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+          [routerLink]="[parent.breadcrumbs[0].url]"
+          >My Home</a
+        >
+      </li> -->
+        <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+          <li *ngIf="!route.terminal">
+            <a
+              href=""
+              class="is-family-primary has-text-weight-bold is-size-5"
+              [routerLink]="[route.url]"
+              >{{ route.displayName }}</a
+            >
+          </li>
+          <li
+            class="is-active is-family-primary has-text-weight-bold is-size-5"
+            *ngIf="route.terminal"
+          >
+            <a aria-current="page"> {{ route.displayName }} </a>
+          </li>
+        </ng-template>
+      </ol>
+    </breadcrumb>
+  </nav>
+
+  <div
+    class="section is-small has-background-white pt-2 pb-1 px-3"
+    style="border-radius: 13px"
+  >
+    <div class="columns is-multiline">
+      <div class="column is-8-desktop py-5">
+        <span
+          class="
+            is-family-primary
+            has-text-weight-bold
+            is-size-5
+            mt-0
+            mb-0
+            px-1
+          "
+          style="color: #3f81c3"
+        >
+        </span>
+      </div>
+      <div class="column is-4-desktop py-5">
+        <div class="field is-grouped is-grouped-right">
+          <div class="control">
+            <button
+              class="button is-link is-outlined is-rounded"
+              [routerLink]="'studentRegistration'"
+            >
+              <span class="icon">
+                <img src = "assets/images/add_new.png"/>
+              </span>
+              <span
+                class="ml-1 is-size-7 is-family-primary has-text-weight-normal"
+                >Add new</span
+              >
+            </button>
+          </div>
+          <p class="control">
+            <!-- <button class="button is-link  is-rounded">
+
+                        <span class=" ml-1 is-size-6 is-family-primary has-text-weight-normal">11 Nov-10 Dec</span>
+
+                        <span class="icon ">
+                          <i class="fa fa-caret-down"></i>
+                        </span>
+                      </button> -->
+            <mat-form-field
+              (click)="picker.open()"
+              class="button is-link is-rounded calender-form"
+            >
+              <mat-date-range-input
+                [rangePicker]="picker"
+                [formGroup]="dateRange"
+                style="
+                  color: white !important;
+                  font-size: 15px;
+                  margin-top: 0px;
+                  border-top: 0px;
+                "
+              >
+                <input
+                  matStartDate
+                  formControlName="start"
+                  style="color: white !important"
+                  readonly
+                />
+                <input
+                  matEndDate
+                  formControlName="end"
+                  style="color: white"
+                  (dateChange)="FilterByDate()"
+                  readonly
+                />
+              </mat-date-range-input>
+
+              <mat-date-range-picker #picker>
+                <mat-date-range-picker-actions>
+                  <!-- <button mat-button>Reset</button> -->
+
+                  <button mat-button matDateRangePickerCancel>Cancel</button>
+                  <button mat-raised-button matDateRangePickerApply>
+                    Apply
+                  </button>
+                </mat-date-range-picker-actions>
+              </mat-date-range-picker>
+              <mat-datepicker-toggle matSuffix >
+                <mat-icon
+                  matDatepickerToggleIcon
+                  style="padding-bottom: 20px; padding-left: 5px"
+                >
+                  <i class="fas fa-angle-down"></i>
+                </mat-icon>
+              </mat-datepicker-toggle>
+            </mat-form-field>
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="column is-full has-background-light is-pulled-left px-0 py-0"
+        style="border-radius: 4.6px"
+      >
+        <div class="container">
+          <nav class="navbar is-fullwidth">
+            <div class="navbar-menu py-1">
+              <span
+                class="
+                  navbar-start
+                  total-users
+                  has-text-weight-bold
+                  is-size-6
+                  has-text-left
+                  is-family-primary
+                  has-text-dark
+                  py-3
+                  px-3
+                "
+                >Total number of applications:
+                {{ ApplicantListSorted?.length }}
+              </span>
+
+              <mat-form-field>
+                <mat-label style="display: none"> Filter By Class </mat-label>
+                <mat-select
+                  #FilterFormField
+                  (selectionChange)="FilterByClass($event.value)"
+                  [formControl]="filterControl"
+                  [(ngModel)]="selectedClass"
+                  name="class"
+                  multiple
+                >
+                  <mat-option
+                    *ngFor="let filter of filterList"
+                    [value]="filter"
+                    >{{ filter }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <!-- <a class="navbar-item has-text-info is-size-4" (click) = "uploadData()"><i class="fa fa-upload"></i></a>
+              <a class="navbar-item has-text-info is-size-4" (click) = "uploadData()"><i class="fa fa-download"></i></a>  -->
+
+
+
+              <a
+                class="
+                  navbar-item
+                  is-family-primary
+                  has-text-info
+                  is-size-4
+                  pr-5
+                "
+                (mouseenter)="didClickFilterByButton()"
+                ><i class="fas fa-sliders-h"></i
+              ></a>
+
+
+            </div>
+          </nav>
+        </div>
+        <table
+          matSort
+          (matSortChange)="sortData($event)"
+          class="table is-fullwidth px-6"
+        >
+          <thead class="is-size-6">
+            <tr>
+              <th class="has-text-centered pt-5" scope="col"></th>
+              <th
+                mat-sort-header="studentName"
+                class="
+                  is-family-primary
+                  has-text-weight-semibold
+                  px-0
+                  pt-5
+                  pl-2
+                "
+                scope="col"
+              >
+                Student Name
+                <i #StudentToggle class="fa fa-caret-up"></i>
+              </th>
+              <th
+                mat-sort-header="class"
+                class="
+                  is-family-primary
+                  has-text-weight-semibold
+                  px-0
+                  pt-5
+                  pl-2
+                "
+                scope="col"
+              >
+                Class <i #ClassToggle class="fa fa-caret-down"></i>
+              </th>
+              <th
+                mat-sort-header="date"
+                class="
+                  is-family-primary
+                  has-text-weight-semibold
+                  px-0
+                  pt-5
+                  pl-2
+                "
+                scope="col"
+              >
+                Date <i #DateToggle class="fa fa-caret-down"></i>
+              </th>
+              <th
+                mat-sort-header="student_number"
+                class="
+                  is-family-primary
+                  has-text-weight-semibold
+                  px-0
+                  pt-5
+                  pl-2
+                "
+                scope="col"
+              >
+                Admission Number <i #AppIDToggle class="fa fa-caret-down"></i>
+              </th>
+              <th
+                class="
+                  is-family-primary
+                  has-text-weight-semibold has-text-centered
+                  px-0
+                  pt-5
+                "
+                scope="col"
+              ></th>
+            </tr>
+          </thead>
+          <tbody class="is-size-6">
+            <tr
+              *ngFor="
+                let student of ApplicantListSorted
+                  | paginate: { itemsPerPage: PerPage, currentPage: p }
+              "
+            >
+              <td
+                class="
+                  td-users
+                  is-family-primary
+                  has-text-weight-normal has-text-centered
+                  px-3
+                "
+              >
+                <input type="checkbox" class="" />
+              </td>
+              <td class="td-users px-0 py-1">
+                <input
+                  class="
+                    input
+                    is-static
+                    txt-code
+                    is-info is-small is-size-6 is-family-primary
+                    has-text-weight-normal
+                    pl-2
+                  "
+                  type="text"
+                  value="{{ student.first_name }} {{
+                    student.last_name
+                  }}"
+                  disabled=""
+                />
+              </td>
+
+              <td class="td-users px-0 py-1">
+                <a>
+                  <input
+                    class="
+                      input
+                      is-static
+                      txt-name
+                      is-info is-small is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pl-2
+                    "
+                    type="text"
+                    disabled=""
+                    value="{{ student.class_name }}"
+                  />
+                </a>
+
+              </td>
+              <td class="td-users px-0 py-1">
+                <input
+                  class="
+                    input
+                    is-static
+                    txt-code
+                    is-info is-small is-size-6 is-family-primary
+                    has-text-weight-normal
+                    pl-2
+                  "
+                  type="text"
+                  value="{{ student.admission_date | date: 'dd MMMM yyyy' }}"
+                  disabled=""
+                />
+              </td>
+              <td class="td-users px-0 py-1">
+                <input
+                  class="
+                    input
+                    is-static
+                    txt-code
+                    is-info is-small is-size-6 is-family-primary
+                    has-text-weight-normal
+                    pl-2
+                  "
+                  type="text"
+                  value="{{ student.student_number }}"
+                  disabled=""
+                />
+              </td>
+
+              <td
+                class="
+                  td-users
+                  is-family-primary
+                  has-text-weight-normal has-text-centered
+                  is-size-4
+                  py-2
+                "
+              >
+                <a
+                  class="has-text-dark"
+                  routerLink="../{{ student.school_id }}/{{ student.id }}"
+                  ><i class="fa fa-caret-right pr-2"></i
+                ></a>
+              </td>
+            </tr>
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+      <span
+        class="column is-three-fifths is-pulled-left is-inline-block pt-5 pl-4"
+      >
+        <span
+          (click)="changePage()"
+          class="
+            is-family-primary
+            has-text-weight-medium has-text-info
+            is-size-5
+          "
+          >Showing from {{ StartIndex }} to {{ EndIndex }} of
+          {{ ApplicantListSorted?.length }} elements</span
+        >
+      </span>
+      <span class="column is-pulled-right is-inline-block pt-5">
+        <nav>
+          <div class="container">
+            <div
+              class="pagination is-right pr-6"
+              role="navigation"
+              aria-label="pagination"
+            >
+              <ul class="pagination-list">
+                <pagination-controls
+                  maxSize="6"
+                  directionLinks="false"
+                  (pageChange)="p = $event; changePage()"
+                ></pagination-controls>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </span>
+    </div>
+  </div>
+</section>

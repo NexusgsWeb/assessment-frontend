@@ -1,0 +1,462 @@
+<div id="modal" class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-content responsiveness">
+    <div
+      class="section is-small has-background-white pt-2 px-3"
+      style="border-radius: 13px"
+    >
+      <div *ngIf = "book != null"
+        class="
+          column
+          is-full is-family-primary
+          has-text-left has-text-info has-text-weight-bold
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          px-6
+          pt-5
+        "
+        style="font-weight: 800"
+      >
+        Book Title: &nbsp;{{book}}
+      </div>
+
+      <div class="columns is-multiline px-6 pt-3">
+
+        <div class="column is-6" *ngIf = "chapterIds != undefined || chapterIds != ''">
+          <label
+            for="ChapterID"
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+            "
+            >ChapterID: &nbsp;
+          </label>
+          <p style="display: inline-block" class="details-color" >
+            {{ chapterIds?.slice(0, -2) || "-" }}
+          </p>
+
+          <!-- <p
+            style="display: inline-block"
+            class="details-color"
+            *ngIf="chapterIds != undefined"
+          >
+            {{ chapterIds.slice(0, -2) }}
+          </p> -->
+        </div>
+        <div class="column is-6" *ngIf = "chapterTitles == undefined || chapterTitles != ''">
+          <label
+            for="ChapterID"
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+            "
+            >Chapter Title: &nbsp;
+          </label>
+          <p style="display: inline-block" class="details-color">
+            {{ chapterTitles?.slice(0, -2) || "-" }}
+          </p>
+
+          <!-- <p
+            style="display: inline-block"
+            class="details-color"
+            *ngIf="chapterTitles != undefined"
+          >
+            {{ chapterTitles.slice(0, -2) }}
+          </p> -->
+        </div>
+        <div class="column is-6" *ngIf = "sectionIds == undefined || sectionIds != ''">
+          <label
+            for="ChapterID"
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+            "
+            >Section ID: &nbsp;
+          </label>
+          <p style="display: inline-block" class="details-color">
+            {{ sectionIds?.slice(0, -2) || "-" }}
+          </p>
+        </div>
+        <div class="column is-6" *ngIf = "sectionTitles == undefined || sectionTitles != ''">
+          <label
+            for="ChapterID"
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+            "
+            >Section Title: &nbsp;
+          </label>
+          <p style="display: inline-block" class="details-color" >
+            {{ sectionTitles?.slice(0, -2) || "-" }}
+          </p>
+        </div>
+        <!-- <div class="column is-12" >
+          <label
+            for="ChapterID"
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+            "
+            >CCSS Standard: &nbsp;
+          </label>
+          <p style="display: inline-block" class="details-color">-</p>
+        </div> -->
+      </div>
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left has-text-info has-text-weight-bold
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          px-6
+          pt-5
+        "
+        style="font-weight: 800"
+      >
+        Curriculum Details: &nbsp;
+      </div>
+      <div class="columns is-multiline px-6 pt-3">
+        <div class="column is-6">
+          <label
+            for="ChapterID"
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+            "
+            >Curriculum: &nbsp;
+          </label>
+          <div *ngFor = "let cur of this.curriculumsList">
+            <p style="display: inline-block" class="details-color" >
+              {{cur.name}} - {{cur.grade_code}}
+            </p>
+          </div>
+
+
+        </div>
+        <div class="column is-6">
+          <label
+            for="ChapterID"
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+            "
+            >Unit: &nbsp;
+          </label>
+          <p
+            style="display: inline-block"
+            class="details-color"
+            *ngIf="unit != undefined"
+          >
+            {{ unit?.slice(0, -2) || "-" }}
+          </p>
+        </div>
+      </div>
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left has-text-info has-text-weight-bold
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          px-6
+          pt-5
+        "
+        style="font-weight: 800"
+      >
+        Question: &nbsp;
+      </div>
+      <div
+        class="
+          columns
+          is-full is-family-primary
+          has-text-left has-text-weight-bold
+          is-size-5
+          mt-0
+          mb-0
+          px-6
+          py-0
+        "
+      >
+        <span
+          id="HTMLCONTENT"
+          class="column is-12 is-inline-block has-text-dark"
+          style="border: 1px solid"
+        >
+          <!-- QUESTION GO HERE-->
+          <!-- <div *ngIf = "containsNBSP(questionText) == false"
+          [mathjax]="questionText"></div>
+
+      <div *ngIf = "containsNBSP(questionText) == true"
+      [innerHTML]="questionText" ></div> -->
+      <div [mathjax]="questionText" ></div>
+          <!-- <ng-katex-paragraph [paragraph]="questionText"></ng-katex-paragraph>` -->
+          <!-- <div [innerHTML]="questionText"></div> -->
+          <!-- QUESTION END HERE-->
+        </span>
+      </div>
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left has-text-info has-text-weight-bold
+          is-size-5
+          mt-0
+          mb-0
+          px-6
+          py-3
+        "
+        *ngIf = "answers.length > 0"
+        style="font-weight: 800"
+      >
+        Answers:
+      </div>
+      <div class="columns is-multiline px-1">
+        <div
+          class="
+            column
+            is-full
+            green-color
+            is-family-primary
+            has-text-left has-text-weight-medium
+            is-size-12
+            mt-0
+            mb-0
+            px-6
+            py-0
+          "
+        >
+          <div
+            class="is-family-primary is-12"
+            *ngFor="let answer of answers; let i = index"
+          >
+            <div
+              class="
+                is-normal is-family-primary
+                has-text-weight-medium
+                control
+                is-expanded is-fullwidth
+                has-background-white-ter
+                column
+                is-10
+                my-2
+              "
+              (click)="handleEditorToggle()"
+              style="border: 2px solid #3f80bf; min-height: 45px"
+            >
+              <!-- <div
+                [mathjax]="
+                  answer.answer_text || 'There was an error loading your answer'
+                "
+              ></div> -->
+
+              <div [mathjax]="answer.answer_text || 'There was an error loading your answer'" ></div>
+
+
+
+              <p *ngIf="answer.is_correct" class="correct-answer">
+                Correct Answer
+              </p>
+            </div>
+            <!-- <label class="has-text-weight-bold" style="display: inline-block"
+              >{{ i }}.&nbsp;</label
+            >
+            <p
+              style="display: inline-block"
+              [ngClass]="
+                answer.isCorrect ? 'correct-answer' : 'has-text-weight-bold'
+              "
+            >
+              {{ answer?.answerText }}
+            </p> -->
+          </div>
+        </div>
+
+        <div
+          class="columns is-multiline px-1 pt-3"
+          *ngIf="answerKey != null"
+        >
+          <div
+            class="
+              column
+              is-full is-family-primary
+              has-text-left has-text-info
+              is-size-5
+              mt-0
+              mb-0
+              px-6
+              py-0
+            "
+            style="font-weight: 800"
+          >
+            Answer Key:
+          </div>
+          <div
+            class="
+              columns
+              is-family-primary
+              has-text-left has-text-weight-bold
+              is-fullwidth
+              mt-0
+              mb-0
+              px-6
+              py-0
+              is-12
+            "
+          >
+            <div
+              class="
+                is-normal is-family-primary
+                has-text-weight-medium
+                control
+                is-expanded is-fullwidth
+                has-background-white-ter
+                column
+                is-12
+                my-2
+              "
+              (click)="handleEditorToggle()"
+              style="border: 2px solid #3f80bf; min-height: 45px"
+            >
+              <!-- <div
+                [mathjax]="
+                  answerKey ||
+                  'There was an error loading your answer'
+                "
+              ></div> -->
+
+              <div [mathjax]="
+              answerKey ||
+              'There was an error loading your answer'" ></div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="bloomsTaxonomy != null">
+        <div
+          class="
+            column
+            is-full is-family-primary
+            has-text-left has-text-info has-text-weight-bold
+            is-size-5
+            mt-0
+            pb-0
+            mb-0
+            px-6
+            pt-2
+          "
+          style="font-weight: 800"
+        >
+          Blooms Taxonomy: &nbsp;
+        </div>
+        <div class="columns is-multiline px-6 pt-3">
+          <div class="column is-12">
+            <label
+              for="ChapterID"
+              class="
+                is-inline-block
+                has-text-weight-bold
+                is-size-5
+                has-text-left has-text-dark
+              "
+              >Category of Learning: &nbsp;
+            </label>
+            <p style="display: inline-block" class="details-color">
+              {{bloomsTaxonomy?.knowledgeCategory }}
+            </p>
+          </div>
+          <div class="column is-12">
+            <label
+              for="ChapterID"
+              class="
+                is-inline-block
+                has-text-weight-bold
+                is-size-5
+                has-text-left has-text-dark
+              "
+              >Knowledge Dimension: &nbsp;
+            </label>
+            <p style="display: inline-block" class="details-color">
+              {{ bloomsTaxonomy?.knowledgeLevel }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left has-text-info has-text-weight-bold
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          px-6
+          pt-2
+        "
+        style="font-weight: 800"
+      >
+        Learning Standards
+      </div>
+      <div class="columns is-multiline px-6 pt-3" *ngFor="let ls of LS">
+        <div class="column is-12 is-inline-block details-color">
+          {{ ls?.code + ' ' + ls?.description}}
+        </div>
+        <!-- <span class="column is-12 is-inline-block has-text-dark">
+          <b>DOK :</b> {{ ls?.DOK || "DOK not Found" }}
+        </span> -->
+      </div>
+
+      <div
+        class="
+          column
+          is-full is-family-primary
+          has-text-left has-text-info has-text-weight-bold
+          is-size-5
+          mt-0
+          pb-0
+          mb-0
+          px-6
+          pt-2
+        "
+        style="font-weight: 800"
+      >
+        Course Standard
+      </div>
+      <div class="columns is-multiline px-6 pt-3" *ngFor="let l of lo">
+        <div class="column is-12 is-inline-block details-color">
+          {{ l?.description }}
+        </div>
+        <!-- <div class="column is-12 is-inline-block has-text-dark">
+          <b>DOK :</b> {{ ls?.DOK || "DOK not Found" }}
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <button
+    class="modal-close is-large"
+    aria-label="close"
+    (click)="didClickClose()"
+  ></button>
+</div>

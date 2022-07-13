@@ -1,0 +1,720 @@
+<div >
+
+    <div>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <div class="columns is-multiline is-mobile ">
+
+        <!---------->
+        <div class="column   px-0 py-0">
+
+          <section class="section is-large has-background-grey-light pt-3 px-4 ">
+
+            <!-- <nav class="breadcrumb has-succeeds-separator py-1 mb-3" aria-label="breadcrumbs">
+              <ul>
+                <li><a href="#" class=" is-family-primary has-text-weight-bold  is-size-5 pl-4">My Home</a></li>
+
+                <li class="is-active is-family-primary has-text-weight-bold is-size-5"><a href="#" aria-current="page" class="is-family-primary has-text-weight-bold is-size-6">Assessment  </a></li>
+              </ul>
+            </nav> -->
+
+            <nav
+      class="breadcrumb has-succeeds-separator py-1 mb-3"
+      aria-label="breadcrumbs"
+    >
+      <breadcrumb #parent>
+        <ol>
+
+          <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+            <li *ngIf="!route.terminal">
+              <a
+                href=""
+                class="is-family-primary has-text-weight-bold is-size-5"
+                [routerLink]="[route.url]"
+                >{{ route.displayName }}</a
+              >
+            </li>
+            <li
+              class="is-active is-family-primary has-text-weight-bold is-size-5"
+              *ngIf="route.terminal"
+            >
+              <a aria-current="page"> {{ route.displayName }} </a>
+            </li>
+          </ng-template>
+        </ol>
+      </breadcrumb>
+    </nav>
+            <div class="section is-small has-background-white pt-2 pb-1 px-4 " style="border-radius: 13px;">
+              <div class="columns is-multiline">
+                <div class="column is-8 is-hidden-touch  pt-5 pl-0">
+                  <span class=" is-family-primary has-text-weight-bold is-size-5 mt-0  mb-0 " style="color:#3f81c3;">
+                    My Assessments</span>
+                    <div>
+                      <span
+                        class="
+                          is-family-primary
+                          has-text-weight-normal has-text-left has-text-normal
+                          is-size-6
+                          pr-3
+                        "
+                        >Select Class</span
+                      >
+
+                      <div class="columns">
+                        <div class="column is-3">
+                          <ng-select
+                            class = "custom"
+                            #ClassSelector
+                            [items]="classes.getValue()"
+                            (change)="removeAll($event)"
+                            (add)="getSelectedClassSubjects($event)"
+                            bindLabel="code"
+                            notFoundText="Not Found"
+                            placeholder="Select class"
+                            multiple="true"
+                            [searchable]="false"
+                            [hideSelected]="true"
+                            [(ngModel)]="selectedClasses"
+                          >
+                            <ng-template ng-tag-tmp let-search="searchTerm">
+                              <p>{{ search }} (New Cycle)</p>
+                            </ng-template>
+
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{ item.code }}">{{ item.code }}</div>
+                            </ng-template>
+
+                            <ng-template
+                              ng-multi-label-tmp
+                              let-items="selectedClasses"
+                              let-clear="clear"
+                            >
+                              <div
+                                class="ng-summary-list"
+                                *ngIf="selectedClasses.length != 0"
+                              >
+                                <div class="ng-value">
+                                  <span class="ng-value-label">
+                                    {{ selectedClasses.length }} Selected
+                                  </span>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                        <div
+                          class="column"
+                          style="flex-grow: 0"
+                          *ngFor="let class of selectedClasses; let i = index"
+                        >
+                          <span
+                            *ngIf="i < 2"
+                            class="
+                              tag
+                              is-medium
+                              has-text-white
+                              is-family-primary
+                              has-text-weight-semibold
+                              pl-3
+                            "
+                          >
+                            {{ class.code }}
+                            <button
+                              class="delete is-small ml-2"
+                              style="background-color: rgba(26, 85, 142, 0.4)"
+                              (click)="removeSelectedClass(i)"
+                            ></button>
+                          </span>
+
+                          <div
+                            *ngIf="i == 2"
+                            class="
+                              tag
+                              dropdown
+                              is-hoverable is-medium
+                              has-text-white
+                              is-family-primary
+                              has-text-weight-semibold
+                              pl-3
+                            "
+                          >
+                            <span
+                              class="
+                                dropdown-trigger
+                                has-text-grey-dark
+                                is-size-7 is-family-primary
+                                has-text-weight-medium
+                              "
+                            >
+                              {{ selectedClasses.length - 2 }} more
+                              <span class="icon is-medium">
+                                <i
+                                  class="fa fa-caret-down has-text-black is-size-6"
+                                  aria-hidden="true"
+                                ></i> </span
+                            ></span>
+
+                            <div>
+                              <div
+                                class="dropdown-menu"
+                                id="dropdown-menu"
+                                role="menu"
+                                style="min-width: 3rem"
+                              >
+                                <div class="dropdown-content has-text-centered">
+                                  <div
+                                    *ngFor="let item of selectedClasses; let j = index"
+                                  >
+                                    <div *ngIf="j >= 2">
+                                      <span
+                                        href=""
+                                        class="
+                                          tag
+                                          is-medium
+                                          has-text-white
+                                          is-family-primary
+                                          has-text-weight-semibold
+                                          pl-3
+                                          mx-3
+                                        "
+                                      >
+                                        {{ item.code }}
+
+                                        <button
+                                          class="delete is-small ml-2"
+                                          style="
+                                            background-color: rgba(26, 85, 142, 0.4);
+                                          "
+                                          (click)="removeSelectedClass(j)"
+                                        ></button>
+                                      </span>
+
+                                      <hr class="dropdown-divider" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div>
+                    <div class="pt-5" *ngIf = "this.selectedClasses.length != 0">
+                      <span
+                        class="
+                          is-family-primary
+                          has-text-weight-normal has-text-left has-text-normal
+                          is-size-6
+                          pr-3
+                        "
+                        >Select Subject</span
+                      >
+
+                      <div class="columns">
+                        <div class="column is-3">
+                          <ng-select
+                            #ngg
+                            id="ngSelect"
+                            [items]="subjects"
+                            (add)="addSelectedSubjects($event)"
+                            (change)="removeAllSubjects($event)"
+                            notFoundText="Not Found"
+                            placeholder="Select subject"
+                            multiple="true"
+                            bindLabel = "name"
+                            [searchable]="false"
+                            [hideSelected]="true"
+                            style="overflow: visible;"
+                            [(ngModel)]="selectedSubjects"
+                          >
+
+
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{ item.name}}">{{ item.name }}</div>
+                            </ng-template>
+
+                            <ng-template
+                              ng-multi-label-tmp
+                              let-items="selectedClasses"
+                              let-clear="clear"
+                            >
+                              <div
+                                class="ng-summary-list"
+                                *ngIf="selectedSubjects.length != 0"
+                              >
+                                <div class="ng-value">
+                                  <span class="ng-value-label">
+                                    {{ selectedSubjects.length }} Selected
+                                  </span>
+                                </div>
+                              </div>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                        <div
+                          class="column"
+                          style="flex-grow: 0"
+                          *ngFor="let subject of selectedSubjects; let i = index"
+                        >
+                          <span
+                            *ngIf="i < 2"
+                            class="
+                              tag
+                              is-medium
+                              has-text-white
+                              is-family-primary
+                              has-text-weight-semibold
+                              pl-3
+                            "
+                          >
+                            {{ subject.name }}
+                            <button
+                              class="delete is-small ml-2"
+                              style="background-color: rgba(26, 85, 142, 0.4)"
+                              (click)="removeSelectedSubjects(i)"
+                            ></button>
+                          </span>
+
+                          <div
+                            *ngIf="i == 2"
+                            class="
+                              tag
+                              dropdown
+                              is-hoverable is-medium
+                              has-text-white
+                              is-family-primary
+                              has-text-weight-semibold
+                              pl-3
+                            "
+                          >
+                            <span
+                              class="
+                                dropdown-trigger
+                                has-text-grey-dark
+                                is-size-7 is-family-primary
+                                has-text-weight-medium
+                              "
+                            >
+                              {{ selectedSubjects.length - 2 }} more
+                              <span class="icon is-medium">
+                                <i
+                                  class="fa fa-caret-down has-text-black is-size-6"
+                                  aria-hidden="true"
+                                ></i> </span
+                            ></span>
+
+                            <div>
+                              <div
+                                class="dropdown-menu"
+                                id="dropdown-menu"
+                                role="menu"
+                                style="min-width: 3rem"
+                              >
+                                <div class="dropdown-content has-text-centered">
+                                  <div
+                                    *ngFor="let item of selectedSubjects; let j = index"
+                                  >
+                                    <div *ngIf="j >= 2">
+                                      <span
+                                        href=""
+                                        class="
+                                          tag
+                                          is-medium
+                                          has-text-white
+                                          is-family-primary
+                                          has-text-weight-semibold
+                                          pl-3
+                                          mx-3
+                                        "
+                                      >
+                                        {{ item.name }}
+
+                                        <button
+                                          class="delete is-small ml-2"
+                                          style="
+                                            background-color: rgba(26, 85, 142, 0.4);
+                                          "
+                                          (click)="removeSelectedSubjects(j)"
+                                        ></button>
+                                      </span>
+
+                                      <hr class="dropdown-divider" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="column is-4-desktop is-12-touch pt-6 pb-5">
+                  <div class="field is-grouped is-grouped-right pt-5 mb-2">
+
+                    <p class="control" style="width: 150px;">
+                       <mat-form-field
+                    (click)="picker.open()"
+                    class="button is-link is-rounded calender-form"
+                    style = "display:flex;"
+                  >
+                <mat-date-range-input
+                  [rangePicker]="picker"
+                  [formGroup]="dateRange"
+                  style="
+
+                  width: 150px;
+
+                    color: white !important;
+                    font-size: 15px;
+                    margin-top: 0px;
+                    border-top: 0px;
+                  "
+                >
+                  <input
+
+                    matStartDate
+                    matTooltip = "start date"
+                    formControlName="start"
+                    style="color: white !important; text-align: right;"
+                    readonly
+                  />
+                  <input
+                    matEndDate
+                    matTooltip = "end date"
+                    formControlName="end"
+                    style="color: white"
+                    readonly
+                  />
+                </mat-date-range-input>
+
+                <mat-date-range-picker #picker>
+                  <mat-date-range-picker-actions>
+
+                    <button mat-button matDateRangePickerCancel (click) = "cancelDates()">Cancel</button>
+                    <button mat-raised-button matDateRangePickerApply (click) = "FilterByDate()">
+                      Apply
+                    </button>
+                  </mat-date-range-picker-actions>
+                </mat-date-range-picker>
+                  <mat-datepicker-toggle matSuffix [for]="dp">
+                        <mat-icon
+                          matDatepickerToggleIcon
+                          style="padding-bottom: 20px; padding-left: 5px;"
+
+                        >
+                        <i class="fas fa-angle-down"></i>
+                        </mat-icon>
+                          </mat-datepicker-toggle>
+                        </mat-form-field>
+                    </p>
+
+                  </div>
+                </div>
+   -->
+
+                <div class="column is-full is-hidden-touch  px-0 py-0" style="border-radius: 4.6px;">
+                  <!--<div class="container">-->
+                  <nav class=" is-fullwidth has-background-light">
+                    <div class="navbar-menu py-1">
+                      <span class="navbar-start total-users has-text-weight-bold  is-size-6 has-text-left is-family-primary has-text-dark py-3 px-3 ">Total number of Assessments: {{assessments.length}} </span>
+
+
+                      <span class="navbar-end px-3">
+                        <ul class="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-space-between py-0">
+                          <li class="is-flex-grow-1 "> <a class="navbar-item has-text-info is-size-4"
+                            >
+                            <form
+                              action=""
+                              class="search-bar2 search-icon px-0 py-0"
+                              style=" margin-right: -10px;"
+
+                            >
+                              <input
+                                class="search pl-5 has-text-dark"
+                                type="text"
+                                #myInput
+                                (input)="searchAssessments(myInput)"
+                                name="search"
+                                pattern=".*\S.*"
+                                required=""
+                                placeholder="Search(by title)..."
+                              />
+                              <button class="search-btn blue" type="submit">
+                                <i class="fa fa-search is-size-5" style=""></i>
+                              </button>
+                            </form>
+                          </a> </li>
+                          <!-- <li class="hr-separator  is-flex-grow-1 "> <a class="navbar-item has-text-info is-size-4 mt-1" href="#"><i class="fa fa-download"></i></a> </li> -->
+                          <!-- <li class="hr-separator is-flex-grow-1 "> <a class="navbar-item has-text-info is-size-4" href="#"><i class="fa fa-upload"></i></a> </li> -->
+                          <li class="hr-separator is-flex-grow-1 ">  <a class="navbar-item has-text-info is-size-4" (click) = "bulkDel()" id="launchModal"><i class="fas fa-trash-alt "></i></a> </li>
+                          <li class="hr-separator is-flex-grow-1 ">
+
+
+                                <!-- <div class="control">
+                                  <button class="button is-link is-outlined is-rounded " (click) = "addNewAssessmentPressed()" [routerLink] = "'createAssessment'">
+
+                                    <figure class="image is-24x24  is-inline-block my-0 ml-0">
+                                      <img class="" src="/assets/images/add_new.png"></figure>
+                                    <span class=" ml-1 is-size-7 is-family-primary has-text-weight-normal" id="lanuchModal" matTooltip = "Add new assessment">Add new</span>
+                                  </button>
+                                </div> -->
+                                <p class="control" style="width: 150px;">
+                                   <mat-form-field
+                                (click)="picker.open()"
+                                class="button is-link is-rounded calender-form"
+                                style = "display:flex;"
+                              >
+                            <mat-date-range-input
+                              [rangePicker]="picker"
+                              [formGroup]="dateRange"
+                              style="
+
+                              width: 150px;
+
+                                color: white !important;
+                                font-size: 15px;
+                                margin-top: 0px;
+                                border-top: 0px;
+                              "
+                            >
+                              <input
+
+                                matStartDate
+                                matTooltip = "filter by date"
+                                formControlName="start"
+                                style="color: white !important; text-align: right;"
+                                readonly
+                              />
+                              <input
+                                matEndDate
+                                matTooltip = "filter by date"
+                                formControlName="end"
+                                style="color: white"
+                                readonly
+                              />
+                            </mat-date-range-input>
+
+                            <mat-date-range-picker #picker>
+                              <mat-date-range-picker-actions>
+                                <!-- <button mat-button>Reset</button> -->
+
+                                <button mat-button matDateRangePickerCancel (click) = "cancelDates()">Cancel</button>
+                                <button mat-raised-button matDateRangePickerApply (click) = "FilterByDate()">
+                                  Apply
+                                </button>
+                              </mat-date-range-picker-actions>
+                            </mat-date-range-picker>
+                              <mat-datepicker-toggle matSuffix >
+                                    <mat-icon
+                                      matDatepickerToggleIcon
+                                      style="padding-bottom: 20px; padding-left: 5px;"
+
+                                    >
+                                    <i class="fas fa-angle-down"></i>
+                                    </mat-icon>
+                                      </mat-datepicker-toggle>
+                                    </mat-form-field>
+                                </p>
+
+
+
+                            <!-- <mat-form-field style="position: absolute; opacity: 0;">
+                            <mat-label style="display: none"> Filter By Class </mat-label>
+                            <mat-select
+
+                              #FilterFormField
+                              (selectionChange)="FilterByClass($event.value)"
+
+                              [formControl]="filterControl"
+                              [(ngModel)]="selectedClass"
+                              name="class"
+                              multiple
+
+                            >
+                              <mat-option
+                                *ngFor="let filter of filterList"
+                                [value]="filter"
+                                >{{ filter }}</mat-option
+                              >
+                            </mat-select>
+                          </mat-form-field>
+                          <a
+                            class="
+                              navbar-item
+                              is-family-primary
+                              has-text-info
+                              is-size-4
+                              pr-5
+                            "
+                            (mouseenter)="didClickFilterByButton()"
+                            ><i class="fas fa-sliders-h"></i
+                          ></a> -->
+
+                        </li>
+                        </ul>
+                      </span>
+                    </div>
+                  </nav>
+                </div>
+
+
+
+                <table class="table is-fullwidth px-6 mb-0">
+                  <thead class="is-size-6">
+                    <tr>
+                      <th class="td-users is-family-primary has-text-weight-normal has-text-centered px-3">
+                        <input type="checkbox" class="mt-2" (click) = "$event.stopPropagation();checkAllAssessments()"></th>
+                      <th class=" is-family-primary has-text-weight-semibold px-0" scope="col">Title</th>
+                      <th class="td-width-sm is-family-primary has-text-weight-semibold  px-0" scope="col">Start date</th>
+                      <th class=" is-family-primary has-text-weight-semibold px-0" scope="col">End date</th>
+                      <th class="td-width-sm is-family-primary has-text-weight-semibold has-text-left px-0" scope="col">Status</th>
+                      <th class="is-family-primary has-text-weight-semibold has-text-left px-0" scope="col">Class </th>
+                      <th class="is-family-primary has-text-weight-semibold px-0" scope="col">Subject</th>
+                      <th class="is-family-primary has-text-weight-semibold has-text-centered px-0" scope="col">Action</th></tr>
+
+                  </thead>
+                  <tbody class="is-size-6" >
+                    <!-- <tr>
+
+
+                      <td class="td-users is-family-primary has-text-weight-normal has-text-centered is-size-5 py-2 px-1">
+                        <button class="button is-link is-family-primary has-text-weight-bold is-small is-size-7 px-2">Save</button>
+                        <a class="action-icons" href="#"><i class="fas fa-pen  pr-2"></i></a><a href="#" class="action-icons"><i class="fas fa-trash-alt  "></i></a>
+                        <a class="action-icons" href="#"><i class="fas fa-arrow-up  pr-2"></i></a>
+                        <a class="action-icons" href="#"><i class="fas fa-arrow-down  pr-2"></i></a>
+                      </td>
+                    </tr> -->
+                    <tr *ngFor = "let assessment of assessments  | paginate
+                    : {
+                        itemsPerPage: 10,
+                        currentPage: currentPage,
+                        year: assessments.length
+                      };
+                      let i = index;" cdkDrag style = "padding-bottom: 5px;"
+                      (click) = "onPressAssessement(assessment)"
+                      >
+                      <td class="td-users is-family-primary has-text-weight-normal has-text-centered px-3">
+                        <input type="checkbox" class="mt-2" (click) = "$event.stopPropagation();checkAssessment(i)" [(ngModel)] = "assessment.checked"></td>
+                      <td class="td-users px-0 ">
+                        <a>
+                          <span *ngIf = "!assessment.edit" class="span is-static txt-name is-info is-small is-size-7 is-family-primary has-text-weight-normal pl-2" type="text">{{assessment.title}}</span>
+                          <input *ngIf = "assessment.edit" class="input txt-name is-info is-focused is-small has-background-white is-size-7 is-family-primary has-text-weight-normal pl-2" type="text" value="{{assessmentCredentials.title}}">
+
+                        </a>
+                      </td>
+
+                      <td class="td-users px-0 ">
+                        <span *ngIf = "!assessment.edit" class="span td-content is-static has-text-dark is-info is-small is-size-7 is-family-primary has-text-weight-normal pl-2" type="text" >{{assessment.from_date}}</span>
+                        <input *ngIf = "assessment.edit" class="input td-content is-info is-focused txt-code is-info is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2" type="date" value="{{assessmentCredentials.startsAtDateTime}}">
+                      </td>
+
+                      <td class="td-users px-0">
+                        <span *ngIf = "!assessment.edit" class="span td-content is-static has-text-dark is-info is-small is-size-7 is-family-primary has-text-weight-normal pl-2" type="text">{{assessment.to_date}}</span>
+                        <input *ngIf = "assessment.edit" class="input td-content is-info is-focused txt-code is-info is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2" type="date" value="{{assessmentCredentials.endsAtDateTime}}">
+
+                      </td>
+                      <td class="td-users has-text-left px-0">
+                        <span *ngIf = "!assessment.edit" class="span td-content is-static has-text-dark is-info is-small is-size-7 is-family-primary has-text-weight-normal pl-2" type="text">{{assessment.status}}</span>
+                        <input *ngIf = "assessment.edit" class="input td-content is-info is-focused txt-code is-info is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2" type="text" value="{{assessmentCredentials.status}}">
+
+                      </td>
+                      <td class="td-users  has-text-left px-0">
+                        <span *ngIf = "!assessment.edit" class="span td-content is-static has-text-dark is-info is-small is-size-7 is-family-primary has-text-weight-normal pl-2" type="text">{{assessment.class.code}}</span>
+                        <input *ngIf = "assessment.edit" class="input td-content is-info is-focused txt-code is-info is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2" type="text" value="{{assessmentCredentials.class}}">
+
+                      </td>
+                      <td class="td-users   has-text-left px-0">
+                        <span *ngIf = "!assessment.edit" class="span td-content is-static has-text-dark is-info is-small is-size-7 is-family-secondary has-text-weight-normal pl-2" type="text">{{assessment.subject.name}}</span>
+                        <input *ngIf = "assessment.edit" class="input td-content is-info is-focused txt-code is-info is-small is-size-7 is-family-primary has-text-weight-normal has-background-white pl-2" type="text" value="{{assessmentCredentials.subject.name}}">
+                      </td>
+                      <td *ngIf="assessment.edit">
+                        <button
+                        class="
+                          button
+                          is-small is-outlined
+                          has-background-white
+                          mr-1
+                        "
+                        (click)="$event.stopPropagation(); editDialog(i)"
+                      >
+                        <span
+                          class="
+                            has-text-info
+                            is-family-primary
+                            has-text-weight-bold
+                            is-size-7
+                            px-3
+                          "
+                          id="closebtn"
+                          >Cancel</span
+                        >
+                      </button>
+
+                      <button
+
+                        class="
+                          button
+                          is-link is-family-primary
+                          has-text-weight-bold
+                          is-size-7
+                          px-4
+                        "
+                        (click)="$event.stopPropagation(); editAssessment(i)"
+
+                      >
+                        Save
+                      </button>
+                      </td>
+
+                      <td *ngIf = "!assessment.edit"class="td-users is-family-primary has-text-weight-normal has-text-centered is-size-5 py-2 px-1">
+                        <a class="action-icons" (click) = "$event.stopPropagation();editDialog(i)" ><i class="fas fa-pen  pr-2" matTooltip = "edit"></i></a>
+                        <a (click) = "$event.stopPropagation();deleteAssessment(assessment)" class="action-icons"><i class="fas fa-trash-alt  " matTooltip = "delete"></i></a>
+                        <a class="action-icons" (click) = "$event.stopPropagation(); publishUnpublishAssessment(i)" ><img  [src]="
+                          assessment.is_published
+                            ? '/assets/images/assessment/publish.png'
+                            : '/assets/images/assessment/unpublish.png'
+                        "  style="margin-left: 10px; margin-bottom: -3px;"
+                        [matTooltip] = "
+                        assessment.is_published
+                          ? 'published'
+                          : 'pending'"
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <nav class="  has-background-white">
+                <div class="container">
+                  <div
+                    class="pagination is-right pr-6 pt-3"
+                    role="navigation"
+                    aria-label="pagination"
+                  >
+                    <ul class="pagination-list mt-1">
+                      <pagination-controls
+                        maxSize="6"
+                        class="my-pagination"
+                        autoHide="true"
+                        directionLinks="false"
+                        (pageChange)="currentPage = $event"
+                      ></pagination-controls>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div></section></div>
+      </div>
+    </div>
+
+  </div>
+
+

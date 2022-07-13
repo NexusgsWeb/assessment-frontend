@@ -1,0 +1,60 @@
+<div class="is-pulled-right" style="padding-left: 20px">
+  <p style="font-weight: bold; margin-bottom: 20px">
+    Mark : {{ QuestionDetails.mark || "Mark Not Found" }}
+  </p>
+</div>
+<div
+  [ngClass]="{
+    __disabled: isDisabled
+  }"
+>
+  <div class="columns is-multiline">
+    <div
+      class="
+        is-normal is-family-primary
+        has-text-weight-medium
+        control
+        is-expanded is-fullwidth
+        has-background-white-ter
+        column
+        is-12
+      "
+      style="border: 2px solid #3f80bf; min-height: 45px"
+    >
+    <div *ngIf = "containsNBSP(QuestionDetails?.questionText) == false"
+      [mathjax]="QuestionDetails?.questionText ||
+      'There was an error loading your question..'"></div>
+
+  <div *ngIf = "containsNBSP(QuestionDetails?.questionText) == true"
+  [innerHTML]="QuestionDetails?.questionText ||
+  'There was an error loading your question..'" ></div>
+    </div>
+  </div>
+  <!-- Answers-->
+  <span class="column is-9-desktop is-8-tablet is-inline-block">
+    <span class="control has-icons-right">
+      <input
+        class="
+          input
+          is-normal is-family-primary
+          has-text-weight-medium
+          is-size-7
+          py-5
+          has-background-white
+        "
+        type="number"
+        [(ngModel)]="questionAns"
+        placeholder="Type Your Answer"
+      />
+    </span>
+  </span>
+  <div class="columns" style="margin-bottom: 35px">
+    <div class="column is-12">
+      <div class="is-pulled-right" style="margin: 30px">
+        <button MADBtn (click)="confirmAnswer()" *ngIf="isDisabled === false">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

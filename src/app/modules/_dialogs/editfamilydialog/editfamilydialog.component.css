@@ -1,0 +1,66 @@
+/* Responsive Modal */
+@media only screen and (max-width: 768px) {
+  .responsiveness {
+    width: 450px;
+  }
+}
+@media only screen and (max-width: 3000px) and (min-width: 1024px) {
+  .responsiveness {
+    width: 1000px;
+  }
+}
+@media only screen and (max-width: 1023px) and (min-width: 769px) {
+  /*tablet*/
+  .responsiveness {
+    width: 800px;
+  }
+}
+/* Ng-select fixes */
+.ng-select .ng-select-container {
+  background-color: #f3f3f4;
+  border-radius: 4.6px;
+  border: 1px solid transparent;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  font-size: 0.75rem !important;
+  line-height: 30px;
+}
+.ng-select.ng-select-opened > .ng-select-container {
+  background: #f3f3f4;
+  border-color: transparent;
+}
+.ng-select.ng-select-disabled > .ng-select-container {
+  background-color: red;
+}
+.ng-select .ng-select-disabled .ng-arrow-wrapper {
+  display: none;
+}
+/* photo fix */
+.select-photo-btn :hover {
+  cursor: pointer;
+}
+.choose-photo-text {
+  padding-left: 10px;
+  color: white;
+}
+.choose-photo-text-container {
+  background-color: #f1a420;
+  margin: 0;
+  padding: 14.5px 0;
+}
+/* validations */
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.ng-select.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.ng-select.ng-select-disabled > .ng-select-container {
+  background-color: red;
+}
+.valid-email {
+  color: green;
+}

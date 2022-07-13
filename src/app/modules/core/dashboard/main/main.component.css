@@ -1,0 +1,5 @@
+.mat-expansion-panel-body {
+  background-color: #e2dddd20;
+}
+
+.mat-expansion-indicator::after, .mat-expansion-panel-header-description { color: #3f81c3;}

@@ -1,0 +1,1062 @@
+<div class="message-body-content is-family-primary has-text-weight-medium">
+  <div
+    class="section is-small has-background-white pt-1 pb-4 px-3"
+    style="border-radius: 13px"
+  >
+    <div class="columns">
+      <div class="column has-text-centered pt-6">
+        <span class="column logo is-full-mobile">
+          <figure class="image is-inline-block mb-0">
+            <!-- <img
+              style="width: 96px; height: 96px; border-radius: 25px"
+              class="mt-2"
+              src="{{ this.orgLogo}}"
+              (error)="onImageError()"
+              alt=""
+            /> -->
+            <img  (click)="triggerUpload()" style="width: 96px; height: 96px; border-radius: 25px"
+            class="mt-2"
+            src="{{ this.orgLogo}}"
+            alt=""/>
+
+ <input type="file" (change)="onSelectImage($event)" style="display:none" id="fileInput" name="filedata"/>
+
+          </figure>
+        </span>
+        <div *ngIf="isBeingEdited === true">
+          <span
+            class="
+              column
+              is-7 is-full-mobile is-size-6 is-family-primary
+              has-text-weight-medium
+              is-inline-block
+            "
+          >
+            <input
+              class="
+                column
+                is-7 is-full-mobile is-size-6 is-family-primary
+                has-text-weight-medium
+                is-inline-block
+              "
+            >
+              <input
+                class="
+                  input
+                  txt-name
+                  is-info
+                  canbeFocus
+                  is-small
+                  has-background-white
+                  is-size-6 is-family-primary
+                  has-text-weight-medium
+                "
+                [readonly]="isBeingEdited == false"
+                type="text"
+                #englishName="ngModel"
+                [(ngModel)]="organizationEdited.english_name"
+                name="englishName"
+                required
+                [ngClass]="{
+                  'is-focused': isBeingEdited == true,
+                  'is-danger': englishName.errors?.required
+                }"
+                style="text-align: center"
+                value="Organization Name (Code)"
+              />
+            </span>
+            <span class="column is-inline-block"></span>
+
+            <!--<p class="has-text-info is-family-primary has-text-weight-medium is-size-6"> إسم المنظمة </p>-->
+            <span class="column is-inline-block"></span>
+            <span class="column is-7 is-full-mobile is-inline-block">
+              <input
+                class="
+                  input
+                  txt-name
+                  has-text-info
+                  is-info is-focused is-small
+                  has-background-white
+                  is-size-6 is-family-primary
+                  has-text-weight-medium
+                "
+                #arabicName="ngModel"
+                [readonly]="isBeingEdited == false"
+                [ngClass]="{
+                  'is-focused': isBeingEdited == true,
+                  'is-danger': arabicName.errors?.required
+                }"
+                style="text-align: center"
+                type="text"
+                [(ngModel)]="organizationEdited.arabic_name"
+                name="arabicName"
+                required
+              />
+            </span>
+
+            <span class="column is-inline-block"></span>
+            <span
+              class="
+                column
+                is-7 is-full-mobile is-size-6 is-family-primary
+                has-text-weight-medium
+                is-inline-block
+              "
+            >
+              <input
+                class="
+                  input
+                  txt-name
+                  has-text-dark
+                  is-info
+                  canbeFocus
+                  is-small
+                  has-background-white
+                  is-size-7 is-family-primary
+                  has-text-weight-medium
+                "
+                style="text-align: center"
+                [readonly]="isBeingEdited == false"
+                #organizationUrl="ngModel"
+                [ngClass]="{
+                  'is-focused': isBeingEdited == true,
+                  'is-danger': organizationUrl.errors?.required
+                }"
+                type="text"
+                [(ngModel)]="organizationEdited.organization_url"
+                name="arabicName"
+                required
+              />
+            </span>
+          </div>
+          <div *ngIf="isBeingEdited === false">
+            <p
+              class="
+                has-text-info
+                is-family-primary
+                has-text-weight-medium
+                is-size-6
+                pb-2
+              "
+            >
+              {{ organizations.english_name }} ({{ organizations.code }})
+            </p>
+            <p
+              class="
+                has-text-info
+                is-family-primary
+                has-text-weight-medium
+                is-size-6
+                pb-2
+              "
+            >
+              {{ organizations.arabic_name }}
+            </p>
+            <p
+              class="
+                has-text-dark
+                is-family-primary
+                has-text-weight-medium
+                is-size-7
+              "
+            >
+              {{ organizations.organization_url }}
+            </p>
+          </div>
+        </div>
+
+        <div class="column is-half">
+          <table class="table is-fullwidth mb-3" *ngIf="isBeingEdited == true">
+            <tbody>
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img class="is-rounded" src="assets/images/email.png" />
+                  </figure>
+                </td>
+
+                <td
+                  class="
+                    is-family-primary
+                    has-text-weight-medium
+                    is-size-6
+                    pl-0
+                    pt-3
+                    has-text-left
+                  "
+                >
+                  <input
+                    class="
+                      input
+                      txt-name
+                      has-text-dark
+                      is-info
+                      canbeFocus
+                      is-small
+                      has-background-white
+                      is-size-6 is-family-primary
+                      has-text-weight-medium
+                    "
+                    #email="ngModel"
+                    [(ngModel)]="organizationEdited.email"
+                    name="email"
+                    [readonly]="isBeingEdited == false"
+                    required
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+"
+                    [ngClass]="{
+                      'is-focused': isBeingEdited == true,
+                      'is-danger':
+                        email.errors?.pattern || email.errors?.required
+                    }"
+                    type="text"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img class="is-rounded" src="assets/images/call.png" />
+                  </figure>
+                </td>
+                <td
+                  class="
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                    pl-0
+                    pt-3
+                    has-text-left
+                  "
+                >
+                  <input
+                    class="
+                      input
+                      txt-name
+                      has-text-dark
+                      is-info
+                      canbeFocus
+                      is-small
+                      has-background-white
+                      is-size-6 is-family-secondary
+                      has-text-weight-medium
+                    "
+                    type="text"
+                    #phone1="ngModel"
+                    [readonly]="isBeingEdited == false"
+                    [ngClass]="{
+                      'is-focused': isBeingEdited == true,
+                      'is-danger': phone1.errors?.required
+                    }"
+                    required
+                    [(ngModel)]="organizationEdited.phone1"
+                    name="phone1"
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img
+                      class="is-rounded"
+                      src="assets/images/mobile_number.png"
+                    />
+                  </figure>
+                </td>
+
+                <td
+                  class="
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                    pl-0
+                    pt-3
+                    has-text-left
+                  "
+                >
+                  <input
+                    class="
+                      input
+                      txt-name
+                      has-text-dark
+                      is-info
+                      canbeFocus
+                      is-small
+                      has-background-white
+                      is-size-6 is-family-secondary
+                      has-text-weight-medium
+                    "
+                    [readonly]="isBeingEdited == false"
+                    #mobile="ngModel"
+                    [ngClass]="{
+                      'is-focused': isBeingEdited == true,
+                      'is-danger': mobile.errors?.required
+                    }"
+                    type="text"
+                    [(ngModel)]="organizationEdited.mobile"
+                    name="mobile"
+                    required
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img class="is-rounded" src="assets/images/location.png" />
+                  </figure>
+                </td>
+                <td
+                  class="
+                    is-family-primary
+                    has-text-weight-medium
+                    is-size-6
+                    has-text-left
+                    pl-0
+                    pt-3
+                  "
+                >
+                  <input
+                    class="
+                      input
+                      txt-name
+                      has-text-dark
+                      is-info
+                      canbeFocus
+                      is-small
+                      has-background-white
+                      is-size-6 is-family-primary
+                      has-text-weight-medium
+                    "
+                    #address="ngModel"
+                    [readonly]="isBeingEdited == false"
+                    [ngClass]="{
+                      'is-focused': isBeingEdited == true,
+                      'is-danger': address.errors?.required
+                    }"
+                    required
+                    type="text"
+                    [(ngModel)]="organizationEdited.address"
+                    name="address"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td class="pb-0 mb-0"></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- -->
+          <table class="table is-fullwidth mb-3" *ngIf="isBeingEdited == false">
+            <tbody>
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img class="is-rounded" src="assets/images/email.png" />
+                  </figure>
+                </td>
+
+                <td
+                  class="
+                    is-family-primary
+                    has-text-weight-medium
+                    is-size-6
+                    pl-0
+                    pt-3
+                    has-text-left
+                  "
+                >
+                  {{ organizations.email }}
+                </td>
+              </tr>
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img class="is-rounded" src="assets/images/call.png" />
+                  </figure>
+                </td>
+
+                <td
+                  class="
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                    pl-0
+                    pt-3
+                    has-text-left
+                  "
+                >
+                  {{ organizations.phone1 }}
+                </td>
+              </tr>
+
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img
+                      class="is-rounded"
+                      src="assets/images/mobile_number.png"
+                    />
+                  </figure>
+                </td>
+
+                <td
+                  class="
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                    pl-0
+                    pt-3
+                    has-text-left
+                  "
+                >
+                  {{ organizations.mobile }}
+                </td>
+              </tr>
+              <tr>
+                <td class="has-text-centered px-0">
+                  <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                    <img class="is-rounded" src="assets/images/location.png" />
+                  </figure>
+                </td>
+
+                <td
+                  class="
+                    is-family-primary
+                    has-text-weight-medium
+                    is-size-6
+                    has-text-left
+                    pl-0
+                    pt-3
+                  "
+                >
+                  {{ organizations.address }}
+                </td>
+              </tr>
+              <tr>
+                <td class="pb-0 mb-0"></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- -->
+          <div class="columns is-multiline" *ngIf="isBeingEdited == true">
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <div
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                Licence type:
+              </div>
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd
+                  has-text-black
+                  is-full-mobile is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info
+                    canbeFocus
+                    is-small
+                    has-background-white
+                    is-size-6 is-family-primary
+                    has-text-weight-medium
+                    is-inline-block
+                  "
+                  [readonly]="!isBeingEdited == false"
+                  #licenseType="ngModel"
+                  [ngClass]="{
+                    'is-focused': isBeingEdited == true,
+                    'is-danger': licenseType.errors?.required
+                  }"
+                  required
+                  type="text"
+                  [(ngModel)]="organizationEdited.license_type"
+                  name="licenseType"
+              /></span>
+            </span>
+
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <span
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+                >Total Students:</span
+              >
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd is-full-mobile
+                  has-text-black
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info is-small
+                    has-background-white
+                    is-size-6 is-family-secondary
+                    has-text-weight-medium
+                  "
+                  readonly
+                  type="text"
+                  value="organizationEdited.students_count"
+              /></span>
+            </span>
+
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <span
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+                >Licence date:</span
+              >
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd is-full-mobile
+                  has-text-black
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info
+                    canbeFocus
+                    is-small
+                    has-background-white
+                    is-size-6 is-family-primary
+                    has-text-weight-medium
+                    is-inline-block
+                  "
+                  [readonly]="isBeingEdited == false"
+                  #licenseDate="ngModel"
+                  [ngClass]="{
+                    'is-focused': isBeingEdited == true,
+                    'is-danger': licenseDate.errors?.required
+                  }"
+                  required
+                  type="text"
+                  [(ngModel)]="organizationEdited.license_type"
+                  name="licenseDate"
+                  value="Basic Package"
+              /></span>
+            </span>
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <span
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+                >Total Parents:</span
+              >
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd is-full-mobile
+                  has-text-black
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info is-small
+                    has-background-white
+                    is-size-6 is-family-secondary
+                    has-text-weight-medium
+                  "
+                  readonly
+                  type="text"
+                  value="organizationEdited.parents_count"
+
+              /></span>
+            </span>
+
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <span
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+                >Duration:</span
+              >
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd is-full-mobile
+                  has-text-black
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info
+                    canbeFocus
+                    is-small
+                    has-background-white
+                    is-size-6 is-family-primary
+                    has-text-weight-medium
+                  "
+                  readonly
+                  [ngClass]="{
+                    'is-focused': isBeingEdited == true
+                  }"
+                  type="text"
+                  value="duration"
+              /></span>
+            </span>
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <span
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+                >Total Employees:</span
+              >
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd is-full-mobile
+                  has-text-black
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info is-small
+                    has-background-white
+                    is-size-6 is-family-secondary
+                    has-text-weight-medium
+                  "
+                  readonly
+                  type="text"
+                  value="organizationEdited.employees_count"
+
+              /></span>
+            </span>
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <span
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+                >License Number</span
+              >
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd is-full-mobile
+                  has-text-black
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info is-small
+                    has-background-white
+                    is-size-6 is-family-secondary
+                    has-text-weight-medium
+                  "
+                  [readonly]="isBeingEdited == false"
+                  #licenseNumber="ngModel"
+                  [ngClass]="{
+                    'is-focused': isBeingEdited == true,
+                    'is-danger': licenseNumber.errors?.required
+                  }"
+                  type="text"
+                  [(ngModel)]="organizationEdited.license_number"
+                  name="licenseNumber"
+                  value="Basic Package"
+                  required
+              /></span>
+            </span>
+
+            <span
+              class="
+                column
+                is-full-mobile
+                is-two-fifths-desktop
+                is-two-fifths-tablet
+                is-inline-block
+              "
+            >
+              <span
+                class="
+                  column
+                  is-full-mobile is-inline-block
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+                >Renewal Date:</span
+              >
+              <span
+                class="
+                  column
+                  is-two-thirds-fullhd is-full-mobile
+                  has-text-black
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                  mr-2
+                "
+              >
+                <input
+                  class="
+                    input
+                    txt-name
+                    has-text-black
+                    is-info
+                    canbeFocus
+                    is-small
+                    has-background-white
+                    is-size-6 is-family-secondary
+                    has-text-weight-medium
+                  "
+                  [readonly]="isBeingEdited == false"
+                  [ngClass]="{
+                    'is-focused': isBeingEdited == true,
+                    'is-danger': licenseExpirationDate.errors?.required
+                  }"
+                  type="date"
+                  #licenseExpirationDate="ngModel"
+                  name="licenseExpirationDate"
+                  [ngModel]="
+                    organizationEdited.license_expiration_date | slice: 0:10
+                  "
+                  (ngModelChange)="EditedSchool.licenseExpirationDate = $event"
+                  required
+                />
+              </span>
+            </span>
+          </div>
+          <table style="width: 100%" *ngIf="isBeingEdited == false">
+            <tr>
+              <td
+                class="
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                  has-text-left
+                "
+              >
+                Licence type:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >{{ organizations.license_type }}</span
+                >
+              </td>
+              <td
+                class="
+                  has-text-info
+                  pl-6
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                  has-text-left
+                "
+              >
+                Total Students:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >
+                  {{organizations.students_count}}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                  has-text-left
+                "
+              >
+                Licence date:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >{{ organizations.license_type }}</span
+                >
+              </td>
+              <td
+                class="
+                  has-text-info
+                  pl-6
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                  has-text-left
+                "
+              >
+                Total Parents:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >{{organizations.parents_count}}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                Duration:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >{{this.duration}}</span
+                >
+              </td>
+              <td
+                class="
+                  has-text-info
+                  pl-6
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                Total Employees:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >{{organizations.parents_count}}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                "
+              >
+                Renewal Date:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >{{ organizations.license_expiration_date | slice: 0:10 }}</span
+                >
+              </td>
+              <td
+                class="
+                  has-text-info
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-6
+                  pl-6
+                "
+              >
+                License Number:
+                <span
+                  class="
+                    txt-phone
+                    has-text-black
+                    is-family-secondary
+                    has-text-weight-medium
+                    is-size-6
+                  "
+                  >{{ organizations.license_number }}</span
+                >
+              </td>
+            </tr>
+          </table>
+          <button
+            style="margin-top: 10px"
+            MADBtn
+            *ngIf="!isBeingEdited"
+            (click)="handleEditOrganization()"
+          >
+            Edit
+          </button>
+          <span *ngIf="isBeingEdited">
+            <button (click)="didPressCancel()" style="margin: 10px" MADBtn>
+              Cancel
+            </button>
+            <button
+              style="margin: 10px"
+              (click)="didPressSave()"
+              MADBtn
+            >
+              Save
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+                <!-- [disabled]="EditOrganizationForm.invalid" -->

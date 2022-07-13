@@ -1,0 +1,364 @@
+<div id="modal">
+  <div class="columns">
+    <div class="column is-4">
+      <button
+        class="button clicked is-info is-outlined is-large is-fullwidth"
+       
+        (click)="switchToLebanese()"
+      >
+        <span
+          class="
+            is-size-5-mobile
+            is-size-7-tablet
+            is-size-6-desktop
+            is-size-5-widescreen
+            is-family-primary
+            has-text-weight-semibold
+            pl-0
+            mr-0
+          "
+        >
+          Lebanese Curriculum</span
+        >
+      </button>
+    </div>
+    <div class="column is-4">
+      <button
+        class="button is-focused is-info is-outlined is-large is-fullwidth"
+        (click)="switchToAmerican()"
+      >
+        <span
+          class="
+            is-size-7-tablet
+            is-size-6-desktop
+            is-size-5-widescreen
+            is-size-5-mobile
+            is-family-primary
+            has-text-weight-semibold
+            pl-0
+            mr-0
+          "
+          >American Curriculum</span
+        >
+      </button>
+    </div>
+    <div class="column is-4">
+      <button
+        class="button clicked is-info is-outlined is-large is-fullwidth"
+        (click)="switchToBritish()"
+      >
+        <span
+          class="
+            is-size-5-mobile
+            is-size-7-tablet
+            is-size-6-desktop
+            is-size-5-widescreen
+            is-family-primary
+            has-text-weight-semibold
+            pl-0
+            mr-0
+          "
+          >British Curriculum
+        </span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-content responsiveness">
+    <div
+      class="section is-small has-background-white pt-2 px-3"
+      style="border-radius: 13px"
+    >
+      <!-- <div class="columns is-12-desktop is-12-widescreen pt-2 mb-2 mx-6">
+        <div class="column is-7-mobile mr-3">
+          <button class="button is-info is-outlined is-large is-fullwidth">
+            <span
+              class="
+                is-size-5-mobile
+                is-size-7-tablet
+                is-size-6-desktop
+                is-size-5-widescreen
+                is-family-primary
+                has-text-weight-semibold
+                pl-0
+                mr-0
+              "
+            >
+              Lebanese Curriculum</span
+            >
+          </button>
+        </div>
+        <div class="column is-7-mobile mr-3">
+          <button
+            class="button is-info is-outlined is-large is-fullwidth is-focused"
+          >
+            <span
+              class="
+                is-size-7-tablet
+                is-size-6-desktop
+                is-size-5-widescreen
+                is-size-5-mobile
+                is-family-primary
+                has-text-weight-semibold
+                pl-0
+                mr-0
+              "
+              >American Curriculum</span
+            >
+          </button>
+        </div>
+        <div class="column is-7-mobile mr-3">
+          <button class="button is-info is-outlined is-large is-fullwidth">
+            <span
+              class="
+                is-size-5-mobile
+                is-size-7-tablet
+                is-size-6-desktop
+                is-size-5-widescreen
+                is-family-primary
+                has-text-weight-semibold
+                pl-0
+                mr-0
+              "
+              >British Curriculum
+            </span>
+          </button>
+        </div>
+      </div> -->
+      <div class="columns is-multiline mx-3 pt-3">
+        <div
+          class="
+            column
+            is-1
+            has-text-weight-bold
+            is-size-5
+            has-text-left has-text-dark
+            pt-4
+          "
+        >
+          Grade
+        </div>
+
+        <div class="column is-2 is-block">
+          <div
+            class="
+              
+              is-normal is-fullwidth is-family-primary
+              has-text-weight-medium
+              is-size-6
+            "
+          >
+          <ng-select
+          #ngg
+          id="ngSelect"
+          class="custom"
+          [items]="curriculumGrades"
+          bindLabel="name"
+          (change)="onSelectGrade($event)"
+          notFoundText="Not Found"
+          placeholder="Select grade"
+          [closeOnSelect]="true"
+          [searchable]="false"
+          [hideSelected]="false"
+          style="overflow: visible;"
+          [(ngModel)]="selectedGrade"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            <div title="{{ item.name }}">{{ item.name }}</div>
+          </ng-template>
+        </ng-select>
+          </div>
+        </div>
+      </div>
+     
+      <div
+        class="columns is-multiline mx-3 mb-0"
+        *ngFor="let american of chosenAmerican; let i = index"
+      >
+        <div
+          class="
+            column
+            is-1
+            has-text-weight-bold
+            is-size-5
+            has-text-left has-text-dark
+            pt-4
+          "
+        >
+          Domain
+        </div>
+
+        <div class="column">
+          <div
+            class="
+              is-normal is-fullwidth is-family-primary
+              has-text-weight-medium
+              is-size-6
+            "
+          >
+            <ng-select
+              #ngg
+              id="ngSelect"
+              class="custom"
+              [items]="domains"
+              bindLabel="name"
+              notFoundText="Not Found"
+              placeholder="Select domain"
+              [closeOnSelect]="true"
+              [searchable]="false"
+              [hideSelected]="false"
+              style="overflow: visible;"
+              (change)="onSelectDomain($event, i)"
+              [(ngModel)]="american.domain"
+            >
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{ item.name }}">{{ item.name }}</div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="column is-2 has-text-right mx-3">
+          <span
+            class="
+              is-inline-block
+              has-text-weight-bold
+              is-size-5
+              has-text-left has-text-dark
+              pt-4
+            "
+            >Learning Objective</span
+          >
+        </div>
+        <div class="column">
+          <div
+            class="
+              is-normal is-fullwidth is-family-primary
+              has-text-weight-medium
+              is-size-6
+            "
+          >
+            <ng-select
+              #ngg
+              id="ngSelect"
+              class="custom"
+              [items]="domainLoMap[i].los"
+              bindLabel="displayName"
+              notFoundText="Not Found"
+              placeholder="Select learning Objective"
+              [closeOnSelect]="true"
+              [searchable]="false"
+              [hideSelected]="false"
+              style="overflow: visible;"
+              (change) = "onChangeLO()"
+              [(ngModel)]="american.learningObjective"
+            >
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{ item.displayName }}">{{ item.displayName }}</div>
+              </ng-template>
+            </ng-select>
+          </div>
+        </div>
+       
+        <div class="column is-narrow is-inline-block">
+          <button class="button btn-icon-plus is-medium" (click)="removeRow(i)">
+            <span class="is-size-5-tablet is-family-primary"
+              ><i
+                class="fas fa-times has-text-blue is-size-5"
+                style="opacity: 0.5"
+              ></i>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="column is-11-tablet is-12-desktop is-hidden-mobile">
+        <div class="field is-grouped is-grouped-right pb-2 pr-5 pt-5">
+          <div class="control">
+            <button class="button is-link is-outlined is-rounded" (click) = "addLO()">
+              <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                <img
+                  class=""
+                  src="https://bulma.io/images/placeholders/128x128.png"
+                />
+              </figure>
+              <span
+                class="ml-1 is-size-7 is-family-primary has-text-weight-normal"
+                id="lanuchModal"
+                >Add Learning Standard
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-multiline mx-3 pt-3 mb-0" *ngFor = "let lo of selectedLOs; let i = index">
+        <div
+          class="
+            column
+            is-1
+            has-text-weight-bold
+            is-size-5
+            has-text-left has-text-dark
+            pt-4
+          "
+        >
+          Learning Objective
+        </div>
+
+        <div class="column">
+          <div
+            class="
+              
+              is-normal is-fullwidth is-family-primary
+              has-text-weight-medium
+              is-size-6
+            "
+          >
+          <ng-select
+          #ngg
+          id="ngSelect"
+          class="custom"
+          [items]="learningObjectives"
+          bindLabel="displayName"
+          notFoundText="Not Found"
+          placeholder="Select learning Objective"
+          [closeOnSelect]="true"
+          [searchable]="false"
+          [hideSelected]="false"
+          style="overflow: visible;"
+          (change) = "onChangeLO()"
+          [(ngModel)]="lo.lo"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            <div title="{{ item.displayName }}">{{ item.displayName }}</div>
+          </ng-template>
+        </ng-select>
+          </div>
+        </div>
+
+       
+        <div class="column is-narrow is-inline-block">
+          <button class="button btn-icon-plus is-medium" (click) = "removeRow(i)">
+            <span class="is-size-5-tablet is-family-primary"
+              ><i
+                class="fas fa-times has-text-blue is-size-5"
+                style="opacity: 0.5"
+              ></i>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

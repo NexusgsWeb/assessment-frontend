@@ -1,0 +1,63 @@
+<div class="section is-large has-background-grey-light pt-3 px-4">
+    <nav
+      class="breadcrumb has-succeeds-separator py-1 mb-3"
+      aria-label="breadcrumbs"
+    >
+  
+
+    <breadcrumb #parent>
+      <ol>
+        <li
+            *ngIf="!parent.breadcrumbs[0].terminal"
+            
+          >
+            <a href="" class="is-family-primary has-text-weight-bold  is-size-5 pl-4 " [routerLink]="[parent.breadcrumbs[0].url]">My Home</a>
+          </li>
+        <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+          <li
+            *ngIf="!route.terminal"
+          >
+            <a href="" class="is-family-primary has-text-weight-bold  is-size-5  " [routerLink]="[route.url]">{{ route.displayName }}</a>
+          </li>
+
+          <li *ngIf = "route.terminal" class = "is-active is-family-primary has-text-weight-bold  is-size-5">  <a aria-current="page" class="">{{this.orgName}}</a>
+          </li>
+
+          <li *ngIf = "route.terminal" class = "is-active is-family-primary has-text-weight-bold  is-size-5">  <a aria-current="page" class="">View School</a>
+          </li>
+
+        </ng-template>
+      </ol>
+    </breadcrumb>    
+    </nav>
+    <div
+      class="is-medium has-background-white pt-2 px-3"
+      style="border-radius: 13px"
+    >
+      <p
+        class="
+          has-text-right
+          is-family-primary
+          has-text-weight-semibold
+          is-size-7
+          mr-2
+        "
+      >
+        <figure class="image is-16x16 has-text-right is-inline-block my-0 ml-0">
+          <img class="" src="assets/images/newOrganization.png" />
+        </figure>
+        <a
+          class="is-family-primary has-text-weight-semibold is-size-7 mr-2 ml-2"
+          style="color: #3f81c3"
+          (click) = "addNewSchoolDialog()"
+          >New School</a
+        >
+      </p>
+      <div>
+        <app-view-schools
+            [SelectedOrganization]="selectedOrganization"
+            [schoolId] = "schoolId"
+        ></app-view-schools>
+      </div>
+      </div>
+      

@@ -1,0 +1,35 @@
+image: node:14
+
+# Add Cashing for node modules
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - deploy
+
+before_script:
+  - echo "Installing dependences ..."
+  - npm install -g @angular/cli
+  - npm install -g npm
+  - npm install -g serverless
+
+deploy to staging:
+  only:
+    - staging
+  stage: deploy
+  script:
+    - ng build
+    - serverless client deploy --no-confirm --subdomain school --stage dev --verbose
+
+  environment: dev
+
+deploy to master:
+  only:
+    - master
+  stage: deploy
+  script:
+    - ng build
+    - serverless client deploy --no-confirm --subdomain school --stage dev --verbose
+
+  environment: dev

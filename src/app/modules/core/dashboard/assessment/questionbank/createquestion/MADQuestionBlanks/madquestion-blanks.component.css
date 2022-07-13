@@ -1,0 +1,50 @@
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: #232323;
+}
+.button.is-info.is-outlined {
+  background-color: rgba(63, 128, 191, 0.05);
+  border-color: rgba(63, 128, 191, 0.05);
+  color: #3f80bf;
+  border-radius: 14px;
+}
+.btn-icon {
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  color: #3f81c3;
+  border-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+}
+.btn-sub-icon {
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  border-color: rgba(243, 243, 244, 0.26);
+}
+.input-options {
+  background-color: rgba(243, 243, 244, 0.43);
+  border-radius: 4.6px;
+}
+.icon-grey {
+  color: #c0c0c0;
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  border-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+}
+.input {
+  color: black;
+}
+.correct-option {
+  color: green;
+}
+.invalid-feedback {
+  border-color: red;
+}
+.valid-feedback {
+  border-color: green;
+}
+.invalid {
+  border-color: red;
+}
+.__disabled {
+  pointer-events: none;
+}

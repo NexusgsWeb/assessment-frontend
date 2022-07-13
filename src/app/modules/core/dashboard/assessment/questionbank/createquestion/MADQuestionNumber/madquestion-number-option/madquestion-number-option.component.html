@@ -1,0 +1,56 @@
+<div class="columns">
+  <span class="column is-1"> </span>
+  <span class="column is-1">
+    <!-- <button class="button btn-icon is-medium" (click)="handleDidDelete(answer)">
+      <i class="fas fa-times has-text-blue"></i>
+    </button> -->
+  </span>
+  <span class="column is-half-desktop">
+    <span class="field">
+      <div class="columns is-multiline" style="height: 100%; width: 100%">
+        <span class="column is-inline-block">
+          <span class="field">
+            <p class="control is-expanded">
+              <input
+                class="
+                  input input-options
+                  is-normal is-family-primary
+                  has-text-weight-medium
+                  is-size-7
+                  py-5
+                "
+                type="number"
+                [(ngModel)]="answer.answerText"
+                placeholder="1"
+              />
+            </p>
+            <p class="help"></p>
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>
+  <span class="column is-1">
+    <!-- <button
+      class="button btn-sub-icon is-medium"
+      (click)="handleToggleCorrectAnswer()"
+    >
+      <i
+        [ngClass]="{
+          'correct-option': this.answer.isCorrect
+        }"
+        class="fas fa-check has-text-blue"
+      ></i>
+    </button> -->
+  </span>
+  <!-- <span class="column" style="text-align: start" *ngIf="isLastElement">
+    <span style="display: inline-block">
+      <button class="button btn-icon-plus is-medium" (click)="didAdd()">
+        <span
+          class="is-size-3 is-size-7-desktop is-size-5-tablet is-family-primary"
+          ><i class="fas fa-plus has-text-blue"></i>
+        </span>
+      </button>
+    </span>
+  </span> -->
+</div>

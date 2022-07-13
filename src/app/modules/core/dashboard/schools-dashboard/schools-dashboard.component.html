@@ -1,0 +1,209 @@
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+id="MathJax-script"
+async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+
+<div *ngIf = "isEmployee == true || isAdmin == true">
+  <div class="control">
+    <button
+    class="
+    button
+    is-outlined
+    has-background-info
+    is-fullwidth is-normal
+    ml-6
+    mb-6
+    mt-4
+    "
+    style="width: 200px"
+    [routerLink]="'academics'"
+    >
+    <span
+    class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+    >Academic Year</span
+    >
+  </button>
+</div>
+
+<div class="control">
+  <button
+  class="
+  button
+  is-outlined
+  has-background-info
+  is-fullwidth is-normal
+  ml-6
+  mb-6
+  "
+  style="width: 200px"
+  [routerLink]="'subjects'"
+  >
+  <span
+  class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+  >Subjects</span
+  >
+</button>
+</div>
+
+
+
+</div>
+<div *ngIf = "isStudent">
+  
+  <div class="control">
+    <button
+    class="
+    button
+    is-outlined
+    has-background-info
+    is-fullwidth is-normal
+    ml-6
+    mb-6
+    mt-6
+    "
+    style="width: 200px"
+    (click)="didClickNavigate('assessment/viewAssessments/student')"
+    >
+    <span
+    class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+    >View Assessments</span
+    >
+  </button>
+  </div>
+</div>
+
+<!-- <div class="control">
+  <button
+  class="
+  button
+  is-outlined
+  has-background-info
+  is-fullwidth is-normal
+  ml-6
+  mb-6
+  "
+  style="width: 200px"
+  [routerLink]="'employee/employeeApplication'"
+  >
+  <span
+  class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+  >Employees</span
+  >
+</button>
+</div> -->
+
+<!-- <div class="control">
+  <button
+  class="
+  button
+  is-outlined
+  has-background-info
+  is-fullwidth is-normal
+  ml-6
+  mb-6
+  "
+  style="width: 200px"
+  [routerLink]="'student/admissionApplication'"
+  >
+  <span
+  class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+  >Students</span
+  >
+</button>
+</div> -->
+<!-- <div class="control">
+  <button
+  class="
+  button
+  is-outlined
+  has-background-info
+  is-fullwidth is-normal
+  ml-6
+  mb-6
+  "
+  style="width: 400px"
+  [routerLink]="'../assessment/improvemyperformance/student'"
+  >
+  <span
+  class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+  >Improve Performance - Student</span
+  >
+</button>
+</div>
+<div class="control">
+  <button
+  class="
+  button
+  is-outlined
+  has-background-info
+  is-fullwidth is-normal
+  ml-6
+  mb-6
+  "
+  style="width: 400px"
+  [routerLink]="'../assessment/improvemyperformance/teacher'"
+  >
+  <span
+  class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+  >Improve Performance - Teacher</span
+  >
+</button>
+</div>
+<div class="control">
+  <button
+  class="
+  button
+  is-outlined
+  has-background-info
+  is-fullwidth is-normal
+  ml-6
+  mb-6
+  "
+  style="width: 200px"
+  [routerLink]="'../assessment/viewAssessments/student'"
+  >
+  <span
+  class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+  >Take Assessment</span
+  >
+</button>
+</div>
+<div class="control">
+  <button
+  class="
+  button
+  is-outlined
+  has-background-info
+  is-fullwidth is-normal
+  ml-6
+  mb-6
+  "
+  style="width: 200px"
+  [routerLink]="'../assessment/questionbank'"
+  >
+  <span
+  class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+  >QuestionsBank</span
+  >
+</button>
+
+<input
+type="text"
+#eqInput
+(input)="typed(eqInput.value)"
+style="width: 100%; height: 50px"
+/> -->
+
+<!-- <ng-katex 
+  [equation] = "equation"
+  
+  ></ng-katex> -->
+  
+  <!-- <ng-katex-paragraph [paragraph]="equation"></ng-katex-paragraph>
+  </div> -->
+  
+  
+  
+  

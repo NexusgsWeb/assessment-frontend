@@ -1,0 +1,505 @@
+.text-white {
+  color: #FFF !important;
+}
+
+.text-black {
+  color: #000 !important;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+
+.bg-danger {
+  background-color: #ff0000;
+}
+
+.border-danger {
+  border: 1px solid #ff0000;
+}
+
+.text-danger {
+  color: #ff0000;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin: 5px 0 0;
+}
+
+.mat-form-field-underline {
+  display: none !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--primary-color) !important;
+}
+
+.curriculum-update-container {
+  height: 100vh;
+
+  .mat-drawer {
+    width: 350px;
+    border: none;
+    padding: 2rem;
+
+    .mat-drawer-content {
+      overflow: hidden;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      font-family: Raleway !important;
+    }
+
+    .mat-form-field {
+      width: 99%;
+      font-family: Raleway !important;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:first-of-type {
+        margin-bottom: 1rem;
+      }
+    }
+
+    input[type=text],
+    textarea,
+    .mat-select {
+      padding-left: 5px;
+      outline: none;
+      border: 1px solid #d2deec;
+      border-radius: 4px;
+      height: 35px;
+      background-color: #f3f4f5;
+    }
+
+    textarea {
+      padding-left: 0;
+      height: 100px;
+      margin-top: 1rem;
+    }
+
+    .mat-select {
+      margin-top: 1rem;
+
+      .mat-select-trigger {
+        height: 35px;
+      }
+
+      .additional-selection {
+        opacity: 0.75;
+      }
+    }
+
+    .submit-container {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-top: 2rem;
+
+      button {
+        background-color: var(--primary-color);
+        color: #fff;
+        width: 60%;
+      }
+    }
+  }
+}
+
+.curriculum-mapping {
+  background-color: #fff;
+  padding: 2rem 0.9rem;
+  margin: 0 1.5rem 2rem;
+  border-radius: 10px;
+
+  .select-custom {
+    background-color: #a0c0df;
+    border-radius: 10px;
+
+    .mat-form-field-label {
+      padding: 2px 10px;
+    }
+
+    .mat-form-field-infix {
+      border: none;
+      padding: 7px;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-select-value {
+      color: #fff;
+    }
+
+    .mat-select-arrow-wrapper {
+      border: 1px solid #6a95be;
+      border-radius: 50%;
+      background-color: #6a95be;
+      height: 18px;
+      width: 18px;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        left: -2px;
+        top: -2px;
+        font-family: 'Material Icons';
+        font-size: 1.2rem;
+        content: "\e313";
+        color: #fff;
+      }
+
+      .mat-select-arrow {
+        border: none;
+      }
+    }
+  }
+
+  .select-basic {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    width: 150px;
+
+    .mat-form-field-label {
+      padding-left: 5px;
+    }
+
+    .mat-form-field-infix {
+      border: none;
+      padding: 5px 0 5px 5px;
+    }
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+
+    .mat-select-value {
+      color: #999;
+    }
+
+    .mat-select-arrow-wrapper {
+      background-color: #ddd;
+      height: 26px;
+      width: 25px;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        left: 5px;
+        font-family: 'Material Icons';
+        font-size: 1rem;
+        content: "\e313";
+        color: #fff;
+      }
+
+      .mat-select-arrow {
+        border: none;
+      }
+    }
+  }
+
+  .settings {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .configuration {
+      button {
+        border-radius: 15px;
+      }
+
+      .raised {
+        background-color: var(--primary-color);
+        color: #fff;
+      }
+
+      .stroked {
+        background-color: #fff;
+        color: var(--primary-color);
+      }
+    }
+  }
+
+  .conf-action-container {
+    margin-top: 1rem;
+  }
+
+  .new-unit {
+    cursor: pointer;
+    font-size: 1rem;
+
+    strong {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+  }
+
+  .learningStandards {
+    background-color: #f7f5f5;
+    margin: 1rem;
+    height: 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .unit {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f7f5f5;
+    border: none;
+
+    .save {
+      background: var(--primary-color);
+      // background: #84a43e;
+      color: #fff;
+      margin: 1rem 0;
+      // &:hover {
+      // }
+    }
+
+    .actions {
+      color: #c1c1c1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .mat-icon {
+        cursor: pointer;
+      }
+    }
+
+    &.input {
+      padding-top: 0;
+      padding-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      outline: none;
+
+      .mat-icon {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .lesson {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    margin: 3px;
+    padding: 0.5rem;
+    background-color: #f7f5f5;
+    border: none;
+
+    .actions {
+      color: #c1c1c1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .mat-icon {
+        cursor: pointer;
+        font-size: 1.3rem;
+      }
+    }
+
+    &.input {
+      padding-top: 0;
+      padding-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      outline: none;
+
+      .mat-icon {
+        cursor: pointer;
+      }
+    }
+
+    &.editing {
+      input {
+        width: 70%;
+        height: 34px;
+        border-radius: 0;
+      }
+    }
+  }
+
+  .unit-input {
+    text-align: left;
+    width: 95%;
+    height: 52px;
+    background-color: #f7f5f5;
+    border: none;
+    outline: none;
+  }
+
+  .lesson-input {
+    text-align: left;
+    font-size: 0.92rem;
+    width: 95%;
+    height: 32px;
+    background-color: #fff;
+    border: none;
+    outline: none;
+  }
+
+  .curriculum {
+    span.labeled {
+      margin-left: 10px;
+      background-color: #a0c0df;
+      padding: 5px;
+      color: #fff;
+      border-radius: 10px;
+    }
+  }
+}
+
+@media(min-width: 250px) {
+  .curriculum-update-container {
+    .mat-drawer {
+      width: 90%;
+
+      input[type=text] {
+        width: 80%;
+      }
+    }
+  }
+
+  .select-custom {
+    width: 100%;
+  }
+
+  .select-space {
+    margin: 1rem 0 0 0;
+  }
+
+  .settings {
+    flex-direction: column;
+
+    .curriculum {
+      margin-bottom: 1rem;
+    }
+
+    button {
+      width: 100%;
+    }
+
+    .spaced {
+      margin: 0 0 1rem 0;
+    }
+  }
+
+  .conf-action-container {
+    text-align: center;
+  }
+
+  .unit.editing,
+  .lesson.editing {
+    flex-direction: column;
+  }
+
+  .unit.editing{
+    padding: 1rem;
+  }
+
+  .learningStandards.editing {
+    height: auto;
+  }
+
+  .lesson.editing{
+    height: auto !important;
+    padding: 6px !important;
+  }
+
+
+  .new-unit {
+    margin-right: 0;
+  }
+}
+
+@media(min-width: 768px) {
+  .curriculum-update-container {
+    .mat-drawer {
+      width: 350px;
+
+      input[type=text] {
+        width: 60%;
+      }
+    }
+  }
+
+  .select-custom {
+    width: 130px;
+  }
+
+  .select-space {
+    margin: 0 0 0 1rem;
+  }
+
+  .settings {
+    flex-direction: row;
+
+    button {
+      width: auto;
+    }
+
+    .curriculum {
+      margin-bottom: 0;
+    }
+
+    .spaced {
+      margin: 0 1rem 0 0;
+    }
+  }
+
+  .conf-action-container {
+    text-align: right;
+  }
+
+  .new-unit {
+    margin-right: 1rem;
+  }
+}
+
+@media(min-width: 992px) {
+
+  .unit.editing,
+  .lesson.editing {
+    flex-direction: row;
+  }
+
+  .unit.editing{
+    padding: 0 1rem;
+  }
+
+  .learningStandards.editing {
+    height: 42px;
+  }
+
+  .lesson.editing{
+    height: 34px;
+    padding: 0 !important;
+  }
+}

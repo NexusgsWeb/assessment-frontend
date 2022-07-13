@@ -1,0 +1,789 @@
+<div class="section is-small pt-2 px-3" style="border-radius: 13px">
+  <p
+    class="is-family-primary has-text-weight-bold is-size-5 mt-0 pb-0 mb-0 px-1"
+    style="color: #3f81c3"
+  >
+    School Details
+  </p>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="columns is-multiline">
+        <div class="column is-4-desktop px-2 pt-2">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Name in English</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="name"
+                  [(ngModel)]="schoolCredentials.english_name"
+                  required=""
+                  #name="ngModel"
+                  [ngClass]="
+                    name.touched && !name.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  name="name"
+                  id="schoolName"
+                  type="text"
+                  placeholder="Enter your name in English"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="name.touched && !name.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="name.touched && !name.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-2 pt-2">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Name in Arabic</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="nameArabic"
+                  [(ngModel)]="schoolCredentials.arabic_name"
+                  required=""
+                  #nameArabic="ngModel"
+                  [ngClass]="
+                    nameArabic.touched && !nameArabic.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  name="nameInArabic"
+                  placeholder="Enter your name in Arabic"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="nameArabic.touched && !nameArabic.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="nameArabic.touched && !nameArabic.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-2 pt-2">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Code</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  id="schoolCode"
+                  name="code"
+                  [(ngModel)]="schoolCredentials.code"
+                  required=""
+                  #code="ngModel"
+                  [ngClass]="
+                    code.touched && !code.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  name="code"
+                  type="text"
+                  placeholder="Enter your Code"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="code.touched && !code.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="code.touched && !code.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+
+        <div class="column is-4-desktop px-3">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >School URL</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="schoolUrl"
+                  [(ngModel)]="schoolCredentials.school_url"
+                  required=""
+                  #schoolUrl="ngModel"
+                  id="schoolUrl"
+                  name="schoolUrl"
+                  [ngClass]="
+                    schoolUrl.touched && !schoolUrl.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  placeholder="Enter your School URL"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="schoolUrl.touched && !schoolUrl.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="schoolUrl.touched && !schoolUrl.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-3">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Email</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="email"
+                  [(ngModel)]="schoolCredentials.email"
+                  required=""
+                  #email="ngModel"
+                  id="schoolUrl"
+                  name="schoolEmail"
+                  [ngClass]="
+                    email.touched && !email.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  placeholder="Enter your School Email"
+                  required=""
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="email.touched && !email.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="email.touched && !email.valid"
+            >
+              Email is Invalid
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-3">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Website</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="website"
+                  [(ngModel)]="schoolCredentials.website"
+                  required=""
+                  #website="ngModel"
+                  id="website"
+                  name="website"
+                  [ngClass]="
+                  website.touched && !website.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  placeholder="Enter your website"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="website.touched && !website.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="website.touched && !website.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-3">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Phone number 1</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="phone1"
+                  [(ngModel)]="schoolCredentials.phone1"
+                  required=""
+                  #phone1="ngModel"
+                  id="phone1"
+                  name="phone1"
+                  [ngClass]="
+                  phone1.touched && !phone1.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  placeholder="Enter your phone number 1"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="phone1.touched && !phone1.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="phone1.touched && !phone1.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-3">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Phone number 2</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="phone2"
+                  [(ngModel)]="schoolCredentials.phone2"
+                  required=""
+                  #phone2="ngModel"
+                  id="phone2"
+                  name="phone2"
+                  [ngClass]="
+                  phone2.touched && !phone2.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  placeholder="Enter your phone number 1"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="phone2.touched && !phone2.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="phone2.touched && !phone2.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+
+
+        <div class="column is-4-desktop px-3">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Mobile phone</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="mobile"
+                  [(ngModel)]="schoolCredentials.mobile"
+                  required=""
+                  #mobile="ngModel"
+                  id="mobile"
+                  name="mobile"
+                  [ngClass]="
+                  mobile.touched && !mobile.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  placeholder="Enter your phone number 1"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="mobile.touched && !mobile.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="mobile.touched && !mobile.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+       
+
+        <div class="column is-4-desktop px-2">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >Address</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="address"
+                  [(ngModel)]="schoolCredentials.address"
+                  required=""
+                  #address="ngModel"
+                  id="schoolAddress"
+                  [ngClass]="
+                    address.touched && !address.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  name="license"
+                  type="text"
+                  placeholder="Enter your Address"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="address.touched && !address.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="address.touched && !address.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-2">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >License Type</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="licenseType"
+                  [(ngModel)]="schoolCredentials.license_type"
+                  required=""
+                  #licenseType="ngModel"
+                  id="schoolLicenseType"
+                  [ngClass]="
+                    licenseType.touched && !licenseType.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  name="license"
+                  type="text"
+                  placeholder="Enter your License Type"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="licenseType.touched && !licenseType.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="licenseType.touched && !licenseType.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+        <div class="column is-4-desktop px-2">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >License Duration</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="licenseExpirationDate"
+                  [(ngModel)]="schoolCredentials.license_expiration_date"
+                  required=""
+                  #licenseExpirationDate="ngModel"
+                  id="schoolLicenseDuration"
+                  name="licenseDuration"
+                  [ngClass]="
+                    licenseExpirationDate.touched &&
+                    !licenseExpirationDate.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="date"
+                  placeholder="Enter your License Duration"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="
+                    licenseExpirationDate.touched &&
+                    !licenseExpirationDate.valid
+                  "
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="
+                licenseExpirationDate.touched && !licenseExpirationDate.valid
+              "
+            >
+              Required
+            </p>
+          </div>
+        </div>
+
+        <div class="column is-4-desktop px-2">
+          <div class="field">
+            <label
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+              >License Number</label
+            >
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  name="licenseNumber"
+                  [(ngModel)]="schoolCredentials.license_number"
+                  required=""
+                  #licenseNumber="ngModel"
+                  id="schoolLicenseNumber"
+                  name="licenseNumber"
+                  [ngClass]="
+                    licenseNumber.touched && !licenseNumber.valid
+                      ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                      : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                  "
+                  type="text"
+                  placeholder="Enter your License Number"
+                  (keypress)="numberOnly($event)"
+                  required=""
+                />
+              </span>
+              <span class="control">
+                <a
+                  class="button is-danger is-medium"
+                  *ngIf="licenseNumber.touched && !licenseNumber.valid"
+                >
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+            <p
+              class="help is-danger is-family-primary has-text-weight-semibold"
+              *ngIf="licenseNumber.touched && !licenseNumber.valid"
+            >
+              Required
+            </p>
+          </div>
+        </div>
+
+        <div class="column is-4-desktop px-2">
+          <div class="field">
+            <p
+              class="
+                label
+                input-title-required
+                is-family-primary
+                has-text-weight-semibold
+                is-size-6
+              "
+            >
+              Upload Logo
+            </p>
+            <div class="control pt-1">
+              <button
+                class="
+                  button
+                  btn-attach
+                  is-fullwidth is-warning is-size-6
+                  has-text-white
+                  py-5
+                "
+              >
+                <span
+                  class="
+                    txt-attach
+                    has-text-left
+                    is-family-primary
+                    has-text-weight-medium has-text-white
+                    pl-0
+                  "
+                  style="width: 50%; float: left; text-align: left"
+                >
+                  Choose file</span
+                >
+                <span
+                  class="
+                    is-family-primary
+                    has-text-weight-medium
+                    icon
+                    mr-0
+                    pl-6
+                  "
+                  style="width: 25%"
+                ></span>
+                <span
+                  class="
+                    is-family-primary
+                    has-text-weight-medium
+                    icon
+                    mr-0
+                    pl-6
+                  "
+                  style="width: 25%"
+                >
+                  <i class="fa fa-upload has-text-white is-size-5"></i>
+                </span>
+                <input
+                  name="logo"
+                  [(ngModel)]="schoolCredentials.logo"
+                  required=""
+                  #logo="ngModel"
+                  class="file-input is-medium"
+                  type="file"
+                  name="resume"
+                  (change)="onSelectFileImage($event)"
+                />
+              </button>
+
+              <p
+                class="
+                  is-family-primary
+                  has-text-weight-medium
+                  is-size-7
+                  py-0
+                  my-0
+                  pl-3
+                "
+                style="color: rgba(160, 159, 159, 0.9)"
+              >
+                {{ schoolCredentials.logo || "No file chosen" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-grouped is-grouped-right pb-2 px-2">
+    <div class="control">
+      <button
+        class="button is-outlined has-background-white is-fullwidth is-medium"
+        style=""
+        (click)="closeDialog()"
+      >
+        <span
+          class="
+            btn-return
+            has-text-info has-text-weight-bold
+            is-size-6
+            ml-1
+            px-6
+          "
+          >Cancel</span
+        >
+      </button>
+    </div>
+
+    <div class="control">
+      <button
+        class="button is-outlined has-background-info is-fullwidth is-medium"
+        style=""
+        (click)="createSchool()"
+        [disabled]="
+          name.invalid ||
+          nameArabic.invalid ||
+          code.invalid ||
+          schoolUrl.invalid ||
+          licenseType.invalid ||
+          licenseExpirationDate.invalid ||
+          licenseNumber.invalid ||
+          email.invalid ||
+          address.invalid ||
+          logo.invalid
+        "
+      >
+        <span
+          class="
+            btn-return
+            has-text-white has-text-weight-bold
+            is-size-6
+            ml-1
+            px-6
+          "
+          >Create</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

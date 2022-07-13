@@ -1,0 +1,20 @@
+.overlay {
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.233);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0%;
+  width: 100%;
+  z-index: 1004;
+  overflow: hidden;
+}
+.mat-progress-bar .mat-progress-bar-buffer {
+  background-color: red;
+}
+.loadingbar {
+  position: fixed;
+  z-index: 1005;
+}
+* {
+  scroll-behavior: smooth !important;
+}

@@ -1,0 +1,134 @@
+<!-- <p class="newMeetingHeader">New Meeting. Calendar. {{emailLoggedIn}}</p>
+<div class="newMeeting">
+    <div class="newMeetingFields">
+        <form [formGroup]="newMeetingForm" (ngSubmit)="newMeetingFormSubmit()" class="iquad-form">
+            <div class="full-width">
+                <img src="assets/images/calendar/Name.png" alt="icon" class="newMeetingIcon name-icon" />
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput pattern="[a-zA-Z0-9]*" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div class="full-width">
+                <img src="assets/images/calendar/selectServer.png" alt="icon" class="newMeetingIcon" />
+                <mat-form-field>
+                    <mat-label>Select server</mat-label>
+                    <input matInput pattern="[a-zA-Z0-9]*" formControlName="server">
+                </mat-form-field>
+            </div> -->
+            <!-- <mat-card class="recordThisMeeting">
+        <mat-card-content>
+            <section class="example-section">
+                <mat-checkbox class=""
+                    labelPosition="before" formControlName="recordCheck">
+                    Record this meeting?
+                </mat-checkbox>
+            </section>
+        </mat-card-content>
+    </mat-card> -->
+            <!-- <div class="padding-top-bottom">
+                <img src="assets/images/calendar/recordThisMeeting.png" alt="icon" class="newMeetingIcon" />
+                <mat-checkbox class="record-checkbox custom-frame" formControlName="recordCheck">
+                    Record this meeting?
+                </mat-checkbox>
+                <div class="line-below-checkbox" style="height: 1px; background-color: white;"></div>
+            </div>
+            <div class="padding-top-bottom">
+                <img src="assets/images/calendar/notifyMembers.png" alt="icon" class="newMeetingIcon" />
+                <mat-checkbox class="notify-checkbox" formControlName="notifyCheck">
+                    Notify members
+                </mat-checkbox>
+                <div style="height: 1px; background-color: white;"></div>
+            </div>
+            <div>
+                <img src="assets/images/calendar/selectClass.png" alt="icon" class="newMeetingIcon" />
+                <mat-form-field appearance="fill" click="mySelect.close()">
+                    <mat-label>Select Class</mat-label>
+                    <mat-select #mySelect formControlName="classes" multiple>
+                        <mat-option *ngFor="let class of classes" [value]="class">{{class}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <img src="assets/images/calendar/selectMembers.png" alt="icon" class="newMeetingIcon" />
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Members</mat-label>
+                    <mat-select formControlName="classMembers" multiple>
+                        <mat-option *ngFor="let classMember of classMembers" [value]="classMember">{{classMember}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <img src="assets/images/calendar/selectSubject.png" alt="icon" class="newMeetingIcon" />
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Subject</mat-label>
+                    <mat-select formControlName="subjects" multiple>
+                        <mat-option *ngFor="let subject of subjects" [value]="subject">{{subject}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <img src="assets/images/calendar/selectDepartment.png" alt="icon" class="newMeetingIcon" />
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Department</mat-label>
+                    <mat-select formControlName="departments" multiple>
+                        <mat-option *ngFor="let department of departments" [value]="department">{{department}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <img src="assets/images/calendar/selectMembers.png" alt="icon" class="newMeetingIcon" />
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Members</mat-label>
+                    <mat-select formControlName="departmentMembers" multiple>
+                        <mat-option *ngFor="let departmentMember of departmentMembers" [value]="departmentMember">
+                            {{departmentMember}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+            <div class="mt-12">
+                <img src="assets/images/calendar/time.png" alt="icon" class="newMeetingIcon" />
+                <mat-form-field appearance="fill" style="width:30%">
+                    <mat-label>Date</mat-label>
+                    <input matInput [matDatepicker]="datePicker" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datePicker startView="year" [startAt]="startDate"></mat-datepicker>
+                </mat-form-field>
+                <mat-label> From </mat-label>
+                <mat-form-field appearance="fill" style="width:20% !important">
+                    <mat-label>From</mat-label>
+                    <mat-select required formControlName="fromTime" (selectionChange)="onChangeFromTime($event)">
+                        <mat-option *ngFor="let fTime of fromTimes" [value]="fTime">{{fTime}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-label> To </mat-label>
+                <mat-form-field appearance="fill" style="width:20% !important">
+                    <mat-label>To</mat-label>
+                    <mat-select required formControlName="toTime" (selectionChange)="onChangeToTime($event)">
+                        <mat-option *ngFor="let tTime of toTimes" [value]="tTime">{{tTime}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="errorTimeValidity">
+                    Kindly check meeting from/to time
+                </mat-error>
+            </div>
+
+            <mat-dialog-actions align="end">
+
+                <mat-card-actions class="buttons">
+                    <button mat-raised-button [mat-dialog-close]="true" color="primary"
+                        class="newMeetingSubmit newMeetingButtons" type="submit">Save</button>
+                    <button mat-raised-button mat-dialog-close color="primary"
+                        class="newMeetingDiscard newMeetingButtons">Discard</button>
+                </mat-card-actions>
+            </mat-dialog-actions>
+        </form>
+    </div>
+    <div class="newMeetingCalendar">
+        <app-full-day-calendar [eDate]="eDateString" [sDate]="sDateString" (onCalendarSelection)="doOnCalendarSelect($event)" ></app-full-day-calendar>
+    </div>
+</div> -->

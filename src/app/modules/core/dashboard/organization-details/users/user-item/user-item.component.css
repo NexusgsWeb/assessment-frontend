@@ -1,0 +1,49 @@
+.input_fix {
+  max-width: 100px !important;
+}
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #3f81c3;
+}
+
+.mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #3f81c3;
+}
+.inputIsBeingEdited {
+  border-color: #3f81c3 !important;
+}
+.inputIsNotBeingEdited {
+  border-color: red !important;
+}
+.mat-button-toggle-label-content {
+  color: #3f81c3;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: #3f81c3;
+}
+
+.pagination /deep/ .ngx-pagination .current {
+  background: #3f80bf;
+}
+
+.pagination /deep/ .ngx-pagination li {
+  border: 1px solid #cccc;
+  border-radius: 8px;
+  margin: 3px;
+  margin-right: 0px;
+}
+
+.pagination /deep/ .ngx-pagination a::after {
+  display: none;
+}
+
+.pagination /deep/ .ngx-pagination li::before {
+  display: none;
+}
+
+.pagination /deep/ .ngx-pagination li::after {
+  display: none;
+}
+
+.pagination /deep/ .ngx-pagination a::before {
+  display: none;
+}

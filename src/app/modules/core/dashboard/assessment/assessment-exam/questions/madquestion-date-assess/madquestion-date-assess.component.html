@@ -1,0 +1,153 @@
+<div class="is-pulled-right" style="padding-left: 20px">
+  <p style="font-weight: bold; margin-bottom: 20px">
+    Mark : {{ QuestionDetails.mark || "Mark Not Found" }}
+  </p>
+</div>
+<div
+  [ngClass]="{
+    __disabled: isDisabled
+  }"
+>
+  <div class="columns is-multiline">
+    <div
+      class="
+        is-normal is-family-primary
+        has-text-weight-medium
+        control
+        is-expanded is-fullwidth
+        has-background-white-ter
+        column
+        is-12
+      "
+      style="border: 2px solid #3f80bf; min-height: 45px"
+    >
+    <div *ngIf = "containsNBSP(QuestionDetails?.questionText) == false"
+    [mathjax]="QuestionDetails?.questionText ||
+    'There was an error loading your question..'"></div>
+
+<div *ngIf = "containsNBSP(QuestionDetails?.questionText) == true"
+[innerHTML]="QuestionDetails?.questionText ||
+'There was an error loading your question..'" ></div>
+
+    </div>
+    <!-- Answer-->
+  </div>
+  <div>
+    <span class="column is-1 is-inline-block"> </span>
+    <span class="column is-inline-block"> </span>
+    <span class="column is-1 is-inline-block"> </span>
+    <span
+      class="column is-2-desktop is-3-tablet is-2-widescreen is-inline-block"
+    >
+      <div
+        class="
+          select
+          is-normal is-fullwidth is-family-primary
+          has-text-weight-medium
+          is-size-7
+        "
+      >
+        <select
+          class="select"
+          [(ngModel)]="DayInput"
+          (ngModelChange)="onChange($event)"
+        >
+          <option>Day</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+          <option>21</option>
+          <option>22</option>
+          <option>23</option>
+          <option>24</option>
+          <option>25</option>
+          <option>26</option>
+          <option>27</option>
+          <option>28</option>
+          <option>29</option>
+          <option>30</option>
+          <option>31</option>
+        </select>
+      </div>
+    </span>
+    <span
+      class="column is-2-desktop is-3-tablet is-2-widescreen is-inline-block"
+    >
+      <div
+        class="
+          select
+          is-normal is-fullwidth is-family-primary
+          has-text-weight-medium
+          is-size-7
+        "
+      >
+        <select class="select" [(ngModel)]="MonthInput">
+          <option>Month</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+          <option>7</option>
+          <option>8</option>
+          <option>9</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+        </select>
+      </div>
+    </span>
+    <span
+      class="column is-2-desktop is-3-tablet is-2-widescreen is-inline-block"
+    >
+      <div
+        class="
+          select
+          is-normal is-fullwidth is-family-primary
+          has-text-weight-medium
+          is-size-7
+        "
+      >
+        <select class="select" [(ngModel)]="YearInput">
+          <option>Year</option>
+          <option *ngFor="let year of YearArray">{{ year }}</option>
+
+        </select>
+      </div>
+    </span>
+
+    <!-- <span class="column is-inline-block">
+    <button class="button btn-icon is-medium">
+      <i class="fas fa-check has-text-blue"></i>
+    </button>
+  </span> -->
+    <span class="column is-inline-block"> </span>
+  </div>
+  <div class="columns" style="margin-bottom: 35px">
+    <div class="column is-12">
+      <div class="is-pulled-right" style="margin: 30px">
+        <button MADBtn (click)="confirmAnswer()" *ngIf="isDisabled === false">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

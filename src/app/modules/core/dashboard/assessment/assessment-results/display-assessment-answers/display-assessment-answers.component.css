@@ -1,0 +1,41 @@
+.button.is-info.is-outlined {
+    background-color: rgba(63, 128, 191, 0.05);
+    border-color: rgba(63, 128, 191, 0.05);
+    color: #3f80bf;
+    border-radius:14px;
+  }
+  .passed-green-color{
+    color: rgba(4, 190, 11, 0.9);
+  }
+  .details-has-text-grey-color{
+    color:#898989;
+  }
+  .dark-green-color{
+    color: #23ac3d;
+  }
+  .wrong-answer{
+    color: rgba(80, 80, 80, 0.75);
+  }
+  .button.btn-give-feedback-is-focused {
+    border-color: #3273dc;
+    color: #ffffff;
+    background-color: #3f80bf;
+  }
+  .button.btn-give-feedback{
+    background-color:#f3f4f5;
+    color:#3f80bf;
+    border:1px solid #f3f4f5;
+  }
+
+
+  .button.is-info.is-outlined {
+    background-color: rgba(63, 128, 191, 0.05);
+    border-color: rgba(63, 128, 191, 0.05);
+    color: #3f80bf;
+    border-radius:4px;
+  }
+
+  .hr.hr-line1{
+    border: solid 0.8px #d1d1d1;
+    width:100%;
+  }

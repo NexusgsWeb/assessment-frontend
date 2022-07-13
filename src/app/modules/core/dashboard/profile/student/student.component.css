@@ -1,0 +1,15 @@
+/* active tab */
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+  color: hsl(0, 0%, 0%) !important;
+  font-weight: bold;
+  font-family: Raleway !important;
+  /* background-color: green; */
+}
+.mat-tab-label .mat-tab-label-content {
+  font-family: Raleway !important;
+  font-size: 1rem;
+}
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #3f80bf;
+}

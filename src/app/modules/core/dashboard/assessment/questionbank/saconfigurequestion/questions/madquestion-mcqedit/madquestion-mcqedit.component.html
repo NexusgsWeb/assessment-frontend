@@ -1,0 +1,97 @@
+<div
+  [ngClass]="{
+    __disabled: (didSubmitQuestion | async)
+  }"
+>
+  <span
+    id="Question{{ ScrollID }}"
+    class="column is-three-quarters-desktop is-inline-block"
+  >
+    <div class="columns is-multiline">
+      <!-- <div class="column is-1">
+        <button
+          class="button btn-icon is-medium has-text-blue"
+          (click)="RequestDeleteQuestion()"
+        >
+          <i class="fas fa-times has-text-blue"></i>
+        </button>
+      </div> -->
+      <div
+        class="
+          is-1
+          column
+          is-family-primary
+          has-text-weight-bold has-background-white-ter has-text-dark
+          pb-1
+        "
+      >
+        <p
+          class="font-size: 20px"
+          style="text-align: center; padding-top: 12px"
+        >
+          Q1:
+        </p>
+      </div>
+      <div
+        class="
+          is-normal is-family-primary
+          has-text-weight-medium
+          control
+          is-expanded is-fullwidth
+          has-background-white-ter
+          column
+          is-10
+        "
+        (click)="handleEditorToggle()"
+        style="border: 2px solid #3f80bf; min-height: 45px"
+      >
+        <div [mathjax]="QuestionDetails.questionText"></div>
+      </div>
+      <div
+        class="column is-12"
+        *ngIf="EditorToggle"
+        style="padding-left: 100px"
+      >
+        <angular-editor
+          [(ngModel)]="QuestionDetails.questionText"
+          [config]="config"
+        ></angular-editor>
+      </div>
+    </div>
+    <p class="help"></p>
+  </span>
+  <span class="column is-inline-block">
+    <button
+      class="button btn-icon is-medium has-text-blue"
+      (click)="handleEditorToggle()"
+    >
+      <i class="fas fa-expand-arrows-alt has-text-blue"></i>
+    </button>
+  </span>
+  <span class="column is-inline-block">
+    <button
+      class="button btn-icon is-medium has-text-blue"
+      (click)="didOpenSettings()"
+    >
+      <i class="fas fa-cog has-text-blue"></i>
+    </button>
+  </span>
+  <!-- Ans-->
+  <div class="is-fullwidth">
+    <div *ngFor="let answer of QuestionDetails.answers">
+      <app-madquestion-mcqoption
+        [referenceArray]="QuestionDetails.answers"
+        [answer]="answer"
+        [ReferenceCollapser]="globalCollapser"
+        (DeleteListener)="deleteChoiceHandler(answer)"
+        (SingleChoiceListener)="DidTriggerAnswer(answer)"
+      ></app-madquestion-mcqoption>
+    </div>
+  </div>
+  <div class="columns column">
+    <div class="column is-9"></div>
+    <button MADBtn [disabled]="didSubmitQuestion | async" (click)="didSave()">
+      Save
+    </button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.pagination /deep/ .ngx-pagination .current {
+  background: #3f80bf;
+}
+
+.pagination /deep/ .ngx-pagination li {
+  /* border: 1px solid #cccc; */
+  border-radius: 8px;
+  margin: 3px;
+  margin-right: 0px;
+}
+
+.pagination /deep/ .ngx-pagination a::after {
+  display: none;
+}
+
+.pagination /deep/ .ngx-pagination li::before {
+  display: none;
+}
+
+.pagination /deep/ .ngx-pagination li::after {
+  display: none;
+}
+
+.pagination /deep/ .ngx-pagination a::before {
+  display: none;
+}
+
+.table__wrapper {
+  overflow-x: auto;
+}

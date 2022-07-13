@@ -1,0 +1,180 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import '~katex/dist/katex.css';
+/* @import './app/my-modal/my-modal.component.css'; */
+/* @import './app/modules/core/dashboard/calendar/calendar.component.css'; */
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+:root {
+    --primary-color: #3f80bf;
+    --validation-color: #84a43e;
+}
+
+html {
+    overflow: hidden;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    font-family: Raleway !important;
+}
+
+.no-margin{
+    margin: 0 !important;
+  }
+  .text-white {
+      color: #FFF !important;
+  }
+  
+  .text-black {
+      color: #000 !important;
+  }
+  
+  .bg-white {
+      background-color: #fff !important;
+  }
+  
+  .bg-danger {
+      background-color: #ff0000;
+  }
+  
+  .border-danger {
+      border: 1px solid #ff0000;
+  }
+  
+  .text-danger {
+      color: #ff0000;
+      font-style: italic;
+      font-size: 0.8rem;
+      margin: 5px 0 0;
+  }
+  
+  .mat-form-field-underline {
+      display: none !important;
+  }
+  
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+      background-color: var(--primary-color) !important;
+  }
+
+.is-family-primary {
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+}
+.modal {
+  z-index: 95 !important;
+}
+.cdk-global-scrollblock {
+  top: 0 !important;
+}
+
+/* You can add global styles to this file, and also import other style files */
+
+
+.button-new-meeting{
+    width: 75% !important;
+    background-color: #3F80BF !important;
+    border-radius: 4.6px !important;
+    font-size: .75rem !important;
+    border-color: #538CC6 !important;
+    border-width: 1px !important;
+    color: white !important;
+    cursor: pointer !important;
+    font-family: Raleway,Medium !important;
+    justify-content: center !important;
+    padding-bottom: calc(0.375em - 1px) !important;
+    padding-left: .75em !important;
+    padding-right: .75em !important;
+    padding-top: calc(0.375em - 1px) !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+
+}
+.fc-toolbar-chunk{
+    display: flex;
+    align-items: center;
+}
+.fc-today-button{
+    background-color: transparent !important;
+    border-color: cornflowerblue !important;
+    color: cornflowerblue !important;
+}
+.fc-icon-chevron-left, .fc-icon-chevron-right{
+    color:cornflowerblue !important;
+    border-color: transparent !important;
+}
+.fc-prev-button{
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+.fc-next-button{
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+.fc-timegrid-slot,.fc-scrollgrid-shrink,.fc-timegrid-slot-label{
+    height: 40px !important;
+}
+.fc-timegrid-slot-label{
+    height: 40px;
+
+}
+.fc .fc-timegrid-slot-minor{
+    border-top-style: solid !important;
+}
+.mat-calendar-body-cell-content{
+  border-style: none !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.newMeeting{
+    display: flex;
+    justify-content: center;
+       padding: 10px;
+
+}
+/* .cdk-overlay-pane{ 
+     max-width: 90% !important;
+
+    width:90% !important;
+} */
+.mat-form-field-type-mat-select{
+    width: 90% !important;
+}
+.mat-dialog-container{
+    height: auto !important;
+    width: 90% !important;
+}
+.fc .fc-media-screen .fc-direction-ltr .fc-theme-standard{
+    height: 100% !important;
+}
+#calendarNewMeeting{
+    height: 100% !important;
+}
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  .mat-focus-indicator.mat-icon-button.mat-button-base{
+      font-family: none !important;
+  }

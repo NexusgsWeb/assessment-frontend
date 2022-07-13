@@ -1,0 +1,149 @@
+
+
+
+          <div class="columns  is-mobile ">
+
+
+            <!---------->
+            <div class="column   px-0 py-0">
+
+
+
+                <!--   <div class="box has-background-white pt-2 pb-6 mb-6  mx-3">-->
+                <div class="section is-small has-background-white pt-2 px-3 " style="border-radius: 13px;">
+
+
+
+
+                  <div class="columns is-multiline is-mobile">
+                    <div class="column is-4">
+                      <div class="field has-addons pt-6 px-5">
+                        <div class="control is-expanded">
+                          <input #studentName (input) = "searchStudents(studentName)" class="input is-size-7 is-family-primary has-text-weight-bold has-text-left has-text-black px-4" type="search" placeholder="Search for a Student" style="background: rgba(137, 137, 137, 0.07);border-bottom-left-radius: 4.6px;border-top-left-radius: 4.6px;">
+                        </div>
+                        <div class="control">
+                          <a class="button is-info is-small px-3" style="border-bottom-right-radius: 4.6px;border-top-right-radius: 4.6px;">
+                            <i class="fa fa-search has-text-white is-size-4 pr-1"></i>
+                          </a>
+                        </div>
+                      </div>
+                      <div class="column px-5" >
+
+                        <mat-nav-list dense role="list">
+                          <cdk-virtual-scroll-viewport
+                            [itemSize]="assessmentResults.length"
+                            multiple = true
+                            class="example-viewport" style="width: 30vh; height: 100vh;"
+                            >
+                            <mat-list-item (click) = "onSelectStudent(i)"
+
+                              *cdkVirtualFor="let student of assessmentResults;
+                                              let i = index;"
+
+                                              [ngStyle]="{'background-color': student.selected ? 'rgba(203, 203, 203, 0.29)' : '' }"
+                                              style="border-bottom: solid 0.8px #d1d1d1; height: 7vh;"
+
+
+                              role="listitem">
+                              <div class="columns  "
+
+                              >
+                                  <div class="column is-narrow" >
+                                    <button class="button is-rounded px-2" style="border-color:#207DD3;border-width:1px;background-color:#dbefee;">
+                                      <span class="has-text-centered" style="color:#4A9894;">SN</span>
+                                    </button>
+                                  </div>
+                                  <div class="column is-full is-family-primary has-text-weight-medium has-text-left is-size-7">
+                                    <span class="column is-full">
+                                      {{student.student_name}}
+                                    </span>
+                                    <span class="column  is-inline-block">
+                                      {{student.mark}}/{{student.total_mark}}
+                                    </span>
+                                    <span *ngIf = "studentResult(student) == 'Passed'" class="column is-inline-block passed-green-color has-text-weight-bold">
+                                      {{studentResult(student)}}
+                                    </span>
+                                    <span *ngIf = "studentResult(student) == 'Incomplete'" class="is-family-primary has-text-weight-bold has-text-warning">
+                                      {{studentResult(student)}}
+                                    </span>
+                                    <span *ngIf = "studentResult(student) == 'Failed'" class="is-family-primary has-text-weight-bold has-text-danger">
+                                      {{studentResult(student)}}
+                                    </span>
+                                  </div>
+                                </div>
+                            </mat-list-item>
+                          </cdk-virtual-scroll-viewport>
+                        </mat-nav-list>
+
+                      </div>
+                    </div>
+                    <div class="column is-8">
+                      <div class="columns is-multiline is-mobile" >
+
+
+                        <div class="column is-8" *ngFor = "let question of questions; let i = index;">
+
+                          <p class=" is-family-primary has-text-weight-bold has-text-left  is-size-5 is-size-7-mobile" style="color:#3f81c3;">{{question.title}} </p>
+                        <div class="columns is-multiline">
+                          <div class="column is-7-tablet is-7-desktop is-8-widescreen" [mathjax] = "question.question_text">
+
+                          </div>
+                          <div class="column ">
+                            <span class="is-inline-block is-family-primary has-text-weight-bold is-size-7 has-text-info py-4">
+                              Mark:
+                            </span>
+                            <input *ngIf = "question.graded == false"class="input is-size-7 is-family-primary has-text-weight-bold has-text-left has-text-black px-4" type="number"
+                            style="background: rgba(137, 137, 137, 0.07);border-bottom-left-radius: 4.6px;border-top-left-radius: 4.6px;"(keydown.enter)="submitGrade($event.target.value, i)"/>
+                            <span *ngIf = "question.graded == true" class="is-inline-block  is-family-primary has-text-weight-bold is-size-7 dark-green-color py-4">
+                              {{question.attempt_mark}}/{{question.question_mark}}
+                            </span>
+                          </div>
+                          <div class="column  is-family-primary has-text-weight-bold is-size-7 has-text-info py-4">
+                            <button class="button is-info is-outlined is-fullwidth is-medium" style="" (click)= "openFeedback(i)">
+                              <span class="btn-return  has-text-weight-bold is-size-7">Give Feedback</span>
+                            </button>
+                          </div>
+                        </div>
+                        <p class=" is-family-primary has-text-weight-bold has-text-left has-text-dark is-size-5 is-size-7-mobile">Answers</p>
+                        <div class="column is-10" *ngFor = "let answer of question.answers">
+                          <span class="column is-full is-inline-block  has-background-white-ter is-inline-block px-4 py-3">
+                            <span class="is-inline-block is-family-primary has-text-weight-bold has-text-info has-text-left is-size-5-desktop is-size-6-tablet">
+                              B
+                            </span>
+                            <span class="is-inline-block" style="color: #8b8b8b;">|</span>
+                            <span  [ngClass]="
+                            answer.is_correct
+                              ? 'is-inline-block dark-green-color is-family-primary has-text-weight-bold has-text-left is-size-6-desktop is-size-7-tablet'
+                              : 'is-inline-block wrong-answer is-family-primary has-text-weight-bold has-text-left is-size-6-desktop is-size-7-tablet'
+                          "
+                          [mathjax] = "answer.answer_text"
+                          >
+                            </span>
+
+
+                          </span>
+                          <span class="column is-1 is-hidden-widescreen is-inline-block" style="vertical-align:middle;">
+                          </span>
+                        </div>
+
+                        <p class=" is-family-primary has-text-weight-bold has-text-left has-text-dark is-size-5 is-size-7-mobile pt-3">Answer Key</p>
+                        <div class="column is-full is-family-primary has-text-weight-medium has-text-left is-size-7" style="color: rgba(61, 61, 61, 0.57);"
+                        [mathjax] = "question.answer_key"
+                        >
+
+                        </div>
+                        <hr class="hr-line1 mt-5 mb-4">
+
+
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+            </div>

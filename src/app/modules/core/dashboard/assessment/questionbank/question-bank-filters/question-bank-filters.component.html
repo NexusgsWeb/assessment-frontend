@@ -1,0 +1,305 @@
+<div
+  class="section is-small has-background-white py-2 px-3 mt-3"
+  style="border-radius: 13px"
+>
+  <!-- <div class="box is-block">
+    <div class="icon-flex is-pulled-right">
+      <div class="icon-wrapper has-background-info" style="font-size: 0.8rem">
+        <i class="fas fa-angle-up has-text-white has-text-left"></i>
+      </div>
+    </div>
+  </div> -->
+  You can filter the questions by curriculum, by grade, by teacher, by domain, and by learning objective
+  <div class="columns is-multiline">
+    <div class="column">
+      <div class="columns is-multiline">
+        <div class="column pt-2">
+          <label
+            class="label is-family-primary has-text-weight-semibold is-size-6"
+            >Curriculum
+          </label>
+
+          <!-- <ng-select
+          #ngg
+          id="ngSelect"
+          [items]="curriculums"
+          (change)="onSelectCurriculum($event)"
+          bindLabel="name"
+          notFoundText="Not Found"
+          placeholder="Select curriculum"
+          [multiple]="false"
+          [closeOnSelect]="true"
+          [searchable]="false"
+          [hideSelected]="false"
+          style="overflow: visible;"
+          [(ngModel)]="selectedCurriculum"
+        >
+          <ng-template ng-option-tmp let-item="item">
+            <div title="{{ item.name }}">{{ item.name }}</div>
+          </ng-template>
+
+         
+        </ng-select> -->
+
+        <ng-select
+        #ngg
+        class = "custom"
+        id="ngSelect"
+        [items]="curriculums"
+        (change)="onSelectCurriculum($event)"
+        bindLabel="name"
+        notFoundText="Not Found"
+        placeholder="Select curriculum"
+        [closeOnSelect]="true"
+        [searchable]="false"
+        [clearable]="false"
+        [hideSelected]="false"
+        [(ngModel)]="selectedCurriculum"
+      >
+       
+
+        <ng-template ng-option-tmp let-item="item">
+          <div title="{{ item.name }}">{{ item.name }}</div>
+        </ng-template>
+      </ng-select>
+
+        </div>
+
+        <div class="column px-2 pt-2">
+          <label
+            class="label is-family-primary has-text-weight-semibold is-size-6"
+            >Grade
+          </label>
+
+          <ng-select
+            #ngg
+            id="ngSelect"
+            class="custom"
+            [items]="grades"
+            (change)="onSelectGrade($event)"
+            bindLabel="name"
+            notFoundText="Not Found"
+            placeholder="Select grade"
+            [closeOnSelect]="true"
+            [searchable]="false"
+            [hideSelected]="false"
+            [clearable]="false"
+            [(ngModel)]="selectedGrade"
+          >
+            <ng-template ng-option-tmp let-item="item">
+              <div title="{{ item.name }}">{{ item.name }}</div>
+            </ng-template>
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="columns is-multiline">
+    <div class="column is-half px-2 pt-2">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6"
+        >Domain
+      </label>
+
+      <ng-select
+        #ngg
+        class="custom"
+        id="ngSelect"
+        [items]="domains"
+        (change)="onSelectDomain($event)"
+        bindLabel="name"
+        notFoundText="Not Found"
+        placeholder="Select domain"
+        [closeOnSelect]="true"
+        [searchable]="false"
+        [hideSelected]="false"
+        [clearable]="false"
+        [(ngModel)]="selectedDomain"
+      >
+        <ng-template ng-option-tmp let-item="item">
+          <div title="{{ item.name }}">{{ item.name }}</div>
+        </ng-template>
+      </ng-select>
+    </div>
+    <div class="column is-half px-2 pt-2">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6">
+        Learning Objective
+      </label>
+
+      <ng-select
+        #ngg
+        class="custom"
+        id="ngSelect"
+        [items]="learningObjectives"
+        (change)="onSelectLO($event)"
+        bindLabel="displayName"
+        notFoundText="Not Found"
+        placeholder="Select learning objective"
+        [closeOnSelect]="true"
+        [searchable]="false"
+        [hideSelected]="false"
+        [clearable]="false"
+        [(ngModel)]="selectedLearningObjective"
+      >
+        <ng-template ng-option-tmp let-item="item">
+          <div title="{{ item.displayName }}">{{ item.displayName }}</div>
+        </ng-template>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="columns is-multiline">
+    <div class="column is-half px-2 pt-2">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6"
+        >Question Status
+      </label>
+
+      <ng-select
+        #ngg
+        class="custom"
+        id="ngSelect"
+        [items]="statues"
+        (change)="onSelectStatus($event)"
+        bindLabel="name"
+        notFoundText="Not Found"
+        placeholder="Select question status"
+        [closeOnSelect]="true"
+        [searchable]="false"
+        [hideSelected]="false"
+        [clearable]="false"
+        [(ngModel)]="selectedStatus"
+      >
+        <ng-template ng-option-tmp let-item="item">
+          <div title="{{ item.name }}">{{ item.name }}</div>
+        </ng-template>
+      </ng-select>
+    </div>
+
+  </div>
+  <!-- <div class="columns is-multiline">
+    <div class="column is-half px-2 pt-0">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6"
+        >Book Chapter
+      </label>
+      <div
+        class="
+          select
+          is-normal is-fullwidth is-family-primary
+          has-text-weight-medium
+          is-size-7
+        "
+      >
+        <select class="select">
+          <option class="">All</option>
+          <option>With options</option>
+        </select>
+      </div>
+    </div>
+    <div class="column is-half px-2 pt-0">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6">
+        Learning Objective
+      </label>
+      <div
+        class="
+          select
+          is-normal is-fullwidth is-family-primary
+          has-text-weight-medium
+          is-size-7
+        "
+      >
+        <select class="select">
+          <option class="">All</option>
+          <option>With options</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="columns is-multiline">
+    <div class="column is-half px-2 pt-0">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6"
+        >Book Section
+      </label>
+      <div
+        class="
+          select
+          is-normal is-fullwidth is-family-primary
+          has-text-weight-medium
+          is-size-7
+        "
+      >
+        <select class="select">
+          <option class="">All</option>
+          <option>With options</option>
+        </select>
+      </div>
+    </div>
+    <div class="column is-half px-2 pt-0">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6">
+        Course Standards
+      </label>
+      <div
+        class="
+          select
+          is-normal is-fullwidth is-family-primary
+          has-text-weight-medium
+          is-size-7
+        "
+      >
+        <select class="select">
+          <option class="">All</option>
+          <option>With options</option>
+        </select>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="column is-8-tablet is-12-desktop is-hidden-mobile">
+    <div class="field is-grouped is-grouped-right pb-2 px-2">
+      <div class="control">
+        <button
+          class="button is-outlined has-background-info is-fullwidth is-medium"
+          style=""
+          (click)="clearFilters()"
+        >
+          <span
+            class="
+              btn-return
+              has-text-white has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            >Clear Filters</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="is-hidden-tablet">
+    <div class="column is-7-mobile">
+      <div class="field is-grouped is-grouped-right pb-2 px-2">
+        <div class="control column is-half-mobile">
+          <button
+            class="
+              button
+              is-outlined
+              has-background-info
+              is-fullwidth is-medium
+            "
+            style=""
+          >
+            <span
+              class="
+                btn-return
+                has-text-white has-text-weight-bold
+                is-size-6
+                ml-1
+                px-6
+              "
+              >Clear Filters</span
+            >
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  /* or inline-flex */
+}
+.child {
+  flex: 1 0 48%; /* explanation below */
+  margin: 5px;
+}

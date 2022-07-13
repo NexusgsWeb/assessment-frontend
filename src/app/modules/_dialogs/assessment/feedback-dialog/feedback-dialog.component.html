@@ -1,0 +1,53 @@
+<div id="modal" class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-content responsiveness">
+
+      <div class="section is-small has-background-white pt-2 px-3 " style="border-radius: 13px;">
+        <div class="columns is-centered">
+          <div class="column is-9">
+            <div class="column is-full is-family-primary has-text-weight-bold has-text-info has-text-centered is-size-5 mt-0 pb-0 mb-0 px-1 py-3">
+              Give Feedback</div>
+            <div class="column is-full is-family-primary has-text-weight-medium has-text-dark" style="opacity:0.9;">
+              <div class="control">
+                <!-- <textarea class="textarea has-background-white has-fixed-size" rows="10" placeholder="Write your feedback here..." style="border: solid 1px #c3c3c3;"></textarea> -->
+                <textarea [(ngModel)] = "feedback"class="textarea has-background-white has-fixed-size" rows="10" placeholder="Write your feedback here..." style="border: solid 1px #c3c3c3;"></textarea>
+
+              </div>
+            </div>
+            <div class="column is-12-desktop is-hidden-mobile pt-6">
+              <div class="field is-grouped pb-2 px-2" style="justify-content: center;">
+
+                <div class="control">
+                  <button class="button is-outlined  has-background-info is-fullwidth is-normal" style=""(click) = "closeDialog()">
+                    <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Close</span></button>
+                </div>
+
+                <div class="control">
+                  <button class="button is-outlined  has-background-info is-fullwidth is-normal" style="" (click) = "sendFeedback()">
+                    <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Save</span></button>
+                </div>
+              </div>
+            </div>
+            <div class=" is-hidden-tablet pt-6">
+              <div class="column is-7-mobile">
+
+                <div class="field is-grouped  pb-2 px-2" style="justify-content: center;">
+
+                  <div class="control column is-half-mobile">
+                    <button class="button is-outlined  has-background-info is-fullwidth is-normal" style="" (click) = "closeDialog()">
+                      <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Close</span></button>
+                  </div>
+
+                  <div class="control column is-half-mobile">
+                    <button class="button is-outlined  has-background-info is-fullwidth is-normal" style="" (click) = "sendFeedback()">
+                      <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Save </span></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+  </div>

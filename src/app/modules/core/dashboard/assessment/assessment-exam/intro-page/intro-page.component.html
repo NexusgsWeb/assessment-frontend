@@ -1,0 +1,298 @@
+<div class="section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <ul>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+          >My Home</a
+        >
+      </li>
+
+      <li class="is-active is-family-primary has-text-weight-bold is-size-5">
+        <a
+          href="#"
+          aria-current="page"
+          class="is-family-primary has-text-weight-bold is-size-6"
+          >Assessment
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    class="section is-large has-background-white pt-2 px-3"
+    style="border-radius: 13px"
+  >
+    <div class="columns is-mobile is-centered">
+      <div
+        class="
+          column
+          is-11-mobile
+          is-three-fifths-tablet
+          is-two-thirds-desktop
+          is-half-widescreen
+          is-4-fullhd
+        "
+      >
+        <p
+          class="
+            is-family-primary
+            has-text-weight-bold
+            is-size-4
+            has-text-centered
+            pt-2
+          "
+          style="color: #3f81c3"
+        >
+          {{
+            (ExamMetaData | async)?.AssessmentMetaData?.title ||
+              "Title is Not Available"
+          }}
+        </p>
+        <p
+          class="
+            is-family-primary
+            has-text-weight-semi-bold
+            is-size-6
+            has-text-centered
+            pt-0
+          "
+          style="color: rgba(61, 61, 61, 0.6)"
+        >
+          Duration:
+          {{
+            (ExamMetaData | async)?.AssessmentMetaData?.testDurationInMinuets ||
+              "Duration is unavailable"
+          }}
+          mins
+        </p>
+        <p
+          class="
+            is-family-primary
+            has-text-weight-bold
+            is-size-6
+            has-text-black-bis has-text-centered
+            pt-5
+          "
+        >
+          Please read the instructions carefully before starting the exam.
+        </p>
+        <p
+          class="
+            is-family-primary
+            has-text-weight-medium
+            is-size-7
+            has-text-black-bis has-text-centered
+            py-4
+          "
+        >
+        {{
+          (ExamMetaData | async)?.AssessmentMetaData?.instructions ||
+            "Duration is unavailable"
+        }}
+        </p>
+        <div class="columns is-centered py-3">
+          <div class="column is-three-fifths">
+            <figure class="image" style="width: 315px">
+              <img src="/assets/images/assessment/exam-start.png" />
+            </figure>
+          </div>
+        </div>
+
+        <div class="column is-12-desktop is-hidden-mobile">
+          <div
+            class="field is-grouped pb-2 px-2"
+            style="justify-content: center"
+          >
+            <div class="control">
+              <button
+                class="
+                  button
+                  is-outlined
+                  has-background-info
+                  is-fullwidth is-medium
+                "
+                style=""
+                (click)="didClickCancelExam()"
+              >
+                <span
+                  class="
+                    btn-return
+                    has-text-white has-text-weight-bold
+                    is-size-6
+                    ml-1
+                    px-6
+                  "
+                  >Cancel</span
+                >
+              </button>
+            </div>
+
+            <div class="control">
+              <button
+                class="
+                  button
+                  is-outlined
+                  has-background-info
+                  is-fullwidth is-medium
+                "
+                (click)="didClickStartExam()"
+                *ngIf="Resume === false"
+              >
+                <span
+                  class="
+                    btn-return
+                    has-text-white has-text-weight-bold
+                    is-size-6
+                    ml-1
+                    px-6
+                  "
+                  >Start Exam</span
+                >
+              </button>
+            </div>
+
+            <div class="control">
+              <button
+                class="
+                  button
+                  is-outlined
+                  has-background-info
+                  is-fullwidth is-medium
+                "
+                *ngIf="Resume"
+                (click)="didClickResumeExam()"
+              >
+                <span
+                  class="
+                    btn-return
+                    has-text-white has-text-weight-bold
+                    is-size-6
+                    ml-1
+                    px-6
+                  "
+                  >Resume Exam</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="is-hidden-tablet">
+          <div class="column is-7-mobile">
+            <div
+              class="field is-grouped pb-2 px-2"
+              style="justify-content: center"
+            >
+              <!-- <div class="control column is-half-mobile">
+                <button
+                  class="
+                    button
+                    is-outlined
+                    has-background-info
+                    is-fullwidth is-medium
+                  "
+                  style=""
+                  (click)="didClickCancelExam()"
+                >
+                  <span
+                    class="
+                      btn-return
+                      has-text-white has-text-weight-bold
+                      is-size-6
+                      ml-1
+                      px-6
+                    "
+                    >Cancel</span
+                  >
+                </button>
+              </div> -->
+
+              <!-- <div class="control column is-half-mobile">
+                <button
+                  class="
+                    button
+                    is-outlined
+                    has-background-info
+                    is-fullwidth is-medium
+                  "
+                  style=""
+                >
+                  <span
+                    class="
+                      btn-return
+                      has-text-white has-text-weight-bold
+                      is-size-6
+                      ml-1
+                      px-6
+                    "
+                    >Start Exam</span
+                  >
+                </button>
+              </div> -->
+              <div class="control mt-5 mb-6">
+                <div class="columns">
+                  <div class="column is-half">
+                    <button
+                      class="button is-link has-text-white"
+                      style="
+                        width: 100%;
+                        font-family: 'Raleway Bold', sans-serif;
+                        font-weight: 700;
+                        font-size: 16px;
+                      "
+                      (click)="didClickStartExam()"
+                      *ngIf="Resume === false"
+                    >
+                      Start Exam
+                    </button>
+                  </div>
+                  <div class="column is-half">
+                    <button
+                      class="button is-link has-text-white"
+                      style="
+                        width: 100%;
+                        font-family: 'Raleway Bold', sans-serif;
+                        font-weight: 700;
+                        font-size: 16px;
+                      "
+                      *ngIf="Resume"
+                      (click)="didClickResumeExam()"
+                    >
+                      Resume Exam
+                    </button>
+                  </div>
+                  <div class="column is-half">
+                    <button
+                    class="button is-link has-text-white"
+                    style="
+                      width: 100%;
+                      font-family: 'Raleway Bold', sans-serif;
+                      font-weight: 700;
+                      font-size: 16px;
+                    "
+                      MADBtn
+                      (click)="didClickCancelExam()"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

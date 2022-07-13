@@ -1,0 +1,230 @@
+<!-- START-->
+<div
+  class="
+    column
+    is-1-desktop is-1-tablet is-1-mobile
+    td-users
+    details-border
+    is-family-primary
+    has-text-weight-normal has-text-centered
+    pl-3
+  "
+>
+  <input
+    type="checkbox"
+    class="mt-2"
+    [(ngModel)]="isSelected"
+    (change)="didClickSelect()"
+  />
+</div>
+<div
+  class="
+    column
+    is-5-desktop is-5-tablet is-5-mobile
+    td-users
+    details-border
+    is-family-primary
+    has-text-weight-semibold
+  "
+>
+  <a>
+    <!-- <div [innerHTML] = "QuestionDetails.question_text"></div> -->
+
+        <!-- <div *ngIf = "containsNBSP(QuestionDetails.question_text) == false"
+        [mathjax]="QuestionDetails.question_text"></div>
+
+    <div *ngIf = "containsNBSP(QuestionDetails.question_text) == true"
+    [innerHTML]="QuestionDetails.question_text" ></div> -->
+    <div
+    [mathjax]="QuestionDetails.question_text" ></div>
+    <!-- <input
+      class="
+        input
+        is-static
+        txt-name
+        is-info is-small is-size-7 is-family-primary
+        has-text-weight-normal
+        pl-2
+      "
+      readonly
+      type="text"
+      value="{{ convertToPlain(QuestionDetails.questionText) + '' }}"
+      matTooltip="{{ convertToPlain(QuestionDetails.questionText) + '' }}"
+    /> -->
+  </a>
+</div>
+<div
+  *ngIf="UserType === 'admin' || UserType === 'super' "
+  class="
+    column
+    is-2-desktop
+      is-2-mobile
+      is-2-tablet
+    td-users
+    details-border
+    is-family-primary
+    has-text-weight-semibold
+  "
+>
+
+  <input
+    class="
+      input
+      td-content
+      is-static
+      has-text-dark
+      is-info is-small is-size-7 is-family-secondary
+      has-text-weight-normal
+      pl-2
+
+    "
+    readonly
+    type="text"
+    value="{{ QuestionDetails.teacher_name }}"
+  />
+</div>
+<div
+  class="
+    column
+    is-1-desktop is-1-tablet is-1-mobile
+    td-users
+    details-border
+    is-family-primary
+    has-text-weight-semibold
+  "
+>
+  <input
+    class="
+      input
+      td-content
+      is-static
+      has-text-dark
+      is-info is-small is-size-7 is-family-secondary
+      has-text-weight-normal
+      pl-2
+    "
+    readonly
+    type="text"
+    value="{{ this.Mode }}"
+  />
+</div>
+<div
+  class="
+    column
+    is-2-desktop is-2-tablet is-2-mobile
+    td-users
+    details-border
+    is-family-primary
+    has-text-weight-semibold has-text-centered
+  "
+>
+  <div *ngIf="isBeingEdited == false" style="text-align: center">
+    <div>
+      <div style="width: 30px; display: inline-block"  *ngIf="approveButtonVisibility">
+        <a
+
+          class="action-icons pr-2"
+          (click)="openSuperAdminSettings(QuestionDetails)"
+          matTooltip="Settings"
+          ><i class="fas fa-cog"></i
+        ></a>
+
+      </div>
+      <div style="width: 30px; display: inline-block"  *ngIf="EditButtonVisibility">
+        <a
+
+          class="action-icons pr-2"
+          (click)="openNormalSchoolSettings(QuestionDetails)"
+          matTooltip="Edit"
+          ><i class="fas fa-pen"></i
+        ></a>
+      </div>
+      <div style="width: 30px; display: inline-block" *ngIf="DeleteVisibility">
+        <a
+
+          class="action-icons pr-2"
+          (click)="didClickDelete()"
+          matTooltip="Delete"
+          ><i class="fas fa-trash-alt"></i
+        ></a>
+      </div>
+      <div style="width: 30px; display: inline-block"  *ngIf="PublishUnPublishVisibility && Mode === 'Private'">
+        <a
+
+          class="action-icons pr-2"
+          matTooltip="Publish"
+          (click)="triggerVisibility()"
+          ><i class="fas fa-globe"></i
+        ></a>
+      </div>
+      <div style="width: 30px; display: inline-block"   *ngIf="
+      PublishUnPublishVisibility &&
+      (Mode === 'Public' || Mode === 'Awaiting Approval')
+    ">
+        <a
+
+          matTooltip="Unpublish"
+          class="action-icons pr-2"
+          (click)="triggerVisibility()"
+        >
+          <i class="fas fa-lock"></i>
+        </a>
+      </div>
+      <div style="width: 30px; display: inline-block">
+        <a
+          class="action-icons pt-1"
+          (click)="didClickExpand()"
+          matTooltip="View Details"
+        >
+          <i class="fas fa-info-circle"></i
+        ></a>
+      </div>
+    </div>
+    <!-- <span class="mx-1" style="height: 25px; width: 20px"> </span>
+    <span class="mx-1" style="height: 25px; width: 20px"> </span>
+    <span style="height: 25px; width: 20px" class="mx-1">
+      <a
+        *ngIf="
+          PublishUnPublishVisibility && QuestionDetails.Visibility === 'Private'
+        "
+        class="action-icons pr-2"
+        matTooltip="Publish"
+        (click)="triggerVisibility()"
+        ><i class="fas fa-globe"></i
+      ></a>
+      <a
+        *ngIf="
+          PublishUnPublishVisibility &&
+          (QuestionDetails.Visibility === 'Public' ||
+            QuestionDetails.Visibility === 'Awaiting Approval')
+        "
+        matTooltip="Unpublish"
+        class="action-icons pr-2"
+        (click)="triggerVisibility()"
+      >
+        <i class="fas fa-lock"></i>
+      </a>
+    </span>
+    <span style="height: 25px; width: 20px" class="mx-1">
+      <a
+        class="action-icons pt-1"
+        (click)="didClickExpand()"
+        matTooltip="View Details"
+      >
+        <i class="fas fa-info-circle"></i
+      ></a>
+    </span> -->
+  </div>
+  <div *ngIf="isBeingEdited == true">
+    <button MADBtn class="py-3 mx-1" (click)="didClickSave()">Save</button>
+    <button
+      MADBtn
+      [isWhite]="true"
+      class="py-3 mx-1"
+      (click)="didClickCancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>
+<!-- END-->

@@ -1,0 +1,75 @@
+<div class="columns column is-half mr-3">
+  <div class="column is-2">
+    <button
+      class="button btn-icon is-medium has-text-blue"
+      (click)="RequestDeleteQuestion()"
+    >
+      <i class="fas fa-times has-text-blue"></i>
+    </button>
+  </div>
+  <div
+    class="
+      is-3
+      column
+      is-inline-block
+      has-text-weight-bold
+      is-size-5
+      has-text-left has-text-dark
+      pt-4
+    "
+  >
+    Domain
+  </div>
+  <div
+    class="
+      column
+      select
+      is-normal is-fullwidth is-family-primary
+      has-text-weight-medium
+    "
+  >
+    <ng-select
+      placeholder="Select Domain"
+      [(ngModel)]="SelectedDomains"
+      (change)="domainDidChange()"
+    >
+      <ng-option *ngFor="let domain of DomainList | async" [value]="domain">{{
+        domain
+      }}</ng-option>
+    </ng-select>
+  </div>
+</div>
+<div class="columns column is-half">
+  <div
+    class="
+      is-3
+      column
+      is-inline-block
+      has-text-weight-bold
+      is-size-10
+      has-text-left has-text-dark
+    "
+  >
+    Learning Objective
+  </div>
+  <div
+    class="
+      column
+      select
+      is-normal is-fullwidth is-family-primary
+      has-text-weight-medium
+    "
+  >
+    <ng-select
+      placeholder="Select Learning Objective"
+      [(ngModel)]="SelectedLearningObjective"
+      (change)="LOdidChange()"
+    >
+      <ng-option
+        *ngFor="let LO of LearningObjectiveList | async"
+        [value]="LO"
+        >{{ LO.code + " " + LO.description }}</ng-option
+      >
+    </ng-select>
+  </div>
+</div>

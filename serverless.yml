@@ -1,0 +1,42 @@
+service: madrasatie-frontend
+
+frameworkVersion: ^3.19.0
+
+params:
+  default:
+    subdomain: school
+
+package:
+  individually: true
+  patterns:
+    - "!./**"
+
+plugins:
+  - serverless-finch
+  - serverless-offline
+  - serverless-apigw-binary
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'}
+  region: eu-west-1
+  disableRollback: false
+custom:
+  client:
+    bucketName: ${param:subdomain}.madrasatie-frontend-cs-site-static-files-${self:provider.stage}
+    distributionFolder: "dist/madrasatie-frontend/browser"
+    errorDocument: index.html
+  apigwBinary:
+    types:
+      - "*/*"
+functions:
+  api:
+    package:
+      patterns:
+        - dist/**
+    handler: lambda.handler
+    events:
+      - http: ANY /{proxy+}
+
+      - http: ANY /

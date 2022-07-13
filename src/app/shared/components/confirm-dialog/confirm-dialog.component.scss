@@ -1,0 +1,10 @@
+.confirm-dialog{
+  .mat-dialog-actions{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .raised{
+    background-color: var(--primary-color);
+    color: #fff;
+  }
+}

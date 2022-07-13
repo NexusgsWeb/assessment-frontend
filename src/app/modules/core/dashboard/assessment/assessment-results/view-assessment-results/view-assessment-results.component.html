@@ -1,0 +1,33 @@
+<table class="table is-fullwidth px-6">
+  <thead class="is-size-6">
+    <tr class="has-text-black-bis is-family-primary has-text-weight-semibold" >
+      <th class=" pl-6 pt-5" scope="col">Student Name<i class="fa fa-caret-down"></i></th>
+      <th class=" px-0 pt-5 pl-2" scope="col">Total Marks <i class="fa fa-caret-down"></i></th>
+      <th class="px-0 pt-5 pl-2" scope="col">Result <i class="fa fa-caret-up"></i></th>
+      <th class=" px-0 pt-5 pl-2" scope="col">View Answer <i class="fa fa-caret-up"></i></th>
+    </tr>
+  </thead>
+  <tbody class="is-size-6">
+
+    <tr *ngFor = "let result of assessmentResults; let i = index">
+      <td class=" px-0">
+        <button class="button px-2 mr-2" style="border-color:#dbefee;border-width:1px;background-color:#dbefee;border-radius:50%;">
+          <span class="has-text-centered is-size-7" style="color:#4A9894;">{{result.student_name}}</span>
+        </button>
+        <span class=" has-text-black-bis has-background-white  is-family-primary has-text-weight-medium pl-2">{{result.studentId}}
+        </span>
+      </td>
+
+      <td class="is-family-primary has-text-weight-medium has-text-black-bis py-3 ">{{result.mark}}/{{result.total_mark}}</td>
+      <td *ngIf = "studentResult(result) == 'Incomplete'" class="is-family-primary has-text-weight-bold has-text-warning py-3">Incomplete</td>
+      <td *ngIf = "studentResult(result) == 'Passed'" class="passed-green-color is-family-primary has-text-weight-bold  py-3">Passed</td>
+      <td *ngIf = "studentResult(result) == 'Failed'" class="is-family-primary has-text-weight-bold has-text-danger py-3">Failed</td>
+
+      <td *ngIf = "studentResult(result) != 'Incomplete'" class=" is-family-primary has-text-weight-bold has-text-info py-3" (click) = "displayResults(i)">
+        <a>View Answer</a>
+      </td>
+      <td *ngIf = "studentResult(result) == 'Incomplete'" class=" is-family-primary has-text-weight-bold has-text-info py-3" (click) = "displayResults(i)"><a>Correct</a></td>
+
+    </tr>
+  </tbody>
+</table>

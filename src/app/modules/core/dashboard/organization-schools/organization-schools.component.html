@@ -1,0 +1,157 @@
+
+          <section class="section is-large has-background-grey-light pt-3 px-4">
+            <!--   <div class="hero-body pt-0 px-0 pb-0 has-background-grey-light"> 
+                    <div class="column is-12-desktop pt-0 px-0 py-0">-->
+                    <nav class="breadcrumb has-succeeds-separator py-1 mb-3" aria-label="breadcrumbs">
+                        <ul>
+                            <li><a href="#" class="is-family-primary has-text-weight-bold  is-size-6 pl-4 ">My Home</a></li>
+                            <li><a href="#" class="is-family-primary has-text-weight-bold  is-size-6 pl-2 ">Manage Organization</a></li>
+                            <li><a href="#" class="is-family-primary has-text-weight-bold  is-size-6 pl-2 ">Organization name</a></li>
+                            <li class="is-active is-family-primary has-text-weight-bold  is-size-6 pl-0"><a href="#" aria-current="page" class=""> View School</a></li>
+                        </ul>
+                    </nav>   
+  
+            <div class="section is-medium has-background-white pt-2 px-3 " style="border-radius: 13px;">
+              <p class=" has-text-right is-family-primary has-text-weight-semibold is-size-7 mr-2" style="color:#3f81c3;">
+                <i class="fa fa-files-o mr-2" aria-hidden="true"></i>New School</p>
+  
+              <!-- <div class="column is-12-desktop dropdown  mt-5 py-0" style="background-color:#f3f3f4;">-->
+  
+              <div id="accordion_second" class="column is-12-desktop" *ngFor="let school of schools">
+                <article class="message">
+                  <div class="message-header toggle mt-2">
+                    <span class="column is-half is-inline-block has-text-left is-size-6 is-family-primary has-text-weight-medium">
+                      {{school.englishName}}
+                    </span> <span class="column is-one-quarter is-inline-block has-text-right is-size-7 mr-6 pr-" style="color: rgba(139, 139, 139, 0.9);">
+                    <a href="#home" class="" style="text-decoration:none;">View</a>
+                    <span class="mx-2">|</span>
+  
+                    <a href="#news" class="" style="text-decoration:none;">Delete</a>
+                    </span><a  class="toggle" data-action="collapse" (click)="expandCollapse(school);">
+                    <span class="column is-one-quarter is-inline-block has-text-right">
+                      <span class="icon is-size-5 ">
+                        <i id="arrow-{{school.id}}"class="angle-up fa fa-angle-down   has-text-link pr-5" aria-hidden="true"></i>
+                      </span>
+                    </span></a>
+                  </div>
+                  <div id="collapsible-message-accordion-second-{{school.id}}" style="display: none;" class="message-body is-collapsible px-0 py-0" data-parent="accordion_second" data-allow-multiple="true">
+                    <div class="message-body-content is-family-primary has-text-weight-medium">
+                      <!-- <span class="column is-three-quarters is-inline-block has-text-left">School 1</span>
+                                                                            <span class="column  is-inline-block has-text-right is-size-7">
+                                                                              <a href="#home" class="action-link" style="text-decoration:none;">View</a>
+                                                                              <span class="action-link mx-2">|</span> 
+  
+                                                                              <a href="#news" class="action-link" style="text-decoration:none;">Delete</a>
+                                                                            </span>-->
+                      <div class="section is-small has-background-white py-1 px-3 " style="border-radius: 13px;">
+                        <div class="columns">
+                          <div class="column is-5-desktop px-6 has-text-centered pt-6">
+                            <div class="logo">
+                              <figure class="image  is-inline-block mb-0">
+                                <img class="mt-2 " src="https://bulma.io/images/placeholders/96x96.png" alt="">
+                              </figure>
+                            </div>
+                            <p class="has-text-info is-family-primary has-text-weight-medium is-size-6">Organization Name (Code)</p>
+                            <p class="has-text-info is-family-primary has-text-weight-medium is-size-6"> إسم المنظمة </p>
+                            <p class="has-text-dark is-family-primary has-text-weight-medium is-size-7">www.organization.madrasatie.com</p>
+                          </div>
+  
+                          <div class="column is-7-desktop">
+                            <form>
+                              <div class="column is-2-desktop">
+                              </div><div class="column is-5-desktop py-0">
+                              </div>
+                              <table class="table is-fullwidth mb-3">
+                                <tbody>
+                                  <tr>
+                                    <td class="pl-0">
+                                      <div class="icon-flex ">
+                                        <div class="icon-wrapper"><i class="fa fa-envelope has-text-white"></i></div>
+                                      </div>
+                                    </td>
+  
+                                    <td class="is-family-primary has-text-weight-medium is-size-6 pl-0 pt-3 has-text-left">{{email}}
+                                    </td>
+                                    <td class="has-text-right pr-5"> <i class="fa fa-edit " style="width: 10.2px;height: 10.2px;color:#f1a420;"></i></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="pl-0">
+                                      <div class="icon-flex">
+                                        <div class="icon-wrapper" style="font-size:0.80rem;"><i class="fa fa-phone has-text-white has-text-left"></i></div>
+                                      </div>
+                                    </td>
+                                    <td class=" is-family-secondary has-text-weight-medium is-size-6 pl-0 pt-3 has-text-left">{{phone}}
+                                    </td>
+                                    <td class="has-text-right pr-5">
+                                      <i class="fa fa-edit has" style="width: 10.2px;height: 10.2px;color:#f1a420;"></i>
+                                    </td>
+                                  </tr>
+  
+                                  <tr>
+                                    <td class="pl-0">
+                                      <div class="icon-flex">
+                                        <div class="icon-wrapper" style="font-size:1rem;"><i class="fa fa-mobile-phone has-text-white"></i></div>
+                                      </div>
+                                    </td>
+                                    <td class=" is-family-secondary has-text-weight-normal is-size-6 pl-0 pt-3 has-text-left">
+                                      <input class="input is-small is-family-secondary has-text-weight-normal" type="text" placeholder="" style="width:50%;background-color:white;">
+  
+                                    </td>
+  
+                                    <td class="has-text-right">
+                                      <!--   <i class="fa fa-edit pr-5" style="width: 10.2px;height: 10.2px;color:#f1a420;"></i>-->
+                                      <button class="button is-link is-family-primary has-text-weight-bold is-size-7 px-4">Save</button>
+                                    </td>
+  
+                                  </tr>
+                                  <tr>
+                                    <td class="pl-0">
+                                      <div class="icon-flex">
+                                        <div class="icon-wrapper"><i class="fa fa-map-marker has-text-white"></i></div>
+                                      </div>
+                                    </td>
+                                    <td class="is-family-primary has-text-weight-medium is-size-6 has-text-left pl-0 pt-3 ">{{location}}
+                                    </td>
+                                    <td class="has-text-right pr-5">
+                                      <i class="fa fa-edit " style="width: 10.2px;height: 10.2px;color:#f1a420;"></i>
+                                    </td>
+                                  </tr> 
+                                  <tr>
+                                    <td class="pb-0 mb-0"></td>
+                                  </tr>
+                                </tbody></table>
+                              <table class="">
+                                <tbody><tr>
+                                  <td class="has-text-info is-family-primary has-text-weight-medium is-size-6">Licence type:
+                                    <span class="has-text-black is-family-primary has-text-weight-medium is-size-6">{{licenceType}}</span></td>
+                                  <td class="has-text-info pl-6 is-family-primary has-text-weight-medium is-size-6">Total Students:
+                                    <span class="txt-phone has-text-black is-family-secondary has-text-weight-medium is-size-6">{{totalStudents}} </span></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="has-text-info is-family-primary has-text-weight-medium is-size-6">Licence date:
+                                      <span class="has-text-black is-family-primary has-text-weight-medium is-size-6">{{licenseDate}}</span></td>
+                                    <td class="has-text-info pl-6 is-family-primary has-text-weight-medium is-size-6">Total Parents:
+                                      <span class="txt-phone has-text-black is-family-secondary has-text-weight-medium is-size-6">{{totalParents}}</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="has-text-info is-family-primary has-text-weight-medium is-size-6">Duration:
+                                      <span class="has-text-black is-family-primary has-text-weight-medium is-size-6">{{duration}}</span></td> 
+                                    <td class="has-text-info pl-6 is-family-primary has-text-weight-medium is-size-6">Total Employees:
+                                      <span class="txt-phone has-text-black is-family-secondary has-text-weight-medium is-size-6">{{totalEmployees}}</span></td>
+                                  </tr>
+                                  <tr>
+                                    <td class="has-text-info is-family-primary has-text-weight-medium is-size-6">Renewal Date:
+                                      <span class="has-text-black is-family-primary has-text-weight-medium is-size-6">{{renewalDate}}</span></td>
+  
+                                  </tr>
+                                </tbody></table>
+                            </form>
+                          </div>
+                        </div>               
+                      </div>
+                    </div>
+                  </div>              
+                </article>
+              </div>
+            </div>
+          </section>

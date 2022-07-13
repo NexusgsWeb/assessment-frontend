@@ -1,0 +1,969 @@
+<div>
+  <section class="section is-large has-background-grey-light pt-3 px-4">
+    <nav
+      class="breadcrumb has-succeeds-separator py-1 mb-3"
+      aria-label="breadcrumbs"
+    >
+      <breadcrumb #parent>
+        <ol>
+          <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+            <li *ngIf="!route.terminal">
+              <a
+                href=""
+                class="is-family-primary has-text-weight-bold is-size-5"
+                [routerLink]="[route.url]"
+                >{{ route.displayName }}</a
+              >
+            </li>
+            <li
+              class="is-active is-family-primary has-text-weight-bold is-size-5"
+              *ngIf="route.terminal"
+            >
+              <a aria-current="page"> {{ route.displayName }} </a>
+            </li>
+          </ng-template>
+        </ol>
+      </breadcrumb>
+    </nav>
+    <div class="flex-container">
+      <div
+        class="flex-item-main has-background-white pt-2 pb-1 px-4"
+        style="border-radius: 13px; background-color: red"
+      >
+        <div class="columns is-multiline">
+          <div class="column p pt-5">
+            <span
+              class="is-family-primary has-text-weight-bold is-size-5 mt-0 mb-0"
+              style="color: #3f81c3"
+            >
+              Create and Manage Subjects</span
+            >
+            <div class="pt-5">
+              <span
+                class="
+                  is-family-primary
+                  has-text-weight-normal has-text-left has-text-normal
+                  is-size-6
+                  pr-3
+                "
+                >Select Class</span
+              >
+
+              <div class="columns">
+                <div class="column is-2">
+                  <ng-select
+                    #ngg
+                    id="ngSelect"
+                    [items]="classes"
+                    (change)="removeAll($event)"
+                    (add)="getSelectedClassSubjects($event)"
+                    bindLabel="name"
+                    notFoundText="Not Found"
+                    placeholder="Select class"
+                    multiple="true"
+                    [searchable]="false"
+                    [hideSelected]="true"
+                    style="overflow: visible;"
+                    [addTag]="addTagPromise"
+                    [(ngModel)]="selectedClasses"
+                  >
+                    <ng-template ng-tag-tmp let-search="searchTerm">
+                      <p>{{ search }} (New Cycle)</p>
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                      <div title="{{ item.name }}">{{ item.name }}</div>
+                    </ng-template>
+
+                    <ng-template
+                      ng-multi-label-tmp
+                      let-items="selectedClasses"
+                      let-clear="clear"
+                    >
+                      <div
+                        class="ng-summary-list"
+                        *ngIf="selectedClasses.length != 0"
+                      >
+                        <div class="ng-value">
+                          <span class="ng-value-label">
+                            {{ selectedClasses.length }} Selected
+                          </span>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+                <div
+                  class="column"
+                  style="flex-grow: 0"
+                  *ngFor="let class of selectedClasses; let i = index"
+                >
+                  <span
+                    *ngIf="i < 2"
+                    class="
+                      tag
+                      is-medium
+                      has-text-white
+                      is-family-primary
+                      has-text-weight-semibold
+                      pl-3
+                    "
+                  >
+                    {{ class.name }}
+                    <button
+                      class="delete is-small ml-2"
+                      style="background-color: rgba(26, 85, 142, 0.4)"
+                      (click)="removeSelectedSubjects(i)"
+                    ></button>
+                  </span>
+
+                  <div
+                    *ngIf="i == 2"
+                    class="
+                      tag
+                      dropdown
+                      is-hoverable is-medium
+                      has-text-white
+                      is-family-primary
+                      has-text-weight-semibold
+                      pl-3
+                    "
+                  >
+                    <span
+                      class="
+                        dropdown-trigger
+                        has-text-grey-dark
+                        is-size-7 is-family-primary
+                        has-text-weight-medium
+                      "
+                    >
+                      {{ selectedClasses.length - 2 }} more
+                      <span class="icon is-medium">
+                        <i
+                          class="fa fa-caret-down has-text-black is-size-6"
+                          aria-hidden="true"
+                        ></i> </span
+                    ></span>
+
+                    <div>
+                      <div
+                        class="dropdown-menu"
+                        id="dropdown-menu"
+                        role="menu"
+                        style="min-width: 3rem"
+                      >
+                        <div class="dropdown-content has-text-centered">
+                          <div
+                            *ngFor="let item of selectedClasses; let j = index"
+                          >
+                            <div *ngIf="j >= 2">
+                              <span
+                                href=""
+                                class="
+                                  tag
+                                  is-medium
+                                  has-text-white
+                                  is-family-primary
+                                  has-text-weight-semibold
+                                  pl-3
+                                  mx-3
+                                "
+                              >
+                                {{ item.name }}
+
+                                <button
+                                  class="delete is-small ml-2"
+                                  style="
+                                    background-color: rgba(26, 85, 142, 0.4);
+                                  "
+                                  (click)="removeSelectedSubjects(j)"
+                                ></button>
+                              </span>
+
+                              <hr class="dropdown-divider" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="modal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="box px-5">
+                <form>
+                  <p
+                    class="
+                      has-text-centered
+                      is-family-primary
+                      has-text-weight-bold
+                      pt-1
+                    "
+                    style="color: #3f81c3; font-size: 16px"
+                  >
+                    Delete Subject
+                  </p>
+                  <table class="table add-modal is-fullwidth">
+                    <tbody>
+                      <tr>
+                        <td
+                          id="dialog_text"
+                          class="
+                            is-family-primary
+                            has-text-weight-semibold has-text-dark
+                            is-size-6
+                            py-3
+                          "
+                          colspan="2"
+                        >
+                          Do you want to delete this Subject?
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="pr-0">
+                          <button
+                            class="
+                              button
+                              delete-dialog
+                              is-outlined is-info
+                              btn-modal
+                              is-fullwidth is-normal
+                            "
+                          >
+                            <span
+                              class="
+                                is-family-primary
+                                has-text-weight-bold
+                                is-size-6
+                                px-6
+                              "
+                              id="next"
+                              >Yes</span
+                            >
+                          </button>
+                        </td>
+                        <td class="pt-3">
+                          <button
+                            class="
+                              button
+                              delete-dialog
+                              is-normal is-fullwidth is-info
+                            "
+                            (click)="hideDialog()"
+                            style=""
+                          >
+                            <span
+                              class="
+                                is-family-primary
+                                has-text-weight-bold
+                                is-size-6
+                                ml-1
+                                px-6
+                              "
+                              id="closebtn"
+                              >No</span
+                            >
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
+        </div>
+
+        <div
+          class="column is-12-desktop px-0 py-0"
+          style="border-radius: 4.6px"
+        >
+          <div class="container">
+            <nav class="is-fullwidth has-background-light">
+              <div class="navbar-menu py-1">
+                <span
+                  class="
+                    total-users
+                    has-text-weight-bold
+                    is-size-6
+                    has-text-left
+                    is-family-primary
+                    has-text-dark
+                    py-3
+                    px-3
+                  "
+                  >Total number of Subjects: {{ subjects?.length }}
+                </span>
+                <span class="navbar-end px-3">
+                  <ul
+                    class="
+                      is-flex
+                      is-flex-direction-row
+                      is-flex-wrap-wrap
+                      is-justify-content-space-between
+                      py-0
+                    "
+                  >
+                    <li class="is-flex-grow-1">
+                      <a class="navbar-item has-text-info is-size-4">
+                        <form
+                          action=""
+                          class="search-bar2 search-icon px-0 py-0"
+                        >
+                          <input
+                            class="search pl-5 has-text-dark"
+                            type="text"
+                            #myInput
+                            [(ngModel)]="nameCode"
+                            (input)="searchAcademicYear()"
+                            name="search"
+                            pattern=".*\S.*"
+                            required=""
+                            placeholder="Search(by code)..."
+                          />
+                          <button class="search-btn blue" type="submit">
+                            <i class="fa fa-search is-size-5" style=""></i>
+                          </button>
+                        </form>
+                      </a>
+                    </li>
+                    <li class="hr-separator is-flex-grow-1">
+                      <a
+                        class="navbar-item has-text-info is-size-4 mt-1"
+                        href="#"
+                        ><i class="fa fa-download"></i
+                      ></a>
+                    </li>
+
+                    <li class="hr-separator is-flex-grow-1">
+                      <a class="navbar-item has-text-info is-size-4" href="#"
+                        ><i class="fa fa-upload"></i
+                      ></a>
+                    </li>
+                    <li class="hr-separator is-flex-grow-1">
+                      <a
+                        class="navbar-item has-text-info is-size-4"
+                        href="#"
+                        id="launchModal"
+                        ><i class="fas fa-trash"></i
+                      ></a>
+                    </li>
+                    <li class="hr-separator is-flex-grow-1">
+                      <a
+                        class="
+                          navbar-item
+                          is-family-primary
+                          has-text-info
+                          is-size-4
+                          pr-5
+                        "
+                        href="#"
+                        ><i class="fas fa-sliders-h"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </span>
+              </div>
+            </nav>
+          </div>
+
+          <table class="table is-fullwidth px-6 mb-3">
+            <thead class="is-size-6">
+              <tr>
+                <th class="has-text-centered pt-5" scope="col">
+                  <input type="checkbox" class="checkbox is-focused pt-5" />
+                </th>
+                <th
+                  class="is-family-primary has-text-weight-semibold px-0 pt-5"
+                  scope="col"
+                  (click)="sortByName()"
+                >
+                  Name
+                  <i id="nameArrow" class="fa fa-caret-down"></i>
+                </th>
+                <th
+                  class="is-family-primary has-text-weight-semibold px-0 pt-5"
+                  scope="col"
+                  (click)="sortByCode()"
+                >
+                  Code
+                  <i id="codeArrow" class="fa fa-caret-down"></i>
+                </th>
+                <th
+                  class="is-family-primary has-text-weight-semibold px-0 pt-5"
+                  scope="col"
+                  (click)="sortByOrder()"
+                >
+                  Subject Order
+                  <i id="orderArrow" class="fa fa-caret-down"></i>
+                </th>
+                <th
+                  class="is-family-primary has-text-weight-semibold px-0 pt-5"
+                  scope="col"
+                >
+                  Section
+                  <i id="sectionArrow" class="fa fa-caret-down"></i>
+                </th>
+                <th
+                  class="
+                    is-family-primary
+                    has-text-weight-semibold has-text-centered
+                    px-0
+                    pt-5
+                  "
+                  scope="col"
+                >
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody
+              cdkDropList
+              class="is-size-6"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <tr
+                *ngFor="
+                  let subject of subjects
+                    | paginate
+                      : {
+                          itemsPerPage: 10,
+                          currentPage: currentPage,
+                          totalItems: subjects?.length
+                        };
+                  let i = index
+                "
+                cdkDrag
+                [cdkDragDisabled]="selectedClasses.length > 1"
+                cdkDragLockAxis="y"
+                (cdkDragStarted)="dragEnter($event)"
+                style="background-color: white; box-shadow: 5px"
+              >
+                <td
+                  class="
+                    td-users
+                    is-family-primary
+                    has-text-weight-normal has-text-centered
+                    px-3
+                  "
+                >
+                  <input
+                    type="checkbox"
+                    (change)="getSelectedItems(i, $event.target.checked)"
+                    class="checkbox is-focused"
+                  />
+                </td>
+                <td class="td-users pl-0 pr-4 py-1">
+                  <span
+                    *ngIf="!subject.edit"
+                    class="
+                      span
+                      is-static
+                      txt-name
+                      is-info is-small is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pr-6
+                      pl-2
+                    "
+                    >{{ subject.name }}</span
+                  >
+                  <input
+                    (click)="$event.stopPropagation()"
+                    *ngIf="subject.edit"
+                    class="
+                      input
+                      txt-name
+                      is-info is-focused is-small
+                      has-background-white
+                      is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pl-2
+                    "
+                    type="text"
+                    [(ngModel)]="subjectCredentials.name"
+                  />
+                </td>
+                <td
+                  class="
+                    td-users
+                    is-family-primary
+                    has-text-weight-normal
+                    pl-0
+                    pr-4
+                    py-1
+                  "
+                >
+                  <span
+                    *ngIf="!subject.edit"
+                    class="
+                      span
+                      is-static
+                      txt-name
+                      is-info is-small is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pr-6
+                      pl-2
+                    "
+                    >{{ subject.code }}</span
+                  >
+                  <input
+                    (click)="$event.stopPropagation()"
+                    *ngIf="subject.edit"
+                    ngModel
+                    id="subCode"
+                    #subCode="ngModel"
+                    name="subCode"
+                    [ngClass]="
+                      subCode.touched && subCode.value == ''
+                        ? 'input  txt-name is-info is-danger is-small has-background-white is-size-6 is-family-primary has-text-weight-normal pl-2'
+                        : 'input  txt-name is-info is-focused is-small has-background-white is-size-6 is-family-primary has-text-weight-normal pl-2'
+                    "
+                    type="text"
+                    [(ngModel)]="subjectCredentials.code"
+                  />
+                </td>
+
+                <td
+                  class="
+                    td-users
+                    is-family-primary
+                    has-text-weight-normal
+                    pl-0
+                    pr-4
+                    py-1
+                  "
+                >
+                  <span
+                    class="
+                      span
+                      is-static
+                      txt-name
+                      is-info is-small is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pr-6
+                      pl-2
+                    "
+                    >{{ subject.subject_order }}</span
+                  >
+
+                  <!-- <input
+                    (click)="$event.stopPropagation()"
+                    *ngIf="subject.edit"
+                    class="
+                      input
+                      txt-name
+                      is-info is-focused is-small
+                      has-background-white
+                      is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pl-2
+                    "
+                    type="text"
+                    [(ngModel)]="subjectCredentials.subjectOrder"
+                  /> -->
+                </td>
+                <td class="td-users has-text-left pl-0 pr-4 py-1">
+                  <span
+                    class="
+                      span
+                      is-static
+                      txt-name
+                      is-info is-small is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pr-6
+                      pl-2
+                    "
+                    >{{ subject.sectionName }}</span
+                  >
+
+                  <!-- <div *ngIf="subject.edit">
+                    <ng-select
+                      (click)="$event.stopPropagation()"
+                      id="ngSelect"
+                      [items]="classSections"
+                      bindLabel="displayName"
+                      notFoundText="Not Found"
+                      placeholder="Section"
+                      multiple="true"
+                      [searchable]="false"
+                      [hideSelected]="true"
+                      style="overflow: visible;"
+                      [(ngModel)]="subjectCredentials.sections"
+                    >
+                      <ng-template ng-tag-tmp let-search="searchTerm">
+                        <p>{{ search }} (New Cycle)</p>
+                      </ng-template>
+                      
+                    </ng-select>
+                  </div> -->
+                </td>
+
+                <td
+                  class="
+                    td-users
+                    is-family-primary
+                    has-text-weight-normal has-text-centered
+                    is-size-4
+                    py-2
+                  "
+                >
+                  <button
+                    *ngIf="subject.edit"
+                    class="
+                      button
+                      is-small is-outlined
+                      has-background-white
+                      mr-1
+                    "
+                    (click)="$event.stopPropagation(); enableEditDialog(i)"
+                  >
+                    <span
+                      class="
+                        has-text-info
+                        is-family-primary
+                        has-text-weight-bold
+                        is-size-7
+                        px-3
+                      "
+                      id="closebtn"
+                      >Cancel</span
+                    >
+                  </button>
+
+                  <button
+                    *ngIf="subject.edit"
+                    class="
+                      button
+                      is-link is-family-primary
+                      has-text-weight-bold
+                      is-size-7
+                      px-4
+                    "
+                    (click)="$event.stopPropagation(); editSubject(i)"
+                    [disabled]="
+                      subjectCredentials.code.length == 0"
+                  >
+                    Save
+                  </button>
+
+                  <div *ngIf="!subject.edit">
+                    <a
+                      class="action-icons edit"
+                      matTooltip="Edit"
+                      (click)="$event.stopPropagation(); enableEditDialog(i)"
+                      ><i class="fa fa-pen pr-2"></i></a
+                    ><a
+                      (click)="
+                        $event.stopPropagation(); showDeleteDialog(subject)
+                      "
+                      class="action-icons"
+                      matTooltip="Delete"
+                      ><i class="fa fa-trash-alt pr-2" id="launchModal"></i></a
+                    ><a class="action-icons" href="#" matTooltip="Settings"
+                      ><i class="fa fa-cog"></i
+                    ></a>
+
+                    <a
+                      class="action-icons ml-6"
+                      matTooltip="Employee Subject Association"
+                      (click)="didClickSubjectRow(i)"
+                      ><i class="fa fa-caret-right"></i
+                    ></a>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="enableAddSubject">
+                <td class="td-users px-2"></td>
+                <td class="td-users pl-0 pr-4">
+                  <input
+                    (click)="$event.stopPropagation()"
+                    #subjectName="ngModel"
+                    required=""
+                    [ngClass]="
+                      subjectName.touched && !subjectName.valid
+                        ? 'input td-content is-info is-danger txt-code is-small is-size-6 is-family-primary has-text-weight-normal has-background-white pl-2'
+                        : 'input td-content is-info is-focused txt-code is-small is-size-6 is-family-primary has-text-weight-normal has-background-white pl-2'
+                    "
+                    type="text"
+                    [(ngModel)]="subjectCredentials.name"
+                    placeholder="Name"
+                  />
+                </td>
+                <td class="td-users pl-0 pr-4">
+                  <input
+                    #subjectCode="ngModel"
+                    required=""
+                    [ngClass]="
+                      subjectCode.touched && !subjectCode.valid
+                        ? 'input td-content is-info is-danger txt-code is-small is-size-6 is-family-primary has-text-weight-normal has-background-white pl-2'
+                        : 'input td-content is-info is-focused txt-code is-small is-size-6 is-family-primary has-text-weight-normal has-background-white pl-2'
+                    "
+                    type="text"
+                    [(ngModel)]="subjectCredentials.code"
+                    placeholder="Code"
+                  />
+                </td>
+                <td class="td-users has-text-left pl-0 pr-4">
+                  <!-- <span
+                    class="
+                      span
+                      is-static
+                      txt-name
+                      is-info is-small is-size-6 is-family-primary
+                      has-text-weight-normal
+                      pr-6
+                      pl-2
+                    "
+                    >1</span
+                  > -->
+                  <!-- <input
+                  #subjectOrder = "ngModel"
+                  required = ""
+                  [ngClass] = "
+                  subjectOrder.touched && !subjectOrder.valid
+                    ? 'input td-content is-info is-danger txt-code is-small is-size-6 is-family-primary has-text-weight-normal has-background-white pl-2'
+                    : 'input td-content is-info is-focused txt-code is-small is-size-6 is-family-primary has-text-weight-normal has-background-white pl-2'
+                "
+                    type="text"
+                    [(ngModel)]="subjectCredentials.subjectOrder"
+                    placeholder="subjectOrder"
+                  /> -->
+                </td>
+                <td class="td-users has-text-left pl-0 pr-4">
+                  <div class="select is-fullwidth is-family-primary is-normal">
+                    <ng-select
+                      #subjectSection="ngModel"
+                      required=""
+                      id="ngSelect required"
+                      [items]="classSections"
+                      bindLabel="displayName"
+                      notFoundText="Not Found"
+                      placeholder="Section"
+                      multiple="true"
+                      [searchable]="false"
+                      [hideSelected]="true"
+                      style="overflow: visible;"
+                      [(ngModel)]="subjectCredentials.sections"
+                    >
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{ item.displayName }}">
+                          {{ item.displayName }}
+                        </div>
+                      </ng-template>
+                    </ng-select>
+                  </div>
+                </td>
+                <div
+                  *ngIf="enableAddSubject"
+                  class="
+                    field
+                    is-grouped is-grouped-left
+                    has-background-white
+                    mb-0
+                    pb-5
+                    pl-6
+                  "
+                >
+                  <td class="td-users has-text-left pl-0 pr-4">
+                    <button
+                      class="button is-outlined has-background-info is-normal"
+                      style=""
+                      (click)="createNewSubject()"
+                      [disabled]="
+                        subjectName.invalid ||
+                        subjectCode.invalid ||
+                        subjectSection.invalid
+                      "
+                    >
+                      <span
+                        class="
+                          has-text-white
+                          is-family-primary
+                          has-text-weight-bold
+                          is-size-6
+                          px-3
+                        "
+                        id="next"
+                        >Save</span
+                      >
+                    </button>
+                  </td>
+                  <td class="td-users has-text-left px-0">
+                    <button
+                      class="button is-normal is-outlined has-background-white"
+                      (click)="addSubjectDialog()"
+                    >
+                      <span
+                        class="
+                          has-text-info
+                          is-family-primary
+                          has-text-weight-bold
+                          is-size-6
+                          px-2
+                        "
+                        id="closebtn"
+                        >Cancel</span
+                      >
+                    </button>
+                  </td>
+                </div>
+              </tr>
+            </tbody>
+          </table>
+
+          <nav class="is-fullwidth has-background-white-bis">
+            <div class="navbar-menu" style="height: 50px">
+              <a
+                class="
+                  navbar-item
+                  is-family-primary
+                  has-text-info has-text-weight-semibold
+                  py-0
+                  pl-5
+                "
+                (click)="addSubjectDialog()"
+                ><i class="fa fa-plus is-size-5"></i>
+                <span class="is-size-6">&nbsp;&nbsp;Add subject</span></a
+              >
+            </div>
+          </nav>
+          <nav>
+            <div class="container">
+              <div
+                class="pagination is-right"
+                role="navigation"
+                aria-label="pagination"
+              >
+                <ul
+                  class="pagination-list"
+                  style="margin-right: 10px; margin-top: 5px"
+                >
+                  <li>
+                    <pagination-controls
+                      maxSize="6"
+                      directionLinks="false"
+                      class="my-pagination"
+                      autoHide="true"
+                      (pageChange)="currentPage = $event"
+                    ></pagination-controls>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <!-- Manage Cycles-->
+      <div
+        class=""
+        [ngClass]="{
+          'flex-item-hidden': SelectedSection.expand === false,
+          'flex-item-side': SelectedSection.expand === true
+        }"
+      >
+        <section
+          class="is-large has-background-white pt-3 mx-5"
+          style="border-radius: 13px"
+        >
+          <table class="table add-modal is-fullwidth">
+            <tbody>
+              <tr>
+                <td class="pt-3 pl-5">
+                  <span
+                    class="
+                      is-family-primary
+                      has-text-weight-bold
+                      is-size-5
+                      mb-0
+                    "
+                    style="color: #3f81c3"
+                  >
+                    Employee Subject Association</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="pt-3 pl-5">
+                  <span
+                    class="is-family-primary has-text-weight-bold mb-0"
+                    style="color: #3f81c3; font-size: 14px"
+                  >
+                    Subject: {{ SelectedSection.SubjectTitle }}</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td class="pt-3 pl-5">
+                  <span
+                    class="is-family-primary has-text-weight-bold mb-0"
+                    style="color: #3f81c3; font-size: 14px"
+                  >
+                    Section: {{ SelectedSection.SectionTitle }}</span
+                  >
+                </td>
+              </tr>
+
+              <tr class="" *ngFor="let employee of AssignedTeachers">
+                <td class="pt-5 pl-5">
+                  <span
+                    class="
+                      has-text-dark
+                      is-family-primary
+                      has-text-weight-medium
+                      is-size-6
+                      mt-0
+                      mb-0
+                    "
+                  >
+                    {{ employee.first_name }}</span
+                  >
+                </td>
+                <td class="pt-5 has-text-right">
+                  <a
+                    class="action-icons"
+                    (click)="didClickDeleteEmployee(employee)"
+                    ><i class="action-icons fas fa-trash-alt"></i
+                  ></a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <!--Using items input-->
+                  <ng-select
+                    [items]="SelectedSection.Employees"
+                    bindLabel="displayName"
+                    placeholder="Assign Teacher"
+                    bindValue="user"
+                    [(ngModel)]="SelectedSection.Selecteduser"
+                    (change)="didSelectEmployee($event)"
+                  >
+                  </ng-select>
+                </td>
+                <td>
+                  <button
+                    MADBtn
+                    (click)="AttemptToAssign()"
+                    [disabled]="SelectedSection.Selecteduser === null"
+                  >
+                    Assign
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="column ml-5 pb-6"></div>
+        </section>
+      </div>
+    </div>
+
+    <button class="modal-close is-large" aria-label="close"></button>
+  </section>
+</div>

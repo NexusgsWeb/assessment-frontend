@@ -1,0 +1,37 @@
+<div class="mb-0" (click) = "viewContent(LOItem)">
+  <div class="is-full">
+    <span
+      class="
+        is-inline-block is-inline-block is-family-primary
+        has-text-weight-medium has-text-black-bis
+        is-size-6 is-size-7-tablet is-size-7-mobile
+      "
+      >{{LOItem.description}}</span
+    >
+  </div>
+  <div class="column is-12-mobile is-5-desktop is-4-tablet mb-3">
+    <progress
+    matTooltip = "{{LOItem.value}}"
+    *ngIf = "loEvaluation(LOItem.value) == 1"
+      class="progress is-success is-large"
+      value="{{LOItem.value}}"
+      max="100"
+    ></progress>
+
+    <progress
+    matTooltip = "{{LOItem.value}}"
+    *ngIf = "loEvaluation(LOItem.value) == 2"
+      class="progress is-warning is-large"
+      value="{{LOItem.value}}"
+      max="100"
+    ></progress>
+
+    <progress
+    matTooltip = "{{LOItem.value}}"
+    *ngIf = "loEvaluation(LOItem.value) == 3"
+      class="progress is-danger is-large"
+      value="{{LOItem.value}}"
+      max="100"
+    ></progress>
+  </div>
+</div>

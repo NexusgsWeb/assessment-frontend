@@ -1,0 +1,172 @@
+<div>
+    <div>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous"> 
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+      <div class="columns is-mobile ">
+        <!---------->
+        <div class="column   px-0 py-0">
+          <div class="section is-large has-background-grey-light pt-3 px-4  ">
+            <div class="section is-large has-background-white pt-2 px-3 " style="border-radius: 13px;">
+              <div class="columns is-multiline is-mobile pb-6">
+                <div class=" column is-12-mobile is-3-desktop is-4-tablet is-3-widescreen ">
+                    <span class="is-family-primary has-text-weight-bold has-text-left has-text-dark is-block is-size-6 pt-5 pl-3">Select Class</span>
+                    <div class=" is-normal is-fullwidth pl-3 pt-2">
+                      <ng-select
+                              #ngg
+                              class = "custom"
+                              id="ngSelect"
+                              [items]="classes"
+                              (change)="onClassSelected($event)"
+                              bindLabel="code"
+                              notFoundText="Not Found"
+                              placeholder="Select class"
+                              [closeOnSelect]="true"
+                              [searchable]="false"
+                              [hideSelected]="false"
+                              style="overflow: visible;"
+                              [(ngModel)]="selectedClass"
+                          >
+         
+  
+                          <ng-template ng-option-tmp let-item="item">
+                          <div title="{{ item.code }}">{{ item.code }}</div>
+                          </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+
+                <div class=" column is-12-mobile is-3-desktop is-4-tablet is-3-widescreen ">
+                  <span class="is-family-primary has-text-weight-bold has-text-left has-text-dark is-block is-size-6 pt-5 pl-3">Select Section</span>
+                  <div class=" is-normal is-fullwidth pl-3 pt-2">
+                    <ng-select
+                            #ngg
+                            class = "custom"
+                            id="ngSelect"
+                            [items]="sections"
+                            (change)="onSectionSelected($event)"
+                            bindLabel="code"
+                            notFoundText="Not Found"
+                            placeholder="Select section"
+                            [closeOnSelect]="true"
+                            [searchable]="false"
+                            [hideSelected]="false"
+                            style="overflow: visible;"
+                            [(ngModel)]="selectedSection"
+                        >
+       
+
+                        <ng-template ng-option-tmp let-item="item">
+                        <div title="{{ item.code }}">{{ item.code }}</div>
+                        </ng-template>
+                    </ng-select>
+                  </div>
+                </div>
+  
+                <div class=" column is-12-mobile is-3-desktop is-4-tablet is-3-widescreen ">
+                  <span class="is-family-primary has-text-weight-bold has-text-left has-text-dark is-block is-size-6 pt-5 pl-3">Select Subject</span>
+                  <div class=" is-normal is-fullwidth pl-3 pt-2">
+                    <ng-select
+                            #ngg
+                            class = "custom"
+                            id="ngSelect"
+                            [items]="subjects"
+                            (change)="onSubjectSelected($event)"
+                            bindLabel="name"
+                            notFoundText="Not Found"
+                            placeholder="Select subject"
+                            [closeOnSelect]="true"
+                            [searchable]="false"
+                            [hideSelected]="false"
+                            style="overflow: visible;"
+                            [(ngModel)]="selectedSubject"
+                        >
+       
+
+        <ng-template ng-option-tmp let-item="item">
+          <div title="{{ item.name }}">{{ item.name }}</div>
+        </ng-template>
+      </ng-select>
+                  </div>
+                </div>
+  
+                <div class=" column is-12-mobile is-3-desktop is-4-tablet is-3-widescreen ">
+                  <span class="is-family-primary has-text-weight-bold has-text-left has-text-dark is-block is-size-6 pt-5 pl-3">Select Assessment</span>
+                  <div class=" is-normal is-fullwidth pl-3 pt-2">
+                    <ng-select
+                        #ngg
+                        class = "custom"
+                        id="ngSelect"
+                        [items]="assessments"
+                        (change)="onAssessmentSelected($event)"
+                        bindLabel="title"
+                        notFoundText="Not Found"
+                        placeholder="Select assessment"
+                        [closeOnSelect]="true"
+                        [searchable]="false"
+                        [hideSelected]="false"
+                        style="overflow: visible;"
+                        [(ngModel)]="selectedAssessment"
+                    >
+       
+
+        <ng-template ng-option-tmp let-item="item">
+          <div title="{{ item.title }}">{{ item.title }}</div>
+        </ng-template>
+      </ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="columns is-multiline is-mobile mt-6 mx-3">
+                <div class="column is-full has-background-light">
+                  <div class="columns is-multiline is-mobile">
+                    <div class=" column is-6-mobile is-3-desktop is-5-tablet is-3-widescreen ">
+                      <input type="checkbox" class="mx-3 my-3">
+                      <span class="is-inline-block is-family-primary has-text-weight-semibold has-text-black-bis is-size-6 is-size-7-mobile">{{assessmentResults.length}} Selected Students</span>
+                    </div>
+                    <div class=" column is-3-desktop  is-3-widescreen my-2">
+                      <a class=""></a>
+                    </div>
+                    <div class=" column  is-3-desktop  is-3-widescreen my-2">
+                      <a class="is-family-primary has-text-weight-bold is-size-6 is-size-7-mobile" style="opacity:0.9;" (click) = "resetAll()">Reset for All</a>
+                    </div>
+                  </div>
+                </div>
+                <div class=" column is-full has-background-white" *ngFor = "let result of assessmentResults">
+                  <div class="columns is-multiline is-mobile mb-0">
+                    <div class=" column is-6-mobile is-8-desktop is-5-tablet is-8-widescreen ">
+                      <input type="checkbox" class="mx-3 my-3">
+                      <span class="is-inline-block is-inline-block is-family-primary has-text-weight-medium has-text-black-bis is-size-6 is-size-7-mobile">{{result.name}}</span>
+                    </div>
+                    <!-- <div class=" column  is-2-desktop  is-2-widescreen my-3">
+                      <a class="is-family-primary has-text-weight-bold is-size-6 is-size-7-mobile" style="opacity:0.9;"(click) = "viewStudentAnswers(result)">View Answer</a>
+                    </div> -->
+                    <div class=" column  is-2-desktop  is-2-widescreen my-3">
+                      <a class="is-family-primary has-text-weight-bold is-size-6 is-size-7-mobile" style="opacity:0.9;" (click) = "resetAssessment(result.id)"> Reset</a>
+                    </div>
+                  </div>
+                  <hr class="hr-line1">
+                </div>
+  
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+       
+  
+       
+  
+      </div>
+    </div>
+  
+  
+  
+  
+  
+  
+  
+  </div>

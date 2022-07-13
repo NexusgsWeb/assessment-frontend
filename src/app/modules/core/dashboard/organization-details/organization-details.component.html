@@ -1,0 +1,262 @@
+<div>
+  <section class="hero is-full-height">
+    <div class="column px-0 py-0">
+      <section class="section is-large has-background-grey-light pt-3 px-4">
+        <nav
+          class="breadcrumb has-succeeds-separator py-1 mb-3"
+          aria-label="breadcrumbs"
+        >
+
+
+
+
+        <breadcrumb #parent>
+          <ol>
+            <li
+                *ngIf="!parent.breadcrumbs[0].terminal"
+                
+              >
+                <a href="" class="is-family-primary has-text-weight-bold  is-size-5 pl-4 " [routerLink]="[parent.breadcrumbs[0].url]">My Home</a>
+              </li>
+            <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+              <li
+                *ngIf="!route.terminal"
+              >
+                <a href="" class="is-family-primary has-text-weight-bold  is-size-5  " [routerLink]="[route.url]">{{ route.displayName }}</a>
+              </li>
+              <li *ngIf = "route.terminal" class = "is-active is-family-primary has-text-weight-bold  is-size-5 ">
+                <a aria-current="page" class="">{{name}}</a>
+                </li>
+
+            </ng-template>
+          </ol>
+        </breadcrumb>
+    
+        </nav>
+        <!-- Organ should be here-->
+        <app-organization-view
+          [SelectedOrganization]="SelectedOrganization"
+        ></app-organization-view>
+        <!-- Organ ends here-->
+
+        <div class="columns is-12-desktop pt-4">
+          <div class="column mr-3">
+            <button
+              *ngIf="viewSchoolBool"
+              class="button is-info is-large is-fullwidth"
+              style="border-radius: 11.2px"
+              (click)="viewSchoolsClicked()"
+            >
+              <span class="icon is-medium"
+                ><i class="icons fa fa-school"></i
+              ></span>
+              <!-- <span class="icon is-medium"><i class="icons fa fa-school"></i></span> -->
+              <span
+                class="
+                  is-size-6 is-family-primary
+                  has-text-weight-semibold
+                  pl-5
+                  mr-6
+                "
+              >
+                View Schools</span
+              >
+            </button>
+            <button
+              *ngIf="!viewSchoolBool"
+              class="button is-info is-outlined is-large is-fullwidth"
+              style="border-radius: 11.2px"
+              (click)="viewSchoolsClicked()"
+            >
+              <span class="icon is-medium"
+                ><i class="icons fa fa-school"></i
+              ></span>
+
+              <span
+                class="
+                  is-size-6 is-family-primary
+                  has-text-weight-semibold
+                  pl-5
+                  mr-6
+                "
+              >
+                View Schools</span
+              >
+            </button>
+          </div>
+          <div class="column mr-3">
+            <button *ngIf = "viewUsersBool"
+              (click)="viewUsersClicked()"
+              class="button is-info is-large is-fullwidth"
+              style="border-radius: 11.2px"
+            >
+              <span class="icon is-medium"
+                ><i class="icons fa fa-users"></i
+              ></span>
+
+              <span
+                class="
+                  is-size-6 is-family-primary
+                  has-text-weight-semibold
+                  pl-5
+                  mr-6
+                "
+              >
+                View Users</span
+              >
+            </button>
+
+            <button *ngIf = "!viewUsersBool"
+              (click)="viewUsersClicked()"
+              class="button is-info is-large is-outlined is-fullwidth"
+              style="border-radius: 11.2px"
+            >
+              <span class="icon is-medium"
+                ><i class="icons fa fa-users"></i
+              ></span>
+
+              <span
+                class="
+                  is-size-6 is-family-primary
+                  has-text-weight-semibold
+                  pl-5
+                  mr-6
+                "
+              >
+                View Users</span
+              >
+            </button>
+          </div>
+          <div class="column mr-3">
+            <button *ngIf = "viewSettingsBool"
+              class="button is-info is-large is-fullwidth"
+              style="border-radius: 11.2px"
+            >
+              <span class="icon is-medium"
+                ><i class="icons fa fa-cog"></i
+              ></span>
+
+              <span
+                class="
+                  is-size-6 is-family-primary
+                  has-text-weight-semibold
+                  pl-5
+                  mr-6
+                "
+              >
+                View Settings</span
+              >
+            </button>
+
+            <button *ngIf = "!viewSettingsBool"
+            class="button is-info is-outlined is-large is-fullwidth"
+            style="border-radius: 11.2px"
+          >
+            <span class="icon is-medium"
+              ><i class="icons fa fa-cog"></i
+            ></span>
+
+            <span
+              class="
+                is-size-6 is-family-primary
+                has-text-weight-semibold
+                pl-5
+                mr-6
+              "
+            >
+              View Settings</span
+            >
+          </button>
+
+          </div>
+          <div class="column mr-0">
+            <button *ngIf = "accessSettingsBool"
+              class="button is-info is-large is-fullwidth"
+              style="border-radius: 11.2px"
+              (click)="AccessSettingsClicked()"
+            >
+              <span class="icon is-medium"
+                ><i class="icons fa fa-cogs"></i
+              ></span>
+
+              <span
+                class="
+                  is-size-6 is-family-primary
+                  has-text-weight-semibold
+                  pl-5
+                  mr-6
+                "
+              >
+                Access Settings</span
+              >
+            </button>
+            <button *ngIf = "!accessSettingsBool"
+              class="button is-info is-outlined is-large is-fullwidth"
+              style="border-radius: 11.2px"
+              (click)="AccessSettingsClicked()"
+            >
+              <span class="icon is-medium"
+                ><i class="icons fa fa-cogs"></i
+              ></span>
+
+              <span
+                class="
+                  is-size-6 is-family-primary
+                  has-text-weight-semibold
+                  pl-5
+                  mr-6
+                "
+              >
+                Access Settings</span
+              >
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="section is-small has-background-white pt-3 pb-4 px-3 pb-6"
+          style="border-radius: 13px"
+        >
+          <div *ngIf="viewSchoolBool">
+            <app-view-schools
+              [SelectedOrganization]="SelectedOrganization"
+            ></app-view-schools>
+          </div>
+          <div *ngIf="viewUsersBool">
+            <app-users
+              [SelectedOrganization]="SelectedOrganization"
+            ></app-users>
+          </div>
+          <div *ngIf="viewSettingsBool">
+            <app-users
+              [SelectedOrganization]="SelectedOrganization"
+            ></app-users>
+          </div>
+          <div *ngIf="accessSettingsBool">
+            <app-access-settings
+              [SelectedOrganization]="SelectedOrganization"
+              [PluginList]="PluginList"
+            ></app-access-settings>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+</div>
+<!-- <div *ngIf="viewSchoolBool">
+  <app-view-schools
+    [SelectedOrganization]="SelectedOrganization"
+  ></app-view-schools>
+</div>
+<div *ngIf="viewUsersBool">
+  <app-users
+    [SelectedOrganization]="SelectedOrganization"
+  ></app-users>
+</div>
+<div *ngIf="viewSettingsBool">
+  <app-users></app-users>
+</div>
+<div *ngIf="accessSettingsBool">
+  <app-access-settings></app-access-settings>
+</div>
+</div> -->

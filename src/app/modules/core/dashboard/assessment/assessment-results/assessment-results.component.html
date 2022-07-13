@@ -1,0 +1,96 @@
+<div>
+    <div>
+      <div>
+
+        <div>
+          <div class="columns  is-mobile ">
+            <!---------->
+            <div class="column   px-0 py-0">
+              <div class="section is-large has-background-grey-light pt-3 px-4  ">
+
+
+                <!--   <div class="box has-background-white pt-2 pb-6 mb-6  mx-3">-->
+                <div class="section is-small has-background-white pt-2 px-3 " style="border-radius: 13px;">
+
+                  <div class="columns is-multiline pt-5">
+                    <div class="column is-4">
+                      <div class="text has-text-left  is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5">  Title:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> {{assessment?.title}}</span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Planned Duration:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> {{assessment?.duration}} min</span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Start Date:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> {{assessment?.from_date}}</span></div>
+                    </div>
+
+                    <div class="column is-4">
+                      <div class="text has-text-left  is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5">  Subject:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> {{assessment?.subject_name}} </span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Estimated Duration:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> {{assessment?.duration}} min</span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> End Date:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> {{assessment?.to_date}}</span></div>
+                    </div>
+                    <div class="column is-4">
+                      <div class="text has-text-left  is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5">  Class and Sections:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> {{assessment?.classesAndSections}} </span></div>
+                      <div class="text has-text-left is-family-primary  is-size-6-desktop is-size-7-tablet pb-1"><span class="has-text-weight-bold has-text-dark pl-5"> Average Difficulty:</span>
+                        <span class="has-text-weight-semibold details-has-text-grey-color"> 6</span></div>
+                    </div>
+                  </div>
+
+
+                  <div class="column is-12-tablet is-12-desktop is-hidden-mobile">
+                    <div class="field is-grouped is-grouped-right  pb-2 px-2">
+
+                      <div *ngIf = "isPublished" class="control">
+                        <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="" >
+                          <span (click) = "publishResults()" *ngIf = "assessment?.is_published != true" class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Publish Results</span>
+                          <span (click) = "publishResults()" *ngIf = "assessment?.is_published == true" class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Unpublish Results</span>
+
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class=" is-hidden-tablet" *ngIf = "isPublished" >
+                    <div class="column is-7-mobile">
+                      <div class="field is-grouped is-grouped-right  pb-2 px-2">
+                        <div class="control column is-half-mobile">
+                          <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="">
+                            <span (click) = "publishResults()" *ngIf = "assessment?.is_published != true" class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Publish Results</span>
+                            <span (click) = "publishResults()" *ngIf = "assessment?.is_published == true" class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Unpublish Results</span>
+                            </button>
+                        </div>
+                      </div>
+                    </div>`
+                  </div>
+
+                  <div *ngIf = "!clicked">
+                    <app-view-assessment-results
+                    (onCheckCompleted) = "checkPublish(assessment)"
+                    (onDisplayAnswers) = "displayResults(assessment)"
+
+                    ></app-view-assessment-results>
+                  </div>
+
+
+                  <div *ngIf = "clicked">
+                    <app-display-assessment-answers
+                    ></app-display-assessment-answers>
+                  </div>
+
+                  <!-- <router-outlet></router-outlet> -->
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  </div>

@@ -1,0 +1,18 @@
+<div class="virtualClassMeeting">
+
+    <div class="calendarManagement">
+        
+        <div class="newMeeting">
+            <button mat-raised-button class="button-new-meeting" (click)="openDialog()">New Meeting</button>
+        </div>
+        
+        <app-datepicker-inline-calendar (onDaySelect)="doOnDaySelect($event)"></app-datepicker-inline-calendar>
+
+        <app-element-tree (onFilterClick)="doOnFilterClick($event)"></app-element-tree>
+    </div>
+
+    <div class="detailedCalendar">
+        <app-full-calender [filterBy]="filter" [goToDate]="goToSelectedDate"></app-full-calender>
+    </div>
+
+</div>

@@ -1,0 +1,140 @@
+<div (onAssessmentCreate) = "hello($event)">
+    <div>
+      <div>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous"> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+        <div class="columns  is-mobile ">
+  
+          <!---------->
+          <div class="column   px-0 py-0">
+  
+            <div class="section is-large has-background-grey-light pt-3 px-4  ">
+  
+              <nav class="breadcrumb has-succeeds-separator py-1 mb-3" aria-label="breadcrumbs">
+                <breadcrumb #parent>
+                  <ol>
+                   
+                    <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+    
+                      <li *ngIf="!route.terminal || route.displayName == 'My Home'">
+                        <a
+                          href=""
+                          class="is-family-primary has-text-weight-bold is-size-5"
+                          [routerLink]="[route.url]"
+                          >{{ route.displayName }}</a
+                        >
+                      </li>
+                      <li
+                        class="is-active is-family-primary has-text-weight-bold is-size-5"
+                        *ngIf="route.terminal && route.displayName != 'My Home'"
+                      >
+                        <a aria-current="page" *ngIf = "edit == false"> {{ route.displayName }}</a>
+                        <a aria-current="page" *ngIf = "edit == true"> Edit Assessment</a>
+
+                      </li>
+                    </ng-template>
+                  </ol>
+                </breadcrumb>
+
+              </nav>
+              <!--   <div class="box has-background-white pt-2 pb-6 mb-6  mx-3">-->
+              <div class="section is-small has-background-white pt-2 px-3 " style="border-radius: 13px;">
+                <div *ngIf = "edit == false" class="columns is-12-desktop is-12-widescreen pt-2">
+                 
+                  <div class="column is-7-mobile mr-3">
+                    <button class="" (click) = "detectStep(1)" [ngClass]="
+                    stepCount == 1
+                      ? 'button is-info is-outlined is-large is-focused is-fullwidth'
+                      : 'button is-info is-outlined is-large is-fullwidth'
+                  "
+                  >  
+                      <span class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-5-widescreen   is-family-primary has-text-weight-semibold  pl-0 mr-0"> 1- Create Assessment</span></button>
+                  </div>
+                  <div class="column is-7-mobile mr-3">
+
+                    <button 
+                    (click) = "detectStep(2)" 
+                    [disabled] = "assessment == null"
+                    [ngClass]="
+                    stepCount == 2
+                      ? 'button is-info is-outlined is-large is-focused is-fullwidth'
+                      : 'button is-info is-outlined is-large  is-fullwidth'
+                  "
+                    >  
+                      <span class=" is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-size-5-mobile  is-family-primary has-text-weight-semibold  pl-0 mr-0"> 2- Select Learning Standards</span></button>
+                  </div>
+                  <div class="column is-7-mobile mr-3">
+                    <button class="button is-info is-outlined is-large is-fullwidth"
+                    [disabled] = "learningStandard == null"
+                    (click) = "detectStep(3)" [ngClass]="
+                    stepCount == 3
+                      ? 'button is-info is-outlined is-large is-focused is-fullwidth'
+                      : 'button is-info is-outlined is-large  is-fullwidth'
+                  "
+                 > 
+  
+  
+                      <span class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-5-widescreen  is-family-primary has-text-weight-semibold  pl-0 mr-0"> 3- Select Questions </span></button></div>
+                  <div class="column is-7-mobile mr-0">
+                    <button [disabled] = "questions == null"
+                    (click) = "detectStep(4)" [ngClass]="
+                    stepCount == 4
+                      ? 'button is-info is-outlined is-large is-focused is-fullwidth'
+                      : 'button is-info is-outlined is-large  is-fullwidth'
+                  "
+                  > 
+  
+  
+                      <span class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-5-widescreen   is-family-primary has-text-weight-semibold  pl-0 mr-0"> 4- Review</span></button>
+                  </div>
+                </div>
+  
+                <div *ngIf = "stepCount == 1">
+                  <app-assessment-create-details
+                  (onAssessmentCreate) = "detectStep($event)"
+                  (createdAssessment) = "assessmentCreated($event)"
+                  
+                  ></app-assessment-create-details>
+                </div>
+                <div *ngIf = "stepCount == 2">
+                  <app-learning-objectives
+                  (onLOChoose) = "detectStep($event)"
+                  (onTransmitInfo) = "transmitInfo($event)"
+                  
+                  ></app-learning-objectives>
+                </div>
+                <div *ngIf = "stepCount == 3">
+                  
+                  <app-assessment-questions
+                  [chosenLearningObjectives] = "chosenLearningObjectives"
+                  [createdAssessment] = "createdAssessment"
+                  (onChooseQuestions) = "detectStep($event)"
+                  ></app-assessment-questions>
+                </div>
+                <div *ngIf = "stepCount == 4">
+                  <app-review-assessment
+                  
+                  ></app-review-assessment>
+
+                </div>
+                <!-- <ng-template #template> </ng-template> -->
+                  <!-- <router-outlet></router-outlet> -->
+
+              </div>
+  
+  
+  
+  
+            </div>
+          </div>
+  
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+  

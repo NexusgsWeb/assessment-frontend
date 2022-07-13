@@ -1,0 +1,35 @@
+<div class="columns">
+  <span class="column is-1"> </span>
+  <span class="column">
+    <span class="field">
+      <div class="columns is-multiline" style="height: 100%; width: 100%">
+        <div
+          class="
+            is-normal is-family-primary
+            has-text-weight-medium
+            control
+            is-expanded is-fullwidth
+            has-background-white-ter
+            column
+            is-12
+          "
+          style="border: 2px solid #3f80bf; min-height: 45px"
+        >
+          <div
+            [mathjax]="answerDetails?.answerText || 'Answer Not Found'"
+          ></div>
+        </div>
+      </div>
+    </span>
+  </span>
+  <span class="column is-1">
+    <button class="button btn-sub-icon is-medium" (click)="didSelectAnswer()">
+      <i
+        class="fas fa-check has-text-blue"
+        [ngClass]="{
+          'correct-answer': answerDetails.isSelected
+        }"
+      ></i>
+    </button>
+  </span>
+</div>

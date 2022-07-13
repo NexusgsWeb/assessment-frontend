@@ -1,0 +1,195 @@
+<div
+  class="
+    column
+    is-11-desktop
+    is-10-tablet
+    is-12-mobile
+    is-three-quarters-mobile
+    is-pulled-left
+    pl-2
+    pr-4
+    pt-3
+  "
+>
+  <div
+    class="section has-background-white pl-2"
+    style="border-radius: 13px; padding-bottom: 60px"
+  >
+    <div class="columns is-mobile">
+      <div class="px-2 pt-0" style="width: 35px">
+        <figure class="image is-32x32">
+          <img
+            class="is-rounded"
+            src="/assets/images/profile/PersonalDetails/SecondLanguageName.png"
+          />
+        </figure>
+        <div class="divider is-vertical is-info"></div>
+        <figure class="image is-32x32">
+          <img
+            class="is-rounded"
+            src="/assets/images/profile/PersonalDetails/Gender.png"
+          />
+        </figure>
+        <div class="divider is-vertical is-info"></div>
+        <figure class="image is-32x32">
+          <img
+            class="is-rounded"
+            src="/assets/images/profile/PersonalDetails/PlaceOfBirth.png"
+          />
+        </figure>
+        <div class="divider is-vertical is-info"></div>
+        <figure class="image is-32x32">
+          <img
+            class="is-rounded"
+            src="/assets/images/profile/PersonalDetails/DateofBirth.png"
+          />
+        </figure>
+      </div>
+      <div
+        class="
+          column
+          is-two-fifths-desktop is-two-fifths-tablet is-one-third-mobile
+          px-2
+          pt-1
+          pb-5
+        "
+      >
+        <span
+          class="
+            is-family-primary
+            has-text-weight-medium has-text-left has-text-black-ter
+            is-size-6
+            px-2
+          "
+          >Second Language Name
+        </span>
+        <span
+          class="
+            is-family-primary
+            has-text-weight-semibold has-text-left has-text-dark
+            is-size-6 is-block
+            pb-5
+            px-2
+          "
+          >{{ StudentMetaData.arabic_first_name }}
+        </span>
+
+        <span
+          class="
+            is-family-primary
+            has-text-weight-medium has-text-left has-text-black-ter
+            is-size-6
+            px-2
+          "
+          >Gender
+        </span>
+        <span
+          class="
+            is-family-primary
+            has-text-weight-semibold has-text-left has-text-dark
+            is-size-6 is-block
+            pb-5
+            px-2
+          "
+        >
+          {{ StudentMetaData.gender }}
+        </span>
+
+        <span
+          class="
+            is-family-primary
+            has-text-weight-medium has-text-left has-text-black-ter
+            is-size-6
+            px-2
+          "
+        >
+          Place Of Birth
+        </span>
+        <span
+          class="
+            is-family-primary
+            has-text-weight-semibold has-text-left has-text-dark
+            is-size-6 is-block
+            pb-5
+            px-2
+          "
+        >
+          {{ StudentMetaData.place_of_birth }}
+        </span>
+
+        <span
+          class="
+            is-family-primary
+            has-text-weight-medium has-text-left has-text-black-ter
+            is-size-6
+            px-2
+          "
+          >Date of Birth
+        </span>
+        <span
+          class="
+            is-family-primary
+            has-text-weight-semibold has-text-left has-text-dark
+            is-size-6 is-block
+            px-2
+          "
+          >{{ StudentMetaData.date_of_birth }}
+        </span>
+      </div>
+      <div class="column px-2 pt-2">
+        <span
+          class="
+            is-family-primary
+            has-text-weight-medium has-text-left has-text-black-ter
+            is-size-6 is-block
+            pb-2
+          "
+        >
+          Nationalities
+        </span>
+        <div class="columns is-mobile">
+          <div class="px-2 pt-0" style="width: 35px">
+            <figure
+              *ngFor="
+                let i of StudentMetaData.nationalities;
+                let j = index
+              "
+              class="image is-32x32 mb-3"
+            >
+              <img
+                class="is-rounded"
+                src="/assets/images/profile/PersonalDetails/Nationalities.png"
+              />
+            </figure>
+          </div>
+          <div class="column px-0 pt-0">
+            <div
+              *ngFor="let i of StudentMetaData.nationalities"
+              class="mb-2"
+            >
+              <span
+                class="
+                  is-family-primary
+                  has-text-weight-semibold has-text-left has-text-dark
+                  is-size-6 is-inline-block
+                  px-4
+                  mb-2
+                "
+              >
+                <p style="padding-top: 5px">
+                  {{ i.nationality }}
+                </p>
+              </span>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="section has-background-white pl-2"
+      style="border-radius: 13px"
+    ></div>
+  </div>
+</div>

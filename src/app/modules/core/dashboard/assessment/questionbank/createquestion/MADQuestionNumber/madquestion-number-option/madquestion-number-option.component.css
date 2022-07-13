@@ -1,0 +1,69 @@
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: #232323;
+}
+/*.button.is-outlined2 {
+    border-radius: 14px; 
+    background-color: #3f80bf; 
+    opacity: 0.05; 
+    border-color: #ffffff; 
+    color: #3f80bf; }*/
+
+.button.is-info.is-outlined {
+  background-color: rgba(63, 128, 191, 0.05);
+  border-color: rgba(63, 128, 191, 0.05);
+  color: #3f80bf;
+  border-radius: 14px;
+}
+.btn-icon {
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  color: #3f81c3;
+  border-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+}
+.btn-sub-icon {
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  border-color: rgba(243, 243, 244, 0.26);
+  color: #c0c0c0;
+}
+.btn-icon-check-success {
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  border-color: rgba(243, 243, 244, 0.26);
+  color: #23ac3d;
+}
+.btn-icon-plus {
+  background-color: white;
+  border-radius: 4.6px;
+  border-color: white;
+  color: #3f81c3;
+}
+
+.btn-icon-plus:active,
+.btn-icon-plus.is-active,
+.btn-icon-plus:focus,
+.btn-icon-plus.is-focused,
+.btn-icon-plus:hover,
+.btn-icon-plus.is-hovered {
+  background-color: white;
+  border-radius: 4.6px;
+  border-color: white;
+  color: #3f81c3;
+}
+
+.input-options {
+  background-color: rgba(243, 243, 244, 0.43);
+  border-radius: 4.6px;
+  color: #c0c0c0;
+}
+.icon-grey {
+  color: #c0c0c0;
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  border-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+}
+.correct-option {
+  color: green;
+}

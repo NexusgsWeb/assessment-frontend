@@ -1,0 +1,197 @@
+<div
+  [ngClass]="{
+    __disabled: (didSubmitQuestion | async)
+  }"
+>
+  <span
+    id="Question{{ ScrollID }}"
+    class="column is-three-quarters-desktop is-inline-block"
+  >
+    <div class="columns is-multiline">
+      <div class="column is-1">
+        <button
+          class="button btn-icon is-medium has-text-blue"
+          (click)="RequestDeleteQuestion()"
+        >
+          <i class="fas fa-times has-text-blue"></i>
+        </button>
+      </div>
+      <div
+        class="
+          is-1
+          column
+          is-family-primary
+          has-text-weight-bold has-background-white-ter has-text-dark
+          pb-1
+        "
+      >
+        <p
+          class="font-size: 20px"
+          style="text-align: center; padding-top: 12px"
+        >
+          Q:
+        </p>
+      </div>
+      <div
+        class="
+          is-normal is-family-primary
+          has-text-weight-medium
+          control
+          is-expanded is-fullwidth
+          has-background-white-ter
+          column
+          is-10
+        "
+        style="border: 2px solid #3f80bf; min-height: 45px"
+        (click)="handleEditorToggle()"
+      >
+      <ng-katex-html
+      [html]="htmlContent || 'Click here to type a question'"></ng-katex-html>
+      </div>
+      <div
+        class="column is-12"
+        *ngIf="EditorToggle"
+        style="padding-left: 100px"
+      >
+        <angular-editor
+          [(ngModel)]="htmlContent"
+          [config]="config"
+          (ngModelChange) = "showText($event)"
+        ></angular-editor>
+      </div>
+    </div>
+    <p class="help"></p>
+  </span>
+  <span class="column is-inline-block">
+    <button
+      class="button btn-icon is-medium has-text-blue"
+      (click)="handleEditorToggle()"
+    >
+      <i class="fas fa-expand-arrows-alt has-text-blue"></i>
+    </button>
+  </span>
+  <span class="column is-inline-block" *ngIf = "this.userType != 'super'">
+    <button
+      class="button btn-icon is-medium has-text-blue"
+      (click)="didOpenSettings()"
+    >
+      <i class="fas fa-cog has-text-blue"></i>
+    </button>
+  </span>
+  <div class="columns column">
+    <div class="column is-9">
+      <div
+      class="section has-background-white pl-2"
+      style="border-radius: 13px; padding-bottom: 33rem"
+      *ngIf = "edit == true"
+    >
+      <div
+        class="
+          text
+          has-text-left
+          is-family-primary is-size-6-desktop is-size-7-tablet
+          pb-6
+        "
+      >
+        <span class="has-text-weight-bold has-text-dark pl-5"> Remarks:</span
+        >
+      </div>
+      <app-saconfigurequestion-remarkitem
+        *ngFor="let remark of RemarksList"
+        [RemarkData]="remark"
+        [RemarkReferenceArray]="RemarksList"
+        [QuestionData]="selectedQuestion"
+      ></app-saconfigurequestion-remarkitem>
+      <div
+        class="
+          text
+          has-text-left has-text-dark
+          is-family-primary is-size-6-desktop is-size-7-tablet
+          pt-5
+        "
+      >
+        <span (click)="addRemark()" class="has-text-weight-bold pl-5">
+          Add a New Remark</span
+        >
+      </div>
+      <hr class="hor-line1 mx-5 my-1" />
+      <div
+        class="
+          column
+          text
+          has-text-left
+          is-family-primary is-size-6-desktop is-size-7-tablet
+          has-text-weight-medium has-text-black-bis
+          px-5
+        "
+      >
+        <input
+          [(ngModel)]="RemarkFieldModel"
+          class="
+            input
+            is-normal is-family-primary
+            has-text-weight-medium
+            is-fullwidth
+            py-5
+          "
+          type="text"
+          placeholder="Type Your Remark Here"
+        />
+        <button
+          [disabled]="RemarkFieldModel.length === 0"
+          MADBtn
+          (click)="addRemark()"
+        >
+          Add Remark
+        </button>
+      </div>
+
+      <div *ngIf = "userType == 'super'">
+        <hr class="hr-line my-0" />
+        <div
+          class="
+            column
+            is-full is-family-primary
+            has-text-left
+            is-size-5
+            mt-0
+            pb-0
+            mb-0
+            pl-2
+            py-5
+          "
+          style="font-weight: 800; color: rgba(63, 128, 191, 0.61)"
+        >
+          Answer Key
+        </div>
+        <div
+          class="
+            is-normal is-family-primary
+            has-text-weight-medium
+            control
+            is-expanded is-fullwidth
+            has-background-white-ter
+            column
+            is-12
+          "
+          style="border: 2px solid #3f80bf; min-height: 45px"
+        >
+        <ng-katex-html [html]="MetaData.answerKey || 'Answer Key Preview..'"></ng-katex-html>
+        </div>
+        <div class="column is-12">
+          <angular-editor
+            [(ngModel)]="MetaData.answerKey"
+            [config]="config"
+          ></angular-editor>
+        </div>
+      </div>
+      <!-- <div class="column is-pulled-right mr-5 py-5">
+            <input type="checkbox" checked="" />
+          </div> -->
+    </div>
+    </div>
+    <button [disabled]="didSubmitQuestion | async" (click)="saveEditQ()" MADBtn>
+      Save
+    </button>
+  </div>
+</div>

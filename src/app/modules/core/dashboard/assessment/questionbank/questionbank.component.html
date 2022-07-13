@@ -1,0 +1,562 @@
+<section
+  class="section is-large has-background-grey-light pt-3"
+  style="width: 100%; padding-left: 2px"
+>
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <ul>
+      <li>
+        <a class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+          >My Home</a
+        >
+      </li>
+
+      <li class="is-active is-family-primary has-text-weight-bold is-size-5">
+        <a
+          aria-current="page"
+          class="is-family-primary has-text-weight-bold is-size-6"
+        >
+          My Question Bank
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div
+    class="section is-small has-background-white pt-2 pb-1 px-4"
+    style="border-radius: 13px"
+  >
+    <div class="columns is-multiline">
+      <div class="column is-8 pt-5 pl-0">
+        <span
+          class="is-family-primary has-text-weight-bold is-size-5 mt-0 mb-0"
+          style="color: #3f81c3"
+        >
+          My Question Bank</span
+        >
+        <div>
+          <div *ngIf="userType == 'teacher'">
+            <span class="column is-3 is-inline-block">
+              <span
+                class="
+                  is-family-primary
+                  has-text-weight-normal has-text-left has-text-normal
+                  is-size-12
+                  pr-3
+                "
+                >Select Class</span
+              >
+
+              <ng-select
+                #ClassSelector
+                id="ngSelect"
+                [items]="classes"
+                (change)="didSelectClass()"
+                bindLabel="code"
+                notFoundText="Not Found"
+                placeholder="Select class"
+                [searchable]="true"
+                [hideSelected]="true"
+                (clear)="didClearClasses()"
+                [(ngModel)]="selectedClasses"
+                style="min-width: 200px"
+              >
+              </ng-select>
+            </span>
+          </div>
+
+          <div *ngIf="userType == 'admin' || userType === 'super' ">
+            <span class="column is-3 is-inline-block">
+              <span
+                class="
+                  is-family-primary
+                  has-text-weight-normal has-text-left has-text-normal
+                  is-size-12
+                  pr-3
+                "
+                >Select Subject</span
+              >
+
+              <ng-select
+                #ClassSelector
+                id="ngSelect"
+                [items]="subjects"
+                (change)="didSelectSubject($event)"
+                bindLabel="name"
+                notFoundText="Not Found"
+                placeholder="Select subject"
+                [searchable]="true"
+                [hideSelected]="true"
+                (clear)="didClearSubjects()"
+                [(ngModel)]="selectedSubjects"
+                style="min-width: 200px"
+              >
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{ item.name }}">{{ item.name }}</div>
+              </ng-template>
+                <!-- <ng-template ng-tag-tmp let-search="searchTerm">
+                  <p>{{ search }} (New Cycle)</p>
+                </ng-template>
+
+               
+
+                <ng-template
+                  ng-multi-label-tmp
+                  let-items="selectedClasses"
+                  let-clear="clear"
+                >
+                  <div
+                    class="ng-summary-list"
+                    *ngIf="selectedClasses.length != 0"
+                  >
+                    <div class="ng-value">
+                      <span class="ng-value-label">
+                        {{ selectedClasses.length }} Selected
+                      </span>
+                    </div>
+                  </div>
+                </ng-template> -->
+              </ng-select>
+            </span>
+            <div class="mx-4">
+              <span>There are {{ approvedQuestions }} approved questions</span>
+              <br />
+              <span
+                >There are {{ questionsToBeApproved }} questions to be
+                approved</span
+              >
+            </div>
+          </div>
+
+          <span
+            class="column is-3 is-inline-block"
+            *ngIf="userType !== 'admin' && userType != 'super' "
+          >
+            <span
+              class="
+                is-family-primary
+                has-text-weight-normal has-text-left has-text-normal
+                is-size-6
+                pr-3
+              "
+              >Select Subject</span
+            >
+            <ng-select
+              #SubjectSelector
+              id="ngSelect"
+              [items]="subjects"
+              (change)="didSelectSubject($event)"
+              (clear)="didClearSubjects()"
+              bindLabel="name"
+              notFoundText="Not Found"
+              placeholder="Select Subject"
+              [searchable]="true"
+              [hideSelected]="true"
+              [(ngModel)]="selectedSubjects"
+              style="min-width: 200px"
+              [disabled]="
+                selectedClasses === null || selectedClasses === undefined
+              "
+            >
+            </ng-select>
+          </span>
+          <div class="mx-4" *ngIf="userType == 'teacher'">
+            <span>There are {{ approvedQuestions }} approved questions</span>
+            <br />
+            <span
+              >There are {{ questionsToBeApproved }} questions to be
+              approved</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="column is-4-desktop is-12-touch pt-6 pb-5">
+        <div class="field is-grouped is-grouped-right pt-5">
+          <div class="control">
+            <button
+              class="button is-link is-outlined is-rounded"
+              *ngIf="userType === 'teacher' || userType == 'admin'"
+              (click)="navigateToCreateQuestion()"
+            >
+              <!-- <span class="icon ">
+                                                                                                                                                                                                                                                                              <i class="far fa-copy"></i>
+                                                                                                                                                                                                                                                                            </span>-->
+              <figure class="image is-24x24 is-inline-block my-0 ml-0">
+                <i class="fas fa-plus"></i>
+              </figure>
+
+              <span
+                class="ml-1 is-size-7 is-family-primary has-text-weight-normal"
+                id="lanuchModal"
+                >Add new</span
+              >
+            </button>
+          </div>
+          <p class="control">
+            <button class="button is-link is-rounded" style="display: none">
+              <span
+                class="ml-1 is-size-6 is-family-primary has-text-weight-normal"
+                >{{ currentAssignedFilter }}</span
+              >
+              <span class="icon">
+                <i class="fa fa-caret-down"></i>
+              </span>
+              <mat-form-field
+                #VisibilityFilter
+                appearance="fill"
+                style="
+                  position: absolute;
+                  width: 100px;
+                  height: 60px;
+                  opacity: 0;
+                "
+              >
+                <mat-select
+                  #FilterValue
+                  (selectionChange)="
+                    didClickVisibilityFilter(FilterValue.value)
+                  "
+                >
+                  <mat-option *ngFor="let filter of filters" [value]="filter">
+                    {{ filter }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </button>
+          </p>
+        </div>
+      </div>
+      <div class="column is-12">
+        <app-question-bank-filters
+          (onFilterSelected)="filterQuestions($event)"
+          [filterComponents]="filterComponents"
+          [chosenSubject]="chosenSubject"
+          *ngIf="userType === 'admin' || userType === 'super' "
+          style="background-color: red"
+        ></app-question-bank-filters>
+      </div>
+      <div
+        class="column is-full is-hidden-touch px-0 py-0"
+        style="border-radius: 4.6px"
+      >
+        <!--<div class="container">-->
+        <nav class="navbar is-fullwidth has-background-light">
+          <div class="navbar-menu py-1">
+            <span
+              class="
+                navbar-start
+                total-users
+                has-text-weight-bold
+                is-size-6
+                has-text-left
+                is-family-primary
+                has-text-dark
+                py-3
+                px-3
+              "
+              >Total numbers of Questions: {{ questionLength }}
+            </span>
+            <span class="navbar-end px-3">
+              <ul
+                class="
+                  is-flex
+                  is-flex-direction-row
+                  is-flex-wrap-wrap
+                  is-justify-content-space-between
+                  py-0
+                "
+              >
+                <li class="is-flex-grow-1">
+                  <a class="navbar-item has-text-info is-size-4 mt-1"
+                    ><i class="fa fa-download"></i
+                  ></a>
+                </li>
+                <li class="hr-separator is-flex-grow-1">
+                  <a
+                    class="navbar-item has-text-info is-size-4"
+                    style="padding: 0px; margin: 0px; min-width: 20px; "
+
+                  >
+                    <form
+                      action=""
+                      class="search-bar2  px-0 py-0 m-0"
+                    >
+
+                    <input
+                    class="search pl-5 has-text-dark"
+                    [(ngModel)]="SearchQuestionInput"
+                    type="text"
+                    name="search"
+                    required
+                    placeholder="Search Question"
+                  />
+
+                      <button class="search-btn blue" type="submit" (click) = "searchQuery(SearchQuestionInput)">
+                        <i class="fa fa-search is-size-5" style=""></i>
+                      </button>
+                    </form>
+                  </a>
+                  <!-- ?-->
+                  <!-- <a class="navbar-item has-text-info is-size-4" st>
+                    <div class="custom-input-search-div p-3">
+                      <input class="custom-input-search p-3" /></div
+                  ></a> -->
+                </li>
+                <li class="hr-separator is-flex-grow-1">
+                  <a class="navbar-item has-text-info is-size-4"
+                    ><i class="fa fa-upload"></i>
+                  </a>
+                </li>
+                <li class="hr-separator is-flex-grow-1">
+                  <a
+                    class="navbar-item has-text-info is-size-4"
+                    id="launchModal"
+                    (click)="deleteSelectedQuestions()"
+                    ><i class="fas fa-trash-alt"></i
+                  ></a>
+                </li>
+                <!-- <li class="hr-separator is-flex-grow-1">
+                  <a
+                    class="
+                      navbar-item
+                      is-family-primary
+                      has-text-info
+                      is-size-4
+                      pr-5
+                    "
+                    ><i class="fas fa-sliders-h"></i
+                  ></a>
+                </li> -->
+              </ul>
+            </span>
+          </div>
+        </nav>
+      </div>
+
+      <div class="is-hidden-desktop px-3">
+        <div
+          class="column is-full-tablet is-hidden-desktop has-background-light"
+          style="border-radius: 4.6px"
+        >
+          <span
+            class="
+              column
+              is-two-thirds-tablet
+              has-background-light
+              is-inline-block
+              total-users
+              has-text-weight-bold
+              is-size-6-tablet is-size-7-mobile
+              has-text-left
+              is-family-primary
+              has-text-dark
+              py-3
+              px-3
+            "
+            >Total numbers of Questions: {{ questionLength }}
+          </span>
+          <span class="column has-background-light is-inline-block">
+            <ul
+              class="
+                is-flex
+                is-flex-direction-row
+                is-flex-wrap-wrap
+                is-justify-content-space-between
+                py-0
+              "
+            >
+              <li class="is-flex-grow-1">
+                <a
+                  class="
+                    navbar-item
+                    has-text-info
+                    is-size-6-tablet is-size-7-mobile
+                    mt-1
+                  "
+                  ><i class="fa fa-download"></i
+                ></a>
+              </li>
+              <li class="hr-separator is-flex-grow-1">
+                <!-- <a
+                  class="
+                    navbar-item
+                    has-text-info
+                    is-size-6-tablet is-size-7-mobile
+                  "
+                >
+                  <div class="custom-input-search-div p-3">
+                    <input class="custom-input-search" />
+                  </div>
+                </a> -->
+              </li>
+              <li class="hr-separator is-flex-grow-1">
+                <a
+                  class="
+                    navbar-item
+                    has-text-info
+                    is-size-6-tablet is-size-7-mobile
+                  "
+                  ><i class="fa fa-upload"></i
+                ></a>
+              </li>
+              <li class="hr-separator is-flex-grow-1">
+                <a
+                  class="
+                    navbar-item
+                    has-text-info
+                    is-size-6-tablet is-size-7-mobile
+                  "
+                  id="launchModal"
+                  ><i class="fas fa-trash-alt"></i
+                ></a>
+              </li>
+              <li class="hr-separator is-flex-grow-1">
+                <a
+                  class="
+                    navbar-item
+                    is-family-primary
+                    has-text-info
+                    is-size-6-tablet is-size-7-mobile
+                    pr-5
+                  "
+                  ><i class="fas fa-sliders-h"></i
+                ></a>
+              </li>
+            </ul>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-multiline is-mobile mb-0">
+      <div
+        class="
+          column
+          is-1-desktop is-1-tablet is-1-mobile
+          td-users
+          header-bottom-border
+          is-family-primary
+          has-text-weight-normal has-text-centered
+        "
+        style="padding-left: 17px"
+      >
+        <input
+          type="checkbox"
+          [(ngModel)]="CheckAllCheckbox"
+          class="mt-2"
+          (click)="didSelectAllQuestions()"
+        />
+      </div>
+      <div
+        class="
+          column
+          is-5-desktop
+          header-bottom-border
+          is-5-tablet is-5-mobile
+          td-users
+          is-family-primary
+          has-text-weight-semibold has-text-black-bis
+        "
+      >
+        Question
+      </div>
+      <div
+        *ngIf="userType === 'admin' || userType === 'super' "
+        class="
+          column
+          is-2
+          header-bottom-border
+          td-users
+          is-family-primary
+          has-text-weight-semibold has-text-black-bis
+        "
+      >
+        Teacher Name
+      </div>
+      <div
+        class="
+          column
+          header-bottom-border
+          is-1-desktop is-1-tablet is-1-mobile
+          td-users
+          is-family-primary
+          has-text-weight-semibold has-text-black-bis
+        "
+      >
+        Type
+      </div>
+      <div
+        class="
+          column
+          header-bottom-border
+          is-2-desktop is-2-tablet is-2-mobile
+          td-users
+          is-family-primary
+          has-text-weight-semibold has-text-centered has-text-black-bis
+        "
+      >
+        Action
+      </div>
+    </div>
+    <div
+      style="width: 100%; text-align: center; font-size: 15px"
+      class="py-3"
+      *ngIf="
+        originalQuestionBank?.length === 0 ||
+        originalQuestionBank === undefined ||
+        originalQuestionBank === null ||
+        sortedQuestionBank?.length === 0 ||
+        sortedQuestionBank === undefined ||
+        sortedQuestionBank === null
+      "
+    >
+      Please Select A Subject
+    </div>
+    <div></div>
+    <app-questionbankrow
+      *ngFor="
+        let question of sortedQuestionBank
+          | paginate
+            : {
+                itemsPerPage: 10,
+                currentPage: currentPage,
+                totalItems: page
+              };
+        let i = index
+      "
+      [allGrades]="grades"
+      [subject]="selectedSubjects"
+      [UserType]="userType"
+      (setMetadata) = "onChangeMetadata($event)"
+      [SelectAllObservable]="didSelectAll.asObservable()"
+      [QuestionDetails]="question"
+      [isSelected]="question.selected"
+      class="columns is-multiline is-mobile bg-dark"
+      style="border-bottom: 1px solid #d1d1d1; margin: 0; margin-bottom: 2px"
+      (DidDeleteListener)="didDeleteQuestion($event)"
+      (DidSelectListener)="didSelectQuestion($event)"
+    ></app-questionbankrow>
+  </div>
+  <nav class="has-background-white pr-6">
+    <div class="container">
+      <div
+        class="pagination is-right"
+        role="navigation"
+        aria-label="pagination"
+      >
+        <ul class="pagination-list">
+          <li></li>
+          <pagination-controls
+            maxSize="10"
+            directionLinks="false"
+            class="my-pagination"
+            autoHide="true"
+            (click) = "paginationClicked()"
+            (pageChange)="currentPage = $event"
+          ></pagination-controls>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</section>

@@ -1,0 +1,334 @@
+<div
+  [ngClass]="{
+    __disabled: (didSubmitQuestion | async)
+  }"
+>
+  <span
+    id="Question{{ ScrollID }}"
+    class="column is-three-quarters-desktop is-inline-block"
+  >
+    <div class="columns is-multiline">
+      <div class="column is-1">
+        <button
+          class="button btn-icon is-medium has-text-blue"
+          (click)="RequestDeleteQuestion()"
+          matTooltip="Delete Question"
+        >
+          <i class="fas fa-times has-text-blue"></i>
+        </button>
+      </div>
+      <div
+        class="
+          is-1
+          column
+          is-family-primary
+          has-text-weight-bold has-background-white-ter has-text-dark
+          pb-1
+        "
+      >
+        <p
+          class="font-size: 20px"
+          style="text-align: center; padding-top: 12px"
+        >
+          Q:
+        </p>
+      </div>
+
+      <div
+      class="
+        is-normal is-family-primary
+        has-text-weight-medium
+        control
+        is-expanded is-fullwidth
+        has-background-white-ter
+        column
+        is-10
+      "
+      (click)="handleEditorToggle()"
+      style="border: 2px solid #3f80bf; min-height: 45px"
+    >
+
+
+    <ng-katex-html
+    [html]="QuestionInput || 'Click here to type a question'"></ng-katex-html>
+
+    </div>
+    <div
+      class="column is-12"
+      *ngIf="EditorToggle"
+      style="padding-left: 100px"
+    >
+      <angular-editor
+        [(ngModel)]="QuestionInput"
+        [config]="config"
+        (ngModelChange) = "showText($event)"
+      ></angular-editor>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+      <span class="column is-10-desktop is-8-tablet is-inline-block">
+        <span class="control has-icons-right">
+          <input
+            [(ngModel)]="QuestionInput"
+            (focus)="onFocus()"
+            (blur)="onBlur()"
+            class="
+              input
+              is-normal is-family-primary
+              has-text-weight-medium
+              is-fullwidth
+              py-5
+            "
+            type="text"
+            placeholder="Type your Question here, Click + to add a blank space."
+          />
+        </span>
+      </span> -->
+    </div>
+    <p class="help"></p>
+  </span>
+  <span class="column is-inline-block">
+    <button
+      class="button btn-icon is-medium has-text-blue"
+      (click)="addBlankSpace()"
+    >
+      <i class="fas fa-plus"></i>
+    </button>
+  </span>
+  <span class="column is-inline-block" *ngIf = "this.userType != 'super'">
+    <button
+      (click)="didOpenSettings()"
+      class="button btn-icon is-medium has-text-blue"
+    >
+      <i class="fas fa-cog has-text-blue"></i>
+    </button>
+  </span>
+
+  <!-- -->
+
+  <div *ngFor="let blank of BlankAnswers; let i = index">
+    <div>
+      <span class="column is-1 is-inline-block"> </span>
+
+      <span class="column is-inline-block">
+        <span
+          class="
+            has-text-left has-text-dark
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            has-text-weight-medium
+          "
+        >
+          Blank Answer(s)
+          <i class="far fa-question-circle" style="color: #8d8d8d"></i
+        ></span>
+      </span>
+      <span class="column is-3 is-inline-block"> </span>
+    </div>
+    <div class = "columns is-multiline">
+      <span class="column is-1 is-inline-block"> </span>
+      <!-- <span class="column is-inline-block">
+      <button
+        class="button btn-icon is-medium"
+        (click)="deleteBlankSpace(blank)"
+      >
+        <i class="fas fa-times has-text-blue"></i>
+      </button>
+    </span> -->
+
+
+      <span class="column is-9-desktop is-8-tablet is-inline-block">
+        <span class="control has-icons-right">
+          <input
+            class="
+              input
+              is-normal is-family-primary
+              has-text-weight-medium
+              is-size-7
+              py-5
+              has-background-white
+            "
+            type="text"
+            [(ngModel)]="blank.answerText"
+            [ngClass]="{
+              'invalid-feedback': answerInput.errors?.required
+            }"
+            #answerInput
+            required
+            placeholder="Type Answer"
+            (input)="AnswerInput(answerInput.value)"
+          />
+
+
+          <!-- <span class="icon is-right">
+          <i class="fas fa-pen" style="color: #c0c0c0"></i>
+        </span> -->
+        </span>
+      </span>
+
+      <span class="column is-1">
+        <button class="button btn-icon is-medium" style="background-color: #f3f3f4!important;" (click) = "deleteBlank(i)">
+          <i class="fas fa-times has-text-blue"></i>
+        </button>
+      </span>
+
+    </div>
+  </div>
+
+  <!-- -->
+  <!-- <div class="column is-11-tablet is-12-desktop is-hidden-mobile">
+  <div class="field is-grouped is-grouped-right pb-2 pr-5 pt-5">
+    <div class="control">
+      <button
+        class="button is-link is-outlined is-rounded"
+        (click)="addBlankSpace()"
+      >
+        <figure class="image is-24x24 is-inline-block my-0 ml-0">
+          <i class="fas fa-plus"></i>
+        </figure>
+        <span
+          class="ml-1 is-size-7 is-family-primary has-text-weight-normal"
+          id="lanuchModal"
+          >Add Blank Space
+        </span>
+      </button>
+    </div>
+  </div>
+</div> -->
+  <!-- -->
+  <div class="columns column">
+    <div class="column is-9">
+      <div
+      class="section has-background-white pl-2"
+      style="border-radius: 13px; padding-bottom: 33rem"
+      *ngIf = "edit == true"
+    >
+      <div
+        class="
+          text
+          has-text-left
+          is-family-primary is-size-6-desktop is-size-7-tablet
+          pb-6
+        "
+      >
+        <span class="has-text-weight-bold has-text-dark pl-5"> Remarks:</span
+        >
+      </div>
+      <app-saconfigurequestion-remarkitem
+        *ngFor="let remark of RemarksList"
+        [RemarkData]="remark"
+        [RemarkReferenceArray]="RemarksList"
+        [QuestionData]="selectedQuestion"
+      ></app-saconfigurequestion-remarkitem>
+      <div
+        class="
+          text
+          has-text-left has-text-dark
+          is-family-primary is-size-6-desktop is-size-7-tablet
+          pt-5
+        "
+      >
+        <span (click)="addRemark()" class="has-text-weight-bold pl-5">
+          Add a New Remark</span
+        >
+      </div>
+      <hr class="hor-line1 mx-5 my-1" />
+      <div
+        class="
+          column
+          text
+          has-text-left
+          is-family-primary is-size-6-desktop is-size-7-tablet
+          has-text-weight-medium has-text-black-bis
+          px-5
+        "
+      >
+        <input
+          [(ngModel)]="RemarkFieldModel"
+          class="
+            input
+            is-normal is-family-primary
+            has-text-weight-medium
+            is-fullwidth
+            py-5
+          "
+          type="text"
+          placeholder="Type Your Remark Here"
+        />
+        <button
+          [disabled]="RemarkFieldModel.length === 0"
+          MADBtn
+          (click)="addRemark()"
+        >
+          Add Remark
+        </button>
+      </div>
+
+      <div *ngIf = "userType == 'super'">
+        <hr class="hr-line my-0" />
+        <div
+          class="
+            column
+            is-full is-family-primary
+            has-text-left
+            is-size-5
+            mt-0
+            pb-0
+            mb-0
+            pl-2
+            py-5
+          "
+          style="font-weight: 800; color: rgba(63, 128, 191, 0.61)"
+        >
+          Answer Key
+        </div>
+        <div
+          class="
+            is-normal is-family-primary
+            has-text-weight-medium
+            control
+            is-expanded is-fullwidth
+            has-background-white-ter
+            column
+            is-12
+          "
+          style="border: 2px solid #3f80bf; min-height: 45px"
+        >
+        <ng-katex-html [html]="MetaData.answerKey || 'Answer Key Preview..'"></ng-katex-html>
+              </div>
+        <div class="column is-12">
+          <angular-editor
+            [(ngModel)]="MetaData.answerKey"
+            [config]="config"
+          ></angular-editor>
+        </div>
+      </div>
+      <!-- <div class="column is-pulled-right mr-5 py-5">
+            <input type="checkbox" checked="" />
+          </div> -->
+    </div>
+    </div>
+    <button [disabled]="didSubmitQuestion | async" (click)="saveEditQ()" MADBtn>
+      Save
+    </button>
+  </div>
+</div>

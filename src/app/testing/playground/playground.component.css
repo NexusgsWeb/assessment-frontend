@@ -1,0 +1,21 @@
+.__row {
+  display: flex;
+  flex-direction: row;
+  /* flex-wrap: wrap; */
+}
+.__column {
+  flex: 1 1;
+  height: 100vh;
+}
+.__column-image {
+  flex: 2 1;
+  height: 100vh;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.__text {
+  display: block;
+  margin: 20px;
+}

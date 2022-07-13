@@ -1,0 +1,20 @@
+::ng-deep .ng-select .ng-arrow-wrapper {
+  display: none;
+}
+::ng-deep .ng-select .ng-select-container {
+  background-color: #f3f3f4;
+  border-radius: 4.6px;
+  border: 1px solid transparent;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  font-size: 0.75rem !important;
+  line-height: 30px;
+}
+::ng-deep .ng-select.ng-select-opened > .ng-select-container {
+  background: #f3f3f4;
+  border-color: transparent;
+}
+
+::ng-deep .ng-select .ng-select-disabled .ng-arrow-wrapper {
+  display: none;
+}

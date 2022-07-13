@@ -1,0 +1,112 @@
+.full-width{
+    width: 90% !important;display: block;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: .25rem;
+}
+*{
+    text-rendering: optimizeLegibility !important;
+    text-size-adjust: 100% !important;
+    font-weight: 700 !important;
+    font-size: .9rem !important;
+    font-style: inherit !important;
+    line-height: 1.5;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+.mat-form-field-type-mat-input.mat-form-field-appearance-legacy.mat-form-field-can-float{
+    width: 90% !important;
+}
+.record-checkbox .mat-checkbox-layout, .notify-checkbox .mat-checkbox-layout {
+    display: flex !important;
+    justify-content: space-between !important;
+    min-width: 300px !important;
+    flex-direction: row-reverse !important;
+}
+.mat-select-panel{
+    min-width: auto !important;
+}
+.iquad-form{
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+.mat-select-value{
+    text-align: center !important;
+}
+.mat-checkbox{
+    display: inline-block;
+    position: relative;
+    text-align: left;padding-bottom: 1.34375em;
+    border-radius: 4px 4px 0 0;
+    padding: 0 .75em .5em 0;    display: inline-flex;
+    align-items: baseline;
+    box-sizing: border-box;
+    width: 90%;
+}
+.line-below-checkbox{
+    padding-bottom: 17.5 px !important;
+}
+.padding-top-bottom{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.mat-checkbox-frame,.mat-checkbox-background {
+    border-radius: 70% !important;
+}
+.newMeetingCalendar{
+    width: 40%;
+    padding-left: 1%;
+
+}
+.newMeetingFields{
+    width: 60%;
+}
+.newMeeting{
+    display: flex!important;
+}
+.newMeetingHeader{
+    text-align: center;
+    background-color: #f0a31f;
+    color:#707070;   
+     height: 40px;
+    padding: 20px 0px 0px 0px;
+}
+.newMeetingIcon
+{
+    padding-right: 7px; 
+}
+.name-icon{
+    width: 8px;
+    height: 8px;
+}
+.newMeetingSubmit{
+    margin: 48px 5px 0 1.3px !important;
+    padding: 6px 27px 9px!important;
+    border-radius: 4px!important;
+    border: 1px solid #ffffff!important;
+    background-color: #3f80bf!important;
+}
+.newMeetingDiscard{
+    margin: 48px 5px 0 1.3px !important;
+    padding: 6px 27px 9px!important;
+    border-radius: 4px!important;
+    border: 1px solid #3f80bf!important;
+    background-color: #ffffff!important;
+    color: #3f80bf!important;;
+}
+.buttons{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+}
+.cdk-overlay-pane{
+    transform:none !important;
+}
+.mat-select-panel-wrap {
+    flex-basis: 0% !important;
+}
+#cdk-overlay-1,#cdk-overlay-2,#cdk-overlay-3,#cdk-overlay-4,#cdk-overlay-5{
+    width:auto !important;
+    min-width: auto !important;
+}

@@ -1,0 +1,51 @@
+<div class="columns is-mobile is-centered">
+  <div
+    class="
+      column
+      is-11-mobile
+      is-three-fifths-tablet
+      is-two-thirds-desktop
+      is-half-widescreen
+      is-4-fullhd
+    "
+  >
+    <p
+      class="
+        is-family-primary
+        has-text-weight-bold
+        is-size-6
+        has-text-black-bis has-text-centered
+        pt-5
+      "
+    >
+      <!-- Timer | async -->
+      <countdown
+        #cd
+        [config]="{
+          leftTime: Timer | async,
+          format: 'HH:mm:ss'
+        }"
+        (event)="onTimerFinished($event)"
+      ></countdown>
+    </p>
+    <p
+      class="
+        is-family-primary
+        has-text-weight-medium
+        is-size-7 is-size-6-desktop
+        has-text-black-bis has-text-centered
+        py-4
+      "
+    >
+      Question
+      {{
+        (ExamMetaData | async)?.CurrentQuestionIndex + 1 + "" ||
+          "Current Question Not Found"
+      }}
+      /
+      {{ (ExamMetaData | async)?.Questions.questions.length || "Total Amount" }}
+    </p>
+
+
+  </div>
+</div>

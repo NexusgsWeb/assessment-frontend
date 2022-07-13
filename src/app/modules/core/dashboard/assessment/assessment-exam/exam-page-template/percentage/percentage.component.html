@@ -1,0 +1,47 @@
+<div class="columns is-multiline is-centered">
+    <div class="column is-three-fifths pt-3">
+
+      <progress
+        class="progress"
+        role="progressbar"
+        value="{{
+          ((this.count) * 100) /
+            (ExamMetaData | async)?.Questions.questions.length
+        }}"
+        max="100"
+      ></progress>
+    </div>
+    <div
+      class="
+        column
+        is-narrow is-family-primary
+        has-text-weight-bold
+        is-size-6
+      "
+      style="color: rgba(29, 196, 35, 0.9)"
+
+    >
+      {{
+        ((this.count) * 100) /
+        (ExamMetaData | async)?.Questions.length | number: "1.0-0"
+      }}
+      %
+    </div>
+    <!-- <div
+    class="
+      column
+      is-narrow is-family-primary
+      has-text-weight-bold
+      is-size-6
+    "
+    style="color: rgba(29, 196, 35, 0.9)"
+    *ngIf = "((assessmentManager.answeredQuestions$.getValue().length) * 100) /
+    (ExamMetaData | async)?.Questions.length > 100"
+  >
+  {{assessmentManager.answeredQuestions$.getValue().length}}
+    {{
+      100 | number: "1.0-0"
+    }}
+    %
+  </div> -->
+  </div>

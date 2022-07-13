@@ -1,0 +1,31 @@
+.select:not(.is-multiple):not(.is-loading)::after {
+  border-color: #232323;
+}
+.button.is-info.is-outlined {
+  background-color: rgba(63, 128, 191, 0.05);
+  border-color: rgba(63, 128, 191, 0.05);
+  color: #3f80bf;
+  border-radius: 14px;
+}
+.btn-icon {
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  color: #3f81c3;
+  border-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+}
+.btn-sub-icon {
+  background-color: rgba(243, 243, 244, 0.26);
+  border-radius: 4.6px;
+  border-color: rgba(243, 243, 244, 0.26);
+  color: #c0c0c0;
+}
+.input-options {
+  background-color: rgba(243, 243, 244, 0.43);
+  border-radius: 4.6px;
+  color: #c0c0c0;
+}
+.__disabled {
+  pointer-events: none;
+  user-select: none;
+}

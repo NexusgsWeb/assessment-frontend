@@ -1,0 +1,1767 @@
+<section class="top section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <breadcrumb #parent>
+      <ol>
+        <!-- <li *ngIf="!parent.breadcrumbs[0].terminal">
+        <a
+          href=""
+          class="is-family-primary has-text-weight-bold is-size-5 pl-4"
+          [routerLink]="[parent.breadcrumbs[0].url]"
+          >My Home</a
+        >
+      </li> -->
+        <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+          <li *ngIf="!route.terminal">
+            <a
+              href=""
+              class="is-family-primary has-text-weight-bold is-size-5"
+              [routerLink]="[route.url]"
+              >{{ route.displayName }}</a
+            >
+          </li>
+          <li
+            class="is-active is-family-primary has-text-weight-bold is-size-5"
+            *ngIf="route.terminal"
+          >
+            <a aria-current="page"> {{ route.displayName }} </a>
+          </li>
+        </ng-template>
+      </ol>
+    </breadcrumb>
+  </nav>
+  <div
+    class="section is-small has-background-white pt-2 px-3"
+    style="border-radius: 13px"
+    *ngIf="Steps[0]"
+  >
+    <p
+      class="
+        is-family-primary
+        has-text-weight-bold
+        is-size-5
+        mt-0
+        pb-0
+        mb-0
+        px-1
+      "
+      style="color: #3f81c3"
+    >
+      1- Student Info
+    </p>
+    <form [formGroup]="StudentInfoFormGroup">
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="columns is-multiline">
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    input-title-required
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Admission Number</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['studentNumber']
+                            .invalid &&
+                          StudentInfoFormGroup.controls['studentNumber'].touched
+                      }"
+                      type="text"
+                      placeholder="Enter your Admission Number"
+                      formControlName="studentNumber"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['studentNumber'].invalid &&
+                      StudentInfoFormGroup.controls['studentNumber'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['studentNumber'].invalid &&
+                    StudentInfoFormGroup.controls['studentNumber'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    input-title-required
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Admission Date</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['admissionDate']
+                            .invalid &&
+                          StudentInfoFormGroup.controls['admissionDate'].touched
+                      }"
+                      type="date"
+                      formControlName="admissionDate"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['admissionDate'].invalid &&
+                      StudentInfoFormGroup.controls['admissionDate'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['admissionDate'].invalid &&
+                    StudentInfoFormGroup.controls['admissionDate'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+            <div class="columns column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="column field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    input-title-required
+                  "
+                  >Class</label
+                >
+
+                <div
+                  class="
+                    select
+                    is-normal is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Enter Your Class"
+                    [items]="CAYs"
+                    bindLabel="name"
+                    style="overflow: visible;"
+                    formControlName="ClassOfAcademicYear"
+                    (change)="DidPickCAY($event)"
+                    [hideSelected]="true"
+                    addTagText="Create"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+              <div class="field column">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    input-title-required
+                  "
+                  >Section</label
+                >
+
+                <div
+                  class="
+                    select
+                    is-normal is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    #SectionSelector
+                    class="custom is-size-7 py-7"
+                    placeholder="Enter Your Section"
+                    [items]="sections"
+                    bindLabel="code"
+                    style="overflow: visible;"
+                    [addTag]="CreateSection.bind(this)"
+                    notFoundText="Type to Create Section"
+                    [hideSelected]="true"
+                    addTagText="Create"
+                    [readonly]="
+                      CAYs === undefined ||
+                      this.StudentInfoFormGroup.controls['ClassOfAcademicYear']
+                        .value === null
+                    "
+                    formControlName="sectionId"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    input-title-required
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Full Name</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['firstName'].invalid &&
+                          StudentInfoFormGroup.controls['firstName'].touched
+                      }"
+                      type="text"
+                      placeholder="Enter your first name"
+                      formControlName="firstName"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['firstName'].invalid &&
+                      StudentInfoFormGroup.controls['firstName'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['firstName'].invalid &&
+                    StudentInfoFormGroup.controls['firstName'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    pt-5
+                  "
+                ></label>
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['middleName'].invalid &&
+                          StudentInfoFormGroup.controls['middleName'].touched
+                      }"
+                      type="text"
+                      placeholder="Enter your middle name"
+                      formControlName="middleName"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['middleName'].invalid &&
+                      StudentInfoFormGroup.controls['middleName'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['middleName'].invalid &&
+                    StudentInfoFormGroup.controls['middleName'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    pt-5
+                  "
+                ></label>
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['lastName'].invalid &&
+                          StudentInfoFormGroup.controls['lastName'].touched
+                      }"
+                      type="text"
+                      placeholder="Enter your last name"
+                      formControlName="lastName"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['lastName'].invalid &&
+                      StudentInfoFormGroup.controls['lastName'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['lastName'].invalid &&
+                    StudentInfoFormGroup.controls['lastName'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    input-title-required
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Full Name in Second Language</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['arabicFirstName']
+                            .invalid &&
+                          StudentInfoFormGroup.controls['arabicFirstName']
+                            .touched
+                      }"
+                      type="text"
+                      placeholder="Enter your first name"
+                      formControlName="arabicFirstName"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['arabicFirstName']
+                        .invalid &&
+                      StudentInfoFormGroup.controls['arabicFirstName'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['arabicFirstName'].invalid &&
+                    StudentInfoFormGroup.controls['arabicFirstName'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    pt-5
+                  "
+                ></label>
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['arabicMiddleName']
+                            .invalid &&
+                          StudentInfoFormGroup.controls['arabicMiddleName']
+                            .touched
+                      }"
+                      type="text"
+                      placeholder="Enter your Middle name"
+                      formControlName="arabicMiddleName"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['arabicMiddleName']
+                        .invalid &&
+                      StudentInfoFormGroup.controls['arabicMiddleName'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['arabicMiddleName'].invalid &&
+                    StudentInfoFormGroup.controls['arabicMiddleName'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    pt-5
+                  "
+                ></label>
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['arabicLastName']
+                            .invalid &&
+                          StudentInfoFormGroup.controls['arabicLastName']
+                            .touched
+                      }"
+                      type="text"
+                      placeholder="Enter your Last name"
+                      formControlName="arabicLastName"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['arabicLastName'].invalid &&
+                      StudentInfoFormGroup.controls['arabicLastName'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['arabicLastName'].invalid &&
+                    StudentInfoFormGroup.controls['arabicLastName'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    input-title-required
+                  "
+                  >Birth Date</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          StudentInfoFormGroup.controls['dateOfBirth']
+                            .invalid &&
+                          StudentInfoFormGroup.controls['dateOfBirth'].touched
+                      }"
+                      type="date"
+                      formControlName="dateOfBirth"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      StudentInfoFormGroup.controls['dateOfBirth'].invalid &&
+                      StudentInfoFormGroup.controls['dateOfBirth'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    StudentInfoFormGroup.controls['dateOfBirth'].invalid &&
+                    StudentInfoFormGroup.controls['dateOfBirth'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    input-title-required
+                  "
+                  >Birth Place</label
+                >
+
+                <div
+                  class="
+                    select
+                    is-normal is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Enter Birth Place"
+                    [items]="countries"
+                    bindLabel="name"
+                    style="overflow: visible;"
+                    formControlName="placeOfBirth"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    input-title-required
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Gender</label
+                >
+                <div
+                  class="
+                    select
+                    is-normal is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Enter Your Gender"
+                    [items]="genders"
+                    style="overflow: visible;"
+                    formControlName="userGender"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <input style="display: none" formControlName="nationalities" />
+            <div class="column is-4-desktop is-4-tablet px-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                    input-title-required
+                  "
+                  >Nationalities</label
+                >
+
+                <div
+                  class="
+                    select
+                    is-small is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Select country"
+                    [items]="nationalities"
+                    style="overflow: visible;"
+                    formControlName="country"
+                  >
+                  </ng-select>
+                </div>
+                <div
+                  class="control py-2"
+                  *ngFor="let nationality of currentStudent.nationalities"
+                >
+                  <span
+                    class="
+                      tag
+                      is-medium
+                      has-text-white
+                      is-family-primary
+                      has-text-weight-semibold
+                      pl-3
+                    "
+                  >
+                    {{ nationality.country }}
+                    <button
+                      (click)="didClickDeleteNationality(nationality.country)"
+                      class="delete is-small ml-2"
+                      style="background-color: rgba(26, 85, 142, 0.4)"
+                    ></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2">
+              <div class="field">
+                <button
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold has-text-info
+                    is-size-6
+                  "
+                  style="background-color: transparent"
+                  (click)="
+                    didClickAddNationality(
+                      StudentInfoFormGroup.get('country').value,
+                      StudentInfoFormGroup.get('passportNumber').value
+                    )
+                  "
+                  [disabled]="
+                    StudentInfoFormGroup.get('country').invalid ||
+                    StudentInfoFormGroup.get('passportNumber').invalid
+                  "
+                >
+                  <i class="fa fa-plus is-size-7 pr-1"></i>Add Nationality
+                </button>
+                <p class="control is-expanded">
+                  <input
+                    class="
+                      input
+                      is-normal is-family-primary
+                      has-text-weight-medium
+                      is-size-7
+                      py-5
+                    "
+                    type="text"
+                    formControlName="passportNumber"
+                    placeholder="Passport Number"
+                  />
+                </p>
+                <p class="help"></p>
+              </div>
+            </div>
+
+            <div class="column is-4-desktop is-4-tablet px-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Upload Profile Photo</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        button
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-warning
+                        has-text-left
+                        is-size-6
+                        py-5
+                        is-fullwidth
+                      "
+                      (click)="fileUpload.click()"
+                      value="Choose Photo"
+                      readonly
+                    />
+                    <input
+                      type="file"
+                      class="file-input is-fullwidth is-fullheight"
+                      accept="image/*"
+                      (change)="onFileSelected($event)"
+                      #fileUpload
+                    />
+                  </span>
+                  <span class="control">
+                    <a class="button is-warning is-medium">
+                      <i
+                        class="fa fa-upload has-text-white is-size-4"
+                        (click)="fileUpload.click()"
+                      ></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  class="
+                    help
+                    is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                    py-1
+                    my-0
+                    pl-3
+                  "
+                  style="color: rgba(160, 159, 159, 0.9)"
+                >
+                  {{ InputFeedback }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="field is-grouped is-grouped-right pb-2 px-2">
+      <span
+        class="
+          is-inline-block
+          has-text-info
+          is-family-primary
+          has-text-weight-bold
+          is-size-6
+          px-3
+          py-3
+        "
+        >Step 1 of 3</span
+      >
+      <div class="control">
+        <button
+          class="button is-outlined has-background-white is-fullwidth is-medium"
+          style=""
+          *ngIf="Steps[1] == false"
+        >
+          <span
+            class="
+              btn-return
+              has-text-info has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            routerLink="../"
+            >Cancel</span
+          >
+        </button>
+      </div>
+
+      <div class="control">
+        <button
+          class="button is-outlined has-background-info is-fullwidth is-medium"
+          [disabled]="!StudentInfoFormGroup.valid"
+          id="next-1"
+          (click)="onSubmit('Next', 0)"
+        >
+          <span
+            class="
+              btn-return
+              has-text-white has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            >Next</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="section is-small has-background-white pt-2 px-3 mt-4 step1"
+    style="border-radius: 13px"
+    *ngIf="Steps[1]"
+  >
+    <p
+      class="
+        is-family-primary
+        has-text-weight-bold
+        is-size-5
+        mt-0
+        pb-0
+        mb-0
+        px-1
+      "
+      style="color: #3f81c3"
+    >
+      2- Contact Info
+    </p>
+    <form [formGroup]="ContactInfo">
+      <div class="field is-horizontal">
+        <div class="field-body">
+          <div class="columns is-multiline">
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                >
+                  Country</label
+                >
+                <div
+                  class="
+                    select
+                    is-small is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Select country"
+                    [items]="countries"
+                    bindLabel="name"
+                    (change) = "getCountryStates($event)"
+                    style="overflow: visible;"
+                    formControlName="country"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                >
+                  Province</label
+                >
+                <div
+                  class="
+                    select
+                    is-small is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Select your province"
+                    [items]="province"
+                    bindLabel="name"
+                    (change) = "getStateCities($event)"
+                    style="overflow: visible;"
+                    formControlName="province"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                >
+                  District</label
+                >
+                <div
+                  class="
+                    select
+                    is-small is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Enter your district"
+                    [items]="city"
+                    bindLabel="name"
+                    style="overflow: visible;"
+                    formControlName="district"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-4-desktop is-4-tablet px-3">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                >
+                  City</label
+                >
+                <div
+                  class="
+                    select
+                    is-small is-fullwidth is-family-primary
+                    has-text-weight-medium
+                    is-size-7
+                  "
+                >
+                  <ng-select
+                    class="custom is-size-7 py-7"
+                    placeholder="Select your City"
+                    [items]="city"
+                    bindLabel="name"
+                    style="overflow: visible;"
+                    formControlName="city"
+                  >
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Building</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          ContactInfo.controls['building'].invalid &&
+                          ContactInfo.controls['building'].touched
+                      }"
+                      type="text"
+                      placeholder="Enter your Building"
+                      formControlName="building"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      ContactInfo.controls['building'].invalid &&
+                      ContactInfo.controls['building'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    ContactInfo.controls['building'].invalid &&
+                    ContactInfo.controls['building'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2 pt-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Floor</label
+                >
+                <div class="field has-addons has-addons-right">
+                  <span class="control is-expanded has-icons-right">
+                    <input
+                      class="
+                        input
+                        is-normal is-family-primary
+                        has-text-weight-medium
+                        is-danger is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          ContactInfo.controls['floor'].invalid &&
+                          ContactInfo.controls['floor'].touched
+                      }"
+                      type="number"
+                      placeholder="Enter your floor"
+                      formControlName="floor"
+                    />
+                  </span>
+                  <span
+                    class="control"
+                    *ngIf="
+                      ContactInfo.controls['floor'].invalid &&
+                      ContactInfo.controls['floor'].touched
+                    "
+                  >
+                    <a class="button is-danger is-medium">
+                      <i class="fa fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+                <p
+                  *ngIf="
+                    ContactInfo.controls['floor'].invalid &&
+                    ContactInfo.controls['floor'].touched
+                  "
+                  class="
+                    help
+                    is-danger is-family-primary
+                    has-text-weight-semibold
+                  "
+                >
+                  Required
+                </p>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-3">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                >
+                  Mobile number</label
+                >
+                <div class="field is-grouped">
+                  <p class="control">
+                    <span
+                      class="
+                        select
+                        is-small is-family-primary
+                        has-text-weight-medium
+                        is-size-7
+                      "
+                    >
+                      <ng-select
+                        class="custom is-size-7 py-7"
+                        [items]="phonenb"
+                        style="overflow: visible;"
+                        bindLabel = "phone"
+                        placeholder="+XXX"
+                        style="min-width: 80px"
+                        formControlName="mobileCode"
+                      >
+                      </ng-select>
+                    </span>
+                  </p>
+                  <p class="control is-expanded">
+                    <input
+                      class="
+                        input
+                        is-normal is-inline-block is-family-primary
+                        has-text-weight-medium
+                        is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          ContactInfo.controls['mobile'].invalid &&
+                          ContactInfo.controls['mobile'].touched
+                      }"
+                      type="number"
+                      placeholder="Mobile Number"
+                      formControlName="mobile"
+                    />
+                  </p>
+                </div>
+              </div>
+              <div class="field py-3">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Email Address</label
+                >
+
+                <p class="control is-expanded has-icons-right">
+                  <input
+                    class="
+                      input
+                      is-normal is-family-primary
+                      has-text-weight-medium
+                      is-size-7
+                      py-5
+                    "
+                    [ngClass]="{
+                      'is-danger':
+                        ContactInfo.controls['email'].invalid &&
+                        ContactInfo.controls['email'].touched
+                    }"
+                    type="text"
+                    placeholder="Enter your email address"
+                    formControlName="email"
+                  />
+                  <span class="icon is-size-5 has-text-dark is-right">
+                    <i class="fa fa-check" id="correct" *ngIf = "ContactInfo.controls['email'].valid &&
+                    ContactInfo.controls['email'].touched"></i>
+                    <i class="fa-solid fa-xmark" id="wrong" *ngIf = " ContactInfo.controls['email'].invalid &&
+                    ContactInfo.controls['email'].touched"></i>
+                    <i class="fa fa-check" *ngIf = "ContactInfo.controls['email'].touched == false"></i>
+
+                  </span>
+                </p>
+                <p class="help"></p>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                >
+                  Phone number</label
+                >
+                <div class="field is-grouped">
+                  <p class="control">
+                    <span
+                      class="
+                        select
+                        is-small is-family-primary
+                        has-text-weight-medium
+                        is-size-7
+                      "
+                    >
+                      <ng-select
+                        class="custom is-size-7 py-7"
+                        [items]="phonenb"
+                        bindLabel = "phone"
+                        style="overflow: visible;"
+                        placeholder="+XXX"
+                        style="min-width: 80px"
+                        formControlName="phoneCode"
+                      >
+                      </ng-select>
+                    </span>
+                  </p>
+                  <p class="control is-expanded">
+                    <input
+                      class="
+                        input
+                        is-normal is-inline-block is-family-primary
+                        has-text-weight-medium
+                        is-size-7
+                        py-5
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          ContactInfo.controls['phone'].invalid &&
+                          ContactInfo.controls['phone'].touched
+                      }"
+                      type="number"
+                      placeholder="Phone Number"
+                      formControlName="phone"
+                    />
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="column is-4-desktop is-4-tablet px-2">
+              <div class="field">
+                <label
+                  class="
+                    label
+                    is-family-primary
+                    has-text-weight-semibold
+                    is-size-6
+                  "
+                  >Address Details</label
+                >
+                <div class="field pb-6">
+                  <div class="control">
+                    <textarea
+                      class="
+                        textarea
+                        is-family-primary
+                        has-text-weight-medium
+                        is-size-7
+                        py-3
+                      "
+                      [ngClass]="{
+                        'is-danger':
+                          ContactInfo.controls['phone'].invalid &&
+                          ContactInfo.controls['phone'].touched
+                      }"
+                      type="text"
+                      placeholder="Enter your Address details"
+                      formControlName="address"
+                      type="text"
+                      style="height: 15em"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="field is-grouped is-grouped-right pb-2 px-2">
+      <span
+        class="
+          is-inline-block
+          has-text-info
+          is-family-primary
+          has-text-weight-bold
+          is-size-6
+          px-3
+          py-3
+        "
+        >Step 2 of 3</span
+      >
+      <div class="control">
+        <button
+          class="button is-outlined has-background-white is-fullwidth is-medium"
+          style=""
+          *ngIf="Steps[2] == false"
+          routerLink="../"
+        >
+          <span
+            class="
+              btn-return
+              has-text-info has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            >Cancel</span
+          >
+        </button>
+      </div>
+
+      <div class="control">
+        <button
+          class="button is-outlined has-background-info is-fullwidth is-medium"
+          id="next-2"
+          (click)="onSubmit('Next', 1)"
+        >
+          <span
+            class="
+              btn-return
+              has-text-white has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            >Next</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="section is-small has-background-white pt-2 px-3 mt-4 step2"
+    style="border-radius: 13px"
+    *ngIf="Steps[2]"
+  >
+    <p
+      class="
+        is-family-primary
+        has-text-weight-bold
+        is-size-5
+        mt-0
+        pb-0
+        mb-0
+        px-1
+      "
+      style="color: #3f81c3"
+    >
+      3- Family Info
+    </p>
+    <div class="columns is-multiline">
+      <div class="column is-4-desktop is-full-tablet px-3">
+        <label
+          class="
+            label
+            is-family-primary
+            has-text-weight-semibold
+            is-size-6
+            pt-3
+          "
+        >
+          Father Info</label
+        >
+        <div class="field has-background-grey-light" style="height: 300px">
+          <table
+            class="
+              table
+              is-fullwidth
+              has-background-grey-light
+              is-family-primary
+              has-text-weight-medium
+              is-size-6
+              mb-6
+            "
+          >
+            <tbody>
+              <tr>
+                <td class="has-text-black-bis">First Name</td>
+                <td class="has-text-grey-darker">
+                  {{ MotherFatherReference.firstName }}
+                </td>
+              </tr>
+              <tr>
+                <td class="has-text-black-bis">Middle Name</td>
+                <td class="has-text-grey-darker">
+                  {{ MotherFatherReference.middleName }}
+                </td>
+              </tr>
+              <tr>
+                <td class="has-text-black-bis">Last Name</td>
+                <td class="has-text-grey-darker">
+                  {{ MotherFatherReference.lastName }}
+                </td>
+              </tr>
+              <tr>
+                <td class="has-text-black-bis">Nationalities</td>
+                <td
+                  class="has-text-grey-darker"
+                  *ngFor="let i of MotherFatherReference.nationalities"
+                >
+                  {{ i }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="has-text-centered">
+            <div
+              class="field is-grouped px-2 py-5"
+              style="justify-content: center"
+            >
+              <button
+                class="
+                  button
+                  is-rounded is-outlined
+                  has-background-info
+                  is-small
+                  mx-2
+                "
+                (click)="didClickEditMakeGuardian()"
+              >
+                <span
+                  class="
+                    btn-return
+                    has-text-white has-text-weight-medium
+                    is-size-7
+                    px-0
+                  "
+                  >Make Guardian</span
+                >
+              </button>
+              <button
+                class="
+                  button
+                  is-rounded is-outlined
+                  has-background-info
+                  is-small
+                "
+                (click)="didClickEditDetails()"
+              >
+                <span
+                  class="
+                    btn-return
+                    has-text-white has-text-weight-medium
+                    is-size-7
+                    px-2
+                  "
+                  >Edit Details</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4-desktop is-full-tablet px-3">
+        <label
+          class="
+            label
+            is-family-primary
+            has-text-weight-semibold
+            is-size-6
+            pt-3
+          "
+        >
+          Mother Info</label
+        >
+        <div class="section has-background-grey-light" style="height: 300px">
+          <div class="field has-addons pt-6 px-5">
+            <div class="control is-expanded">
+              <input
+                class="
+                  input
+                  is-size-7 is-family-primary
+                  has-text-weight-bold has-text-left has-text-black
+                  px-4
+                "
+                type="search"
+                placeholder="Find a person by name..."
+                style="
+                  background: rgba(63, 128, 191, 0.16);
+                  border-bottom-left-radius: 4.6px;
+                  border-top-left-radius: 4.6px;
+                "
+              />
+            </div>
+            <div class="control">
+              <a
+                class="button is-info is-small px-3"
+                style="
+                  border-bottom-right-radius: 4.6px;
+                  border-top-right-radius: 4.6px;
+                "
+              >
+                <i class="fa fa-search has-text-white is-size-4 pr-1"></i>
+              </a>
+            </div>
+          </div>
+
+          <div
+            class="
+              has-text-centered
+              is-family-primary
+              has-text-weight-medium has-text-black-bis
+              is-size-5
+              py-4
+            "
+          >
+            OR
+          </div>
+          <div class="has-text-centered pb-5">
+            <button
+              class="button is-rounded is-outlined has-background-info is-small"
+            >
+              <span
+                class="
+                  btn-return
+                  has-text-white has-text-weight-medium
+                  is-size-7
+                  px-3
+                "
+                >Add new</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4-desktop is-full-tablet px-3">
+        <div class="field">
+          <label
+            class="
+              label
+              is-family-primary
+              has-text-weight-semibold
+              is-size-6
+              pt-3
+            "
+          >
+            Guardian Info</label
+          >
+
+          <div class="section has-background-grey-light" style="height: 300px">
+            <div class="field has-addons pt-6 px-5">
+              <div class="control is-expanded">
+                <input
+                  class="
+                    input
+                    is-size-7 is-family-primary
+                    has-text-weight-bold has-text-left has-text-black
+                    px-4
+                  "
+                  type="search"
+                  placeholder="Find a person by name..."
+                  style="
+                    background: rgba(63, 128, 191, 0.16);
+                    border-bottom-left-radius: 4.6px;
+                    border-top-left-radius: 4.6px;
+                  "
+                />
+              </div>
+              <div class="control">
+                <a
+                  class="button is-info is-small px-3"
+                  style="
+                    border-bottom-right-radius: 4.6px;
+                    border-top-right-radius: 4.6px;
+                  "
+                >
+                  <i class="fa fa-search has-text-white is-size-4 pr-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field is-grouped is-grouped-right pb-2 px-2 pt-6">
+      <span
+        class="
+          is-inline-block
+          has-text-info
+          is-family-primary
+          has-text-weight-bold
+          is-size-6
+          px-3
+          py-3
+        "
+        >Step 3 of 3</span
+      >
+      <!-- <div class="control">
+        <button
+          class="button is-outlined has-background-white is-fullwidth is-medium"
+          style=""
+        >
+          <span
+            class="
+              btn-return
+              has-text-info has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            >Cancel</span
+          >
+        </button>
+      </div> -->
+
+      <div class="control">
+        <button
+          class="button is-outlined has-background-info is-fullwidth is-medium"
+          style=""
+          id="next-3"
+          routerLink="../"
+        >
+          <span
+            class="
+              btn-return
+              has-text-white has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            >Finish</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

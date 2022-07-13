@@ -1,0 +1,344 @@
+<form>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="columns is-multiline">
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-7-mobile px-3">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Title </label>
+              <div class="field has-addons has-addons-right">
+                <span class="control is-expanded has-icons-right">
+                  <input
+                  required=""
+                  name = "time"
+                  ngModel
+                  #title = "ngModel"
+                  [ngClass]="
+                  title.touched && !title.valid
+                          ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                          : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                      "
+
+                      [(ngModel)]="assessmentCredentials.title"
+                  type="text" placeholder="Enter assessment title here" required="">
+                </span>
+                <span class="control" *ngIf = "title.touched && title.invalid">
+                  <a class="button is-danger is-medium">
+                    <i class="fa fa-exclamation px-2 is-size-2"></i>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-7-mobile px-2 pt-2">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Select Class </label>
+              <div >
+                  <ng-select
+                  required
+                  class="custom required"
+                  name="classes"
+                  #ngg
+                  id="ngSelect"
+                  [items]="classes"
+                  (change)="changeClass($event)"
+                  bindLabel="code"
+                  bindValue="id"
+                  notFoundText="Not Found"
+                  placeholder="Select class"
+                  [searchable]="true"
+                  [hideSelected]="true"
+                  style="overflow: visible;"
+                  [disabled] = "this.assessmentCredentials.edit == true"
+                  [(ngModel)]="assessmentCredentials.class"
+                >
+                <ng-template ng-option-tmp let-item="item">
+                  <div title="{{ item.code}}">{{ item.code }}</div>
+                </ng-template>
+                </ng-select>
+              </div>
+
+          </div>
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-7-mobile px-2 pt-2">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Select Subject </label>
+              <ng-select
+              required
+              class="custom required"
+              #ngg
+              id="ngSelect"
+              [items]="subjects"
+              name="subjects"
+              notFoundText="Not Found"
+              placeholder="Select subject"
+              bindLabel = "name"
+              bindValue = "id"
+              [searchable]="true"
+              [hideSelected]="true"
+              style="overflow: visible;"
+              (change) = "onSubjectSelected($event)"
+              [disabled] = "this.assessmentCredentials.edit == true"
+              [(ngModel)]="assessmentCredentials.subjectID"
+            >
+
+
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{ item.name}}">{{ item.name }}</div>
+              </ng-template>
+            </ng-select>
+
+          </div>
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-7-mobile px-3" >
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Instructions </label>
+              <div class="field has-addons has-addons-right" >
+                <span class="control is-expanded has-icons-right" >
+                  <textarea
+                  cols="40" rows="5"
+                  style="height: 300px; position: absolute;"
+                  required=""
+                  name = "instruction"
+                  ngModel
+                  #instruction = "ngModel"
+                  [ngClass]="
+                  instruction.touched && !instruction.valid
+                          ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                          : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                      "
+
+                      [(ngModel)]="assessmentCredentials.instruction"
+                   type="text" placeholder="Instructions" required=""></textarea>
+                </span>
+
+              </div>
+
+            </div>
+          </div>
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-7-mobile px-2 pt-2">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Section(s) </label>
+              <ng-select
+              required
+              class="custom required"
+              #ngg
+              id="ngSelect"
+              [items]="sections"
+              [closeOnSelect]="true"
+              notFoundText="Not Found"
+              placeholder="Select section"
+              multiple="true"
+              name="sections"
+              bindLabel = "code"
+              [searchable]="true"
+              [hideSelected]="false"
+              style="overflow: visible;"
+              [readonly] = "this.assessmentCredentials.edit == true"
+              [(ngModel)]="selectedSections"
+            >
+
+
+              <ng-template ng-option-tmp let-item="item">
+                <div title="{{ item.code}}">{{ item.code }}</div>
+              </ng-template>
+
+              <ng-template
+
+                ng-multi-label-tmp
+                let-items="selectedClasses"
+                let-clear="clear"
+              >
+                <div
+                  class="ng-summary-list"
+
+                >
+                  <div class="ng-value">
+                    <span class="ng-value-label">
+                      {{ selectedSections.length}} Selected
+                    </span>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-select>
+
+
+          </div>
+
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-7-mobile px-3">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Planned Test time (min) </label>
+              <div class="field has-addons has-addons-right">
+                <span class="control is-expanded has-icons-right">
+                  <input
+                  required=""
+                  name = "examTime"
+                  ngModel
+                  #time = "ngModel"
+                  [ngClass]="
+                  time.touched && !time.valid
+                          ? 'input  is-normal  is-family-primary has-text-weight-medium is-danger is-size-7 py-5'
+                          : 'input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                      "
+
+                      [(ngModel)]="assessmentCredentials.testDurationInMinuets"
+                  (keypress)="numberOnly($event)" type="text" placeholder="Enter your Planned Test time (min)" required="">
+                </span>
+                <span class="control" *ngIf = "time.touched && time.invalid">
+                  <a class="button is-danger is-medium">
+                    <i class="fa fa-exclamation px-2 is-size-2"></i>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-half-mobile px-2"></div>
+
+          <div class="column is-3-desktop is-3-tablet is-3-widescreen is-half-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Start day and time </label>
+              <p class="control is-expanded ">
+
+                <input
+
+                required=""
+                name = "startDate"
+                  ngModel
+                  #startDate = "ngModel"
+                  [ngClass]="
+                  startDate.touched && !startDate.valid
+                          ? 'input is-normal is-danger is-family-primary has-text-weight-medium is-size-7 py-5'
+                          : 'input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                      "
+                      [(ngModel)]="assessmentCredentials.startsAtDateTime"
+                type="date" >
+                <!-- <label
+                style="position: absolute;
+                top: 0px;
+                left: 0px;"
+                required=""
+                value="2021-01-01"
+                  ngModel
+                  #startDate = "ngModel"
+                  [ngClass]="
+                  startDate.touched && !startDate.valid
+                          ? 'input is-normal is-danger is-family-primary has-text-weight-medium is-size-7 py-5'
+                          : 'input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                      "
+                      [(ngModel)]="assessmentCredentials.startDate"
+                > 03/08/2021</label> -->
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+          <div class="column is-2-desktop is-2-tablet is-half-mobile is-2-widescreen px-2 ">
+            <div class="field pt-5">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6"></label>
+              <span class="control  has-icons-right">
+
+                <input
+                required=""
+                name = "startTime"
+                ngModel
+                #startTime = "ngModel"
+                [ngClass]="
+                startTime.touched && !startTime.valid
+                        ? 'input is-normal is-danger is-family-primary has-text-weight-medium is-size-7 py-5'
+                        : 'input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                    "
+                    [(ngModel)]="assessmentCredentials.startTime"
+                type="time" placeholder="1:15 PM" required="">
+              </span>
+
+            </div>
+          </div>
+
+
+          <div class="column is-4-desktop is-4-tablet is-4-widescreen is-half-mobile px-3">
+
+          </div>
+
+          <div class="column is-3-desktop is-3-tablet is-3-widescreen is-half-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">End day and time </label>
+              <p class="control is-expanded ">
+                <input  required=""
+                name = "endDate"
+                ngModel
+                #endDate = "ngModel"
+                [ngClass]="
+                endDate.touched && !endDate.valid
+                        ? 'input is-normal is-danger is-family-primary has-text-weight-medium is-size-7 py-5'
+                        : 'input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                    " type="date" [(ngModel)]="assessmentCredentials.endsAtDateTime" placeholder="Enter your Birth date">
+
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+          <div class="column is-2-desktop is-2-tablet is-2-widescreen is-half-mobile px-2">
+            <div class="field pt-5">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6"></label>
+              <span class="control  has-icons-right">
+                <input  required=""
+                name = "endTime"
+                ngModel
+                #endTime = "ngModel"
+                [ngClass]="
+                endTime.touched && !endTime.valid
+                        ? 'input is-normal is-danger is-family-primary has-text-weight-medium is-size-7 py-5'
+                        : 'input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5'
+                    " type="time" placeholder="1:15 PM"[(ngModel)]="assessmentCredentials.endTime" required="">
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="column is-8-tablet is-12-desktop is-hidden-mobile">
+      <div class="field is-grouped is-grouped-right  pb-2 px-2">
+        <!-- <span class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-6 px-3 py-3">Step 1 of 4</span> -->
+        <div class="control">
+          <button class="button is-outlined  has-background-white is-fullwidth is-medium" style="" (click) = "cancel()">
+            <span class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Cancel</span></button>
+        </div>
+
+        <div class="control">
+          <button *ngIf = "assessmentCredentials.edit == undefined || assessmentCredentials.edit == false"class="button is-outlined  has-background-info is-fullwidth is-medium" style=""
+
+          [disabled] = " assessmentCredentials.class == null ||assessmentCredentials.class == '' || assessmentCredentials.subjectID == null || assessmentCredentials.subjectID == '' ||
+          selectedSections == null || selectedSections.length == 0 || title.invalid || time.invalid || startDate.invalid || instruction.invalid || startTime.invalid || endDate.invalid || endTime.invalid || assessmentCredentials.title.trim().length == 0"
+          (click) = "createAssessment()"
+>
+            <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Next</span></button>
+
+            <button *ngIf = "assessmentCredentials.edit"class="button is-outlined  has-background-info is-fullwidth is-medium" style=""
+
+          [disabled] = " assessmentCredentials.class == null ||assessmentCredentials.class == '' || assessmentCredentials.subjectID == null || assessmentCredentials.subjectID == '' ||
+          selectedSections == null || selectedSections.length == 0 || title.invalid || time.invalid || startDate.invalid
+          || instruction.invalid || startTime.invalid || endDate.invalid || endTime.invalid || assessmentCredentials.title.trim().length == 0"
+          (click) = "editAssessment()"
+>
+            <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Save Changes</span></button>
+
+        </div>
+      </div>
+    </div>
+    <div class=" is-hidden-tablet">
+      <div class="column is-7-mobile">
+        <!-- <span class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-7 px-3 py-3">Step 1 of 4</span> -->
+        <div class="field is-grouped is-grouped-right  pb-2 px-2">
+
+          <div class="control column is-half-mobile">
+            <button class="button is-outlined  has-background-white is-fullwidth is-medium" style="">
+              <span class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Cancel</span></button>
+          </div>
+
+          <div class="control column is-half-mobile">
+            <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="">
+              <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Next</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+

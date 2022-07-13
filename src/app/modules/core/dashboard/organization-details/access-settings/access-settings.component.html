@@ -1,0 +1,7 @@
+<mat-accordion>
+  <app-school-plugin-item
+    *ngFor="let school of SelectedOrganization.organization.schools"
+    [school]="school"
+    [PluginList]="PluginList"
+  ></app-school-plugin-item>
+</mat-accordion>

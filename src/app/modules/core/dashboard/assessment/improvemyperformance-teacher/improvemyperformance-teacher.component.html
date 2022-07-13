@@ -1,0 +1,201 @@
+<div class="section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <ul>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 pl-5"
+          >My Home</a
+        >
+      </li>
+      <li>
+        <a href="#" class="is-family-primary has-text-weight-bold is-size-5"
+          >Assessment</a
+        >
+      </li>
+      <li class="is-active is-family-primary has-text-weight-bold is-size-5">
+        <a
+          href="#"
+          aria-current="page"
+          class="is-family-primary has-text-weight-bold is-size-6"
+          >Improve my Performance
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    class="section is-large has-background-white pt-2 px-3"
+    style="border-radius: 13px"
+  >
+    <div class="columns is-multiline is-mobile pb-6">
+      <div class="column is-12-mobile is-3-desktop is-6-tablet is-3-widescreen">
+        <span
+          class="
+            is-family-primary
+            has-text-weight-bold has-text-left has-text-dark
+            is-block is-size-6
+            pt-5
+            pl-3
+          "
+          >Select Class</span
+        >
+        <div class="is-normal is-fullwidth pl-3 pt-2">
+          <ng-select
+          class="custom"
+          #ngg
+          id="ngSelect"
+          [items]="classes"
+          (change) = "getSelectedClassSubjects($event)"
+          bindLabel="name"
+          notFoundText="Not Found"
+          placeholder="Select class"
+          [searchable]="false"
+          [hideSelected]="true"
+          style="overflow: visible;"
+          [(ngModel)] = "selectedClass"
+
+        >
+
+          <ng-template ng-option-tmp let-item="item">
+            <div title="{{ item.name }}">{{ item.name }}</div>
+          </ng-template>
+
+ 
+        </ng-select>
+
+        </div>
+      </div>
+
+      <div class="column is-12-mobile is-3-desktop is-6-tablet is-3-widescreen">
+        <span
+          class="
+            is-family-primary
+            has-text-weight-bold has-text-left has-text-dark
+            is-block is-size-6
+            pt-5
+            pl-3
+          "
+          >Select Subject</span
+        >
+        <div class="is-normal is-fullwidth pl-3 pt-2">
+          <ng-select
+          class="custom"
+          #ngg
+          id="ngSelect"
+          [items]="subjects"
+          (change)="getLOs($event)"
+          bindLabel="name"
+          notFoundText="Not Found"
+          placeholder="Select class"
+          [searchable]="true"
+          [hideSelected]="true"
+          style="overflow: visible;"
+          [(ngModel)] = "selectedSubject"
+        >
+
+          <ng-template ng-option-tmp let-item="item">
+            <div title="{{ item.name }}">{{ item.name }}</div>
+          </ng-template>
+
+ 
+        </ng-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-multiline is-mobile mt-6 mx-3">
+      <div
+        class="
+          column
+          is-full-mobile is-full-tablet is-half-desktop
+          has-background-white
+        "
+      >
+        <div class="columns is-multiline is-mobile mb-0">
+          <div class="column is-full">
+            <span
+              class="
+                is-family-primary
+                has-text-weight-semibold has-text-black-bis
+                is-size-6 is-size-7-mobile
+              "
+              >Learning Objective</span
+            >
+          </div>
+
+          <hr class="" style="border: solid 1px #bababa; width: 100%" />
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <mat-nav-list dense role="list">
+          <!-- <mat-list-item *ngIf = "books != undefined && books.length > 0"
+            role="listitem">
+            <label class="checkbox">
+              <input type="checkbox" [(ngModel)] = "allBook" (change) = "allBooks()">
+              <span class="has-text-weight-bold has-text-dark pl-2">  Select all</span>
+            </label>
+          </mat-list-item> -->
+
+          <cdk-virtual-scroll-viewport 
+            itemSize="learningObjectives.length" 
+            multiple = true
+            class="example-viewport" style="height: 400px;" 
+            >
+            <app-loitem-impt
+            *ngFor="let LO of this.learningObjectives"
+            [LOItem]="LO"
+            class="column is-full color-blue-lighter"
+          >
+          </app-loitem-impt>
+          </cdk-virtual-scroll-viewport>
+        </mat-nav-list>
+
+
+
+       
+      </div>
+
+      <div
+        class="
+          column
+          is-full-mobile is-full-tablet is-half-desktop
+          has-background-white
+          pl-6
+        "
+      >
+        <div class="column is-full">
+          <span
+            class="
+              is-inline-block is-inline-block is-family-primary
+              has-text-weight-medium has-text-black-bis
+              is-size-6 is-size-7-mobile
+            "
+            >Numbers greater than 100 000</span
+          >
+        </div>
+
+        <div class="column is-full has-background-white">
+          <app-stud-item-impt
+            *ngFor="let student of StudentsForLO"
+            [studentLOInfo]="student"
+          >
+          </app-stud-item-impt>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

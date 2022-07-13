@@ -1,0 +1,739 @@
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script>
+    renderMathInElement(document.getElementById("katex"),{delimiters: [
+    					{left: "$$", right: "$$", display: true},
+					  {left: "$", right: "$", display: false}
+]});
+
+</script> -->
+
+
+<div>
+  <div>
+
+    <div class="columns is-mobile ">
+
+      <!---------->
+      <div class="column   px-0 py-0">
+        <div class="hero-head  pt-0 px-0 pb-0 ">
+
+          <!--   <div class="box has-background-white pt-2 pb-6 mb-6  mx-3">-->
+          <div class=" has-background-white pt-2 pb-3 px-3 " style="border-radius: 13px;">
+
+
+
+            <div class="columns">
+              <div class="column is-7-desktop ">
+                <div class="tabs is-left is-size-5-desktop is-size-6-tablet has-text-left has-text-weight-semibold pb-3">
+                  <ul>
+
+
+                    <li [ngClass] = "weightingGraphBool ? 'is-active': ''" [ngStyle]="{'border-right' : weightingGraphBool ? '1px solid black' : '' }" (click) = "actualWeightingClicked()"><a>Actual distribution</a></li>
+                    <li [ngClass] = "!weightingGraphBool ? 'is-active': ''" [ngStyle]="{'border-left' : !weightingGraphBool ? '1px solid black' : '' }" (click) = "averageDifficultyClicked()"><a>Average Difficulty</a></li>
+                  </ul>
+                </div>
+
+                <div class="section is-medium has-background-white pt-2 px-3 " style="border-radius: 13px;">
+
+                  <div #containerRef1 *ngIf = "weightingGraphBool" style="max-width: 75vh; height: 400px;">
+                    <ngx-charts-bar-vertical-2d [results] = "actualWeights"
+                    [scheme]="colorScheme"
+                    [schemeType] = "distributionGraphProperties.schemeType"
+                    [gradient] = "distributionGraphProperties.gradient"
+                    [xAxis] = "distributionGraphProperties.xAxis"
+                    [yAxis] = "distributionGraphProperties.yAxis"
+                    [legend] = "distributionGraphProperties.legend"
+                    [showXAxisLabel] = "distributionGraphProperties.showXAxisLabel"
+                    [showYAxisLabel] = "distributionGraphProperties.showYAxisLabel"
+                    [xAxisLabel] = "xLabel"
+                    [yScaleMax] = 100
+                    [yAxisLabel] = "distributionGraphProperties.yAxisLabel"
+                    [legendTitle] = "distributionGraphProperties.legendTitle"
+                    [legendPosition] = "distributionGraphProperties.legendPosition"
+                    [animations] = "distributionGraphProperties.animations"
+                    [showGridLines] = "distributionGraphProperties.showGridLines"
+                    [showDataLabel] = "distributionGraphProperties.showDataLabel"
+                    [barPadding] = "distributionGraphProperties.barPadding"
+                    [tooltipDisabled] = "distributionGraphProperties.tooltipDisabled"
+                    [roundEdges] = "distributionGraphProperties.roundEdges"
+
+                    >
+                    <ng-template #tooltipTemplate let-model="model">
+                      <h2>{{ model.extra.code}}: {{model.value}}</h2>
+                    </ng-template>
+
+                  </ngx-charts-bar-vertical-2d>
+                  </div>
+                  <div #containerRef2 *ngIf = "!weightingGraphBool" style="max-width: 75vh; height: 400px;">
+                    <ngx-charts-bar-vertical  [results] = "questionDifficulties"
+
+                    [scheme]="colorScheme"
+                    [schemeType] = "averageDifficultyGraphProperties.schemeType"
+                    [gradient] = "averageDifficultyGraphProperties.gradient"
+                    [xAxis] = "averageDifficultyGraphProperties.xAxis"
+                    [yAxis] = "averageDifficultyGraphProperties.yAxis"
+                    [legend] = "averageDifficultyGraphProperties.legend"
+                    [yScaleMax] = 10
+                    [showXAxisLabel] = "averageDifficultyGraphProperties.showXAxisLabel"
+                    [showYAxisLabel] = "averageDifficultyGraphProperties.showYAxisLabel"
+                    [xAxisLabel] = "xLabel"
+                    [yAxisLabel] = "averageDifficultyGraphProperties.yAxisLabel"
+                    [legendTitle] = "averageDifficultyGraphProperties.legendTitle"
+                    [legendPosition] = "averageDifficultyGraphProperties.legendPosition"
+                    [animations] = "averageDifficultyGraphProperties.animations"
+                    [showGridLines] = "averageDifficultyGraphProperties.showGridLines"
+                    [showDataLabel] = "averageDifficultyGraphProperties.showDataLabel"
+                    [barPadding] = "averageDifficultyGraphProperties.barPadding"
+                    [tooltipDisabled] = "averageDifficultyGraphProperties.tooltipDisabled"
+                    [roundEdges] = "averageDifficultyGraphProperties.roundEdges"
+                    >
+                    <ng-template #tooltipTemplate let-model="model">
+                      <h2>{{ model.extra.code}}: {{model.value}}</h2>
+                    </ng-template>
+
+                  </ngx-charts-bar-vertical>
+                  </div>
+
+                </div>
+
+
+
+              </div>
+              <div class="column  is-inline-block">
+                <div class="tabs is-left is-size-5-desktop is-size-6-tablet has-text-left has-text-weight-semibold pb-3">
+
+                  <ul>
+                    <li [ngClass] = "testTimeBool ? 'is-active': ''" [ngStyle]="{'border-right' : testTimeBool ? '1px solid black' : '' }" (click) = "testTimeClicked()"><a>Actual Test Time</a></li>
+                    <li [ngClass] = "!testTimeBool ? 'is-active': ''" [ngStyle]="{'border-left' : !testTimeBool ? '1px solid black' : '' }" (click) = "testDifficultyClicked()"><a>Test Average Difficulty</a></li>
+                  </ul>
+                </div>
+
+                <div class="section is-medium has-background-white pt-2 px-3 " style="border-radius: 13px;">
+                  <div #containerRef3 *ngIf = "testTimeBool" style="max-width: 50vh; height: 400px;">
+                    <ngx-charts-bar-vertical-2d  [results] = "testTime"
+                    [scheme]="colorScheme"
+                    [schemeType] = "testTimeGraphProperties.schemeType"
+                    [gradient] = "testTimeGraphProperties.gradient"
+                    [xAxis] = "testTimeGraphProperties.xAxis"
+                    [yAxis] = "testTimeGraphProperties.yAxis"
+                    [legend] = "testTimeGraphProperties.legend"
+                    [showXAxisLabel] = "testTimeGraphProperties.showXAxisLabel"
+                    [showYAxisLabel] = "testTimeGraphProperties.showYAxisLabel"
+                    [xAxisLabel] = "xLabel"
+                    [yAxisLabel] = "testTimeGraphProperties.yAxisLabel"
+                    [legendTitle] = "testTimeGraphProperties.legendTitle"
+                    [legendPosition] = "testTimeGraphProperties.legendPosition"
+                    [animations] = "testTimeGraphProperties.animations"
+                    [showGridLines] = "testTimeGraphProperties.showGridLines"
+                    [showDataLabel] = "testTimeGraphProperties.showDataLabel"
+                    [barPadding] = "testTimeGraphProperties.barPadding"
+                    [tooltipDisabled] = "testTimeGraphProperties.tooltipDisabled"
+                    [roundEdges] = "testTimeGraphProperties.roundEdges"
+                    [yAxisTickFormatting]="yAxisTickFormattingFn"
+                    >
+                    <ng-template #tooltipTemplate let-model="model">
+                      <h2>{{ model.name}}: {{dateConversion(model.value)}}</h2>
+                    </ng-template>
+
+                  </ngx-charts-bar-vertical-2d>
+                  </div>
+                  <div #containerRef4 *ngIf = "!testTimeBool" style="max-width: 50vh; height: 400px;">
+                    <ngx-charts-bar-vertical [results] = "averageDifficulty"
+                    [scheme]="colorScheme"
+                    [schemeType] = "testDifficultyGraphProperties.schemeType"
+                    [gradient] = "testDifficultyGraphProperties.gradient"
+                    [xAxis] = "testDifficultyGraphProperties.xAxis"
+                    [yAxis] = "testDifficultyGraphProperties.yAxis"
+                    [legend] = "testDifficultyGraphProperties.legend"
+                    [yScaleMax] = 10
+                    [showXAxisLabel] = "testDifficultyGraphProperties.showXAxisLabel"
+                    [showYAxisLabel] = "testDifficultyGraphProperties.showYAxisLabel"
+                    [xAxisLabel] = "xLabel"
+                    [yAxisLabel] = "testDifficultyGraphProperties.yAxisLabel"
+                    [legendTitle] = "testDifficultyGraphProperties.legendTitle"
+                    [legendPosition] = "testDifficultyGraphProperties.legendPosition"
+                    [animations] = "testDifficultyGraphProperties.animations"
+                    [showGridLines] = "testDifficultyGraphProperties.showGridLines"
+                    [showDataLabel] = "testDifficultyGraphProperties.showDataLabel"
+                    [barPadding] = "testDifficultyGraphProperties.barPadding"
+                    [tooltipDisabled] = "testDifficultyGraphProperties.tooltipDisabled"
+                    [roundEdges] = "testDifficultyGraphProperties.roundEdges"
+                    ></ngx-charts-bar-vertical>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="is-full px-6 mx-6">
+              <div class=" has-background-white-ter is-family-primary is-size-5-desktop is-size-5-widescreen is-size-6-tablet is-size-7-mobile has-text-dark py-1 px-3" style="border: solid 1px rgba(191, 191, 191, 0.38);">
+                <span class="column is-4-widescreen is-inline-block">
+                  <span class="is-inline-block has-text-weight-semibold">Remaining Test Time: &nbsp;
+
+                  </span>
+                  <span class="is-inline-block has-text-weight-medium"> {{remainingTime}}
+                  </span>
+                </span>
+
+                <span class="column is-4-widescreen is-inline-block">
+                  <span class="is-inline-block has-text-weight-semibold">| Actual Test Time: &nbsp;
+                  </span>
+
+                  <span class="is-inline-block has-text-weight-medium"> {{ actualTime}}
+                  </span>
+                </span>
+
+                <span class="column  is-inline-block">
+                  <span class="is-inline-block has-text-weight-semibold">| Planned Test Time: &nbsp;
+                  </span>
+
+                  <span class="is-inline-block has-text-weight-medium"> {{ plannedTime}}
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel [expanded] = "expanded" (click) = "expandCollapseFilters()" hideToggle>
+              <mat-expansion-panel-header>
+
+                <mat-icon style=" right: 10vh;top: 1.5vh; position: absolute;"><span class="icon-wrapper has-background-info" style="font-size:0.80rem;" >
+                  <i   [ngClass] = "expanded ? 'fas fa-angle-up has-text-white has-text-left': 'fas fa-angle-down has-text-white has-text-left'"></i></span></mat-icon>
+              </mat-expansion-panel-header>
+
+              <div (click)="$event.stopPropagation();">
+                <div class="columns is-multiline">
+                  <!-- <div class="column is-half-desktop is-half-tablet is-half-widescreen is-half-mobile px-2 pt-2"> -->
+
+                    <!-- <label class="label  is-family-primary has-text-weight-semibold is-size-6">Question Bank(s) </label> -->
+                    <!-- <div class="columns"> -->
+                      <!-- <div class="column is-one-third" >
+                          <ng-select
+                            #ngg
+                            class="custom"
+                            id="ngSelect"
+                            [items]="questionBanks"
+
+                            bindLabel="name"
+                            notFoundText="Not Found"
+                            placeholder="My question bank"
+
+                            [hideSelected]="true"
+                            style="overflow: visible;"
+                            [(ngModel)]="questionBanks"
+                          >
+                            <ng-template ng-tag-tmp let-search="searchTerm">
+                              <p>{{ search }} (New Cycle)</p>
+                            </ng-template>
+
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{ item.name }}">{{ item.name }}</div>
+                            </ng-template>
+                          </ng-select>
+
+                      </div>
+                      <div class="column is-one-third">
+                        <ng-select
+                            #ngg
+                            class="custom"
+                            id="ngSelect"
+                            [items]="questionBanks"
+
+                            bindLabel="name"
+                            notFoundText="Not Found"
+                            placeholder="Pearson"
+
+                            [hideSelected]="true"
+                            style="overflow: visible;"
+                            [(ngModel)]="questionBanks"
+                          >
+                            <ng-template ng-tag-tmp let-search="searchTerm">
+                              <p>{{ search }} (New Cycle)</p>
+                            </ng-template>
+
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{ item.name }}">{{ item.name }}</div>
+                            </ng-template>
+                          </ng-select>
+                      </div>
+                      <div class="column is-one-third mr-6">
+                        <ng-select
+                            #ngg
+                            class="custom"
+                            id="ngSelect"
+                            [items]="questionBanks"
+
+                            bindLabel="name"
+                            notFoundText="Not Found"
+                            placeholder="Public Question Bank"
+
+                            [hideSelected]="true"
+                            style="overflow: visible;"
+                            [(ngModel)]="questionBanks"
+                          >
+                            <ng-template ng-tag-tmp let-search="searchTerm">
+                              <p>{{ search }} (New Cycle)</p>
+                            </ng-template>
+
+                            <ng-template ng-option-tmp let-item="item">
+                              <div title="{{ item.name }}">{{ item.name }}</div>
+                            </ng-template>
+                          </ng-select>
+                      </div> -->
+                    <!-- </div> -->
+
+                  <!-- </div> -->
+
+                  <div class="column is-5">
+                    <div class="columns is-multiline ">
+                      <!-- <div class="column is-5 pt-2 ml-5">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Domain </label>
+                        <ng-select
+                        #ngg
+                        class="custom"
+                        id="ngSelect"
+                        [items]="domains"
+                        (change)="onFilterDomain($event)"
+
+                        bindLabel="name"
+                        notFoundText="Not Found"
+                        placeholder="select unit"
+
+                        [hideSelected]="true"
+                        style="overflow: visible;"
+                        [(ngModel)]="filteredDomain"
+                      >
+
+                        <ng-template ng-option-tmp let-item="item">
+                          <div title="{{ item.name }}">{{ item.name }}</div>
+                        </ng-template>
+                      </ng-select>
+                      </div> -->
+
+                      <div class="column is-5  pt-2 px-2 ">
+                            <label class="label  is-family-primary has-text-weight-semibold is-size-6">Difficulty </label>
+                        <ng-select
+                        required
+                        style="overflow: visible;"
+                        class="custom"
+                        #ngg
+                        id="ngSelect"
+                        (change) = "onChooseFilter($event, 'difficulty')"
+                        [items]="difficulty"
+                        name="difficulty"
+                        notFoundText="Not Found"
+                        placeholder="Select difficulty"
+                        bindLabel = "name"
+                        [hideSelected]="true"
+                        [(ngModel)]="chosenDifficulty"
+                      >
+
+
+                        <ng-template ng-option-tmp let-item="item">
+                          <div title="{{ item.name}}">{{ item.name }}</div>
+                        </ng-template>
+                      </ng-select>
+
+
+
+
+                      </div>
+
+                      <div class="column is-5  pt-2 px-2 ">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Question type </label>
+                    <ng-select
+                    required
+                    style="overflow: visible;"
+                    class="custom"
+                    #ngg
+                    id="ngSelect"
+                    (change) = "onChooseFilter($event, 'questionType')"
+                    [items]="selectedQuestionTypes"
+                    name="name"
+                    notFoundText="Not Found"
+                    placeholder="Select question type"
+                    bindLabel = "name"
+                    [hideSelected]="true"
+                    [(ngModel)]="chosenQuestionType"
+                  >
+
+
+                    <ng-template ng-option-tmp let-item="item">
+                      <div title="{{ item.name}}">{{ item.name }}</div>
+                    </ng-template>
+                  </ng-select>
+
+
+
+
+                  </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="columns is-multiline ">
+                  <div class="column is-5 px-2 pt-2 mr-6">
+
+                    <label class="label  is-family-primary has-text-weight-semibold is-size-6">Book Title </label>
+                    <ng-select
+                    #ngg
+                    style="overflow: visible;"
+                    id="ngSelect"
+                    class="custom"
+                    [items]="selectedBooks"
+                    (change)="onChooseFilter($event, 'book')"
+                    bindLabel="title"
+                    notFoundText="Not Found"
+                    placeholder="Select book"
+                    [closeOnSelect]="true"
+                    [searchable]="false"
+                    [hideSelected]="false"
+                    [(ngModel)]="filteredBooks"
+                  >
+
+
+                    <ng-template ng-option-tmp let-item="item">
+                      <div title="{{ item.title }}">{{ item.title }}</div>
+                    </ng-template>
+
+
+                  </ng-select>
+
+
+                  </div>
+                  <div class="column is-5 px-2 pt-2 ml-3">
+
+                    <label class="label  is-family-primary has-text-weight-semibold is-size-6"> Course Unit </label>
+                    <div class=" is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+
+                      <ng-select
+                      #ngg
+                      style="overflow: visible;"
+                      id="ngSelect"
+                      class="custom"
+                      [items]="selectedUnits"
+                      (change)="onChooseFilter($event, 'unit')"
+                      bindLabel="name"
+                      notFoundText="Not Found"
+                      placeholder="Select units"
+                      [closeOnSelect]="true"
+                      [searchable]="false"
+                      [hideSelected]="false"
+                      [(ngModel)]="filteredUnits"
+                    >
+
+
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{ item.name }}">{{ item.name }}</div>
+                      </ng-template>
+
+
+                    </ng-select>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div class="columns is-multiline ">
+                  <div class="column is-5 px-2 pt-2 mr-6">
+
+                    <label class="label  is-family-primary has-text-weight-semibold is-size-6">Book Chapter </label>
+                    <div class=" is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                      <ng-select
+                      #ngg
+                      style="overflow: visible;"
+                      id="ngSelect"
+                      class="custom"
+                      [items]="selectedChapters"
+                      (change)="onChooseFilter($event, 'chapter')"
+                      bindLabel="displayName"
+                      notFoundText="Not Found"
+                      placeholder="Select chapter"
+                      [closeOnSelect]="true"
+                      [searchable]="false"
+                      [hideSelected]="false"
+                      [(ngModel)]="filteredChapters"
+                    >
+
+
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{ item.displayName }}">{{ item.displayName }}</div>
+                      </ng-template>
+
+
+                    </ng-select>
+                    </div>
+
+
+                  </div>
+                  <div class="column is-5 px-2 pt-2 ml-3">
+
+                    <label class="label  is-family-primary has-text-weight-semibold is-size-6"> Learning Objective </label>
+                    <div class=" is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                      <ng-select
+                      #ngg
+                      style="overflow: visible;"
+                      id="ngSelect"
+                      class="custom"
+                      [items]="selectedLearningObjectives"
+                      (change)="onChooseFilter($event, 'lo')"
+                      bindLabel="displayName"
+                      notFoundText="Not Found"
+                      placeholder="Select learning objective"
+                      [closeOnSelect]="true"
+                      [searchable]="false"
+                      [hideSelected]="false"
+                      [(ngModel)]="filteredLOs"
+                    >
+
+
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{ item.displayName }}">{{ item.displayName }}</div>
+                      </ng-template>
+
+
+                    </ng-select>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div class="columns is-multiline ">
+                  <div class="column is-5 px-2 pt-2 mr-6">
+
+                    <label class="label  is-family-primary has-text-weight-semibold is-size-6">Book Section </label>
+                    <div class=" is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                      <ng-select
+                      #ngg
+                      style="overflow: visible;"
+                      id="ngSelect"
+                      class="custom"
+                      [items]="selectedSections"
+                      (change)="onChooseFilter($event, 'section')"
+                      bindLabel="displayName"
+                      notFoundText="Not Found"
+                      placeholder="Select section"
+                      [closeOnSelect]="true"
+                      [searchable]="false"
+                      [hideSelected]="false"
+                      [(ngModel)]="filteredSections"
+                    >
+
+
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{ item.displayName }}">{{ item.displayName }}</div>
+                      </ng-template>
+
+
+                    </ng-select>
+                    </div>
+
+
+                  </div>
+                  <div class="column is-5 px-2 pt-2 ml-3">
+
+                    <label class="label  is-family-primary has-text-weight-semibold is-size-6"> Course Standards </label>
+                    <div class=" is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7 ">
+                      <ng-select
+                      #ngg
+                      style="overflow: visible;"
+                      id="ngSelect"
+                      class="custom"
+                      [items]="selectedLearningStandards"
+                      (change)="onChooseFilter($event, 'ls')"
+                      bindLabel="displayName"
+                      notFoundText="Not Found"
+                      placeholder="Select learning standard"
+                      [closeOnSelect]="true"
+                      [searchable]="false"
+                      [hideSelected]="false"
+                      [(ngModel)]="filteredLS"
+                    >
+
+
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="{{item.displayName}}">{{ item.displayName }}</div>
+                      </ng-template>
+
+
+                    </ng-select>
+                    </div>
+
+
+                  </div>
+                </div>
+
+                <div class="column is-8-tablet is-12-desktop is-hidden-mobile">
+                  <div class="field is-grouped is-grouped-right  pb-2 px-2">
+
+                    <div class="control">
+                      <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="" (click) = "clearFilters()">
+                        <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Clear Filters</span></button>
+                    </div>
+                  </div>
+                </div>
+                <div class=" is-hidden-tablet">
+                  <div class="column is-7-mobile">
+
+                    <div class="field is-grouped is-grouped-right  pb-2 px-2">
+
+                      <div class="control column is-half-mobile">
+                        <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="">
+                          <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Clear Filters</span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+
+
+          <div *ngIf = "questions != undefined" class="  has-background-white is-block mt-3 py-3 px-5 " style="border-radius: 13px;     align-items: normal;">
+
+            <div class="is-inline-block is-size-5-desktop is-size-6-tablet has-text-left has-text-black-bis has-text-weight-semibold pb-3" *ngIf = "questions.length > 1">{{questions.length}} questions found</div>
+            <div class="is-inline-block is-size-5-desktop is-size-6-tablet has-text-left has-text-black-bis has-text-weight-semibold pb-3" *ngIf = "questions.length == 1">{{questions.length}} question found</div>
+
+            <div class="column is-full has-text-left">
+              <table class="table table-questions is-fullwidth is-bordered has-text-centered px-6 mb-3">
+                <thead class=" is-size-6-desktop is-size-7-tablet has-background-white-ter">
+                  <tr><th class=" has-text-centered py-2" scope="col" style="border-right-color:#f3f3f4;">
+                    <input type="checkbox" class="checkbox is-focused pt-5" (click) = "allQuestionsSelected()" [(ngModel)]="allQuestions"></th>
+                    <th class="is-family-primary has-text-weight-semibold has-text-left px-2 py-2" colspan="2" scope="col" style="border-left-color:#f3f3f4;">Question </th>
+                    <!-- <th class="is-family-primary has-text-weight-semibold  px-2 py-2" scope="col">Correct Answer </th> -->
+                    <!-- <th class="is-family-primary has-text-weight-semibold px-2 py-2" scope="col">DOK </th> -->
+                    <th class="is-family-primary has-text-weight-semibold px-2 py-2" scope="col">Difficulty </th>
+                    <th class="is-family-primary has-text-weight-semibold  px-2  py-2" scope="col">Time</th>
+                    <th class="is-family-primary has-text-weight-semibold  px-2 py-2" scope="col">Exposure</th>
+                    <th class="is-family-primary has-text-weight-semibold  px-2 py-2" scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody class="is-size-6">
+                  <tr *ngFor = "let question of questions| paginate
+                  : {
+                      itemsPerPage: 10,
+                      currentPage: currentPage,
+                      year: questions.length
+                    }; let i = index;">
+
+                    <td class="td-users is-family-primary has-text-weight-medium has-text-centered px-3" style="border-right-color:#f3f3f4;" >
+                      <input type="checkbox" class="checkbox is-focused" [checked] = "question.selected" (click) = "questionSelected(i)">
+                      <!-- <div class="" style="color:rgba(63, 128, 191, 0.5);">1153</div> -->
+                    </td>
+                    <td class="td-users pl-0 pr-0 py-1" style="border-right-color:#f3f3f4;">
+                      <div  class="column is-full is-family-primary has-text-left  has-text-weight-bold is-size-5 is-size-7-tablet is-size-6-desktop mt-0 mb-0 px-0 py-3">
+                        <!-- <span class="is-inline-block " [innerHTML]="question.questionText"></span> -->
+                        <span class="is-inline-block ">
+
+                          <!-- <div *ngIf = "containsNBSP(question.questionText) == false"
+                          [mathjax]="question.questionText"></div> -->
+
+                      <div
+                      [mathjax]="question.questionText" ></div>
+
+                        </span>
+
+
+                      </div>
+                    </td>
+                    <td class="td-users pl-0 pr-0 py-1" style="border-right-color:#f3f3f4;">
+                      <div class="column is-full grey-color is-family-primary has-text-left  has-text-weight-bold is-size-5 is-size-7-tablet is-size-6-desktop mt-0 mb-0 px-0 py-3">
+                        <!-- <span class="is-inline-block " *ngFor = "let answer of question.answers; let i = index;">
+                        <span class="is-block ">{{i}} </span>
+                        <span class="is-block ">{{answer.text}}</span>
+                      </span> -->
+                      </div>
+
+                    </td>
+                    <!-- <td class="td-users is-family-primary has-text-weight-normal pl-0 pr-4 py-1">
+
+                      <div *ngFor = "let answer of question.answers;">
+                        <span class="is-inline-block has-text-black-bis py-3" *ngIf = "answer.isCorrect">{{answer.text}}</span>
+
+                      </div>
+                    </td> -->
+
+                    <!-- <td class="td-users is-family-primary has-text-weight-normal pl-0 pr-4 py-1">
+
+                      <span class="is-inline-block has-text-black-bis py-3">{{question.cq[0].qLOs[0].LO.unitLO[0].DOK}}</span>
+                    </td> -->
+                    <td class="td-users is-family-primary has-text-weight-normal pl-0 pr-4 py-1">
+
+                      <span class="is-inline-block has-text-black-bis py-3">{{question.difficulty}}</span>
+                    </td>
+                    <td class="td-users is-family-primary has-text-weight-normal pl-0 pr-4 py-1">
+
+                      <span class="is-inline-block has-text-black-bis py-3">{{dateConversion(question.time)}}</span>
+                    </td>
+                    <td class="td-users is-family-primary has-text-weight-normal pl-0 pr-4 py-1">
+
+                      <span class="is-inline-block has-text-black-bis py-3">{{question.exposure}}%</span>
+                    </td>
+                    <!-- <td class="td-users is-family-primary has-text-weight-normal pl-0 pr-4 py-1">
+
+                      <span class="is-inline-block has-text-black-bis py-3">5</span>
+                    </td>
+                    <td class="td-users is-family-primary has-text-weight-normal pl-0 pr-4 py-1">
+
+                      <span class="is-inline-block has-text-black-bis py-3">7</span>
+                    </td> -->
+                    <td class="td-users is-family-primary has-text-weight-normal pl-0 px-3 py-1">
+                      <button class="button is-outlined  has-background-info   is-normal my-3" (click) = "viewQuestion(question)">
+                        <span class=" has-text-white is-family-primary has-text-weight-bold is-size-6 is-size-7-tablet px-3" id="next">View</span>
+                      </button>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+              <nav class="  has-background-white">
+                <div class="container">
+                  <div
+                    class="pagination is-right pr-6 pt-3"
+                    role="navigation"
+                    aria-label="pagination"
+                  >
+                    <ul class="pagination-list mt-1">
+                      <pagination-controls
+                        maxSize="6"
+                        class="my-pagination"
+                        autoHide="true"
+                        directionLinks="false"
+                        (pageChange)="currentPage = $event"
+                      ></pagination-controls>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+
+              <div class="column is-12-tablet is-12-desktop is-hidden-mobile">
+                <div class="field is-grouped is-grouped-right  pb-2 px-2">
+
+                  <div class="control">
+                    <button class="button is-outlined  has-background-info is-fullwidth is-medium" style="" (click) = "submitQuestions()">
+                      <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Finish</span></button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+</div>

@@ -1,0 +1,79 @@
+
+<div class="columns">
+  <div class="column is-12" [ngSwitch]="SelectedCir | async">
+    <app-question-settings-lebcir
+      [dataSelected]="dataSelected"
+      (closeDialogLebanese)="onFormSubmitted($event)"
+      (changeCurriculum)="onChangeCurriculum($event)"
+      (submitLebaneseData) = "getLebaneseData($event)"
+      [lebaneseData] = "lebaneseData"
+      *ngSwitchCase="'Lebanese'"
+    ></app-question-settings-lebcir>
+    <app-question-settings-usacir
+      [dataSelected]="dataSelected"
+      (changeCurriculum)="onChangeCurriculum($event)"
+      (submitAmericanData) = "getAmericanData($event)"
+      [americanData] = "americanData"
+      *ngSwitchCase="'American'"
+    ></app-question-settings-usacir>
+    <app-question-settings-bricir
+      [dataSelected]="dataSelected"
+      (changeCurriculum)="onChangeCurriculum($event)"
+      (submitBritishData) = "getBritishData($event)"
+      [britishData] = "britishData"
+      *ngSwitchCase="'British'"
+    ></app-question-settings-bricir>
+  </div>
+</div>
+
+<!-- Content-->
+
+<hr class="hr-line my-0" />
+
+<div class="column is-11-tablet is-12-desktop is-hidden-mobile">
+  <div class="field is-grouped is-grouped-right pb-2 pr-6 pt-5">
+    <div class="control">
+      <button
+        class="
+          button
+          is-fullwidth is-family-primary
+          has-text-weight-bold
+          is-size-6 is-link
+          has-text-white
+          px-6
+          mx-4
+        "
+        type="submit"
+        [disabled] = "lebaneseData == undefined && americanData == undefined && britishData == undefined"
+        (click) = "save()"
+      >
+        Save
+      </button>
+      <!-- (click)="submitChanges()" -->
+
+    </div>
+    <div class="control">
+      <button
+        class="
+          button
+          is-fullwidth is-family-primary
+          has-text-weight-bold
+          is-size-6 is-link
+          has-text-white
+          mx-4
+        "
+        [disabled] = "lebaneseData == undefined && americanData == undefined && britishData == undefined"
+        type="submit"
+        (click) = "approve()"
+      >
+        Save and Approve
+      </button>
+    </div>
+  </div>
+</div>
+
+<button
+  class="modal-close is-large"
+  aria-label="close"
+  (click)="closeDialog()"
+></button>

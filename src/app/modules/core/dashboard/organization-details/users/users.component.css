@@ -1,0 +1,15 @@
+.ngx-pagination .current {
+  background: #3f80bf !important;
+}
+.ngx-pagination .current,
+.btn-info {
+  background: #3f80bf !important;
+  border: transparent !important;
+  border-radius: 20px !important;
+}
+
+.ngx-pagination .current:hover {
+  background: #3f80bf !important;
+  border-radius: 20px !important;
+  border: transparent !important;
+}

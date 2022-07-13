@@ -1,0 +1,309 @@
+<div id="modal" class="modal is-active">
+  <div class="modal-background" (click) = "closeDialog()"></div>
+  <div class="modal-content responsiveness">
+
+<div class="section is-small has-background-white pt-2 px-3 " style="border-radius: 13px;">
+  <p class=" is-family-primary has-text-weight-bold is-size-5 mt-0 pb-0 mb-0 px-1 py-3" style="color:#3f81c3;">
+    Edit Family</p>
+  <form [formGroup]="EditFamilyForm" (ngSubmit) = "submitForm()">
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="columns is-multiline">
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-3">
+            <div class="field ">
+              <label class="label is-family-primary input-title-required has-text-weight-semibold is-size-6">Full Name</label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" formControlName="firstName" placeholder="Enter your first name"  required>
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field pt-5">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6"></label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" formControlName="middleName" placeholder="Enter your middle name" required>
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field pt-5">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6"></label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" formControlName="lastName" placeholder="Enter your last name" required>
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-3">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Full Name in Second Language</label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" formControlName="langFirstName" placeholder="Enter your first name">
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field pt-5">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6"></label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" formControlName="langMiddleName" placeholder="Enter your middle name">
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field pt-5">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6"></label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" formControlName="langLastName" placeholder="Enter your last name">
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6 input-title-required">Birth Date</label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="date" placeholder="Enter your Birth date" formControlName="birthday"  required>
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6 input-title-required">Birth Place</label>
+
+                <input class="input is-normal is-inline-block is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter your birth place" formControlName="birthplace" required>
+              
+
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label input-title-required is-family-primary has-text-weight-semibold is-size-6">Gender</label>
+              <ng-select
+              class="custom is-size-7 py-7"
+              placeholder="Enter Your Gender"
+              [items]="genders"
+              style="overflow: visible;"
+              formControlName="gender"
+              required
+              >
+    </ng-select>
+              <!-- <div class="select is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                <select class="select" name="gender" ngModel required>
+                    <option value="">Select your Gender</option>
+                  <option>Male</option> 
+                  <option>Female</option>
+                </select>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6 input-title-required">Nationality 1</label>
+              <!-- <input class="input is-normal is-inline-block is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter your First Nationality" name="nationality1" ngModel required> -->
+              <!-- <div class="select is-small is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                  <select class="select" name="nationality1" ngModel required>
+                      <option value="">Enter Your First Nationality</option>
+                    <option *ngFor="let i of countries">{{i.name}}</option>
+                  </select>
+                </div>  -->
+<!--Using ng-option and for loop-->
+                  <!-- <ng-select [(ngModel)]="selectedCar">
+                    <ng-option *ngFor="let car of cars" [value]="car.id">it is {{car.name}}</ng-option>
+                  </ng-select> -->
+      <!-- <div class="overflow-box"> -->
+  <ng-select
+          class="custom is-size-7 py-7"
+          placeholder="Enter Your First Nationality"
+          [items]="countries"
+          bindLabel="name"
+          bindValue="name"
+          style="overflow: visible;"
+          formControlName="nationality1"
+          required
+          >
+</ng-select>
+      <!-- </div> -->
+     
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Passport ID </label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter your Passport ID 1" formControlName="passportID1">
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6 input-title-required">Phone Number </label>
+              <div class="field is-grouped">
+                <p class="control">
+                  <span class="is-small  is-family-primary has-text-weight-medium is-size-7">
+                    <!-- <select class="select" name="phonecode" ngModel>
+                      <option value="">Area Code</option>
+                    <option *ngFor="let i of countries">{{i.dial_code}}</option>
+                  </select> -->
+                  <ng-select
+                          class="custom is-size-7 py-7"
+                          placeholder="+XXX"
+                          [items]="countries"
+                          bindLabel="dial_code"
+                          bindValue="dial_code"
+                          style="overflow: visible;"
+                          formControlName="phoneCode"
+                          >
+                </ng-select>
+                  </span>
+                </p>
+                <p class="control is-expanded">
+                  <input class="input is-normal is-inline-block is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter Your Phone Number" formControlName="phoneNumber" required>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Nationality 2</label>
+              <ng-select
+              class="custom is-size-7 py-7"
+              placeholder="Enter Your Second Nationality"
+              [items]="countries"
+              bindLabel="name"
+              bindValue="name"
+              style="overflow: visible;"
+              formControlName="nationality2"
+              >
+    </ng-select>
+              <!-- <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Select Country">-->
+               <!-- <div class="select is-small is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                <select class="select" name="nationality2" ngModel>
+                    <option value="">Enter Your Second Nationality</option>
+                  <option *ngFor="let i of countries">{{i.name}}</option>
+                </select>
+              </div>  -->
+              <!-- <input class="input is-normal is-inline-block is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter your Second Nationality" name="nationality2" ngModel> -->
+
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6">Passport ID </label>
+              <p class="control is-expanded ">
+                <input class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text"  placeholder="Enter your Passport ID 2" formControlName="passportID2"
+                >
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6 input-title-required">Mobile Number </label>
+              <div class="field is-grouped">
+                <p class="control">
+                  <span class="is-small  is-family-primary has-text-weight-medium is-size-7">
+                    <!-- <select class="select" name="phonecode" ngModel>
+                      <option value="">Area Code</option>
+                    <option *ngFor="let i of countries">{{i.dial_code}}</option>
+                  </select> -->
+                  <ng-select
+                          class="custom is-size-7 py-7"
+                          placeholder="+XXX"
+                          [items]="countries"
+                          bindLabel="dial_code"
+                          bindValue="dial_code"
+                          style="overflow: visible;"
+                          formControlName="mobileCode"
+                          >
+                </ng-select>
+                  </span>
+                </p>
+                <p class="control is-expanded">
+                  <input class="input is-normal is-inline-block is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter Your Mobile Number" formControlName="mobileNumber" required>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label  is-family-primary has-text-weight-semibold is-size-6 input-title-required">Email Address</label>
+
+              <p class="control is-expanded has-icons-right">
+                <input  class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter your email address" formControlName="email" email required>
+                <span class="icon is-small is-right">
+                  <i 
+                  class="fa fa-check"
+                  ></i>
+                </span>
+              </p>
+              <p class="help "></p>
+            </div>
+          </div>
+
+
+          <div class="column is-4-desktop is-one-third-tablet is-full-mobile px-2">
+            <div class="field ">
+              <label class="label is-family-primary has-text-weight-semibold is-size-6">Upload Profile Photo</label>
+              <div class="field has-addons has-addons-right select-photo-btn">
+                <span class="control is-expanded has-icons-right">
+
+                  <input type="file" class="file-input is-fullwidth is-fullheight"
+                              (change)="onFileSelected($event)" #fileUpload>
+          
+                      <div class="choose-photo-text-container"  >
+                      <p class="choose-photo-text">
+                          {{fileName || "Choose Photo "}}
+                      </p>                        
+                      </div>
+                      
+                 </span>
+                <span class="control">
+                  <button (click)="fileUpload.click()" style="background-color: #f1a420;" class="button is-warning is-medium upload-btn">
+                      <mat-icon><i class="fa fa-upload has-text-white is-size-4"></i></mat-icon>
+                  </button>
+                </span>
+
+              </div>
+              <!-- <p class="help is-family-primary has-text-weight-medium is-size-7 py-1 my-0 pl-3" style="color:rgba(160, 159, 159, 0.9);">No photo chosen</p> -->
+            </div> </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="field is-grouped is-grouped-right pb-2 px-2">
+
+      <div class="control">
+        <button type='button' (click) = "closeDialog()" class="button is-outlined  has-background-white is-fullwidth is-normal" style=""> 
+          <span class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Cancel</span></button>
+      </div>
+
+      <div class="control">
+        <button class="button is-outlined  has-background-info is-fullwidth is-normal" style="" [disabled] = "!EditFamilyForm.valid"> 
+          <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Save</span></button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+</div>
+<button class="modal-close is-large" aria-label="close" (click) = "closeDialog()"></button>
+</div>

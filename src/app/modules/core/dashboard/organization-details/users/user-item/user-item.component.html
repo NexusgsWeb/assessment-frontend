@@ -1,0 +1,303 @@
+<td
+  row
+  class="
+    td-users
+    is-family-primary
+    has-text-weight-normal has-text-centered
+    px-3
+  "
+>
+  <input
+    [(ngModel)]="SelectedToggle"
+    (click)="didPressSelect()"
+    type="checkbox"
+    class="mt-2"
+  />
+</td>
+<td class="td-users px-0">
+  <button
+    class="button px-2 mr-2"
+    *ngIf="!isBeingEdited"
+    style="
+      border-color: #dbefee;
+      border-width: 1px;
+      background-color: #dbefee;
+      border-radius: 50%;
+    "
+  >
+    <!-- <span>                                                                                                                                                                                                                                                                                                                                  </span>-->
+    <span class="has-text-centered is-size-7" style="color: #4a9894"
+      >{{ user.first_name.charAt(0) + "" + user.last_name.charAt(0) || "IQ" }}
+    </span>
+  </button>
+
+  <span
+    class="is-family-primary is-info is-small has-text-weight-normal"
+    *ngIf="!isBeingEdited"
+  >
+    {{ user.user_name }}
+  </span>
+
+  <input
+  required=""
+  placeholder="user name"
+  name = "username"
+  id="username"
+
+  #username="ngModel"
+    *ngIf="isBeingEdited"
+    class="
+      input
+      is-static
+      input_fix
+      txt-name
+      is-info is-small is-size-7 is-family-primary
+      has-text-weight-normal
+      pl-2
+    "
+    [ngClass]="
+    username.touched && !username.valid ? 'inputIsNotBeingEdited' : 'inputIsBeingEdited'
+    "
+   
+    type="text"
+    [(ngModel)]="editedUser.user_name"
+  />
+</td>
+<td class="td-users px-0">
+  <span
+    class="is-family-primary is-info is-small has-text-weight-normal"
+    *ngIf="!isBeingEdited"
+  >
+    {{ user.first_name }}
+  </span>
+  <input
+  name = "firstname"
+  id="firstname"
+  placeholder="first name"
+  required=""
+  #firstname="ngModel"
+    *ngIf="isBeingEdited"
+    class="
+      input
+      is-static
+      input_fix
+      txt-name
+      is-info is-small is-size-7 is-family-primary
+      has-text-weight-normal
+      pl-2
+    "
+    [ngClass]="
+    firstname.touched && !firstname.valid ? 'inputIsNotBeingEdited' : 'inputIsBeingEdited'
+    "
+   
+    type="text"
+    [(ngModel)]="editedUser.first_name"
+  />
+</td>
+<td class="td-users px-0">
+  <span
+    class="is-family-primary is-info is-small has-text-weight-normal"
+    *ngIf="!isBeingEdited"
+  >
+    {{ user.last_name }}
+  </span>
+  <input
+  name = "lastname"
+  id="lastname"
+  placeholder="last name"
+
+  required=""
+  #lastname="ngModel"
+    *ngIf="isBeingEdited"
+    class="
+      input
+      is-static
+      input_fix
+      txt-name
+      is-info is-small is-size-7 is-family-primary
+      has-text-weight-normal
+      pl-2
+    "
+    [ngClass]="
+    lastname.touched && !lastname.valid ? 'inputIsNotBeingEdited' : 'inputIsBeingEdited'
+    "
+   
+    type="text"
+    [(ngModel)]="editedUser.last_name"
+  />
+</td>
+<td class="td-users px-0">
+  <span
+    class="is-family-primary is-info is-small has-text-weight-normal"
+    *ngIf="!isBeingEdited"
+  >
+    {{ user.role_name }}
+  </span>
+  <input
+  name = "role_name"
+  id="role_name"
+  placeholder="role name"
+
+  required=""
+  #role_name="ngModel"
+    *ngIf="isBeingEdited"
+    class="
+      input
+      is-static
+      input_fix
+      txt-name
+      is-info is-small is-size-7 is-family-primary
+      has-text-weight-normal
+      pl-2
+    "
+    [ngClass]="
+    role_name.touched && !role_name.valid ? 'inputIsNotBeingEdited' : 'inputIsBeingEdited'
+    "
+   
+    type="text"
+    [(ngModel)]="editedUser.role_name"
+  />
+</td>
+<td class="td-users has-text-left px-0">
+  <span
+    class="is-family-primary is-info is-small has-text-weight-normal"
+    *ngIf="!isBeingEdited"
+  >
+    {{ user.email }}
+  </span>
+  <input
+  placeholder="email"
+  name = "email"
+  id="email"
+  pattern="[a-z0-9A-Z._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+  required=""
+  #email="ngModel"
+    *ngIf="isBeingEdited"
+    class="
+      input
+      is-static
+      input_fix
+      txt-name
+      is-info is-small is-size-7 is-family-primary
+      has-text-weight-normal
+      pl-2
+    "
+    [ngClass]="
+    email.touched && !email.valid ? 'inputIsNotBeingEdited' : 'inputIsBeingEdited'
+    "
+   
+    type="text"
+    [(ngModel)]="editedUser.email"
+  />
+</td>
+<td class="td-users has-text-left px-0">
+  <span
+    class="is-family-primary is-info is-small has-text-weight-normal"
+    *ngIf="!isBeingEdited"
+  >
+    {{ user.phone_number }}
+  </span>
+  <input
+  placeholder="phone number"
+  name = "phone"
+  id="phone"
+  required=""
+  #phone="ngModel"
+    *ngIf="isBeingEdited"
+    class="
+      input
+      is-static
+      input_fix
+      txt-name
+      is-info is-small is-size-7 is-family-primary
+      has-text-weight-normal
+      pl-2
+    "
+    [ngClass]="
+    phone.touched && !phone.valid ? 'inputIsNotBeingEdited' : 'inputIsBeingEdited'
+    "
+   
+    type="text"
+    [(ngModel)]="editedUser.phone_number"
+  />
+</td>
+<td class="td-users has-text-left px-0">
+  <label class="switch is-rounded is-info is-small">
+    <input
+      type="checkbox"
+      value="false"
+      checked=""
+      (change)="handleDeactivateActivateUser(user)"
+      [checked]="user.is_active"
+    />
+    <span class="check"></span>
+
+    <!-- <mat-slide-toggle
+    class="example-margin"
+    [color]="primary"
+    [checked]="user.isActive"
+    (click)="handleDeactivateActivateUser(user.id)"
+    [disabled]="disabled"
+  >
+  </mat-slide-toggle> -->
+  </label>
+</td>
+
+<td
+  class="
+    td-users
+    is-family-primary
+    has-text-weight-normal has-text-centered
+    is-size-5
+    py-2
+    px-1
+  "
+>
+  <button
+    class="button is-link has-text-weight-bold is-small is-size-7 px-2"
+    MADBtn
+    *ngIf="user.edit == true"
+
+  >
+    Save
+  </button>
+  <div *ngIf="!isBeingEdited">
+    <a class="action-icons" (click)="didClickEdit()" matTooltip="edit"
+      ><i class="fa fa-pen pr-2"></i
+    ></a>
+    <a
+      class="action-icons"
+      (click)="handleResetPressed(user)"
+      matTooltip="Reset password"
+    >
+      <i class="fa fa-bullseye pr-2"></i
+    ></a>
+    <a class="action-icons" (click)="handleDeleteUser()" matTooltip="delete"
+      ><i class="fa fa-trash"></i
+    ></a>
+  </div>
+
+  <div>
+    <button
+    
+      [disabled] = "editedUser.user_name == '' || editedUser.first_name == '' || editedUser.last_name == ''
+       || editedUser.email == '' || editedUser.phone_number == ''"
+      *ngIf="isBeingEdited"
+      (click)="didClickSave()"
+      type = "submit"
+      class="button is-outlined has-text-weight-semibold is-normal has-background-info has-text-white"
+    >
+
+      Save
+    </button>
+    <button
+      *ngIf="isBeingEdited"
+      (click)="didClickCancel()"
+      class="button"
+      class="button is-outlined has-text-weight-semibold is-normal has-background-white has-text-info"
+
+    >
+      Cancel
+    </button>
+  </div>
+</td>

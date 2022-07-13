@@ -1,0 +1,107 @@
+<div id="modal" class="modal is-active">
+  <div class="modal-background"></div>
+  <div class="modal-content delete-modal">
+    <div class="box px-5 ">
+      <form>                     
+        <p class="has-text-centered is-family-primary has-text-weight-bold pt-1" style="color:#3f81c3;font-size:16px;">   </p><table class="table add-modal is-fullwidth">
+
+        <tbody><tr>
+          <td class="is-family-primary has-text-weight-semibold has-text-dark is-size-6 py-3" colspan="2">{{ data.title }}</td>
+          </tr>
+
+          <tr>
+            <td [ngClass]="data.oneButton ? 'pr-1' : 'pr0'"
+            >
+              <button class="button delete-dialog is-outlined is-info btn-modal is-fullwidth is-normal"   (click)="didConfirm()">                          
+                <span class=" is-family-primary has-text-weight-bold is-size-6  px-6" id="next">{{ data.confirmText }}</span>
+              </button>
+            </td>
+            <td class="pt-3" *ngIf="data.oneButton == false">   
+              <button class="button delete-dialog is-normal  is-fullwidth is-info " style="" (click)="didCancel()"> 
+                <span class="  is-family-primary has-text-weight-bold is-size-6 ml-1 px-6" id="closebtn">{{ data.cancelText }}</span></button>
+            </td>
+          </tr>
+        </tbody></table>
+      </form>                  
+    </div>
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div >
+  <form class="" >
+    <p
+      id="popupText"
+      class="
+        is-family-primary
+        has-text-weight-semibold has-text-dark
+        is-size-6
+        pb-5
+      "
+    >
+      {{ data.title }}
+    </p>
+
+    <div
+      [ngClass]="data.oneButton ? 'field' : 'field is-grouped is-grouped-right'"
+    >
+      <div class="control">
+        <button 
+          class="button is-outlined has-background-info is-fullwidth is-normal"
+          (click)="didConfirm()"
+        >
+          <span
+            class="
+              has-text-white
+              is-family-primary
+              has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            id="next"
+            >{{ data.confirmText }}</span
+          >
+        </button>
+      </div>
+      <div class="control" *ngIf="data.oneButton == false">
+        <button
+          class="button is-normal is-outlined has-background-white"
+          (click)="didCancel()"
+        >
+          <span
+            class="
+              has-text-info
+              is-family-primary
+              has-text-weight-bold
+              is-size-6
+              ml-1
+              px-6
+            "
+            id="closebtn"
+            >{{ data.cancelText }}</span
+          >
+        </button>
+      </div>
+    </div>
+  </form>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+
+
+
+ -->

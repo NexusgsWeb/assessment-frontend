@@ -1,0 +1,25 @@
+.fc .fc-toolbar.fc-header-toolbar{
+    justify-content: start !important;
+    background-color:red ;
+}
+
+body{
+    background-color: red;
+}
+
+.calendarManagement{
+    max-width: 25% !important;
+  }
+  .detailedCalendar{
+    width: 85% !important;
+    margin-left: 10px !important;
+  }
+  .virtualClassMeeting{
+    display:flex !important;
+    justify-content: start !important;
+  }
+  body {
+    font-family: Roboto, Arial, sans-serif;
+    margin: 0;
+    padding: 30px;
+  }

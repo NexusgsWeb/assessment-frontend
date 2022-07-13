@@ -1,0 +1,33 @@
+/* .input {
+  border-color: transparent;
+} */
+/* input {
+  padding-top: 0px;
+  padding-bottom: 0px;
+} */
+/* .icon-flex,
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-wrapper {
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #3f81c3;
+  font-size: 0.6rem;
+  width: 20px;
+  height: 20px;
+} */
+/* .isNotFocused {
+  border-color: transparent !important;
+  background-color: red;
+} */
+input {
+  padding: 0;
+  margin: 0;
+}
+.is-info.input,
+.is-info.textarea {
+  border-color: transparent;
+}

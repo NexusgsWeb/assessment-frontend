@@ -1,0 +1,165 @@
+<mat-dialog-content>
+  <div class="hero-head px-0 py-0">
+    <div
+      class="
+        column
+        is-half-desktop is-half-tablet is-half-widescreen is-pulled-left
+        pl-2
+        pr-4
+        pt-0
+      "
+    >
+      <div
+        class="section has-background-white pl-2"
+        style="border-radius: 13px"
+      >
+        <div
+          class="
+            text
+            has-text-left
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            pb-4
+          "
+        >
+          <span class="has-text-weight-bold has-text-dark pl-5"> Subject:</span
+          ><span class="has-text-weight-medium has-text-black-bis">
+            Mathematics</span
+          >
+        </div>
+        <div
+          class="
+            text
+            has-text-left
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            pb-2
+          "
+        >
+          <span class="has-text-weight-bold has-text-dark pl-5">
+            Organization:</span
+          ><span class="has-text-weight-medium has-text-black-bis">
+            IQUAD Learning Solutions</span
+          >
+        </div>
+        <div
+          class="
+            text
+            has-text-left
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            pt-5
+          "
+        >
+          <span class="has-text-weight-bold has-text-dark pl-5">
+            Question:</span
+          >
+        </div>
+
+        <div style="background-color: white; padding: 50px">
+          <ng-template #container> </ng-template>
+        </div>
+        <div
+          class="
+            text
+            has-text-left has-text-dark
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            pt-5
+          "
+        >
+          <span class="has-text-weight-bold pl-5"> Answer Key:</span>
+        </div>
+        <div
+          class="section is-medium has-background-white-ter pl-2 ml-5 mr-6 mt-2"
+          style="
+            border-radius: 4.6px;
+            border: solid 1px rgba(195, 195, 195, 0.34);
+          "
+        ></div>
+        <div class="is-pulled-right">
+          <button (click)="approveQuestion()" class="mt-2 py-2" MADBtn>
+            Approve
+          </button>
+        </div>
+      </div>
+    </div>
+    <aside
+      class="
+        column
+        is-half-desktop is-half-widescreen is-half-tablet
+        has-text-centered
+        is-pulled-right
+        pt-0
+      "
+      id="aside2"
+    >
+      <div
+        class="section has-background-white pl-2"
+        style="border-radius: 13px; padding-bottom: 33rem"
+      >
+        <div
+          class="
+            text
+            has-text-left
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            pb-6
+          "
+        >
+          <span class="has-text-weight-bold has-text-dark pl-5"> Remarks:</span
+          ><span class="has-text-weight-medium has-text-black-bis">
+            Mathematics</span
+          >
+        </div>
+        <app-saconfigurequestion-remarkitem
+          *ngFor="let remark of RemarksList"
+          [RemarkData]="remark"
+          [RemarkReferenceArray]="RemarksList"
+          [QuestionData]="QuestionData"
+        ></app-saconfigurequestion-remarkitem>
+        <div
+          class="
+            text
+            has-text-left has-text-dark
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            pt-5
+          "
+        >
+          <span (click)="addRemark()" class="has-text-weight-bold pl-5">
+            Add a New Remark</span
+          >
+        </div>
+        <hr class="hor-line1 mx-5 my-1" />
+        <div
+          class="
+            column
+            text
+            has-text-left
+            is-family-primary is-size-6-desktop is-size-7-tablet
+            has-text-weight-medium has-text-black-bis
+            px-5
+          "
+        >
+          <input
+            [(ngModel)]="RemarkFieldModel"
+            class="
+              input
+              is-normal is-family-primary
+              has-text-weight-medium
+              is-fullwidth
+              py-5
+            "
+            type="text"
+            placeholder="Type Your Remark Here"
+          />
+          <button
+            [disabled]="RemarkFieldModel.length === 0"
+            MADBtn
+            (click)="addRemark()"
+          >
+            Add Remark
+          </button>
+        </div>
+        <!-- <div class="column is-pulled-right mr-5 py-5">
+              <input type="checkbox" checked="" />
+            </div> -->
+      </div>
+    </aside>
+  </div>
+</mat-dialog-content>

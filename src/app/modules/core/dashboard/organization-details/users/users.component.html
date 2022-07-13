@@ -1,0 +1,359 @@
+<div
+  *ngIf="(loadingService.isLoading | async) && users.length === 0"
+  style="margin-top: 5px"
+>
+  <shimmer
+    style="padding-top: 5px"
+    *ngFor="let i of [].constructor(5)"
+    [height]="'60px'"
+    [type]="'line'"
+    [rounded]="true"
+  ></shimmer>
+</div>
+
+<div
+  *ngIf="users.length >= 0"
+  class="column is-12-desktop has-background-light px-0 py-0"
+  style="border-radius: 10px"
+>
+  <div class="container">
+    <nav class="navbar is-fullwidth">
+      <div class="navbar-menu py-1">
+        <span
+          class="
+            navbar-start
+            total-users
+            has-text-weight-bold
+            is-size-6
+            has-text-left
+            is-family-primary
+            has-text-dark
+            py-3
+            px-3
+          "
+          >Total number of users: {{ filteredUsers.length }}
+        </span>
+        <span class="navbar-end px-3">
+          <ul
+            class="
+              is-flex
+              is-flex-direction-row
+              is-flex-wrap-wrap
+              is-justify-content-space-between
+              py-0
+            "
+          >
+            <li class="is-flex-grow-1">
+              <a class="navbar-item has-text-info is-size-4">
+                <form action="" class="search-bar2 search-icon px-0 py-0">
+                  <input
+                    class="search pl-5 has-text-dark"
+                    type="text"
+                    #searchInput
+                    (input)="didSearch(searchInput.value)"
+                    name="search"
+                    pattern=".*\S.*"
+                    required=""
+                    matTooltip="Search"
+                    placeholder="Search here(by name)..."
+                  />
+                  <button class="search-btn blue" type="submit">
+                    <i class="fa fa-search is-size-5" style=""></i>
+                  </button>
+                </form>
+              </a>
+            </li>
+            <li class="hr-separator is-flex-grow-1">
+              <a
+                class="navbar-item has-text-info is-size-4"
+                (click)="didClickUpload()"
+                matTooltip="Upload"
+                ><i class="fas fa-upload"></i
+              ></a>
+            </li>
+            <li class="hr-separator is-flex-grow-1">
+              <a
+                class="navbar-item has-text-info is-size-4"
+                id="lanuchModal"
+                (click)="didClickDeleteAll()"
+                matTooltip="Delete selected"
+                ><i class="fa fa-trash-alt"></i
+              ></a>
+            </li>
+            <li class="hr-separator is-flex-grow-1">
+              <a
+                class="navbar-item is-family-primary has-text-info is-size-4"
+                (click)="didClickEditOptions()"
+                matTooltip="Filter by"
+                ><i class="fa fa-sliders-h"></i
+              ></a>
+            </li>
+          </ul>
+        </span>
+      </div>
+    </nav>
+  </div>
+  <table class="table is-fullwidth px-6 mb-0">
+    <thead class="is-size-6">
+      <tr>
+        <th class="px-0" scope="col"></th>
+        <th class="is-family-primary has-text-weight-semibold px-0" scope="col">
+          Username
+        </th>
+        <th
+          class="td-width-sm is-family-primary has-text-weight-semibold px-0"
+          scope="col"
+        >
+          Name
+        </th>
+        <th class="is-family-primary has-text-weight-semibold px-0" scope="col">
+          Family Name
+        </th>
+        <th
+          class="
+            td-width-sm
+            is-family-primary
+            has-text-weight-semibold has-text-left
+            px-0
+          "
+          scope="col"
+        >
+          Roles
+        </th>
+        <th
+          class="is-family-primary has-text-weight-semibold has-text-left px-0"
+          scope="col"
+        >
+          Email Address
+        </th>
+        <th
+          class="
+            td-width-md
+            is-family-primary
+            has-text-weight-semibold has-text-left
+            px-0
+          "
+          scope="col"
+        >
+          Phone number
+        </th>
+        <th class="is-family-primary has-text-weight-semibold px-0" scope="col">
+          Active
+        </th>
+        <th
+          class="
+            is-family-primary
+            has-text-weight-semibold has-text-centered
+            px-0
+          "
+          scope="col"
+        >
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody class="is-size-6">
+      <tr
+        app-user-item
+        (didDeleteEventListener)="didClickDelete(user)"
+        (didEditEventListener)="didEditAUser()"
+        (didAddtoSelectedUsers)="didAddAUserToSelected(user)"
+        [SelectedToggle]="CheckIfisSelected(user)"
+        [organization]="SelectedOrganization"
+        *ngFor="
+          let user of filteredUsers
+            | paginate
+              : {
+                  itemsPerPage: 5,
+                  currentPage: currentPage,
+                  users: filteredUsers.length
+                };
+          let i = index
+        "
+        [user]="user"
+      ></tr>
+    </tbody>
+  </table>
+  <div *ngIf="isAddingUser" style="background-color: white; text-align: center">
+    <form [formGroup]="NewUserFormGroup">
+      <td class="td-users pl-0 pr-1">
+        <input
+          class="
+            input
+            td-content
+            is-info is-focused
+            txt-code
+            is-small is-size-7 is-family-primary
+            has-text-weight-normal has-background-white
+            pl-2
+          "
+          type="text"
+          placeholder="Enter Admin Name"
+          formControlName="userName"
+        />
+      </td>
+      <td class="td-users pl-0 pr-1">
+        <input
+          class="
+            input
+            td-content
+            is-info is-focused
+            txt-code
+            is-small is-size-7 is-family-primary
+            has-text-weight-normal has-background-white
+            pl-2
+          "
+          type="text"
+          value=" Name"
+          placeholder="Enter Your first name"
+          formControlName="name"
+          [ngClass]="{
+            'is-danger':
+              NewUserFormGroup.controls['name'].invalid &&
+              NewUserFormGroup.controls['name'].touched
+          }"
+        />
+      </td>
+      <td class="td-users px-0">
+        <input
+          class="
+            input
+            td-content
+            is-info is-focused
+            txt-code
+            is-small is-size-7 is-family-primary
+            has-text-weight-normal has-background-white
+            pl-2
+          "
+          type="text"
+          value="Family Name"
+          placeholder="Enter Your Family Name"
+          formControlName="familyname"
+          [ngClass]="{
+            'is-danger':
+              NewUserFormGroup.controls['familyname'].invalid &&
+              NewUserFormGroup.controls['familyname'].touched
+          }"
+        />
+      </td>
+      <td class="td-users has-text-left pl-0 pr-1">
+        <input
+          class="
+            input
+            td-content
+            is-info is-focused
+            txt-code
+            is-small is-size-7 is-family-primary
+            has-text-weight-normal has-background-white
+            pl-2
+          "
+          type="text"
+          value="Role"
+          readonly
+          formControlName="role"
+        />
+      </td>
+      <td class="td-users has-text-left px-0">
+        <input
+          class="
+            input
+            td-content
+            is-info is-focused
+            txt-code
+            is-small is-size-7 is-family-primary
+            has-text-weight-normal has-background-white
+            pl-2
+          "
+          type="text"
+          value="Email Address"
+          placeholder="Enter Your Email"
+          formControlName="email"
+          [ngClass]="{
+            'is-danger':
+              NewUserFormGroup.controls['email'].invalid &&
+              NewUserFormGroup.controls['email'].touched
+          }"
+        />
+        <span class="icon is-size-5 has-text-dark is-right">
+          <i class="fa fa-check" id="correct" *ngIf = "NewUserFormGroup.controls['email'].valid &&
+          NewUserFormGroup.controls['email'].touched"></i>
+          <i class="fa-solid fa-xmark" id="wrong" *ngIf = " NewUserFormGroup.controls['email'].invalid &&
+          NewUserFormGroup.controls['email'].touched"></i>
+          <i class="fa fa-check" *ngIf = "NewUserFormGroup.controls['email'].touched == false"></i>
+
+        </span>
+      </td>
+      <td class="td-users has-text-left px-0">
+        <input
+          class="
+            input
+            td-content
+            is-info is-focused
+            txt-code
+            is-small is-size-7 is-family-secondary
+            has-text-weight-normal has-background-white
+            pl-2
+          "
+          type="text"
+          formControlName="phone"
+          placeholder="Enter Your Phone"
+          value="Phone number"
+          [ngClass]="{
+            'is-danger':
+              NewUserFormGroup.controls['phone'].invalid &&
+              NewUserFormGroup.controls['phone'].touched
+          }"
+        />
+      </td>
+      <div style="text-align: left; padding: 15px">
+        <button
+          MADBtn
+          [disabled]="!NewUserFormGroup.valid"
+          style="margin-right: 5px"
+          (click)="didClickSave()"
+        >
+          Save
+        </button>
+        <button (click)="didClickCancel()" MADBtn [isWhite]="true">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <nav class="navbar is-fullwidth has-background-white-bis">
+    <div class="navbar-menu">
+      <a
+        class="
+          navbar-item
+          is-family-primary
+          has-text-info has-text-weight-semibold
+          py-0
+          pl-5
+        "
+        (click)="didClickAddUser()"
+        ><i class="fa fa-plus is-size-5"></i>
+        <span class="is-size-6">&nbsp;&nbsp;Add user</span></a
+      >
+    </div>
+  </nav>
+  <nav class="has-background-white">
+    <div class="container">
+      <div
+        class="pagination is-right pr-6 pt-3"
+        role="navigation"
+        aria-label="pagination"
+      >
+        <ul class="pagination-list mt-1">
+          <pagination-controls
+            maxSize="6"
+            class="my-pagination"
+            autoHide="true"
+            directionLinks="false"
+            (pageChange)="currentPage = $event"
+          ></pagination-controls>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

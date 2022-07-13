@@ -1,0 +1,190 @@
+<div class="section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <ul>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 pl-5"
+          >My Home</a
+        >
+      </li>
+
+      <li class="is-active is-family-primary has-text-weight-bold is-size-5">
+        <a
+          href="#"
+          aria-current="page"
+          class="is-family-primary has-text-weight-bold is-size-6"
+          >Assessment
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    class="section is-large has-background-white pt-2 px-3"
+    style="border-radius: 13px"
+  >
+    <p
+      class="
+        is-family-primary
+        has-text-weight-bold has-text-left
+        is-size-5 is-size-7-mobile
+        pt-3
+        pl-3
+      "
+      style="color: #3f81c3"
+    >
+      My Assessments
+    </p>
+    <div class="table__wrapper">
+    <table class="table is-fullwidth px-6">
+      <thead class="is-size-6">
+        <tr
+          class="has-text-black-bis is-family-primary has-text-weight-semibold"
+        >
+          <th class="pl-6 pt-5" scope="col">Assessment Title</th>
+          <th class="px-0 pt-5 pl-2" scope="col">Subject</th>
+          <th class="px-0 pt-5 pl-2" scope="col">Start Date</th>
+          <th class="px-0 pt-5 pl-2" scope="col">End Date</th>
+          <th class="px-0 pt-5 pl-2" scope="col">Duration</th>
+          <th class="px-0 pt-5 pl-2" scope="col">Status</th>
+          <th
+            class="is-family-primary has-text-weight-semibold px-0 pt-5 pl-2"
+            scope="col"
+          >
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let assessment of AssessmentList
+              | async
+              | paginate
+                : {
+                    itemsPerPage: 10,
+                    currentPage: currentPage,
+                    totalItems: AssessmentList?.getValue().length
+                  }
+          "
+        >
+          <td
+            class="
+              td-users
+              is-family-primary
+              has-text-weight-normal has-text-black-bis
+              py-5
+              pl-6
+            "
+            matTooltip="{{ assessment?.title || 'Title Not Found' }}"
+          >
+            {{
+              (assessment?.title) || "Title Not Found"
+            }}
+          </td>
+          <td
+            class="
+              td-users
+              is-family-primary
+              has-text-weight-normal has-text-black-bis
+              py-5
+            "
+          >
+            {{ assessment?.subjectTitle || "Subject Not Found" }}
+          </td>
+          <td
+            class="
+              td-users
+              is-family-primary
+              has-text-weight-normal has-text-black-bis
+              py-5
+            "
+          >
+            {{
+              assessment?.startsAtDateTime
+                | date: "dd/MM/yyyy - hh:mm a" || "Start Date Not Found"
+            }}
+          </td>
+          <td
+            class="
+              td-users
+              is-family-primary
+              has-text-weight-normal has-text-black-bis
+              py-5
+            "
+          >
+            {{
+              assessment?.endsAtDateTime
+                | date: "dd/MM/yyyy - hh:mm a" || "End Date Not Found"
+            }}
+          </td>
+          <td
+            class="
+              td-users
+              is-family-primary
+              has-text-weight-normal has-text-black-bis
+              py-5
+            "
+          >
+            {{
+              assessment?.testDurationInMinuets > 1
+                ? assessment?.testDurationInMinuets + " Minutes"
+                : assessment?.testDurationInMinuets + " Minute" ||
+                  "Duration Not Found"
+            }}
+          </td>
+          <td
+            class="
+              td-users
+              is-family-primary
+              has-text-weight-normal has-text-warning
+              py-5
+            "
+          >
+            {{assessment?.statues}}
+          </td>
+          <td
+            class="
+              td-users
+              is-family-primary
+              has-text-weight-bold has-text-info
+              py-5
+            "
+            style="cursor: pointer"
+            (click)="didClickStart(assessment)"
+          >
+            {{
+              checkIfValidToStart(assessment) === "Cannot Start"
+                ? ""
+                : checkIfValidToStart(assessment)
+            }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <nav class="has-background-white pr-6">
+      <div class="container">
+        <div
+          class="pagination is-right"
+          role="navigation"
+          aria-label="pagination"
+        >
+          <ul class="pagination-list">
+            <li></li>
+            <pagination-controls
+              maxSize="6"
+              directionLinks="true"
+              class="my-pagination"
+              autoHide="true"
+              (pageChange)="currentPage = $event"
+            ></pagination-controls>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

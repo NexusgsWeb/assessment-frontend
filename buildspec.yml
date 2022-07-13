@@ -1,0 +1,31 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 14
+    commands:
+      - echo "Install process started"
+      - echo "Installing dependencies..."
+      - npm install
+      - npm install -g @angular/cli
+  build:
+    commands:
+      - echo "Build process started"
+      - npm install -g serverless
+      - npm install --save-dev serverless-apigw-binary
+      - npm install --save serverless-finch@3
+      - npm install
+      - ng build
+      - serverless client deploy --param="subdomain=school" --no-confirm
+      - serverless client deploy --param="subdomain=admin" --no-confirm
+      - sls deploy --verbose
+  post_build:
+    commands:
+      - echo "Build process completed"
+cache:
+  paths:
+    - node_modules/
+artifacts:
+  files:
+    - "**/*"
