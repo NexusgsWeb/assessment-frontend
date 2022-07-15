@@ -1,0 +1,218 @@
+<form [formGroup]="thirdFormGroup" class="lesson-plan-form">
+    <ng-template matStepLabel>3- Create Sub-Titles</ng-template>
+    <div class="example-action-buttons has-text-right">
+        <button mat-stroked-button (click)="accordion?.openAll()">Expand All</button>
+        <button mat-stroked-button (click)="accordion?.closeAll()">Collapse All</button>
+    </div>
+    <mat-accordion class="example-headers-align" multi>
+        <ng-container formArrayName="subtitles">
+            <mat-expansion-panel [expanded]="selectedIndex === subtitle.value.id" *ngFor="let subtitle of subtitles().controls; let i = index" [formGroupName]="i">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Sub-Title {{i+1}}
+                    </mat-panel-title>
+                    <mat-panel-description class="is-justify-content-flex-end">
+                        <mat-icon *ngIf="i>0" (click)="removeSubtitle(i)" color="warn">delete</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div id="{{subtitle.value.id}}">
+                    <div class="field is-horizontal">
+                        <div class="field-body">
+                            <div class="columns is-multiline">
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label  is-family-primary has-text-weight-semibold custom-font-size">Title</label>
+                                        <div class="field has-addons has-addons-right">
+                                            <span class="control is-expanded has-icons-right">
+                                                <input
+                                                    class="{{(this.formControls[i].get('title')?.touched || this.formControls[i].get('title')?.dirty) && this.formControls[i].get('title')?.invalid ? 'is-danger' : ''}} input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                                    type="text" formControlName="title" placeholder="Enter Title"
+                                                    required="">
+                                            </span>
+                                            <span class="control" *ngIf="(this.formControls[i].get('title')?.touched || this.formControls[i].get('title')?.dirty) && this.formControls[i].get('title')?.invalid">
+                                            <a class="button is-danger is-medium">
+                                                <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                            </a>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="field">
+                                        <label class="label  is-family-primary has-text-weight-semibold custom-font-size">Expected
+                                            Duration </label>
+                                        <div class="field has-addons has-addons-right">
+                                            <span class="control is-expanded has-icons-right">
+                                                <input
+                                                    class="{{(this.formControls[i].get('duration')?.touched || this.formControls[i].get('duration')?.dirty) && this.formControls[i].get('duration')?.invalid ? 'is-danger' : ''}} input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                                    type="text" placeholder="Enter Expected Duration" required="" formControlName="duration">
+                                            </span>
+                                            <span class="control" *ngIf="(this.formControls[i].get('duration')?.touched || this.formControls[i].get('duration')?.dirty) && this.formControls[i].get('duration')?.invalid">
+                                            <a class="button is-danger is-medium">
+                                                <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                            </a>
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="field ">
+                                        <label class="label  is-family-primary has-text-weight-semibold custom-font-size">Start
+                                            Page </label>
+                                        <div class="field has-addons has-addons-right">
+                                            <span class="control is-expanded has-icons-right">
+                                                <input formControlName="startPage"
+                                                    class="input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                                    type="text" placeholder="Enter Start Page" formControlName="startPage">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column">
+                                    <div class="field ">
+                                        <label class="label  is-family-primary has-text-weight-semibold custom-font-size">End
+                                            Page
+                                        </label>
+                                        <div class="field has-addons has-addons-right">
+                                            <span class="control is-expanded has-icons-right">
+                                                <input formControlName="endPage"
+                                                    class="input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                                    type="text" placeholder="Enter End Page">
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="column is-12-desktop is-12-touch" style="width:98%;">
+                                    <label class="label  is-family-primary has-text-weight-semibold is-size-6">Description
+                                    </label>
+
+                                    <div class="field">
+                                        <div class="control">
+                                            <textarea class="textarea input is-small" formControlName="description" placeholder=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-12-desktop is-12-touch" style="width:98%;">
+                                    <label class="label  is-family-primary has-text-weight-semibold is-size-6">Instructional
+                                        Strategy </label>
+                                    <div class="field">
+                                        <div class="control">
+                                            <textarea class="{{(this.formControls[i].get('instructional_strategy')?.touched || this.formControls[i].get('instructional_strategy')?.dirty) && this.formControls[i].get('instructional_strategy')?.invalid ? 'border-danger' : ''}} textarea input is-small"
+                                                placeholder="" formControlName="instructional_strategy"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-12-desktop is-12-touch">
+                                    <div class="is-flex">
+                                        <mat-form-field style="width:98%;" class="mb-4 ls form-select select {{(this.formControls[i].get('learningStandards').touched || this.formControls[i].get('learningStandards').dirty) && this.formControls[i].get('learningStandards').invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
+                                            <label *ngIf="!this.formControls[i].get('learningStandards').value || this.formControls[i].get('learningStandards').value?.length===0"><strong>Select Learning Standard(s)</strong></label>
+                                            <mat-select formControlName="learningStandards" multiple #ls>
+                                                <mat-select-trigger>
+                                                    {{this.formControls[i].get('learningStandards').value?.[0]?.description || ''}}
+                                                    <span *ngIf="(this.formControls[i].get('learningStandards')?.value?.length || 0) > 1" class="additional-selection">
+                                          (+{{(this.formControls[i].get('learningStandards').value?.length || 0) - 1}}
+                                            {{this.formControls[i].get('learningStandards').value?.length === 2 ? 'other' :
+                                            'others'}})
+                                        </span>
+                                                </mat-select-trigger>
+                                                <mat-checkbox #checkAll class="select-all-checkbox" (change)="toggleAllSelection($event, i)">Select All</mat-checkbox>
+                                                <mat-option *ngFor="let learningStandard of learningStandards" [value]="learningStandard" (click)="uncheckAllButton(i)">
+                                                    {{learningStandard.description}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                        <span class="control" *ngIf="(this.formControls[i].get('learningStandards').touched || this.formControls[i].get('learningStandards').dirty) && this.formControls[i].get('learningStandards').invalid">
+                                <a class="button is-danger is-medium">
+                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                </a>
+                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div formArrayName="resources">
+                        <div *ngFor="let resource of resources(subtitle); let j = index;" [formGroupName]="j">
+                            <div id="resources">
+                                <div class="columns">
+                                    <div class="column is-3-tablet is-12-mobile is-flex is-flex-direction-column is-justify-content-flex-end is-align-items-flex-start">
+                                        <div class="file-upload">
+                                            <span class="has-text-dark is-family-primary has-text-weight-normal is-inline-block is-size-4 mr-1">
+                                            Attach a file</span>
+                                            <label for="file-input-{{i}}-{{j}}">
+                                                  <span
+                                            class="is-inline-block has-text-centered is-size-3 has-text-info has-background-white px-3 py-4"
+                                            style="border-radius: 10px; border: solid 1px #3f80bf;cursor:pointer;">+</span>
+                                                </label>
+                                            <input type="file" id="file-input-{{i}}-{{j}}" formControlName="file" [multiple]="false" accept="application/pdf" (change)="handleFileInput(i, j, $event)"> {{this.formControls[i].get('resources').controls[j].get('fileData').value?.name}}
+                                        </div>
+                                        <mat-error *ngIf="this.formControls[i].get('resources').controls[j].get('file')?.touched && this.formControls[i].get('resources').controls[j].get('file')?.invalid" class="mt-3 alert alert-danger">
+                                            <div *ngIf="this.formControls[i].get('resources').controls[j].get('file')?.errors.required">File is required.</div>
+                                        </mat-error>
+                                    </div>
+                                    <div class="column is-3-tablet is-12-mobile">
+                                        <div class="field">
+                                            <label class="label  is-family-primary has-text-weight-semibold is-size-6">Title
+                                            </label>
+                                            <div class="field has-addons has-addons-right">
+                                                <span class="control is-expanded has-icons-right">
+                                                    <input formControlName="title"
+                                                        class="{{(this.formControls[i].get('resources').controls[j].get('title')?.touched || this.formControls[i].get('resources').controls[j].get('title')?.dirty) && this.formControls[i].get('resources').controls[j].get('title')?.invalid ? 'is-danger' : ''}} input  is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                                        type="text" placeholder="Enter Title" required="">
+                                                </span>
+                                                <span class="control" *ngIf="(this.formControls[i].get('resources').controls[j].get('title')?.touched || this.formControls[i].get('resources').controls[j].get('title')?.dirty) && this.formControls[i].get('resources').controls[j].get('title')?.invalid">
+                                                  <a class="button is-danger is-medium">
+                                                      <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                                  </a>
+                                              </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-3-tablet is-12-mobile">
+                                        <div class="field">
+                                            <label class="label  is-family-primary has-text-weight-semibold is-size-6">Resource Type </label>
+                                            <div class="is-flex">
+                                                <mat-form-field [ngStyle]="{'border-color':(this.formControls[i].get('resources').controls[j].get('type').touched || this.formControls[i].get('resources').controls[j].get('type').dirty) && this.formControls[i].get('resources').controls[j].get('type').invalid ? '#f14668' : '#dbdbdb' }"
+                                                    class="resource-type form-select select {{(this.formControls[i].get('resources').controls[j].get('type').touched || this.formControls[i].get('resources').controls[j].get('type').dirty) && this.formControls[i].get('resources').controls[j].get('type').invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
+                                                    <label *ngIf="this.formControls[i].get('resources').controls[j].get('type').value?.length===0"><strong>Select Resource Type</strong></label>
+
+                                                    <mat-select formControlName="type">
+                                                        <mat-option [value]="'Content Activity'">Content Activity</mat-option>
+                                                        <mat-option [value]="'Social / Engagement Activity'">Social / Engagement Activity</mat-option>
+                                                        <mat-option [value]="'Evaluation Activity'">Evaluation Activity</mat-option>
+                                                        <mat-option [value]="'Assessment Activity'">Assessment Activity</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+
+                                                <span class="control" *ngIf="(this.formControls[i].get('resources').controls[j].get('type').touched || this.formControls[i].get('resources').controls[j].get('type').dirty) && this.formControls[i].get('resources').controls[j].get('type').invalid">
+                                                <a class="button is-danger is-medium">
+                                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                                </a>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="column is-1-tablet is-hidden-mobile">
+                                        <mat-icon class="delete-resource-icon" *ngIf="j>0" (click)="removeResource(i, j)">delete_outline</mat-icon>
+                                    </div>
+                                    <div class="column is-hidden-tablet is-12-mobile">
+                                        <button *ngIf="j>0" class="delete-resource-button" mat-stroked-button color="warn" (click)="removeResource(i, j)">delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-12 my-3">
+                        <button (click)="addResource(i)" class="has-background-white is-flex is-align-items-center" style="border: 0;cursor: pointer;">
+                            <span class="has-text-info is-size-3 is-inline-block"> +</span> <span
+                                class="has-text-dark is-family-primary has-text-weight-normal is-inline-block is-size-5">
+                                Add Resources </span>
+                        </button>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </ng-container>
+    </mat-accordion>
+</form>

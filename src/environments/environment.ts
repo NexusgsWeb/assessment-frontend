@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  curriculumBackend: '/assets/data/curriculums.json',
+  lessonPlanBackEnd: '/assets/data/lessonPlan.json',
 };
 
 /*

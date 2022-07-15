@@ -58,7 +58,6 @@ import { FlatfileAdapterModule } from '@flatfile/angular';
 import { MathjaxModule } from 'mathjax-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LessonPlanModule } from './modules/core/dashboard/lesson-plan/lesson-plan.module';
-import { LessonPlanComponent } from './modules/core/dashboard/lesson-plan/lesson-plan.component';
 import { ConfirmDialogModule } from './shared/components/confirm-dialog/confirm-dialog.module';
 
 @NgModule({
@@ -73,7 +72,6 @@ import { ConfirmDialogModule } from './shared/components/confirm-dialog/confirm-
     NewSchoolComponent,
     PlaygroundComponent,
     AssessmentComponent,
-    LessonPlanComponent,
     ViewQuestionDialogComponent,
     QuestionSettingsDialogComponent,
     FeedbackDialogComponent,

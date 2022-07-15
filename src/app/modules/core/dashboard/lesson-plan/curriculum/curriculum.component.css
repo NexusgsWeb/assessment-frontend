@@ -1,5 +1,5 @@
 .curriculum-update-container {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .curriculum-update-container .mat-drawer {
@@ -341,7 +341,7 @@
     width: 80%;
   }
 
-  .curriculum-mapping .select-custom {
+  .select-custom {
     width: 100% !important;
   }
 
@@ -401,7 +401,7 @@
     width: 60%;
   }
 
-  .curriculum-mapping .select-custom {
+  .select-custom {
     width: 140px !important;
   }
 

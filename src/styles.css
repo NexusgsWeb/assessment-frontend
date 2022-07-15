@@ -28,34 +28,34 @@ body {
   .text-white {
       color: #FFF !important;
   }
-  
+
   .text-black {
       color: #000 !important;
   }
-  
+
   .bg-white {
       background-color: #fff !important;
   }
-  
+
   .bg-danger {
       background-color: #ff0000;
   }
-  
+
   .border-danger {
       border: 1px solid #ff0000;
   }
-  
+
   .text-danger {
       color: #ff0000;
       font-style: italic;
       font-size: 0.8rem;
       margin: 5px 0 0;
   }
-  
+
   .mat-form-field-underline {
       display: none !important;
   }
-  
+
   .mat-checkbox-checked.mat-accent .mat-checkbox-background {
       background-color: var(--primary-color) !important;
   }
@@ -139,7 +139,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
        padding: 10px;
 
 }
-/* .cdk-overlay-pane{ 
+/* .cdk-overlay-pane{
      max-width: 90% !important;
 
     width:90% !important;
@@ -160,21 +160,84 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 ::-webkit-scrollbar {
     width: 10px;
   }
-  
+
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
   }
-   
+
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #888;
   }
-  
+
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
   }
   .mat-focus-indicator.mat-icon-button.mat-button-base{
       font-family: none !important;
   }
+
+
+  /**ali ghaith curriculum  + lesson plan**/
+
+.full-width{
+  width: 100%;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.text-white {
+  color: #FFF !important;
+}
+
+.text-black {
+  color: #000 !important;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+
+.bg-danger {
+  background-color: #f14668;
+}
+
+.border-danger {
+  border-color: #f14668 !important;
+}
+
+.no-border-top-right-radius{
+  border-top-right-radius: 0 !important;
+}
+.no-border-bottom-right-radius{
+  border-bottom-right-radius: 0 !important;
+
+}
+
+.text-danger {
+  color: #f14668;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin: 5px 0 0;
+}
+
+.mat-form-field-underline {
+  display: none !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--primary-color) !important;
+}
+
+.select-all-checkbox{
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+.select-all-checkbox .mat-checkbox-layout{
+  width: 100%;
+  display: block;
+}

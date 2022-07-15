@@ -1,1 +1,152 @@
-<app-dashboard></app-dashboard>
+
+<div class="section is-large has-background-white py-5 px-5 lesson-plan" style="border-radius: 13px;">
+  <button class="mb-4" mat-raised-button color="primary" routerLink="/lesson-plan/curriculum" >create curriculum</button>
+    <mat-stepper linear #stepper [orientation]="(stepperOrientation | async)!" (selectionChange)="onStepChange($event)">
+        <!-- <mat-step> -->
+        <mat-step [completed]="step>0">
+            <ng-template matStepLabel>
+                <button class="lesson-plan-step button is-info is-outlined is-large is-fullwidth p-0 {{step === 0 ? 'selected-step' : ''}}">
+                    <span
+                        class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-6-widescreen  is-family-primary has-text-weight-semibold  pl-0 mr-0">
+                        1- Create Lesson Plan</span></button>
+            </ng-template>
+            <app-step-one [toStepTwo]="toStepTwo.asObservable()" (validFormOne)="validateFormOne($event)">
+            </app-step-one>
+        </mat-step>
+
+        <!-- <mat-step> -->
+        <mat-step [completed]="step>1">
+            <ng-template matStepLabel>
+                <button class="lesson-plan-step button is-info is-outlined is-large is-fullwidth p-0 {{step === 1 ? 'selected-step' : ''}}">
+                    <span
+                        class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-6-widescreen  is-family-primary has-text-weight-semibold  pl-0 mr-0">
+                        2- Select Learning Standards</span></button>
+            </ng-template>
+            <app-step-two [toStepThree]="toStepThree.asObservable()" (validFormTwo)="validateFormTwo($event)">
+            </app-step-two>
+        </mat-step>
+
+        <!-- <mat-step> -->
+        <mat-step [completed]="step>2">
+            <ng-template matStepLabel>
+                <button class="lesson-plan-step button is-info is-outlined is-large is-fullwidth p-0 {{step === 2 ? 'selected-step' : ''}}">
+                    <span
+                        class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-6-widescreen  is-family-primary has-text-weight-semibold  pl-0 mr-0">
+                        3- Create Sub-Titles</span></button>
+            </ng-template>
+            <app-step-three [toStepFour]="toStepFour.asObservable()" (validFormThree)="validateFormThree($event)">
+            </app-step-three>
+        </mat-step>
+
+        <!-- <mat-step> -->
+        <mat-step [completed]="step>3">
+            <ng-template matStepLabel>
+                <button class="lesson-plan-step button is-info is-outlined is-large is-fullwidth p-0 {{step === 3  ? 'selected-step' : ''}}">
+                    <span
+                        class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-6-widescreen  is-family-primary has-text-weight-semibold  pl-0 mr-0">
+                        4- Preview and Generate Settings</span></button>
+            </ng-template>
+            <app-step-four [finish]="finish.asObservable()" (validFormFour)="validateFormFour($event)">
+            </app-step-four>
+        </mat-step>
+    </mat-stepper>
+
+    <div class="column is-12-tablet is-12-desktop is-hidden-mobile">
+        <div class="field is-grouped is-grouped-right  pb-2 px-2" *ngIf="!stepThreeDone; else lastStepDesktop">
+            <span class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-6 px-3 py-3">Step
+                {{step+1}} of 4</span>
+            <div class="control" *ngIf="stepOneDone">
+                <button class="button is-outlined  has-background-white is-fullwidth is-medium" (click)="cancel()">
+                    <span
+                        class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Cancel</span></button>
+            </div>
+            <div class="control" *ngIf="stepTwoDone && !stepThreeDone">
+                <button (click)="addNewSubtitle()" class="button is-outlined  has-background-info is-fullwidth is-medium">
+                    <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-2">Add New
+                        Sub-Title</span></button>
+            </div>
+            <div class="control">
+                <button class="button is-outlined  has-background-info is-fullwidth is-medium" (click)="nextStep()">
+                    <span
+                        class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Next</span></button>
+            </div>
+        </div>
+
+        <ng-template #lastStepDesktop>
+            <div class="field is-grouped is-grouped-right  pb-2 px-2">
+                <span
+                    class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-6 px-3 py-3">Step
+                    {{step+1}} of 4</span>
+                <div class="control">
+                    <button class="button is-outlined  has-background-white is-fullwidth is-medium">
+                        <span class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Save
+                            Draft</span></button>
+                </div>
+                <div class="control">
+                    <button class="button is-outlined  has-background-info is-fullwidth is-medium">
+                        <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-2">Print
+                            PDF</span></button>
+                </div>
+                <div class="control">
+                    <button class="button is-outlined  has-background-info is-fullwidth is-medium" (click)="nextStep()">
+                        <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Save and
+                            Genreate Schedule</span></button>
+                </div>
+            </div>
+        </ng-template>
+
+
+    </div>
+    <div class="is-hidden-tablet" *ngIf="!stepThreeDone; else lastStep">
+        <div class="column is-12-mobile">
+            <span class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-7 px-3 py-3">Step
+                {{step+1}} of 4</span>
+            <div class="control" *ngIf="stepTwoDone && !stepThreeDone">
+                <button class="button is-outlined  has-background-info is-fullwidth is-medium">
+                    <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-2">Add New
+                        Sub-Title</span></button>
+            </div>
+        </div>
+        <div class="column is-12-mobile">
+            <div class="field is-grouped is-grouped-right pb-2 px-2">
+                <div class="control column is-half-mobile" *ngIf="stepOneDone">
+                    <button class="button is-outlined  has-background-white is-fullwidth is-medium" (click)="cancel()">
+                        <span
+                            class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Cancel</span></button>
+                </div>
+                <div class="control column  {{stepOneDone ? 'is-half-mobile' : 'is-full-mobile'}}">
+                    <button class="button is-outlined  has-background-info is-fullwidth is-medium" (click)="nextStep()">
+                        <span
+                            class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6">Next</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #lastStep>
+        <div class="is-hidden-tablet">
+            <div class="column is-12-mobile">
+                <span
+                    class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-7 px-3 py-3">Step
+                    {{step+1}} of 4</span>
+                <div class="control column is-12-mobile">
+                    <button class="button is-outlined  has-background-white is-fullwidth is-medium">
+                        <span class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Save
+                            Draft</span></button>
+                </div>
+                <div class="control column is-12-mobile">
+                    <button class="button is-outlined  has-background-white is-fullwidth is-medium">
+                        <span class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6">Print
+                            PDF</span></button>
+                </div>
+            </div>
+            <div class="column is-12-mobile">
+                <div class="control">
+                    <button class="button is-outlined  has-background-info is-fullwidth is-medium">
+                        <span class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-2">Save and
+                            Generate Schedule</span></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -77,7 +77,7 @@ const routes: Routes = [
       import('./modules/core/dashboard/lesson-plan/lesson-plan.module').then(
         (m) => m.LessonPlanModule
       ),
-    canActivate: [IsAuthGuard],
+    // canActivate: [IsAuthGuard],
   },
 
   // {path: 'forgetPass', component: ForgetPassComponent},
