@@ -30,7 +30,6 @@ import { CountriesService } from '../../_services/countries.service';
 })
 export class DashboardComponent implements OnInit {
   sideNavExpanded: boolean = false;
-
   assessmentLink: boolean = false;
   configurationsLink: boolean = false;
   studentsLink: boolean = false;

@@ -14,7 +14,7 @@ import {
   Subject,
   Type,
   Unit,
-} from '../Models/lessonPlan';
+} from '../Models/LessonPlan';
 
 @Injectable({
   providedIn: 'root',
