@@ -1,0 +1,243 @@
+<div class="last-step section is-large has-background-white py-5 px-5 " style="border-radius: 13px;"
+    *ngIf="(summary | json) != '{}'">
+    <div class="columns">
+        <div class="column is-half">
+            <span class=" is-family-primary has-text-weight-bold is-size-5 is-inline-block my-0 px-1 py-3"
+                style="color:#3f81c3;">
+                Lesson Plan Ref Number:</span>
+            <span class=" is-family-primary has-text-weight-medium is-size-5 is-inline-block my-0 px-1 py-3"
+                style="color:#3f81c3;">
+                {{summary.formOne.reference}}</span>
+        </div>
+        <div class="column ">
+            <span class=" is-family-primary has-text-weight-bold is-size-5 is-inline-block my-0 px-1 py-3"
+                style="color:#25af6a;">
+                Status:</span> <span
+                class=" is-family-primary has-text-weight-medium is-size-5 is-inline-block my-0 px-1 py-3"
+                style="color:#25af6a;">
+                {{summary.isPublished ? 'Completed' : 'Draft'}}</span>
+        </div>
+        <div class="is-flex is-justify-content-flex-end">
+            <button (click)="editStep(0)" class="button has-background-info has-text-white"> <i
+                    class="fas fa-edit"></i> edit</button>
+        </div>
+    </div>
+
+    <div class="columns is-multiline">
+
+        <div class="column is-12 is-family-primary is-size-5 has-text-left has-text-dark">
+            <span class="has-text-weight-bold is-inline-block"> Class and Section:
+            </span>
+            <span class="has-text-weight-normal is-inline-block ml-2"> {{summary.formOne.class.title}}-
+                <span *ngFor="let section of summary.formOne.section; index as i; last as isLast">
+                    {{section.title}} <span *ngIf="!isLast">- </span>
+                </span>
+            </span>
+        </div>
+
+        <div class="column is-12 is-family-primary is-size-5 has-text-left has-text-dark">
+            <span class="has-text-weight-bold is-inline-block"> Chapter:
+            </span>
+            <span class="has-text-weight-normal is-inline-block ml-2"> {{summary.formOne.chapter.title}}
+            </span>
+        </div>
+
+        <div class="column is-12 is-family-primary is-size-5 has-text-left has-text-dark">
+            <span class="has-text-weight-bold is-inline-block"> Lesson:
+            </span>
+            <span class="has-text-weight-normal is-inline-block ml-2"> {{summary.formOne.lesson.title}}
+            </span>
+        </div>
+
+    </div>
+
+
+    <div class="column is-12">
+        <div class="columns">
+            <div class="column is-4 pl-0 pr-0 is-size-5">
+                <span class="has-text-weight-bold is-inline-block"> Book:
+                </span>
+                <span class="has-text-weight-normal is-inline-block ml-2"> {{summary.formOne.book.title}}
+                </span>
+            </div>
+
+            <div class="column is-4 pl-0 pr-0 is-size-5">
+                <span class="has-text-weight-bold is-inline-block"> Start Page:
+                </span>
+                <span class="has-text-weight-normal is-inline-block ml-2">
+                    {{summary.formOne.chapter.startPage}}
+                </span>
+            </div>
+
+            <div class="column is-4 pl-0 pr-0 is-size-5">
+                <span class="has-text-weight-bold is-inline-block"> End Page:
+                </span>
+                <span class="has-text-weight-normal is-inline-block ml-2">
+                    {{summary.formOne.chapter.endPage}}
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="column is-12">
+        <div class="columns">
+
+            <div class="column is-4 pl-0 pr-0 is-size-5">
+                <span class="has-text-weight-bold is-inline-block"> Start Date:
+                </span>
+                <span class="has-text-weight-normal is-inline-block ml-2"> {{summary.formOne.startDate}}
+                </span>
+            </div>
+
+            <div class="column is-4 pl-0 pr-0 is-size-5">
+                <span class="has-text-weight-bold is-inline-block"> End Date:
+                </span>
+                <span class="has-text-weight-normal is-inline-block ml-2"> {{summary.formOne.endDate}}
+                </span>
+            </div>
+
+            <div class="column is-4 pl-0 pr-0 is-size-5">
+                <span class="has-text-weight-bold is-inline-block"> Estimated Time:
+                </span>
+                <span class="has-text-weight-normal is-inline-block ml-2"> {{summary.formOne.duration}}
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="column is-12 py-3 px-0">
+        <div class="table-container">
+            <table class="table table-lesson-plan is-bordered is-fullwidth">
+                <tbody>
+                    <tr>
+                        <td class=" sub-title-bg-color" style="vertical-align: inherit;width:50%;">
+                            <p
+                                class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark has-text-centered">
+                                Brief
+                            </p>
+                        </td>
+                        <td
+                            class="has-background-color-light-grey td-lesson-plan is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left">
+                            {{summary.formOne.chapter.briefIntroduction}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" sub-title-bg-color" style="vertical-align: inherit;">
+                            <p
+                                class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark has-text-centered">
+                                Learning Objectives
+                            </p>
+                        </td>
+                        <td
+                            class="has-background-color-light-grey tr-bg-color-lesson-plan td-lesson-plan is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left">
+                            <ng-container *ngFor="let learningStandard of summary.formTwo.learningStandards">
+                                - {{learningStandard.description}} <br>
+                            </ng-container>
+                            <div class="is-flex is-justify-content-flex-end" style="justify-content: flex-end;">
+                                <button (click)="editStep(1)" class="button has-background-info has-text-white"> <i
+                                        class="fas fa-edit"></i> edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class=" sub-title-bg-color" style="vertical-align: inherit;">
+                            <p
+                                class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark has-text-centered">
+                                Pre-requisite Learning Objectives
+                            </p>
+                        </td>
+                        <td
+                            class="has-background-color-light-grey tr-bg-color-lesson-plan td-lesson-plan is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left">
+                            <ng-container *ngFor="let learningStandard of summary.formTwo.prereqLs">
+                                - {{learningStandard.description}} <br>
+                            </ng-container>
+                            <div class="is-flex is-justify-content-flex-end" style="justify-content: flex-end;">
+                                <button (click)="editStep(1)" class="button has-background-info has-text-white"> <i
+                                        class="fas fa-edit"></i> edit</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="column is-12 px-0">
+        <div class="table-container">
+            <table class="table table-lesson-plan is-bordered is-fullwidth">
+                <tbody>
+                    <tr>
+                        <td style="border: none;padding: 0;">
+                            <table *ngFor="let subtitle of summary.formThree.subtitles; let i = index; ; first as isFirst; last as isLastSub"
+                                style="width:100%;" class="table table-lesson-plan is-bordered is-fullwidth m-0">
+                                <tr>
+                                    <td rowspan="6"
+                                        [ngStyle]="{'border-bottom':!isLastSub ? 'none' : '1px solid #d1d1d1' }"
+                                        class=" sub-title-bg-color"
+                                        style="word-wrap: anywhere; vertical-align: inherit;width: 120px;">
+                                        <p
+                                            class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark has-text-centered">
+                                            {{subtitle.title}}
+                                        </p>
+                                        <div
+                                            class=" is-family-primary has-text-weight-normal has-text-centered is-size-5 py-2 px-1">
+                                            <span class="action-icons" (click)="editStep(2, subtitle.id)"><i
+                                                    class="fas fa-edit px-2 "></i></span>
+                                            <span *ngIf="!isFirst" class="action-icons" (click)="deleteSubtitle(subtitle.id)"><i
+                                                    class="fas fa-trash-alt  "></i></span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="i === 0">
+                                    <td class="is-family-primary has-text-weight-bold  is-size-6 has-text-white has-text-centered grey-bg-color"
+                                        style="width: 50%;">Description</td>
+                                    <td
+                                        class="is-family-primary has-text-weight-bold  is-size-6 has-text-white has-text-centered grey-bg-color">
+                                        Instructional Survey</td>
+                                </tr>
+                                <tr class="tr-bg-color-lesson-plan">
+                                    <td class=" td-lesson-plan is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left"
+                                        style="width: 50%;">{{subtitle.description}}</td>
+                                    <td
+                                        class="td-lesson-plan is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left">
+                                        {{subtitle.instructional_strategy}}</td>
+                                </tr>
+                                <tr class="tr-bg-color-lesson-plan">
+                                    <td class="td-lesson-plan"><span
+                                            class=" is-family-primary has-text-weight-bold  is-size-5 has-text-dark">Start
+                                            Page:</span><span
+                                            class="is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left px-2">{{subtitle.startPage}}</span>
+                                    </td>
+                                    <td class="td-lesson-plan"><span
+                                            class=" is-family-primary has-text-weight-bold  is-size-5 has-text-dark">Time:</span><span
+                                            class="is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left px-2">{{subtitle.duration}}</span>
+                                    </td>
+                                </tr>
+                                <tr class="tr-bg-color-lesson-plan">
+                                    <td class="td-lesson-plan" colspan="2"><span
+                                            class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark">Resources:</span>
+                                    </td>
+                                </tr>
+                                <tr class="tr-bg-color-lesson-plan">
+                                    <td colspan="2"
+                                        [ngStyle]="{'border-bottom':!isLastSub ? 'none' : '1px solid #d1d1d1' }">
+                                        <table style="width:100%;"
+                                            class="table table-lesson-plan is-bordered is-fullwidth">
+                                            <tr *ngFor="let resource of subtitle.resources; let j = index">
+                                                <td class="td-lesson-plan" style="border: none;">
+                                                    <p
+                                                        class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark">
+                                                        {{resource.title}}</p>
+                                                    <a>{{resource.fileData.name}}</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

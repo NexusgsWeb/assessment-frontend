@@ -8,6 +8,7 @@ import { StepOneComponent } from './step-one/step-one.component';
 import { StepTwoComponent } from './step-two/step-two.component';
 import { StepThreeComponent } from './step-three/step-three.component';
 import { StepFourComponent } from './step-four/step-four.component';
+import { LastStepComponent } from './last-step/last-step.component';
 import { UiModule } from 'src/app/ui-module';
 
 @NgModule({
@@ -17,7 +18,8 @@ import { UiModule } from 'src/app/ui-module';
     StepOneComponent,
     StepTwoComponent,
     StepThreeComponent,
-    StepFourComponent
+    StepFourComponent,
+    LastStepComponent
   ],
   imports: [
     CommonModule,

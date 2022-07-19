@@ -9,3 +9,7 @@
 .last-step .action-icons{
     color: rgba(61,61,61,.49);
 }
+
+.table tbody tr:last-child td, .table tbody tr:last-child th{
+  border-top-width: 0px !important;
+}

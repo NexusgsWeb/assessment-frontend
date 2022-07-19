@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FuncsService } from '../../services/funcs.service';
-import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
+import { FuncsService } from '../../../modules/_services/funcs.service';
+import { LessonPlanService } from '../../../modules/_services/lesson-plan.service';
+import { lessonPlanDurationValidator } from '../../../modules/validators/lesson-plan-duration.validator';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-confirm-dialog',
@@ -11,14 +12,14 @@ import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service
 
 })
 export class ConfirmDialogComponent {
-  addBookForm = this._formBuilder.group({
+  addBookForm: FormGroup = this._formBuilder.group({
     title: ["", Validators.required],
     publisher: ["", Validators.required],
     author: ["", Validators.required],
     edition: [""],
   })
 
-  addChapterForm = this._formBuilder.group({
+  addChapterForm: FormGroup = this._formBuilder.group({
     title: ["", Validators.required],
     number: ["", Validators.required],
     startPage: ["", Validators.required],
@@ -26,7 +27,7 @@ export class ConfirmDialogComponent {
     briefIntroduction: [""],
   })
 
-  addLessonForm = this._formBuilder.group({
+  addLessonForm: FormGroup = this._formBuilder.group({
     title: ["", Validators.required],
     number: ["", Validators.required],
     startPage: ["", Validators.required],
@@ -34,6 +35,14 @@ export class ConfirmDialogComponent {
     briefIntroduction: [""],
   })
 
+  generatePeriodsForm: FormGroup = this._formBuilder.group({
+    number: ["", [Validators.required, Validators.pattern("^[0-9]*$")]],
+    duration: ["", [Validators.required, Validators.pattern("^[0-9]*$")]]
+  },
+    { validators: lessonPlanDurationValidator.durationExceeds(this._lessonPlanService) }
+  )
+
+  subtitlesTotalDuration: number = 0
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: {
       cancelText: string,
@@ -41,14 +50,18 @@ export class ConfirmDialogComponent {
       message: string,
       title: string,
       panelClass: string,
-      action: string
+      action: string,
       additionalData: any
     },
     private mdDialogRef: MatDialogRef<ConfirmDialogComponent>,
     private _formBuilder: FormBuilder,
     private _lessonPlanService: LessonPlanService,
     private _funcsService: FuncsService
-    ) { }
+  ) {
+    if (this.data.additionalData) {
+      this.data.additionalData.formThree.subtitles.map((subtitle: any) => this.subtitlesTotalDuration += Number(subtitle.duration))
+    }
+  }
 
   public cancel() {
     this.close(false)
@@ -65,7 +78,7 @@ export class ConfirmDialogComponent {
         return
       }
       const book: any = this.addBookForm.value
-      book.id = Date.now()
+      book.id = Date.now() + Math.floor(Math.random() * 100)
       this._lessonPlanService.addBook(book)
     }
 
@@ -75,7 +88,7 @@ export class ConfirmDialogComponent {
         return
       }
       const chapter: any = this.addChapterForm.value
-      chapter.id = Date.now()
+      chapter.id = Date.now() + Math.floor(Math.random() * 100)
       chapter.bookId = this.data.additionalData.bookId
       this._lessonPlanService.addChapter(chapter)
     }
@@ -86,9 +99,17 @@ export class ConfirmDialogComponent {
         return
       }
       const lesson: any = this.addLessonForm.value
-      lesson.id = Date.now()
+      lesson.id = Date.now() + Math.floor(Math.random() * 100)
       lesson.chapterId = this.data.additionalData.chapterId
       this._lessonPlanService.addLesson(lesson)
+    }
+
+    if (this.data.action === 'period') {
+      if (this.generatePeriodsForm.invalid) {
+        this._funcsService.markFormGroupTouched(this.generatePeriodsForm)
+        return
+      }
+      this._lessonPlanService.addLessonPlanPerPeriod(this.generatePeriodsForm.value, this.data.additionalData)
     }
 
 

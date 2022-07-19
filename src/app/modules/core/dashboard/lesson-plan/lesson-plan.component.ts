@@ -15,31 +15,25 @@ import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service
 
 export class LessonPlanComponent implements OnInit {
 
-  @ViewChild('stepper') private stepper: MatStepper | null = null
+  @ViewChild('stepper') stepper!: MatStepper
   step: number = 0
   resetForms: Subject<void> = new Subject<void>()
   newSubtitle: Subject<void> = new Subject<void>()
-
   toStepTwo: Subject<void> = new Subject<void>()
   toStepThree: Subject<void> = new Subject<void>()
   toStepFour: Subject<void> = new Subject<void>()
-  finish: Subject<void> = new Subject<void>()
+  toDraft: Subject<void> = new Subject<void>()
+  generatePreview: Subject<void> = new Subject<void>()
 
   formOneValid: boolean = false
   formTwoValid: boolean = false
   formThreeValid: boolean = false
-  formFourValid: boolean = false
-
-  stepOneDone: boolean = false
-  stepTwoDone: boolean = false
-  stepThreeDone: boolean = false
-  stepFourDone: boolean = false
-
+  previewValid: boolean = false
+  isDraft: boolean = false
   stepperOrientation: Observable<StepperOrientation>
-
   constructor(
     breakpointObserver: BreakpointObserver,
-    private _lessonPlanService: LessonPlanService,
+    private _lessonPlanService: LessonPlanService
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -47,13 +41,47 @@ export class LessonPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._lessonPlanService.resetLessonPlan()
     this._lessonPlanService.getBookChapters()
     this._lessonPlanService.getChapterLessons()
-
   }
 
-  onStepChange(event: any): void {
-    this.step = event.selectedIndex
+  onStepChange(index: any): void {
+    this._lessonPlanService.unValidateLessonPreview()
+    if (index === 0) {
+      this.stepper.selectedIndex = index
+      this.step = index
+    } else {
+      this.toStepTwo.next()
+      this.toStepThree.next()
+      this.toStepFour.next()
+      switch (index) {
+        case 1:
+          if (this.formOneValid) {
+            this.stepper.selectedIndex = index
+            this.step = index
+          }
+          break;
+        case 2:
+          if (this.formTwoValid) {
+            this.stepper.selectedIndex = index
+            this.step = index
+          }
+          break;
+        case 3:
+          if (this.formThreeValid) {
+            this.stepper.selectedIndex = index
+            this.step = index
+          }
+          break;
+        case 4:
+          if (this.previewValid) {
+            this.stepper.selectedIndex = index
+            this.step = index
+          }
+          break;
+      }
+    }
   }
 
   nextStep(): void {
@@ -63,7 +91,6 @@ export class LessonPlanComponent implements OnInit {
         if (this.formOneValid) {
           this.step++
           setTimeout(() => {
-            this.stepOneDone = true
             this.stepper?.next()
           }, 100)
         }
@@ -73,7 +100,6 @@ export class LessonPlanComponent implements OnInit {
         if (this.formTwoValid) {
           this.step++
           setTimeout(() => {
-            this.stepTwoDone = true
             this.stepper?.next()
           }, 100)
         }
@@ -83,20 +109,21 @@ export class LessonPlanComponent implements OnInit {
         if (this.formThreeValid) {
           this.step++
           setTimeout(() => {
-            this.stepThreeDone = true
             this.stepper?.next()
           }, 100)
         }
       }
       else if (this.step === 3) {
-        this.finish.next()
-        if (this.formFourValid) {
-          // this.step++
-          setTimeout(() => {
-            this.stepFourDone = true
-            // this.stepper?.next()
-          }, 100)
-        }
+        this.generatePreview.next()
+        this._lessonPlanService.validPreview$.subscribe((isValid: boolean) =>{
+          if (isValid) {
+            this.previewValid = isValid
+            this.step++
+            setTimeout(() => {
+              this.stepper?.next()
+            }, 100)
+          }
+        })
       }
     }
   }
@@ -113,22 +140,26 @@ export class LessonPlanComponent implements OnInit {
     this.formThreeValid = event
   }
 
-  validateFormFour(event: any) {
-    this.formFourValid = event
+  validatePreview(event: any) {
+    this.previewValid = event
+  }
+
+  addNewSubtitle() {
+    this._lessonPlanService.addNewSubtitle()
+  }
+
+  saveDraft() {
+    this.toDraft.next()
   }
 
   cancel() {
     if (this.stepper) {
       this.step = 0
-      this.stepOneDone = false
-      this.stepTwoDone = false
-      this.stepThreeDone = false
+      this.formOneValid = false
+      this.formTwoValid = false
+      this.formThreeValid = false
       this._lessonPlanService.resetForms()
       this.stepper.reset()
     }
-  }
-
-  addNewSubtitle(){
-    this._lessonPlanService.addNewSubtitle()
   }
 }

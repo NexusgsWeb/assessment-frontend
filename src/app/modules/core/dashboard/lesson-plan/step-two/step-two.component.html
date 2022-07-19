@@ -96,7 +96,7 @@
             <div class="column  pr-2 pl-0 pt-2">
                 <div class="is-flex">
                     <mat-form-field class="form-select select {{(secondFormGroup.controls['prereqLs'].touched || secondFormGroup.controls['prereqLs'].dirty) && secondFormGroup.controls['prereqLs'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
-                        <label *ngIf="secondFormGroup.controls['prereqLs'].value?.length===0"><strong>Select Domain(s)</strong></label>
+                        <label *ngIf="secondFormGroup.controls['prereqLs'].value?.length===0"><strong>Select Learning Standard(s)</strong></label>
                         <mat-select formControlName="prereqLs" multiple #prereqLs>
                             <mat-select-trigger>
                                 {{this.secondFormGroup.controls['prereqLs'].value?.[0]?.description || ''}}
