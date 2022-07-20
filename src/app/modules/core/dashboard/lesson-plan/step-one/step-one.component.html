@@ -1,0 +1,234 @@
+<form [formGroup]="firstFormGroup" class="lesson-plan-form">
+    <ng-template matStepLabel>1- Create Lesson Plan</ng-template>
+    <p class=" is-family-primary has-text-weight-bold is-size-5 my-0 px-1 py-3" style="color:#3f81c3;">
+        Lesson Plan Details</p>
+    <div class="field is-horizontal" style="padding-left: 8px;">
+        <div class="field-body">
+            <div class="columns is-multiline">
+                <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2 pt-2">
+                    <div class="field">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Reference Name
+                        </label>
+                        <div class="field has-addons has-addons-right">
+                            <span class="control is-expanded has-icons-right">
+                                <input
+                                    class="input  is-normal  is-family-primary has-text-weight-medium {{(firstFormGroup.controls['reference'].touched || firstFormGroup.controls['reference'].dirty) && firstFormGroup.controls['reference'].invalid ? 'is-danger' : ''}} is-size-7 py-5"
+                                    type="text" formControlName="reference" placeholder="Enter your Reference Name"
+                                    required=""></span>
+                            <span class="control" *ngIf="(firstFormGroup.controls['reference'].touched || firstFormGroup.controls['reference'].dirty) && firstFormGroup.controls['reference'].invalid">
+                                <a class="button is-danger is-medium">
+                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2 pt-2">
+                    <div class="field">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Class </label>
+                        <div class="is-flex">
+                            <mat-form-field [ngStyle]="{'border-color':(firstFormGroup.controls['class'].touched || firstFormGroup.controls['class'].dirty) && firstFormGroup.controls['class'].invalid ? '#f14668' : '#dbdbdb' }" class="form-select select {{(firstFormGroup.controls['class'].touched || firstFormGroup.controls['class'].dirty) && firstFormGroup.controls['class'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
+                                <label *ngIf="this.firstFormGroup.controls['class'].value?.length===0"><strong>Select Class</strong></label>
+                                <mat-select formControlName="class" (selectionChange)="getClassSections($event)">
+                                    <mat-option *ngFor="let class of classes" [value]="class">
+                                        {{class.title}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <span class="control" *ngIf="(firstFormGroup.controls['class'].touched || firstFormGroup.controls['class'].dirty) && firstFormGroup.controls['class'].invalid">
+                                <a class="button is-danger is-medium" style="font-size: 1.2rem;">
+                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2 pt-2">
+                    <div class="field">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Subject </label>
+                        <div class="is-flex">
+                            <mat-form-field [ngStyle]="{'border-color':(firstFormGroup.controls['subject'].touched || firstFormGroup.controls['subject'].dirty) && firstFormGroup.controls['subject'].invalid ? '#f14668' : '#dbdbdb' }" class="form-select select {{(firstFormGroup.controls['subject'].touched || firstFormGroup.controls['subject'].dirty) && firstFormGroup.controls['subject'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
+                                <label *ngIf="this.firstFormGroup.controls['subject'].value?.length===0"><strong>Select Subject</strong></label>
+                                <mat-select formControlName="subject" (selectionChange)="getClassSections($event)" *ngIf="subjects$ | async as subjects">
+                                    <mat-option *ngFor="let subject of subjects" [value]="subject">
+                                        {{subject.title}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <span class="control" *ngIf="(firstFormGroup.controls['subject'].touched || firstFormGroup.controls['subject'].dirty) && firstFormGroup.controls['subject'].invalid">
+                                <a class="button is-danger is-medium" style="font-size: 1.2rem;">
+                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2">
+                    <div class="field">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Section(s) </label>
+                        <div class="is-flex">
+                            <mat-form-field [ngStyle]="{'border-color':(firstFormGroup.controls['section'].touched || firstFormGroup.controls['section'].dirty) && firstFormGroup.controls['section'].invalid ? '#f14668' : '#dbdbdb' }" class="form-select select {{(firstFormGroup.controls['section'].touched || firstFormGroup.controls['section'].dirty) && firstFormGroup.controls['section'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
+                                <label *ngIf="!this.firstFormGroup.controls['section'].value || this.firstFormGroup.controls['section'].value?.length===0"><strong>Select Section(s)</strong></label>
+                                <mat-select formControlName="section" multiple #matSections>
+                                    <mat-select-trigger>
+                                        {{this.firstFormGroup.controls['section'].value[0]?.title || ''}}
+                                        <span *ngIf="(this.firstFormGroup.controls['section']?.value.length || 0) > 1" class="additional-selection">
+                                          (+{{(this.firstFormGroup.controls['section'].value?.length || 0) - 1}}
+                                            {{this.firstFormGroup.controls['section'].value?.length === 2 ? 'other' :
+                                            'others'}})
+                                        </span>
+                                    </mat-select-trigger>
+                                    <mat-checkbox class="select-all-checkbox" [(ngModel)]="allSelected"
+                                    [ngModelOptions]="{standalone: true}"
+                                    (change)="toggleAllSelection()">Select All</mat-checkbox>
+                                    <mat-option *ngFor="let section of classSections" [value]="section" (click)="uncheckAllButton()">
+                                        {{section.title}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <span class="control" *ngIf="(firstFormGroup.controls['section'].touched || firstFormGroup.controls['section'].dirty) && firstFormGroup.controls['section'].invalid">
+                                <a class="button is-danger is-medium" style="font-size: 1.2rem;">
+                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2">
+                    <div class="field ">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Expected Duration
+                        </label>
+                        <div class="field has-addons has-addons-right">
+                            <span class="control is-expanded has-icons-right">
+                                <input formControlName="duration"
+                                    class="input  is-normal  is-family-primary has-text-weight-medium  is-size-7 py-5"
+                                    type="text" placeholder="Enter Expected Duration"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2">
+                    <div class="field">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">Start Date </label>
+                        <div class="field has-addons has-addons-right">
+                            <span class="control is-expanded has-icons-right">
+                                <input min={{today}} formControlName="startDate"
+                                    class="input  is-normal  is-family-primary has-text-weight-medium  is-size-7 py-5 {{(firstFormGroup.controls['startDate'].touched || firstFormGroup.controls['startDate'].dirty) && firstFormGroup.controls['startDate'].invalid ? 'is-danger' : ''}}"
+                                    type="date" placeholder="Enter the lesson's Start date" required=""></span>
+                            <span class="control" *ngIf="(firstFormGroup.controls['startDate'].touched || firstFormGroup.controls['startDate'].dirty) && firstFormGroup.controls['startDate'].invalid">
+                                <a class="button is-danger is-medium">
+                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2">
+                    <div class="field">
+                        <label class="label  is-family-primary has-text-weight-semibold is-size-6">End Date </label>
+                        <div class="field has-addons has-addons-right">
+                            <span class="control is-expanded has-icons-right">
+                                <input min={{today}} formControlName="endDate"
+                                    class="input  is-normal  is-family-primary has-text-weight-medium  is-size-7 py-5 {{(firstFormGroup.controls['endDate'].touched || firstFormGroup.controls['endDate'].dirty) && firstFormGroup.controls['endDate'].invalid ? 'is-danger' : ''}}"
+                                    type="date" placeholder="Enter the lesson's End date" required=""></span>
+                            <span class="control" *ngIf="(firstFormGroup.controls['endDate'].touched || firstFormGroup.controls['endDate'].dirty) && firstFormGroup.controls['endDate'].invalid">
+                                <a class="button is-danger is-medium">
+                                    <i class="fas fa-exclamation px-2 is-size-2"></i>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <p class=" is-family-primary has-text-weight-bold is-size-5 my-0 px-1 py-3" style="color:#3f81c3;border-top: 1px solid lightgray;">
+        Book Details</p>
+    <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2 pt-2">
+        <div class="field ">
+            <label class="label  is-family-primary has-text-weight-semibold is-size-6">Select a Book </label>
+            <div class="is-flex">
+                <div class="select is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                    <select (ngModelChange)="onBookChange($event)" formControlName="book" class="select {{(firstFormGroup.controls['book'].touched || firstFormGroup.controls['book'].dirty) && firstFormGroup.controls['book'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius' : ''}}"
+                        *ngIf="books$ | async as books">
+                        <option value="">Select Book</option>
+                        <option *ngFor="let book of books" [value]="book.id">{{book.title}}</option>
+                    </select>
+                </div>
+                <span class="control" *ngIf="(firstFormGroup.controls['book'].touched || firstFormGroup.controls['book'].dirty) && firstFormGroup.controls['book'].invalid">
+                    <a class="button is-danger is-medium" style="font-size: 1.2rem;">
+                        <i class="fas fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="my-3">
+        <div class="column is-full has-background-white py-0">
+            <a class=" is-family-primary has-text-info has-text-weight-semibold py-0">
+                <i class="fas fa-plus is-size-5"></i>
+                <span class="is-size-6" (click)="addBook()"> Add a New Book</span></a>
+        </div>
+    </div>
+    <p class=" is-family-primary has-text-weight-bold is-size-5 my-0 px-1 py-3" style="color:#3f81c3;border-top: 1px solid lightgray;">
+        Chapter Details</p>
+    <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2 pt-2">
+        <div class="field ">
+            <label class="label  is-family-primary has-text-weight-semibold is-size-6">Select a Chapter </label>
+            <div class="is-flex">
+                <div class="select is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                    <select (ngModelChange)="onChapterChange($event)" formControlName="chapter" class="select {{(firstFormGroup.controls['chapter'].touched || firstFormGroup.controls['chapter'].dirty) && firstFormGroup.controls['chapter'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius' : ''}}"
+                        *ngIf="chapters$ | async as chapters">
+                        <option value="">Select Chapter</option>
+                        <option *ngFor="let chapter of chapters" [value]="chapter.id">{{chapter.title}}</option>
+                    </select>
+                </div>
+                <span class="control" *ngIf="(firstFormGroup.controls['chapter'].touched || firstFormGroup.controls['chapter'].dirty) && firstFormGroup.controls['chapter'].invalid">
+                    <a class="button is-danger is-medium" style="font-size: 1.2rem;">
+                        <i class="fas fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-3">
+        <div class="column is-full has-background-white py-0">
+            <a class=" is-family-primary has-text-info has-text-weight-semibold py-0">
+                <i class="fas fa-plus is-size-5"></i>
+                <span class="is-size-6" (click)="addChapter()"> Add a New Chapter</span></a>
+        </div>
+    </div>
+
+    <p class=" is-family-primary has-text-weight-bold is-size-5 my-0 px-1 py-3" style="color:#3f81c3;border-top: 1px solid lightgray;">
+        Lesson Details</p>
+    <div class="column is-4-desktop is-6-tablet is-4-widescreen is-12-mobile px-2 pt-2">
+        <div class="field ">
+            <label class="label  is-family-primary has-text-weight-semibold is-size-6">Select a Lesson </label>
+            <div class="is-flex">
+                <div class="select is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7">
+                    <select *ngIf="lessons$ | async as lessons" formControlName="lesson" class="select {{(firstFormGroup.controls['lesson'].touched || firstFormGroup.controls['lesson'].dirty) && firstFormGroup.controls['lesson'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius' : ''}}">
+                        <option value="">Select a Lesson</option>
+                        <option *ngFor="let lesson of lessons" [value]="lesson.id">{{lesson.title}}</option>
+                    </select>
+                </div>
+                <span class="control" *ngIf="(firstFormGroup.controls['lesson'].touched || firstFormGroup.controls['lesson'].dirty) && firstFormGroup.controls['lesson'].invalid">
+                    <a class="button is-danger is-medium" style="font-size: 1.2rem;">
+                        <i class="fas fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="my-3">
+        <div class="column is-full has-background-white py-0">
+            <a class=" is-family-primary has-text-info has-text-weight-semibold py-0" data-target="">
+                <i class="fas fa-plus is-size-5"></i>
+                <span class="is-size-6" (click)="addLesson()">Add a New Lesson</span></a>
+        </div>
+    </div>
+</form>

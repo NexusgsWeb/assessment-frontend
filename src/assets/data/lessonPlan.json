@@ -1,0 +1,119 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "book 1",
+      "publisher": "publisher 1",
+      "author": "author 1",
+      "edition": "edition 1"
+    }, {
+      "id": 2,
+      "title": "book 2",
+      "publisher": "publisher 2",
+      "author": "author 2",
+      "edition": "edition 2"
+    }
+  ],
+  "chapters": [
+    {
+      "id": 1,
+      "bookId": 1,
+      "title": "chapter 1",
+      "number": 1111,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 2,
+      "bookId": 1,
+      "title": "chapter 2",
+      "number": 2222,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 3,
+      "bookId": 2,
+      "title": "chapter 11",
+      "number": 1111,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 4,
+      "bookId": 2,
+      "title": "chapter 12",
+      "number": 2222,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }
+  ],
+  "lessons": [
+    {
+      "id": 1,
+      "chapterId": 1,
+      "title": "lesson 1",
+      "number": 1111,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 2,
+      "chapterId": 1,
+      "title": "lesson 2",
+      "number": 2222,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 3,
+      "chapterId": 2,
+      "title": "lesson 10",
+      "number": 1111,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 4,
+      "chapterId": 2,
+      "title": "lesson 20",
+      "number": 2222,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 5,
+      "chapterId": 3,
+      "title": "lesson 11",
+      "number": 1111,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 6,
+      "chapterId": 3,
+      "title": "lesson 22",
+      "number": 2222,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 7,
+      "chapterId": 4,
+      "title": "lesson 33",
+      "number": 1111,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }, {
+      "id": 8,
+      "chapterId": 4,
+      "title": "lesson 44",
+      "number": 2222,
+      "startPage": 1,
+      "endPage": 10,
+      "briefIntroduction": "intro"
+    }
+  ]
+}

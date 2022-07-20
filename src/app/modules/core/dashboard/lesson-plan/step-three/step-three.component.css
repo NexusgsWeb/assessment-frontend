@@ -1,0 +1,46 @@
+.lesson-plan-form .custom-font-size {
+  font-size: .75rem;
+}
+
+.lesson-plan-form .file-upload>input {
+  display: none;
+}
+
+.lesson-plan-form .ls.border-danger{
+  width: 92.8% !important;
+}
+
+.lesson-plan-form .delete-resource-button {
+  min-width: 100%;
+}
+
+.lesson-plan-form .delete-resource-icon {
+  border: 1px solid #bababa;
+  padding: 5px 20px;
+  border-radius: 4px;
+  color: #ff0000;
+  cursor: pointer;
+  margin-top: 2.2rem;
+  transition: .2s;
+}
+
+.lesson-plan-form .delete-resource-icon:hover{
+  border: 1px solid #ff0000;
+  background-color: #ff0000;
+  padding: 5px 20px;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media(min-width: 769px){
+  .lesson-plan-form .custom-font-size {
+    font-size: .75rem;
+  }
+}
+
+@media(min-width: 909px){
+  .lesson-plan-form .custom-font-size {
+    font-size: 1rem;
+  }
+}

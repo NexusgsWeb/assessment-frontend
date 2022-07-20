@@ -14,14 +14,19 @@ export class ConfirmDialogService {
            title: options.title,
            message: options.message,
            cancelText: options.cancelText,
-           confirmText: options.confirmText
+           confirmText: options.confirmText,
+           autoFocus: options.autoFocus,
+           restoreFocus: options.restoreFocus,
+           panelClass: options.panelClass,
+           action: options.action,
+           additionalData: options.additionalData
          }
     });
   }
   public confirmed(): Observable<any> {
     if(this.dialogRef){
     return this.dialogRef.afterClosed().pipe(take(1), map(res => {
-        return res;
+        return res
       }
     ))
     }

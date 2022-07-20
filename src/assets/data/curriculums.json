@@ -1,198 +1,769 @@
-{"default":
-[
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 1, "title": "Grade One" },
-    "subject": { "id": 1, "title": "Math" },
-    "type": {},
-    "units": [
-      {
-        "id": 1, "code": "1", "title": "Numbers", "learningStandards":
-          [
-            { "id": 1, "unitId": 1, "code": "1.1", "description": "Lesson 1", "relatedto": [] },
-            { "id": 2, "unitId": 1, "code": "1.2", "description": "Lesson 2", "relatedto": [] },
-            { "id": 3, "unitId": 1, "code": "1.3", "description": "Lesson 3", "relatedto": [] }
-          ]
+{
+  "classes": [
+    {
+      "id": 1,
+      "title": "Grade One"
+    }, {
+      "id": 2,
+      "title": "Grade Two"
+    }, {
+      "id": 3,
+      "title": "Grade Three"
+    }, {
+      "id": 4,
+      "title": "Grade Four"
+    }, {
+      "id": 5,
+      "title": "Grade Five"
+    }
+  ],
+
+  "sections": [
+    {
+      "id": 1,
+      "classId": 1,
+      "title": "A"
+    }, {
+      "id": 2,
+      "classId": 1,
+      "title": "B"
+    }, {
+      "id": 3,
+      "classId": 2,
+      "title": "C"
+    }, {
+      "id": 4,
+      "classId": 2,
+      "title": "A"
+    }, {
+      "id": 2,
+      "classId": 5,
+      "title": "B"
+    }, {
+      "id": 6,
+      "classId": 3,
+      "title": "B"
+    }, {
+      "id": 7,
+      "classId": 4,
+      "title": "C"
+    }, {
+      "id": 8,
+      "classId": 5,
+      "title": "A"
+    }
+  ],
+
+  "subjects": [
+    {
+      "id": 1,
+      "title": "Math"
+    }, {
+      "id": 2,
+      "title": "English"
+    }, {
+      "id": 3,
+      "title": "French"
+    }, {
+      "id": 4,
+      "title": "History"
+    }, {
+      "id": 5,
+      "title": "Physics"
+    }
+  ],
+
+  "types": [
+    {
+      "id": 1,
+      "title": "Lebanese"
+    }, {
+      "id": 2,
+      "title": "French"
+    }, {
+      "id": 3,
+      "title": "American"
+    }
+  ],
+
+  "default": [
+    {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 1,
+        "title": "Grade One"
       },
-      {
-        "id": 2, "code": "2", "title": "Operators", "learningStandards":
-          [
-            { "id": 4, "unitId": 2, "code": "1.1", "description": "Lesson 1", "relatedto": [] },
-            { "id": 5, "unitId": 2, "code": "1.2", "description": "Lesson 2", "relatedto": [] },
-            { "id": 6, "unitId": 2, "code": "1.3", "description": "Lesson 3", "relatedto": [] }
-          ]
-      }
-    ]
-  },
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 2, "title": "Grade Two" },
-    "subject": { "id": 1, "title": "Math" },
-    "type": {},
-    "units": [
-      {
-        "id": 3, "code": "1", "title": "Numbers", "learningStandards":
-          [
-            { "id": 7, "unitId": 3, "code": "2.1", "description": "Lesson 21", "relatedto": [] },
-            { "id": 8, "unitId": 3, "code": "2.2", "description": "Lesson 22", "relatedto": [] },
-            { "id": 9, "unitId": 3, "code": "2.3", "description": "Lesson 23", "relatedto": [] }
-          ]
+      "subject": {
+        "id": 1,
+        "title": "Math"
       },
-      {
-        "id": 4, "code": "2", "title": "Operators", "learningStandards":
-          [
-            { "id": 10, "unitId": 4, "code": "2.1", "description": "Lesson 21", "relatedto": [] },
-            { "id": 11, "unitId": 4, "code": "2.2", "description": "Lesson 22", "relatedto": [] },
-            { "id": 12, "unitId": 4, "code": "2.3", "description": "Lesson 23", "relatedto": [] }
-          ]
-      }
-    ]
-  },
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 3, "title": "Grade Three" },
-    "subject": { "id": 2, "title": "English" },
-    "type": {},
-    "units": [
-      {
-        "id": 5, "code": "3", "title": "Grammar", "learningStandards":
-          [
-            { "id": 13, "unitId": 5, "code": "1.1", "description": "Lesson 31", "relatedto": [] },
-            { "id": 14, "unitId": 5, "code": "1.2", "description": "Lesson 32", "relatedto": [] },
-            { "id": 15, "unitId": 5, "code": "1.3", "description": "Lesson 33", "relatedto": [] }
-          ]
+      "type": {
+        "id": 1,
+        "title": "Lebanese"
       },
-      {
-        "id": 6, "code": "4", "title": "Vocabulary", "learningStandards":
-          [
-            { "id": 16, "unitId": 6, "code": "2.1", "description": "Lesson 31", "relatedto": [] },
-            { "id": 17, "unitId": 6, "code": "2.2", "description": "Lesson 32", "relatedto": [] },
-            { "id": 18, "unitId": 6, "code": "2.3", "description": "Lesson 33", "relatedto": [] }
+      "units": [
+        {
+          "id": 1,
+          "code": "1",
+          "title": "الارقام",
+          "learningStandards": [
+            {
+              "id": 1,
+              "unitId": 1,
+              "code": "1.1",
+              "description": "الدرس الاول",
+              "relatedto": []
+            }, {
+              "id": 2,
+              "unitId": 1,
+              "code": "1.2",
+              "description": "الدرس الثاني",
+              "relatedto": []
+            }, {
+              "id": 3,
+              "unitId": 1,
+              "code": "1.3",
+              "description": "الدرس الثالث",
+              "relatedto": []
+            }
           ]
-      }
-    ]
-  },
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 4, "title": "Grade Four" },
-    "subject": { "id": 5, "title": "Physics" },
-    "type": {},
-    "units": [
-      {
-        "id": 7, "code": "5", "title": "Gravity", "learningStandards":
-          [
-            { "id": 19, "unitId": 7, "code": "1.1", "description": "Lesson 41", "relatedto": [] },
-            { "id": 20, "unitId": 7, "code": "1.2", "description": "Lesson 42", "relatedto": [] },
-            { "id": 21, "unitId": 7, "code": "1.3", "description": "Lesson 43", "relatedto": [] }
+        }, {
+          "id": 2,
+          "code": "2",
+          "title": "عوامل الرياضيات",
+          "learningStandards": [
+            {
+              "id": 4,
+              "unitId": 2,
+              "code": "1.1",
+              "description": "الدرس الاول",
+              "relatedto": []
+            }, {
+              "id": 5,
+              "unitId": 2,
+              "code": "1.2",
+              "description": "الدرس الثاني",
+              "relatedto": []
+            }, {
+              "id": 6,
+              "unitId": 2,
+              "code": "1.3",
+              "description": "الدرس الثالث",
+              "relatedto": []
+            }
           ]
+        }
+      ]
+    },
+    {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 1,
+        "title": "Grade One"
       },
-      {
-        "id": 8, "code": "6", "title": "light", "learningStandards":
-          [
-            { "id": 22, "unitId": 8, "code": "2.1", "description": "Lesson 41", "relatedto": [] },
-            { "id": 23, "unitId": 8, "code": "2.2", "description": "Lesson 42", "relatedto": [] },
-            { "id": 24, "unitId": 8, "code": "2.3", "description": "Lesson 43", "relatedto": [] }
-          ]
-      }
-    ]
-  }
-],
-"custom": [
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 1, "title": "Grade One" },
-    "subject": { "id": 1, "title": "Math" },
-    "type": {},
-    "units": [
-      {
-        "id": 1, "code": "1", "title": "Numbers", "learningStandards":
-          [
-            { "id": 1, "unitId": 1, "code": "1.1", "description": "Lesson 1", "relatedto": [] },
-            { "id": 2, "unitId": 1, "code": "1.2", "description": "Lesson 2", "relatedto": [] },
-            { "id": 3, "unitId": 1, "code": "1.3", "description": "Lesson 3", "relatedto": [] }
-          ]
+      "subject": {
+        "id": 1,
+        "title": "Math"
       },
-      {
-        "id": 2, "code": "2", "title": "Operators", "learningStandards":
-          [
-            { "id": 4, "unitId": 2, "code": "1.1", "description": "Lesson 1", "relatedto": [] },
-            { "id": 5, "unitId": 2, "code": "1.2", "description": "Lesson 2", "relatedto": [] },
-            { "id": 6, "unitId": 2, "code": "1.3", "description": "Lesson 3", "relatedto": [] }
-          ]
-      }
-    ]
-  },
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 2, "title": "Grade Two" },
-    "subject": { "id": 1, "title": "Math" },
-    "type": {},
-    "units": [
-      {
-        "id": 3, "code": "1", "title": "Numbers", "learningStandards":
-          [
-            { "id": 7, "unitId": 3, "code": "2.1", "description": "Lesson 21", "relatedto": [] },
-            { "id": 8, "unitId": 3, "code": "2.2", "description": "Lesson 22", "relatedto": [] },
-            { "id": 9, "unitId": 3, "code": "2.3", "description": "Lesson 23", "relatedto": [] }
-          ]
+      "type": {
+        "id": 2,
+        "title": "French"
       },
-      {
-        "id": 4, "code": "2", "title": "Operators", "learningStandards":
-          [
-            { "id": 10, "unitId": 4, "code": "2.1", "description": "Lesson 21", "relatedto": [] },
-            { "id": 11, "unitId": 4, "code": "2.2", "description": "Lesson 22", "relatedto": [] },
-            { "id": 12, "unitId": 4, "code": "2.3", "description": "Lesson 23", "relatedto": [] }
+      "units": [
+        {
+          "id": 1,
+          "code": "1",
+          "title": "Numeros",
+          "learningStandards": [
+            {
+              "id": 1,
+              "unitId": 1,
+              "code": "1.1",
+              "description": "Lesson 1",
+              "relatedto": []
+            }, {
+              "id": 2,
+              "unitId": 1,
+              "code": "1.2",
+              "description": "Lesson 2",
+              "relatedto": []
+            }, {
+              "id": 3,
+              "unitId": 1,
+              "code": "1.3",
+              "description": "Lesson 3",
+              "relatedto": []
+            }
           ]
-      }
-    ]
-  },
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 3, "title": "Grade Three" },
-    "subject": { "id": 2, "title": "English" },
-    "type": {},
-    "units": [
-      {
-        "id": 5, "code": "3", "title": "Grammar", "learningStandards":
-          [
-            { "id": 13, "unitId": 5, "code": "1.1", "description": "Lesson 31", "relatedto": [] },
-            { "id": 14, "unitId": 5, "code": "1.2", "description": "Lesson 32", "relatedto": [] },
-            { "id": 15, "unitId": 5, "code": "1.3", "description": "Lesson 33", "relatedto": [] }
+        }, {
+          "id": 2,
+          "code": "2",
+          "title": "Operations",
+          "learningStandards": [
+            {
+              "id": 4,
+              "unitId": 2,
+              "code": "1.1",
+              "description": "Lesson 1",
+              "relatedto": []
+            }, {
+              "id": 5,
+              "unitId": 2,
+              "code": "1.2",
+              "description": "Lesson 2",
+              "relatedto": []
+            }, {
+              "id": 6,
+              "unitId": 2,
+              "code": "1.3",
+              "description": "Lesson 3",
+              "relatedto": []
+            }
           ]
+        }
+      ]
+    },
+    {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 2,
+        "title": "Grade Two"
       },
-      {
-        "id": 6, "code": "4", "title": "Vocabulary", "learningStandards":
-          [
-            { "id": 16, "unitId": 6, "code": "2.1", "description": "Lesson 31", "relatedto": [] },
-            { "id": 17, "unitId": 6, "code": "2.2", "description": "Lesson 32", "relatedto": [] },
-            { "id": 18, "unitId": 6, "code": "2.3", "description": "Lesson 33", "relatedto": [] }
-          ]
-      }
-    ]
-  },
-  {
-    "defaultConfiguration": false,
-    "class": { "id": 4, "title": "Grade Four" },
-    "subject": { "id": 5, "title": "Physics" },
-    "type": {},
-    "units": [
-      {
-        "id": 7, "code": "5", "title": "Gravity", "learningStandards":
-          [
-            { "id": 19, "unitId": 7, "code": "1.1", "description": "Lesson 41", "relatedto": [] },
-            { "id": 20, "unitId": 7, "code": "1.2", "description": "Lesson 42", "relatedto": [] },
-            { "id": 21, "unitId": 7, "code": "1.3", "description": "Lesson 43", "relatedto": [] }
-          ]
+      "subject": {
+        "id": 1,
+        "title": "Math"
       },
-      {
-        "id": 8, "code": "6", "title": "light", "learningStandards":
-          [
-            { "id": 22, "unitId": 8, "code": "2.1", "description": "Lesson 41", "relatedto": [] },
-            { "id": 23, "unitId": 8, "code": "2.2", "description": "Lesson 42", "relatedto": [] },
-            { "id": 24, "unitId": 8, "code": "2.3", "description": "Lesson 43", "relatedto": [] }
+      "type": {
+        "id": 3,
+        "title": "American"
+      },
+      "units": [
+        {
+          "id": 3,
+          "code": "1",
+          "title": "Numbers",
+          "learningStandards": [
+            {
+              "id": 7,
+              "unitId": 3,
+              "code": "2.1",
+              "description": "Lesson 21",
+              "relatedto": []
+            }, {
+              "id": 8,
+              "unitId": 3,
+              "code": "2.2",
+              "description": "Lesson 22",
+              "relatedto": []
+            }, {
+              "id": 9,
+              "unitId": 3,
+              "code": "2.3",
+              "description": "Lesson 23",
+              "relatedto": []
+            }
           ]
-      }
-    ]
-  }
-]
+        }, {
+          "id": 4,
+          "code": "2",
+          "title": "Operators",
+          "learningStandards": [
+            {
+              "id": 10,
+              "unitId": 4,
+              "code": "2.1",
+              "description": "Lesson 21",
+              "relatedto": []
+            }, {
+              "id": 11,
+              "unitId": 4,
+              "code": "2.2",
+              "description": "Lesson 22",
+              "relatedto": []
+            }, {
+              "id": 12,
+              "unitId": 4,
+              "code": "2.3",
+              "description": "Lesson 23",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    }, {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 3,
+        "title": "Grade Three"
+      },
+      "subject": {
+        "id": 2,
+        "title": "English"
+      },
+      "type": {
+        "id": 3,
+        "title": "American"
+      },
+      "units": [
+        {
+          "id": 5,
+          "code": "3",
+          "title": "Grammar",
+          "learningStandards": [
+            {
+              "id": 13,
+              "unitId": 5,
+              "code": "1.1",
+              "description": "Lesson 31",
+              "relatedto": []
+            }, {
+              "id": 14,
+              "unitId": 5,
+              "code": "1.2",
+              "description": "Lesson 32",
+              "relatedto": []
+            }, {
+              "id": 15,
+              "unitId": 5,
+              "code": "1.3",
+              "description": "Lesson 33",
+              "relatedto": []
+            }
+          ]
+        }, {
+          "id": 6,
+          "code": "4",
+          "title": "Vocabulary",
+          "learningStandards": [
+            {
+              "id": 16,
+              "unitId": 6,
+              "code": "2.1",
+              "description": "Lesson 31",
+              "relatedto": []
+            }, {
+              "id": 17,
+              "unitId": 6,
+              "code": "2.2",
+              "description": "Lesson 32",
+              "relatedto": []
+            }, {
+              "id": 18,
+              "unitId": 6,
+              "code": "2.3",
+              "description": "Lesson 33",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    }, {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 4,
+        "title": "Grade Four"
+      },
+      "subject": {
+        "id": 5,
+        "title": "Physics"
+      },
+      "type": {
+        "id": 1,
+        "title": "Lebanese"
+      },
+      "units": [
+        {
+          "id": 7,
+          "code": "5",
+          "title": "الجاذبية",
+          "learningStandards": [
+            {
+              "id": 19,
+              "unitId": 7,
+              "code": "1.1",
+              "description": "الدرس ٤١",
+              "relatedto": []
+            }, {
+              "id": 20,
+              "unitId": 7,
+              "code": "1.2",
+              "description": "الدرس ٤٢",
+              "relatedto": []
+            }, {
+              "id": 21,
+              "unitId": 7,
+              "code": "1.3",
+              "description": "الدرس ٤٣",
+              "relatedto": []
+            }
+          ]
+        }, {
+          "id": 8,
+          "code": "6",
+          "title": "الضوء",
+          "learningStandards": [
+            {
+              "id": 22,
+              "unitId": 8,
+              "code": "2.1",
+              "description": "الدرس ٤١",
+              "relatedto": []
+            }, {
+              "id": 23,
+              "unitId": 8,
+              "code": "2.2",
+              "description": "الدرس ٤٢",
+              "relatedto": []
+            }, {
+              "id": 24,
+              "unitId": 8,
+              "code": "2.3",
+              "description": "الدرس ٤٣",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "custom": [
+    {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 1,
+        "title": "Grade One"
+      },
+      "subject": {
+        "id": 1,
+        "title": "Math"
+      },
+      "type": {
+        "id": 1,
+        "title": "Lebanese"
+      },
+      "units": [
+        {
+          "id": 1,
+          "code": "1",
+          "title": "الارقام",
+          "learningStandards": [
+            {
+              "id": 1,
+              "unitId": 1,
+              "code": "1.1",
+              "description": "الدرس الاول",
+              "relatedto": []
+            }, {
+              "id": 2,
+              "unitId": 1,
+              "code": "1.2",
+              "description": "الدرس الثاني",
+              "relatedto": []
+            }, {
+              "id": 3,
+              "unitId": 1,
+              "code": "1.3",
+              "description": "الدرس الثالث",
+              "relatedto": []
+            }
+          ]
+        }, {
+          "id": 2,
+          "code": "2",
+          "title": "عوامل الرياضيات",
+          "learningStandards": [
+            {
+              "id": 4,
+              "unitId": 2,
+              "code": "1.1",
+              "description": "الدرس الاول",
+              "relatedto": []
+            }, {
+              "id": 5,
+              "unitId": 2,
+              "code": "1.2",
+              "description": "الدرس الثاني",
+              "relatedto": []
+            }, {
+              "id": 6,
+              "unitId": 2,
+              "code": "1.3",
+              "description": "الدرس الثالث",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 1,
+        "title": "Grade One"
+      },
+      "subject": {
+        "id": 1,
+        "title": "Math"
+      },
+      "type": {
+        "id": 2,
+        "title": "French"
+      },
+      "units": [
+        {
+          "id": 1,
+          "code": "1",
+          "title": "Numeros",
+          "learningStandards": [
+            {
+              "id": 1,
+              "unitId": 1,
+              "code": "1.1",
+              "description": "Lesson 1",
+              "relatedto": []
+            }, {
+              "id": 2,
+              "unitId": 1,
+              "code": "1.2",
+              "description": "Lesson 2",
+              "relatedto": []
+            }, {
+              "id": 3,
+              "unitId": 1,
+              "code": "1.3",
+              "description": "Lesson 3",
+              "relatedto": []
+            }
+          ]
+        }, {
+          "id": 2,
+          "code": "2",
+          "title": "Operations",
+          "learningStandards": [
+            {
+              "id": 4,
+              "unitId": 2,
+              "code": "1.1",
+              "description": "Lesson 1",
+              "relatedto": []
+            }, {
+              "id": 5,
+              "unitId": 2,
+              "code": "1.2",
+              "description": "Lesson 2",
+              "relatedto": []
+            }, {
+              "id": 6,
+              "unitId": 2,
+              "code": "1.3",
+              "description": "Lesson 3",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 2,
+        "title": "Grade Two"
+      },
+      "subject": {
+        "id": 1,
+        "title": "Math"
+      },
+      "type": {
+        "id": 3,
+        "title": "American"
+      },
+      "units": [
+        {
+          "id": 3,
+          "code": "1",
+          "title": "Numbers",
+          "learningStandards": [
+            {
+              "id": 7,
+              "unitId": 3,
+              "code": "2.1",
+              "description": "Lesson 21",
+              "relatedto": []
+            }, {
+              "id": 8,
+              "unitId": 3,
+              "code": "2.2",
+              "description": "Lesson 22",
+              "relatedto": []
+            }, {
+              "id": 9,
+              "unitId": 3,
+              "code": "2.3",
+              "description": "Lesson 23",
+              "relatedto": []
+            }
+          ]
+        }, {
+          "id": 4,
+          "code": "2",
+          "title": "Operators",
+          "learningStandards": [
+            {
+              "id": 10,
+              "unitId": 4,
+              "code": "2.1",
+              "description": "Lesson 21",
+              "relatedto": []
+            }, {
+              "id": 11,
+              "unitId": 4,
+              "code": "2.2",
+              "description": "Lesson 22",
+              "relatedto": []
+            }, {
+              "id": 12,
+              "unitId": 4,
+              "code": "2.3",
+              "description": "Lesson 23",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    }, {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 3,
+        "title": "Grade Three"
+      },
+      "subject": {
+        "id": 2,
+        "title": "English"
+      },
+      "type": {
+        "id": 3,
+        "title": "American"
+      },
+      "units": [
+        {
+          "id": 5,
+          "code": "3",
+          "title": "Grammar",
+          "learningStandards": [
+            {
+              "id": 13,
+              "unitId": 5,
+              "code": "1.1",
+              "description": "Lesson 31",
+              "relatedto": []
+            }, {
+              "id": 14,
+              "unitId": 5,
+              "code": "1.2",
+              "description": "Lesson 32",
+              "relatedto": []
+            }, {
+              "id": 15,
+              "unitId": 5,
+              "code": "1.3",
+              "description": "Lesson 33",
+              "relatedto": []
+            }
+          ]
+        }, {
+          "id": 6,
+          "code": "4",
+          "title": "Vocabulary",
+          "learningStandards": [
+            {
+              "id": 16,
+              "unitId": 6,
+              "code": "2.1",
+              "description": "Lesson 31",
+              "relatedto": []
+            }, {
+              "id": 17,
+              "unitId": 6,
+              "code": "2.2",
+              "description": "Lesson 32",
+              "relatedto": []
+            }, {
+              "id": 18,
+              "unitId": 6,
+              "code": "2.3",
+              "description": "Lesson 33",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    }, {
+      "defaultConfiguration": false,
+      "class": {
+        "id": 4,
+        "title": "Grade Four"
+      },
+      "subject": {
+        "id": 5,
+        "title": "Physics"
+      },
+      "type": {
+        "id": 1,
+        "title": "Lebanese"
+      },
+      "units": [
+        {
+          "id": 7,
+          "code": "5",
+          "title": "الجاذبية",
+          "learningStandards": [
+            {
+              "id": 19,
+              "unitId": 7,
+              "code": "1.1",
+              "description": "الدرس ٤١",
+              "relatedto": []
+            }, {
+              "id": 20,
+              "unitId": 7,
+              "code": "1.2",
+              "description": "الدرس ٤٢",
+              "relatedto": []
+            }, {
+              "id": 21,
+              "unitId": 7,
+              "code": "1.3",
+              "description": "الدرس ٤٣",
+              "relatedto": []
+            }
+          ]
+        }, {
+          "id": 8,
+          "code": "6",
+          "title": "الضوء",
+          "learningStandards": [
+            {
+              "id": 22,
+              "unitId": 8,
+              "code": "2.1",
+              "description": "الدرس ٤١",
+              "relatedto": []
+            }, {
+              "id": 23,
+              "unitId": 8,
+              "code": "2.2",
+              "description": "الدرس ٤٢",
+              "relatedto": []
+            }, {
+              "id": 24,
+              "unitId": 8,
+              "code": "2.3",
+              "description": "الدرس ٤٣",
+              "relatedto": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

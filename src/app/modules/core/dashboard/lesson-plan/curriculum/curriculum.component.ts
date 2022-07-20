@@ -8,18 +8,20 @@ import {
 import { MatDrawer } from '@angular/material/sidenav';
 import {
   Class,
+  Curriculum,
   LearningStandard,
   Subject,
   Type,
   Unit,
-} from 'src/app/modules/Models/Curriculum';
-import { CurriculumService } from 'src/app/modules/_services/lesson-plan.service';
+} from 'src/app/modules/Models/curriculum';
+import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { ConfirmDialogService } from '../../../../../shared/components/confirm-dialog/confirm-dialog.service';
+import { ConfirmDialogService } from 'src/app/shared/components/confirm-dialog/confirm-dialog.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatOption } from '@angular/material/core';
 import { FuncsService } from 'src/app/shared/services/funcs.service';
+import { Subscription } from 'rxjs';
+import { MatSelect } from '@angular/material/select';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-curriculum',
@@ -28,7 +30,8 @@ import { FuncsService } from 'src/app/shared/services/funcs.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class CurriculumComponent implements OnInit {
-  isDefaultConf$ = this._curriculumService.isDefaultConf$;
+  private customCurriculumSubscription?: Subscription;
+
   classes$ = this._curriculumService.classes$;
   subjects$ = this._curriculumService.subjects$;
   types$ = this._curriculumService.types$;
@@ -36,9 +39,16 @@ export class CurriculumComponent implements OnInit {
   defaultCurriculum$ = this._curriculumService.defaultCurriculum$;
   customCurriculum$ = this._curriculumService.customCurriculum$;
   newCustomCurriculum$ = this._curriculumService.newCustomCurriculum$;
+
+  customCurriculum: Curriculum = {
+    defaultConfiguration: false,
+    class: { id: 0, title: '' },
+    subject: { id: 0, title: '' },
+    type: { id: 0, title: '' },
+    units: [],
+  };
   curriculumCurrType!: Type;
-  defaultConf: boolean = true;
-  defaultApplied: boolean = false;
+  defaultConf: boolean = false;
   newCustomCurriculumStatus: boolean = false;
   action?: string;
   parentUnitId: number = 0;
@@ -50,11 +60,13 @@ export class CurriculumComponent implements OnInit {
   relLearningStandards: LearningStandard[] = [];
   isUEditing: boolean = false;
   isLSEditing: boolean = false;
+  allSelected: boolean = false;
   currEditUnit?: Unit;
+  defaultView: boolean = true;
   currEditLearningStandard?: LearningStandard;
   @ViewChild(MatDrawer) matDrawer!: MatDrawer;
-  @ViewChild(MatCheckbox) applyDefConf!: MatCheckbox;
-  @ViewChild('allSelected') private allSelected!: MatOption;
+  @ViewChild('matSections') matSections!: MatSelect;
+  @ViewChild('appliConf') appliConf!: MatCheckbox;
 
   addUnitForm: FormGroup = this._formBuilder.group({
     code: [null, Validators.required],
@@ -89,42 +101,64 @@ export class CurriculumComponent implements OnInit {
         }
       });
 
-    this.isDefaultConf$.subscribe((status) => (this.defaultConf = status));
+    this.customCurriculumSubscription = this.customCurriculum$?.subscribe(
+      (customCurriculum: Curriculum) =>
+        (this.customCurriculum = customCurriculum)
+    );
   }
 
-  changeToDefault(defaultC: boolean = true) {
-    this.defaultConf = defaultC ?? false;
-    this._curriculumService.changeConfiguration(this.defaultConf);
+  ngOnDestroy() {
+    this.customCurriculumSubscription?.unsubscribe();
   }
 
-  getCurrType(event: any) {
-    this.curriculumCurrType = event.value;
+  changeCurriculumView(status: boolean = true) {
+    this.defaultView = status;
   }
 
   filter() {
     if (this.selectedClass.id > 0 && this.selectedSubject.id > 0) {
-      this._curriculumService.getCurriculum(
-        this.selectedClass,
-        this.selectedSubject
-      );
-      this._curriculumService.getLearningStandards(
-        this.selectedClass.id,
-        this.selectedSubject.id
-      );
-      this.learningStandards$.subscribe(
-        (learningStandards: LearningStandard[]) =>
-          (this.learningStandards = learningStandards)
-      );
-      this.newCustomCurriculum$.subscribe(
-        (status: boolean) => (this.newCustomCurriculumStatus = status)
-      );
+      this._curriculumService
+        .getdefaultCurriculumTypeAndConf(
+          this.selectedClass,
+          this.selectedSubject
+        )
+        .subscribe((data) => {
+          if (data.defaultConf) {
+            this.defaultConf = true;
+            this.defaultView = false;
+            this.curriculumCurrType = data.type;
+          } else {
+            this.defaultConf = false;
+            this.defaultView = true;
+            this.curriculumCurrType = this.selectedCurriculumType;
+          }
+
+          if (this.curriculumCurrType.id != 0) {
+            this._curriculumService.getCurriculum(
+              this.selectedClass,
+              this.selectedSubject,
+              this.curriculumCurrType
+            );
+            this._curriculumService.getLearningStandards(
+              this.selectedClass.id,
+              this.selectedSubject.id,
+              this.curriculumCurrType.id
+            );
+            this.learningStandards$.subscribe(
+              (learningStandards: LearningStandard[]) =>
+                (this.learningStandards = learningStandards)
+            );
+            this.newCustomCurriculum$.subscribe(
+              (status: boolean) => (this.newCustomCurriculumStatus = status)
+            );
+          }
+        });
     }
   }
 
-  applyDefaultConf() {
-    if (this.applyDefConf.checked) {
+  applyDefaultConf(event: any) {
+    if (event.checked) {
       if (!this.curriculumCurrType) {
-        this.applyDefConf.checked = false;
         this.curriculumError = 'please choose the curriculum!';
         return;
       }
@@ -141,18 +175,19 @@ export class CurriculumComponent implements OnInit {
           this._curriculumService.applyDefaultConf(
             this.selectedClass.id,
             this.selectedSubject.id,
-            this.curriculumCurrType,
-            this.applyDefConf.checked
+            this.curriculumCurrType
           );
-          this.defaultConf = false;
+          this.defaultConf = true;
+          this.defaultView = false;
         } else {
-          this.applyDefConf.checked = false;
+          this.appliConf.checked = false;
         }
       });
     }
   }
 
-  add(action: string, defaultApplied: boolean, unitId: number = 0) {
+  add(action: string, unitId: number = 0) {
+    this.allSelected = false;
     if (!this.curriculumCurrType) {
       this.curriculumError = 'please choose the curriculum!';
       return;
@@ -161,7 +196,6 @@ export class CurriculumComponent implements OnInit {
     this.addUnitForm.reset();
     this.addLearningStandardForm.reset();
     this.action = action;
-    this.defaultApplied = defaultApplied;
     this.parentUnitId = unitId;
     this.matDrawer.open();
   }
@@ -171,15 +205,15 @@ export class CurriculumComponent implements OnInit {
       this._funcsService.markFormGroupTouched(this.addUnitForm);
       return;
     }
-
     this._curriculumService.addUnit(
-      this.defaultApplied,
+      this.defaultConf,
       this.selectedClass,
       this.selectedSubject,
-      this.selectedCurriculumType,
+      this.curriculumCurrType,
       this.addUnitForm.value.code,
       this.addUnitForm.value.title
     );
+
     this.addUnitForm.reset();
     this.matDrawer.close();
   }
@@ -191,9 +225,10 @@ export class CurriculumComponent implements OnInit {
     }
 
     this._curriculumService.addLearningStandard(
-      this.defaultApplied,
+      this.defaultConf,
       this.selectedClass,
       this.selectedSubject,
+      this.curriculumCurrType,
       this.parentUnitId,
       this.addLearningStandardForm.value.code,
       this.addLearningStandardForm.value.description,
@@ -225,6 +260,7 @@ export class CurriculumComponent implements OnInit {
       unitId,
       this.selectedClass,
       this.selectedSubject,
+      this.curriculumCurrType,
       updatedUnitArray[0],
       updatedUnitArray[1]
     );
@@ -243,6 +279,7 @@ export class CurriculumComponent implements OnInit {
       lsId,
       this.selectedClass,
       this.selectedSubject,
+      this.curriculumCurrType,
       updatedLsArray[0],
       updatedLsArray[1]
     );
@@ -263,7 +300,8 @@ export class CurriculumComponent implements OnInit {
           isDefault,
           unitId,
           this.selectedClass,
-          this.selectedSubject
+          this.selectedSubject,
+          this.curriculumCurrType
         );
       }
     });
@@ -283,17 +321,18 @@ export class CurriculumComponent implements OnInit {
           isDefault,
           learningStandardId,
           this.selectedClass,
-          this.selectedSubject
+          this.selectedSubject,
+          this.curriculumCurrType
         );
       }
     });
   }
 
   toggleAllSelection() {
-    this._funcsService.toggleAllSelection(
-      this.allSelected,
-      this.addLearningStandardForm.controls['relatedTo'],
-      this.learningStandards
-    );
+    this._funcsService.toggleAllSelection(this.allSelected, this.matSections);
+  }
+
+  uncheckAllButton() {
+    this.allSelected = this._funcsService.uncheckAllButton(this.matSections);
   }
 }

@@ -1,25 +1,176 @@
 <div class="confirm-dialog">
-  <div class="dialog-header">
-    <h1 mat-dialog-title>{{ data.title }}</h1>
-  </div>
-  <div mat-dialog-content>
-    <p class="dialog-message">{{ data.message }}</p>
-  </div>
-  <div mat-dialog-actions>
-    <button
-      mat-stroked-button
-      color="warn"
-      style="margin-right: 10px"
-      (click)="cancel()"
-    >
+    <div class="dialog-header">
+        <h1 mat-dialog-title>{{ data.title }}</h1>
+    </div>
+    <div mat-dialog-content>
+
+        <!--add book form start-->
+        <div class="book" *ngIf="data.action === 'book'">
+            <div class="section is-small has-background-white pt-2 px-3 pb-3 " style="border-radius:13px;">
+                <form [formGroup]="addBookForm">
+                    <div class="columns pt-4">
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text62">Title </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="title" class="{{(addBookForm.controls['title'].touched || addBookForm.controls['title'].dirty) && addBookForm.controls['title'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                        type="text" placeholder="Enter Book Title"></p>
+                            </div>
+                        </div>
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text63">Publisher </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="publisher" class="{{(addBookForm.controls['publisher'].touched || addBookForm.controls['publisher'].dirty) && addBookForm.controls['publisher'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                        type="text" placeholder="Enter Book Publisher"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text64">Author </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="author" class="{{(addBookForm.controls['author'].touched || addBookForm.controls['author'].dirty) && addBookForm.controls['author'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                        type="text" placeholder="Enter Author's Name"></p>
+                            </div>
+                        </div>
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text65">Edition </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="edition" class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" type="text" placeholder="Enter Edition"></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--add book form end-->
+
+        <!--add chapter form start-->
+        <div class="chapter" *ngIf="data.action === 'chapter'">
+            <div class="section is-small has-background-white pt-2 px-3 pb-3 " style="border-radius:13px;">
+                <form [formGroup]="addChapterForm">
+                    <div class="columns pt-4">
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text62">Title </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="title" class="{{(addChapterForm.controls['title'].touched || addChapterForm.controls['title'].dirty) && addChapterForm.controls['title'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                        type="text" placeholder="Enter Chapter Title"></p>
+                            </div>
+                        </div>
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text63">Number </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="number" class="{{(addChapterForm.controls['number'].touched || addChapterForm.controls['number'].dirty) && addChapterForm.controls['number'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                        type="number" min="0" placeholder="Enter Chapter Number"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text64">Start Page </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="startPage" class="{{(addChapterForm.controls['startPage'].touched || addChapterForm.controls['startPage'].dirty) && addChapterForm.controls['startPage'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                        type="number" min="1" placeholder="Enter Start Page"></p>
+                            </div>
+                        </div>
+                        <div class="column is-half">
+                            <div class="field ">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text64">End Page </label>
+                                <p class="control is-expanded ">
+                                    <input formControlName="endPage" class="{{(addChapterForm.controls['endPage'].touched || addChapterForm.controls['endPage'].dirty) && addChapterForm.controls['endPage'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                        type="number" min="1" placeholder="Enter End Page"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text64">Brief Introduction </label>
+                                <p class="control is-expanded ">
+                                    <textarea formControlName="briefIntroduction" placeholder="Enter Breaf Intoduction" class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" style="height: 100px;">
+
+                                      </textarea>
+                                      </p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--add chapter form end-->
+
+        <!--add lesson form start-->
+        <div class="lesson" *ngIf="data.action === 'lesson'">
+          <div class="section is-small has-background-white pt-2 px-3 pb-3 " style="border-radius:13px;">
+              <form [formGroup]="addLessonForm">
+                  <div class="columns pt-4">
+                      <div class="column is-half">
+                          <div class="field ">
+                              <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text62">Title </label>
+                              <p class="control is-expanded ">
+                                  <input formControlName="title" class="{{(addLessonForm.controls['title'].touched || addLessonForm.controls['title'].dirty) && addLessonForm.controls['title'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                      type="text" placeholder="Enter Chapter Title"></p>
+                          </div>
+                      </div>
+                      <div class="column is-half">
+                          <div class="field ">
+                              <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text63">Number </label>
+                              <p class="control is-expanded ">
+                                  <input formControlName="number" class="{{(addLessonForm.controls['number'].touched || addLessonForm.controls['number'].dirty) && addLessonForm.controls['number'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                      type="number" min="0" placeholder="Enter Chapter Number"></p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="columns">
+                      <div class="column is-half">
+                          <div class="field ">
+                              <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text64">Start Page </label>
+                              <p class="control is-expanded ">
+                                  <input formControlName="startPage" class="{{(addLessonForm.controls['startPage'].touched || addLessonForm.controls['startPage'].dirty) && addLessonForm.controls['startPage'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                      type="number" min="1" placeholder="Enter Start Page"></p>
+                          </div>
+                      </div>
+                      <div class="column is-half">
+                          <div class="field ">
+                              <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text64">End Page </label>
+                              <p class="control is-expanded ">
+                                  <input formControlName="endPage" class="{{(addLessonForm.controls['endPage'].touched || addLessonForm.controls['endPage'].dirty) && addLessonForm.controls['endPage'].invalid ? 'border-danger' : ''}} input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5"
+                                      type="number" min="1" placeholder="Enter End Page"></p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="columns">
+                      <div class="column">
+                          <div class="field">
+                              <label class="label  is-family-primary has-text-weight-semibold is-size-6" data-config-id="text64">Brief Introduction </label>
+                              <p class="control is-expanded ">
+                                  <textarea formControlName="briefIntroduction" placeholder="Enter Breaf Intoduction" class="input is-normal  is-family-primary has-text-weight-medium is-size-7 py-5" style="height: 100px;">
+
+                                    </textarea>
+                                    </p>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+        <!--add lesson form end-->
+
+
+        <p *ngIf="data.message != 'book' && data.message != 'chapter' && data.message != 'lesson'" class="dialog-message">{{ data.message }}</p>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-stroked-button class="cancel" (click)="cancel()">
       {{ data.cancelText }}
     </button>
-    <button
-      mat-raised-button
-      (click)="confirm()"
-      class="raised"
-    >
+        <button mat-raised-button class="confirm" (click)="confirm()">
       {{ data.confirmText }}
     </button>
-  </div>
+    </div>
 </div>

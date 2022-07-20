@@ -6,7 +6,7 @@ import { CurriculumComponent } from './curriculum/curriculum.component';
 const lessonPlanRoutes: Routes = [
   {
     path: '',
-    children: [{ path: 'curriculum', component: CurriculumComponent }],
+    children: [{ path: 'lesson-plan/curriculum', component: CurriculumComponent }],
   },
 ];
 
