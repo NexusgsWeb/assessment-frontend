@@ -49,7 +49,7 @@
                         <label class="label  is-family-primary has-text-weight-semibold is-size-6">Subject </label>
                         <div class="is-flex">
                             <mat-form-field [ngStyle]="{'border-color':(firstFormGroup.controls['subject'].touched || firstFormGroup.controls['subject'].dirty) && firstFormGroup.controls['subject'].invalid ? '#f14668' : '#dbdbdb' }" class="form-select select {{(firstFormGroup.controls['subject'].touched || firstFormGroup.controls['subject'].dirty) && firstFormGroup.controls['subject'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
-                                <label *ngIf="this.firstFormGroup.controls['subject'].value?.length===0"><strong>Select Subject</strong></label>
+                                <label *ngIf="!this.firstFormGroup.controls['class'].value || this.firstFormGroup.controls['subject'].value?.length===0"><strong>Select Subject</strong></label>
                                 <mat-select formControlName="subject" (selectionChange)="getClassSections($event)" *ngIf="subjects$ | async as subjects">
                                     <mat-option *ngFor="let subject of subjects" [value]="subject">
                                         {{subject.title}}

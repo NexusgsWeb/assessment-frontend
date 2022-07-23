@@ -1,0 +1,80 @@
+.lesson-plans-list .tag:not(body) {
+  align-items: center;
+  background-color: rgba(126, 180, 228, 0.5);
+  border-radius: 3px;
+  color: #fff;
+  display: inline-flex;
+  font-size: .75rem;
+  height: 2em;
+  justify-content: center;
+  line-height: 1.5;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  white-space: nowrap;
+}
+
+.lesson-plans-list .lesson-plans-table tbody tr:last-child td {
+  border-top-width: 1px !important;
+}
+
+.lesson-plans-list .status-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.lesson-plans-list .green-circle {
+  background-color: #56b411;
+}
+
+.lesson-plans-list .blue-circle {
+  background-color: #00a7ff;
+}
+
+.lesson-plans-list .yellow-circle {
+  background-color: #ffce00;
+}
+
+.lesson-plans-list .mat-chip {
+  background: rgba(126, 180, 228, 0.5);
+  color: #fff;
+  font-weight: 600;
+}
+
+.lesson-plans-list .mat-chip.mat-standard-chip .mat-chip-remove {
+  color: rgba(26, 85, 142, 0.4);
+  opacity: 1 !important;
+}
+
+.lesson-plans-list .mat-standard-chip .mat-chip-remove.mat-icon,
+.mat-standard-chip .mat-chip-remove .mat-icon {
+  width: 22px;
+  height: 22px;
+  font-size: 22px;
+}
+
+.lesson-plans-list .actions {
+  color: rgba(61, 61, 61, .49);
+  cursor: pointer;
+}
+
+.lesson-plans-list .mat-form-field-outline{
+  background-color: #f3f3f4;
+
+}
+
+.lesson-plans-list .mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #3f80bf;
+}
+
+.lesson-plans-list .mat-form-field-wrapper{
+  padding-bottom: 0;
+}
+
+.lesson-plans-list .mat-select-arrow-wrapper{
+  display: none;
+}
+
+.lesson-plans-list .select:not(.is-multiple){
+  height: auto;
+}

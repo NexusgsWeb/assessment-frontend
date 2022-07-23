@@ -10,7 +10,8 @@ import { StepThreeComponent } from './step-three/step-three.component';
 import { StepFourComponent } from './step-four/step-four.component';
 import { LastStepComponent } from './last-step/last-step.component';
 import { UiModule } from 'src/app/ui-module';
-
+import { MADPipesModule } from 'src/app/modules/pipes/madpipes.module'
+import { LessonPlansListComponent } from './lesson-plan-list/lesson-plan-list.component';
 @NgModule({
   declarations: [
     LessonPlanComponent,
@@ -19,13 +20,15 @@ import { UiModule } from 'src/app/ui-module';
     StepTwoComponent,
     StepThreeComponent,
     StepFourComponent,
-    LastStepComponent
+    LastStepComponent,
+    LessonPlansListComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     UiModule,
+    MADPipesModule,
     LessonPlanRoutingModule,
   ],
 })

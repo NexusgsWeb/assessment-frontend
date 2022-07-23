@@ -10,6 +10,11 @@
   width: 98%;
 }
 
+.lesson-plan .mat-step-text-label{
+  display: flex;
+  justify-content: center;
+}
+
 .lesson-plan .mat-step-header:last-child{
   display: none;
 }

@@ -1,5 +1,5 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
-import { LessonPlanService } from '../_services/lesson-plan.service';
+import { LessonPlanService } from '@services/lesson-plan.service';
 
 export class lessonPlanDurationValidator {
   static subtitles: any[] = []

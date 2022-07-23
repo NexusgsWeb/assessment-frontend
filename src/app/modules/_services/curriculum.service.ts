@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Class, Curriculum, LearningStandard, Subject, Type, Unit } from '../models/curriculum';
-import { Section } from '../models/lesson-plan';
+import { Class, Curriculum, LearningStandard, Subject, Type, Unit } from '@models/curriculum';
+import { Section } from '@models/lesson-plan';
 
 @Injectable({
   providedIn: 'root'

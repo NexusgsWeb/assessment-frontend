@@ -450,6 +450,72 @@
         <br />
         <!-- <h2 matSubheader class="mt-2">APPLICATIONS</h2> -->
 
+
+        <!-- Lesson Plan routes start-->
+        <div
+        *ngIf="LessonPlanLink"
+        mat-list-item
+        routerLinkActive="list-item-active"
+        class="pt-2 mb-5">
+        <a class="py-3 px-0">
+          <article class="media pl-4">
+            <div class="media-left menu-icon mx-0">
+              <figure class="image is-32x32 is-inline-block my-0 ml-0">
+                <img class="" src="assets/images/dashboard/Calendar.png" />
+              </figure>
+            </div>
+            <div class="media-content has-text-left">
+              <span
+                class="column text has-text-white is-family-primary has-text-weight-medium is-size-6 is-inline-block"
+              >
+                Lesson Plan</span
+              >
+            </div>
+          </article>
+          <div
+          style="
+            font-size: 15px;
+            margin-top: 10px;
+            margin-left: 25px;
+            color: white;
+          "
+          [routerLink]="'lesson-plan/curriculum'"
+        >
+          <p>- Curriculum Mapping</p>
+        </div>
+        <div
+        style="
+          font-size: 15px;
+          margin-top: 10px;
+          margin-left: 25px;
+          color: white;
+        "
+        [routerLink]="'lesson-plan/list'"
+      >
+        <p>- My Lesson Plans</p>
+      </div>
+      <div
+      style="
+        font-size: 15px;
+        margin-top: 10px;
+        margin-left: 25px;
+        color: white;
+      "
+      [routerLink]="'lesson-plan/licreatest'"
+    >
+      <p>- Create Lesson Plan</p>
+    </div>
+        </a>
+      </div>
+
+
+        <!-- Lesson Plan routes end-->
+
+
+
+
+
+
         <div
           *ngIf="configurationsLink"
           mat-list-item

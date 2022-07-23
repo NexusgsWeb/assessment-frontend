@@ -27,7 +27,7 @@ export class AssessmentComponent implements OnInit {
   name: string = '';
   nameSybmol: string = '';
 
-  
+
 
   constructor(
     private auth: AuthManagerService,
@@ -57,6 +57,6 @@ export class AssessmentComponent implements OnInit {
     );
   }
 
-  
+
 
 }
