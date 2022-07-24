@@ -1,0 +1,407 @@
+<form [formGroup]="lPDetailsFormGroup" class="learning-path-form">
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="columns is-multiline">
+        <!--Adding new title here-->
+        <div
+          class="column is-3-desktop is-3-tablet is-3-widescreen is-8-mobile px-2 pt-2"
+        >
+          <div class="field">
+            <label
+              class="label is-family-primary has-text-weight-semibold is-size-6"
+              >Title
+            </label>
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  class="input is-normal is-family-primary has-text-weight-medium {{
+                    (lPDetailsFormGroup.controls['title'].touched ||
+                      lPDetailsFormGroup.controls['title'].dirty) &&
+                    lPDetailsFormGroup.controls['title'].invalid
+                      ? 'is-danger'
+                      : ''
+                  }}  is-size-7 py-5"
+                  type="text"
+                  formControlName="title"
+                  placeholder="Enter Title"
+              /></span>
+              <span
+                class="control"
+                *ngIf="
+                  (lPDetailsFormGroup.controls['title'].touched ||
+                    lPDetailsFormGroup.controls['title'].dirty) &&
+                  lPDetailsFormGroup.controls['title'].invalid
+                "
+              >
+                <a class="button is-danger is-medium">
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--Adding new class here-->
+        <div
+          class="column is-3-desktop is-3-tablet is-3-widescreen is-12-mobile px-2 pt-2"
+        >
+          <div class="field">
+            <label
+              class="label is-family-primary has-text-weight-semibold is-size-6"
+              >Class
+            </label>
+            <div class="is-flex">
+              <div
+                class="select is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7"
+              >
+                <select
+                  formControlName="classId"
+                  class="select {{
+                    (lPDetailsFormGroup.controls['classId'].touched ||
+                      lPDetailsFormGroup.controls['classId'].dirty) &&
+                    lPDetailsFormGroup.controls['classId'].invalid
+                      ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius'
+                      : ''
+                  }}"
+                >
+                  <option value="">Select classes</option>
+                  <option *ngFor="let class of classes" [ngValue]="class.id">
+                    {{ class.name }}
+                  </option>
+                </select>
+              </div>
+              <span
+                class="control"
+                *ngIf="
+                  (lPDetailsFormGroup.controls['classId'].touched ||
+                    lPDetailsFormGroup.controls['classId'].dirty) &&
+                  lPDetailsFormGroup.controls['classId'].invalid
+                "
+              >
+                <a class="button is-danger is-medium" style="font-size: 1.2rem">
+                  <i class="fas fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--Adding new section here-->
+        <div
+          class="column is-3-desktop is-3-tablet is-3-widescreen is-12-mobile px-2 pt-2"
+        >
+          <div class="field">
+            <label
+              class="label is-family-primary has-text-weight-semibold is-size-6"
+              >Section(s)
+            </label>
+            <div class="is-flex">
+              <mat-form-field
+                appearance="none"
+                class="sections form-select select {{
+                  (lPDetailsFormGroup.controls['section'].touched ||
+                    lPDetailsFormGroup.controls['section'].dirty) &&
+                  lPDetailsFormGroup.controls['section'].invalid
+                    ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius custom-height'
+                    : ''
+                }}"
+                *ngIf="sections$ | async as sections"
+              >
+                <label
+                  *ngIf="
+                    lPDetailsFormGroup.controls['section'].value?.length === 0
+                  "
+                  ><strong>Select Sections(s)</strong></label
+                >
+                <mat-select formControlName="section" multiple #matSections>
+                  <mat-select-trigger>
+                    {{
+                      lPDetailsFormGroup.controls["section"].value[0]
+                        ?.displayName || ""
+                    }}
+                    <span
+                      *ngIf="
+                        (lPDetailsFormGroup.controls['section']?.value.length ||
+                          0) > 1
+                      "
+                      class="additional-selection"
+                    >
+                      (+{{
+                        (lPDetailsFormGroup.controls["section"].value?.length ||
+                          0) - (allSelected.selected ? 2 : 1)
+                      }}
+                      {{
+                        lPDetailsFormGroup.controls["section"].value?.length ===
+                        2
+                          ? "other"
+                          : "others"
+                      }})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-checkbox
+                    class="select-all-checkbox"
+                    [(ngModel)]="allSelected"
+                    [ngModelOptions]="{ standalone: true }"
+                    (change)="toggleAllSelection()"
+                    >All</mat-checkbox
+                  >
+                  <mat-option
+                    *ngFor="let section of sections"
+                    [value]="section"
+                    (click)="uncheckAllButton()"
+                  >
+                    {{ section.displayName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <span
+                class="control"
+                *ngIf="
+                  (lPDetailsFormGroup.controls['section'].touched ||
+                    lPDetailsFormGroup.controls['section'].dirty) &&
+                  lPDetailsFormGroup.controls['section'].invalid
+                "
+              >
+                <a class="button is-danger is-medium" style="font-size: 1.2rem">
+                  <i class="fas fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--Adding new subject here-->
+        <div
+          class="column is-3-desktop is-3-tablet is-3-widescreen is-12-mobile px-2 pt-2"
+        >
+          <div class="field">
+            <label
+              class="label is-family-primary has-text-weight-semibold is-size-6"
+              >Subject
+            </label>
+            <div class="is-flex">
+              <div
+                class="select is-normal is-fullwidth is-family-primary has-text-weight-medium is-size-7"
+              >
+                <select
+                  formControlName="subjectId"
+                  class="select {{
+                    (lPDetailsFormGroup.controls['subjectId'].touched ||
+                      lPDetailsFormGroup.controls['subjectId'].dirty) &&
+                    lPDetailsFormGroup.controls['subjectId'].invalid
+                      ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius'
+                      : ''
+                  }}"
+                  *ngIf="subjects$ | async as subjects"
+                >
+                  <option value="">Select Subject</option>
+                  <option
+                    *ngFor="let subject of subjects"
+                    [ngValue]="subject.id"
+                  >
+                    {{ subject.name }}
+                  </option>
+                </select>
+              </div>
+              <span
+                class="control"
+                *ngIf="
+                  (lPDetailsFormGroup.controls['subjectId'].touched ||
+                    lPDetailsFormGroup.controls['subjectId'].dirty) &&
+                  lPDetailsFormGroup.controls['subjectId'].invalid
+                "
+              >
+                <a class="button is-danger is-medium" style="font-size: 1.2rem">
+                  <i class="fas fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--Adding expected duration here-->
+        <div
+          class="column is-4-desktop is-4-tablet is-4-widescreen is-8-mobile px-3"
+        >
+          <div class="field">
+            <label
+              class="label is-family-primary has-text-weight-semibold is-size-6"
+              data-config-id="text36"
+              >Expected Duration
+            </label>
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  formControlName="lessonExpectedDuration"
+                  class="input is-normal is-family-primary has-text-weight-medium {{
+                    (lPDetailsFormGroup.controls['lessonExpectedDuration']
+                      .touched ||
+                      lPDetailsFormGroup.controls['lessonExpectedDuration']
+                        .dirty) &&
+                    lPDetailsFormGroup.controls['lessonExpectedDuration']
+                      .invalid
+                      ? 'is-danger'
+                      : ''
+                  }} is-size-7 py-5"
+                  type="text"
+                  placeholder="Enter Expected Duration"
+              /></span>
+              <span
+                class="control"
+                *ngIf="
+                  (lPDetailsFormGroup.controls['lessonExpectedDuration']
+                    .touched ||
+                    lPDetailsFormGroup.controls['lessonExpectedDuration']
+                      .dirty) &&
+                  lPDetailsFormGroup.controls['lessonExpectedDuration'].invalid
+                "
+              >
+                <a class="button is-danger is-medium">
+                  <i class="fa fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--Adding start date here-->
+        <div
+          class="column is-4-desktop is-4-tablet is-4-widescreen is-8-mobile px-2"
+        >
+          <div class="field">
+            <label
+              class="label is-family-primary has-text-weight-semibold is-size-6"
+              >Start Date
+            </label>
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  min="{{ today }}"
+                  formControlName="startDate"
+                  class="input is-normal is-family-primary has-text-weight-medium is-size-7 py-5 {{
+                    (lPDetailsFormGroup.controls['startDate'].touched ||
+                      lPDetailsFormGroup.controls['startDate'].dirty) &&
+                    lPDetailsFormGroup.controls['startDate'].invalid
+                      ? 'is-danger'
+                      : ''
+                  }}"
+                  type="date"
+                  placeholder="Enter learning path start date"
+                />
+              </span>
+              <span
+                class="control"
+                *ngIf="
+                  (lPDetailsFormGroup.controls['startDate'].touched ||
+                    lPDetailsFormGroup.controls['startDate'].dirty) &&
+                  lPDetailsFormGroup.controls['startDate'].invalid
+                "
+              >
+                <a class="button is-danger is-medium">
+                  <i class="fas fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!--Adding end date here-->
+        <div
+          class="column is-4-desktop is-4-tablet is-4-widescreen is-8-mobile px-2"
+        >
+          <div class="field">
+            <label
+              class="label is-family-primary has-text-weight-semibold is-size-6"
+              >End Date
+            </label>
+            <div class="field has-addons has-addons-right">
+              <span class="control is-expanded has-icons-right">
+                <input
+                  min="{{ today }}"
+                  formControlName="endDate"
+                  class="input is-normal is-family-primary has-text-weight-medium is-size-7 py-5 {{
+                    (lPDetailsFormGroup.controls['endDate'].touched ||
+                      lPDetailsFormGroup.controls['endDate'].dirty) &&
+                    lPDetailsFormGroup.controls['endDate'].invalid
+                      ? 'is-danger'
+                      : ''
+                  }}"
+                  type="date"
+                  placeholder="Enter learning path start date"
+                />
+              </span>
+              <span
+                class="control"
+                *ngIf="
+                  (lPDetailsFormGroup.controls['endDate'].touched ||
+                    lPDetailsFormGroup.controls['endDate'].dirty) &&
+                  lPDetailsFormGroup.controls['endDate'].invalid
+                "
+              >
+                <a class="button is-danger is-medium">
+                  <i class="fas fa-exclamation px-2 is-size-2"></i>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Adding description here-->
+  <div class="columns is-multiline px-2">
+    <div class="column is-12-desktop is-8-touch">
+      <label class="label is-family-primary has-text-weight-semibold is-size-6"
+        >Description
+      </label>
+    </div>
+    <div class="column is-12-desktop is-8-touch">
+      <div class="field">
+        <div class="control">
+          <angular-editor
+            formControlName="description"
+            [config]="config"
+          ></angular-editor>
+        </div>
+      </div>
+    </div>
+
+    <!--Adding thumbnail here-->
+    <div class="column is-12 is-pulled-right">
+      <div class="field is-grouped is-grouped-right pt-2">
+        <div class="control">
+          <label
+            class="is-family-primary has-text-weight-semibold is-size-6 px-2"
+            style="
+              opacity: 0.9;
+              font-stretch: normal;
+              font-style: normal;
+              line-height: 0.86;
+              letter-spacing: normal;
+              text-align: center;
+              color: #5c5c5c;
+            "
+            data-config-id="text40"
+          >
+            Add a Thumbnail
+          </label>
+        </div>
+
+        <div class="control">
+          <button
+            class="button is-outlined has-background-white is-normal px-0"
+            style=""
+          >
+            <span
+              class="has-text-info has-text-weight-bold is-size-5 ml-1 px-4"
+            >
+              <i class="fas fa-solid fa-plus"></i
+            ></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

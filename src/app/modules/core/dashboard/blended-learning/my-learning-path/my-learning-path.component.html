@@ -1,0 +1,206 @@
+<div>
+  <div>
+    <div>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Poppins"
+      />
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous"
+      />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <div class="columns is-mobile">
+        <!---------->
+        <div class="column px-0 py-0">
+          <div class="section is-large has-background-grey-light pt-3 px-4">
+            <nav
+              class="breadcrumb has-succeeds-separator py-1 mb-3"
+              aria-label="breadcrumbs"
+            >
+              <breadcrumb #parent>
+                <ol>
+                  <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+                    <li
+                      *ngIf="!route.terminal || route.displayName == 'My Home'"
+                    >
+                      <a
+                        href=""
+                        class="is-family-primary has-text-weight-bold is-size-5"
+                        [routerLink]="[route.url]"
+                        >{{ route.displayName }}</a
+                      >
+                    </li>
+                    <li
+                      *ngIf="route.terminal && route.displayName != 'My Home'"
+                    >
+                      <a
+                        aria-current="page"
+                        class="is-active is-family-primary has-text-weight-bold is-size-5"
+                      >
+                        {{ route.displayName }}</a
+                      >
+                    </li>
+                  </ng-template>
+                </ol>
+              </breadcrumb>
+            </nav>
+            <div
+              class="section is-large has-background-white py-5 px-5"
+              style="border-radius: 13px"
+            >
+              <div
+                class="columns pb-3"
+                style="border-bottom: solid 1px #707070"
+              >
+                <div class="column is-9 mb-4">
+                  <span class="is-inline-block mx-1">
+                    <!--choosing class-->
+                    <select
+                      class="tag is-medium has-text-white is-family-primary has-text-weight-semibold pl-3"
+                      style="
+                        border: solid 1px rgba(126, 180, 228, 0.5);
+                        border-radius: 10px;
+                      "
+                      *ngIf="classes$ | async as classes"
+                      [(ngModel)]="selectedClass"
+                      (change)="filter()"
+                      name="class"
+                    >
+                      <option *ngFor="let class of classes" [ngValue]="class">
+                        {{ class.name }}
+                      </option>
+                    </select>
+                  </span>
+
+                  <!--choosing subject-->
+                  <span class="is-inline-block mx-1">
+                    <select
+                      class="tag is-medium has-text-white is-family-primary has-text-weight-semibold pl-3"
+                      style="
+                        border: solid 1px rgba(126, 180, 228, 0.5);
+                        border-radius: 10px;
+                      "
+                      *ngIf="subjects$ | async as subjects"
+                      [(ngModel)]="selectedSubject"
+                      (change)="filter()"
+                      name="subject"
+                    >
+                      <option
+                        [ngValue]="selectedSubject"
+                        [disabled]="true"
+                        [hidden]="true"
+                      >
+                        Select subject
+                      </option>
+                      <option
+                        *ngFor="let subject of subjects"
+                        [ngValue]="subject"
+                      >
+                        {{ subject.name }}
+                      </option>
+                    </select></span
+                  >
+                </div>
+
+                <div class="column is-pulled-right">
+                  <div class="field is-grouped is-grouped-right">
+                    <p class="control">
+                      <button
+                        class="button is-link"
+                        style="border-radius: 14px"
+                        (click)="
+                          didClickNavigate('blended-learning/new-learning-path')
+                        "
+                        W
+                      >
+                        <span
+                          class="is-family-primary has-text-weight-bold px-5"
+                          style=""
+                          data-config-id="text31"
+                          >Create a Learning Path</span
+                        >
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="section is-small has-background-white my-6">
+                <div *ngIf="learningPath$ | async as learningPath">
+                  <!--Displaying no learning path seciton-->
+                  <div
+                    class="columns"
+                    *ngIf="learningPath.id === ''; else displayPath"
+                  >
+                    <div class="column is-4"></div>
+                    <div class="column">
+                      <figure class="image" style="">
+                        <img
+                          src="assets/images/blendedLearning/noLearningPath.png"
+                          style="height: 367px"
+                          data-config-id="image17"
+                        />
+                      </figure>
+                      <p
+                        class="is-family-primary has-text-weight-bold has-text-dark pt-5 pb-4"
+                        style="
+                          font-stretch: normal;
+                          font-style: normal;
+                          line-height: 0.6;
+                          letter-spacing: normal;
+                          text-align: center;
+                        "
+                        data-config-id="text18"
+                      >
+                        You don't have a learning path yet
+                      </p>
+                      <div class="has-text-centered">
+                        <button
+                          class="button is-outlined has-background-white"
+                          style="border-radius: 4px; border: solid 2px #3f80bf"
+                          (click)="
+                            didClickNavigate(
+                              'blended-learning/new-learning-path'
+                            )
+                          "
+                        >
+                          <span
+                            class="is-family-primary has-text-info has-text-weight-bold px-2"
+                            style="
+                              font-stretch: normal;
+                              font-style: normal;
+                              line-height: 0.9;
+                              letter-spacing: normal;
+                              text-align: center;
+                            "
+                            data-config-id="text32"
+                          >
+                            Create your first Learning Path
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="column is-4"></div>
+                  </div>
+
+                  <!--Displaying path if any-->
+                  <ng-template #displayPath>
+                    <div class="colums">
+                      <div class="column is-4">
+                        <app-learning-path-card></app-learning-path-card>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

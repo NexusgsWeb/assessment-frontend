@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
+import { LessonPlanService } from '@services/lesson-plan.service';
 
 @Component({
   selector: 'app-lesson-plan',
@@ -23,6 +23,7 @@ export class LessonPlanComponent implements OnInit {
   toStepThree: Subject<void> = new Subject<void>()
   toStepFour: Subject<void> = new Subject<void>()
   toDraft: Subject<void> = new Subject<void>()
+  toPdf: Subject<void> = new Subject<void>()
   generatePreview: Subject<void> = new Subject<void>()
 
   formOneValid: boolean = false
@@ -41,9 +42,20 @@ export class LessonPlanComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._lessonPlanService.unValidateLessonPreview()
     this._lessonPlanService.resetLessonPlan()
     this._lessonPlanService.getBookChapters()
     this._lessonPlanService.getChapterLessons()
+     /**TODO fix repetition */
+     this._lessonPlanService.validPreview$.subscribe((isValid: boolean) => {
+      if (isValid) {
+        this.previewValid = isValid
+        this.step = 4
+        setTimeout(() => {
+          this.stepper?.next()
+        }, 100)
+      }
+    })
   }
 
   onStepChange(index: any): void {
@@ -115,15 +127,6 @@ export class LessonPlanComponent implements OnInit {
       }
       else if (this.step === 3) {
         this.generatePreview.next()
-        this._lessonPlanService.validPreview$.subscribe((isValid: boolean) =>{
-          if (isValid) {
-            this.previewValid = isValid
-            this.step++
-            setTimeout(() => {
-              this.stepper?.next()
-            }, 100)
-          }
-        })
       }
     }
   }
@@ -150,6 +153,10 @@ export class LessonPlanComponent implements OnInit {
 
   saveDraft() {
     this.toDraft.next()
+  }
+
+  savePdf(){
+    this.toPdf.next()
   }
 
   cancel() {

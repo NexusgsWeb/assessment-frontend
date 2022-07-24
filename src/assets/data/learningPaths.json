@@ -1,0 +1,22 @@
+[
+  {
+    "imgUrl": "test",
+    "title": "Learning Path 1",
+    "lastAcitivty": "30",
+    "comletedActivities": "30",
+    "inProgressActivities": "20",
+    "notStartedActivities": "10",
+    "classId": "testClass",
+    "subjectId": "testSubject"
+  },
+  {
+    "imgUrl": "test",
+    "title": "Learning Path 2",
+    "lastAcitivty": "string",
+    "comletedActivities": "20",
+    "inProgressActivities": "10",
+    "notStartedActivities": "5",
+    "classId": "testClassTwo",
+    "subjectId": "testSubjectThree"
+  }
+]

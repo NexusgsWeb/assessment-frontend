@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
+import { LessonPlanService } from '@services/lesson-plan.service';
 
 @Component({
   selector: 'app-last-step',

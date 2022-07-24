@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { FuncsService } from '../../../modules/_services/funcs.service';
-import { LessonPlanService } from '../../../modules/_services/lesson-plan.service';
-import { lessonPlanDurationValidator } from '../../../modules/validators/lesson-plan-duration.validator';
+import { FuncsService } from '@services/funcs.service';
+import { LessonPlanService } from '@services/lesson-plan.service';
+import { lessonPlanDurationValidator } from '@validators/lesson-plan-duration.validator';
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-confirm-dialog',

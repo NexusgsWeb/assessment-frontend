@@ -16,7 +16,12 @@
     "importHelpers": true,
     "target": "es2020",
     "module": "es2020",
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "@services/*": ["./src/app/modules/_services/*"],
+      "@models/*": ["./src/app/modules/Models/*"],
+      "@validators/*": ["./src/app/modules/validators/*"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

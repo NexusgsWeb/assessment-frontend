@@ -1,0 +1,48 @@
+<mat-card class="card">
+  <img
+    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+    alt="Photo of a Shiba Inu"
+    class="card-image"
+  />
+  <div class="columns">
+    <div class="column">
+      <p>Learning Path Title</p>
+      <mat-card-content class="double-progress-spinner-container">
+        <div class="double-progress-spinner">
+          <mat-progress-spinner
+            class="background-spinner"
+            [color]="backgroundSpinnerColor"
+            [value]="backgroundSpinnerValue"
+          >
+          </mat-progress-spinner>
+          <mat-progress-spinner [color]="color" [value]="value">
+          </mat-progress-spinner>
+        </div>
+      </mat-card-content>
+    </div>
+    <div class="column">
+      <p>Last activity 6 days ago</p>
+      <mat-card-content>
+        <div class="card-content">
+          <span></span>
+          <p>7 completed</p>
+        </div>
+        <div class="card-content">
+          <span></span>
+          <p>4 completed</p>
+        </div>
+        <div class="card-content">
+          <span></span>
+          <p>6 completed</p>
+        </div>
+      </mat-card-content>
+    </div>
+  </div>
+
+  <mat-card-actions class="card-actions">
+    <button mat-icon-button><img src="assets/images/icons/edit.svg" /></button>
+    <button mat-icon-button>
+      <img src="assets/images/icons/delete.svg" />
+    </button>
+  </mat-card-actions>
+</mat-card>

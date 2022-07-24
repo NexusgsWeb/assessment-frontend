@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit {
   QuestionBankLink: boolean = false;
   QuestionBankAdminLink: boolean = false;
   ImprovePerformanceLink: boolean = false;
+  LessonPlanLink: boolean = true;
   userType = '';
   schoolName: string = '';
   domainLS = [];

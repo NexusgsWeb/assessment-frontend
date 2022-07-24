@@ -6,6 +6,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+
 import {
   Class,
   Curriculum,
@@ -13,12 +14,12 @@ import {
   Subject,
   Type,
   Unit,
-} from 'src/app/modules/models/curriculum';
-import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
+} from '@models/curriculum';
+import { CurriculumService } from '@services/curriculum.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { ConfirmDialogService } from 'src/app/shared/components/confirm-dialog/confirm-dialog.service';
+import { ConfirmDialogService } from '../../../../../shared/components/confirm-dialog/confirm-dialog.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FuncsService } from 'src/app/modules/_services/funcs.service';
+import { FuncsService } from '@services/funcs.service';
 import { Subscription } from 'rxjs';
 import { MatSelect } from '@angular/material/select';
 import { MatCheckbox } from '@angular/material/checkbox';

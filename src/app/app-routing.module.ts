@@ -9,6 +9,7 @@ import { PlaygroundComponent } from './testing/playground/playground.component';
 import { AssessmentComponent } from './modules/core/dashboard/assessment/assessment.component';
 import { CalendarComponent } from './modules/core/dashboard/calendar/calendar.component';
 import { LessonPlanComponent } from './modules/core/dashboard/lesson-plan/lesson-plan.component';
+import { BlendedLearningComponent } from './modules/core/dashboard/blended-learning/blended-learning.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,16 @@ const routes: Routes = [
         (m) => m.LessonPlanModule
       ),
     // canActivate: [IsAuthGuard],
+  },
+  {
+    path: 'blended-learning',
+    component: BlendedLearningComponent,
+    data: { breadcrumb: 'My Home' },
+    loadChildren: () =>
+      import(
+        './modules/core/dashboard/blended-learning/blended-learning.module'
+      ).then((m) => m.BlendedLearningModule),
+    canActivate: [IsAuthGuard],
   },
 
   // {path: 'forgetPass', component: ForgetPassComponent},

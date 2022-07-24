@@ -1,0 +1,570 @@
+<form
+  [formGroup]="lPStepsFormGroup"
+  class="learning-path-form"
+  (ngSubmit)="nextStep()"
+>
+  <div class="example-action-buttons has-text-right">
+    <button mat-stroked-button (click)="accordion?.openAll()">
+      Expand All
+    </button>
+    <button mat-stroked-button (click)="accordion?.closeAll()" class="ml-2">
+      Collapse All
+    </button>
+  </div>
+  <mat-accordion class="example-headers-align" multi>
+    <ng-container formArrayName="lPStepsSections">
+      <mat-expansion-panel
+        [expanded]="selectedIndex === lPStep.value.id"
+        *ngFor="let lPStep of lPStepsSections().controls; let i = index"
+        [formGroupName]="i"
+      >
+        <mat-expansion-panel-header
+          ><mat-panel-title> Learning Path Steps {{ i + 1 }} </mat-panel-title>
+          <mat-panel-description
+            class="is-justify-content-flex-end"
+            style="justify-content: flex-end"
+          >
+            <mat-icon *ngIf="i > 0" (click)="removeLPStep(i)" color="warn"
+              >delete</mat-icon
+            >
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div id="{{ lPStep.value.id }}">
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="columns">
+                <!--Adding title here-->
+                <div
+                  class="column is-3-desktop is-3-tablet is-5-widescreen is-8-mobile px-2 pt-2"
+                >
+                  <div class="field">
+                    <label
+                      class="label is-family-primary has-text-weight-semibold is-size-6"
+                      >Title
+                    </label>
+                    <div class="field has-addons has-addons-right">
+                      <span class="control is-expanded has-icons-right">
+                        <input
+                          class="input is-normal is-family-primary has-text-weight-medium {{
+                            (this.formControls[i].get('title')?.touched ||
+                              this.formControls[i].get('title')?.dirty) &&
+                            this.formControls[i].get('title')?.invalid
+                              ? 'is-danger'
+                              : ''
+                          }}  is-size-7 py-5"
+                          type="text"
+                          formControlName="title"
+                          placeholder="Enter Title"
+                      /></span>
+                      <span
+                        class="control"
+                        *ngIf="
+                          (this.formControls[i].get('title')?.touched ||
+                            this.formControls[i].get('title')?.dirty) &&
+                          this.formControls[i].get('title')?.invalid
+                        "
+                      >
+                        <a class="button is-danger is-medium">
+                          <i class="fa fa-exclamation px-2 is-size-2"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Adding expected duration here-->
+                <div
+                  class="column is-3-desktop is-3-tablet is-5-widescreen is-8-mobile px-2 pt-2"
+                >
+                  <div class="field" formGroupName="expectedDuration">
+                    <label
+                      class="label is-family-primary has-text-weight-semibold is-size-6"
+                      data-config-id="text37"
+                      >Expected Duration
+                    </label>
+                    <div class="field has-addons has-addons-right">
+                      <span class="control is-expanded has-icons-right">
+                        <input
+                          formControlName="duration"
+                          class="input is-normal is-family-primary has-text-weight-medium {{
+                            (this.formControls[i].get(
+                              'expectedDuration.duration'
+                            )?.touched ||
+                              this.formControls[i].get(
+                                'expectedDuration.duration'
+                              )?.dirty) &&
+                            this.formControls[i].get(
+                              'expectedDuration.duration'
+                            )?.invalid
+                              ? 'is-danger'
+                              : ''
+                          }} is-size-7 py-5"
+                          type="text"
+                          placeholder="Enter Expected Duration"
+                      /></span>
+                      <span
+                        class="control"
+                        *ngIf="
+                          (this.formControls[i].get('expectedDuration.duration')
+                            ?.touched ||
+                            this.formControls[i].get(
+                              'expectedDuration.duration'
+                            )?.dirty) &&
+                          this.formControls[i].get('expectedDuration.duration')
+                            ?.invalid
+                        "
+                      >
+                        <a class="button is-danger is-medium">
+                          <i class="fa fa-exclamation px-2 is-size-2"></i>
+                        </a>
+                      </span>
+                      <div
+                        class="select is-normal is-family-primary has-text-weight-medium is-size-7 ml-3"
+                      >
+                        <select class="select" formControlName="unitOfTime">
+                          <option class="">d</option>
+                          <option>w</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--Adding start date here-->
+                <div
+                  class="column is-3-desktop is-3-tablet is-4-widescreen is-8-mobile px-2 pt-2"
+                >
+                  <div class="field">
+                    <label
+                      class="label is-family-primary has-text-weight-semibold is-size-6"
+                      >Start Date
+                    </label>
+                    <div class="field has-addons has-addons-right">
+                      <span class="control is-expanded has-icons-right">
+                        <input
+                          min="{{ today }}"
+                          formControlName="startDate"
+                          class="input is-normal is-family-primary has-text-weight-medium is-size-7 py-5 {{
+                            (this.formControls[i].get('startDate')?.touched ||
+                              this.formControls[i].get('startDate')?.dirty) &&
+                            this.formControls[i].get('startDate')?.invalid
+                              ? 'is-danger'
+                              : ''
+                          }}"
+                          type="date"
+                          placeholder="Enter learning path start date"
+                        />
+                      </span>
+                      <span
+                        class="control"
+                        *ngIf="
+                          (this.formControls[i].get('startDate')?.touched ||
+                            this.formControls[i].get('startDate')?.dirty) &&
+                          this.formControls[i].get('startDate')?.invalid
+                        "
+                      >
+                        <a class="button is-danger is-medium">
+                          <i class="fas fa-exclamation px-2 is-size-2"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="column is-3-desktop is-3-tablet is-4-widescreen is-8-mobile px-2 pt-2"
+                >
+                  <div class="field">
+                    <label
+                      class="label is-family-primary has-text-weight-semibold is-size-6"
+                      >End Date
+                    </label>
+                    <div class="field has-addons has-addons-right">
+                      <span class="control is-expanded has-icons-right">
+                        <input
+                          min="{{ today }}"
+                          formControlName="endDate"
+                          class="input is-normal is-family-primary has-text-weight-medium is-size-7 py-5 {{
+                            (this.formControls[i].get('endDate')?.touched ||
+                              this.formControls[i].get('endDate')?.dirty) &&
+                            this.formControls[i].get('endDate')?.invalid
+                              ? 'is-danger'
+                              : ''
+                          }}"
+                          type="date"
+                          placeholder="Enter learning path start date"
+                        />
+                      </span>
+                      <span
+                        class="control"
+                        *ngIf="
+                          (this.formControls[i].get('endDate')?.touched ||
+                            this.formControls[i].get('endDate')?.dirty) &&
+                          this.formControls[i].get('endDate')?.invalid
+                        "
+                      >
+                        <a class="button is-danger is-medium">
+                          <i class="fas fa-exclamation px-2 is-size-2"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns is-multiline">
+            <div class="column is-12-desktop is-8-touch">
+              <label
+                class="label is-family-primary has-text-weight-semibold is-size-6"
+                data-config-id="text40"
+                >Description
+              </label>
+            </div>
+            <div class="column is-12-desktop is-8-touch">
+              <div class="field">
+                <div class="control">
+                  <angular-editor
+                    formControlName="description"
+                    [config]="config"
+                  ></angular-editor>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p
+            class="is-family-primary has-text-weight-bold is-size-5 py-3"
+            style="color: #3f81c3"
+          >
+            Lesson Plan Standards
+          </p>
+
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="column pr-2 pl-0 pt-2">
+                <div class="is-flex">
+                  <mat-form-field
+                    class="form-select select {{
+                      (this.formControls[i].get('domains')?.touched ||
+                        this.formControls[i].get('domains')?.dirty) &&
+                      this.formControls[i].get('domains')?.invalid
+                        ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                        : ''
+                    }}"
+                  >
+                    <label
+                      *ngIf="
+                        this.formControls[i].get('domains')?.value?.length === 0
+                      "
+                      ><strong>Select Domain(s)</strong></label
+                    >
+                    <mat-select formControlName="domains" multiple #domains>
+                      <mat-select-trigger>
+                        {{this.formControls[i].get('domains')?.value?.[0]?.title || ''}}
+                        <span
+                          *ngIf="
+                            (this.formControls[i].get('domains')?.value
+                              ?.length || 0) > 1
+                          "
+                          class="additional-selection"
+                        >
+                          (+{{
+                            (this.formControls[i].get("domains")?.value
+                              ?.length || 0) - 1
+                          }}
+                          {{
+                            this.formControls[i].get("domains")?.value
+                              ?.length === 2
+                              ? "other"
+                              : "others"
+                          }})
+                        </span>
+                      </mat-select-trigger>
+                      <mat-checkbox
+                        class="select-all-checkbox"
+                        [(ngModel)]="allDomains"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="toggleAllSelection(allDomains, domains)"
+                        >Select All</mat-checkbox
+                      >
+                      <mat-option
+                        *ngFor="let unit of units"
+                        [value]="unit"
+                        (click)="uncheckAllButton('domains', domains)"
+                      >
+                        {{ unit.title }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <span
+                    class="control"
+                    *ngIf="
+                      (this.formControls[i].get('domains')?.touched ||
+                        this.formControls[i].get('domains')?.dirty) &&
+                      this.formControls[i].get('domains')?.invalid
+                    "
+                  >
+                    <a
+                      class="button is-danger is-medium"
+                      style="font-size: 1.2rem"
+                    >
+                      <i class="fas fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <div class="column pr-2 pl-0 pt-2">
+                <div class="is-flex">
+                  <mat-form-field
+                    class="form-select select {{
+                      (this.formControls[i].get('learningStandards')?.touched ||
+                        this.formControls[i].get('learningStandards')?.dirty) &&
+                      this.formControls[i].get('learningStandards')?.invalid
+                        ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                        : ''
+                    }}"
+                  >
+                    <label
+                      *ngIf="
+                        this.formControls[i].get('learningStandards')?.value
+                          ?.length === 0
+                      "
+                      ><strong>Select Learning Standard(s)</strong></label
+                    >
+                    <mat-select
+                      formControlName="learningStandards"
+                      multiple
+                      #ls
+                    >
+                      <mat-select-trigger>
+                        {{this.formControls[i].get('learningStandards')?.value?.[0]?.description || ''}}
+                        <span
+                          *ngIf="
+                            (this.formControls[i].get('learningStandards')
+                              ?.value?.length || 0) > 1
+                          "
+                          class="additional-selection"
+                        >
+                          (+{{
+                            (this.formControls[i].get("learningStandards")
+                              ?.value?.length || 0) - 1
+                          }}
+                          {{
+                            this.formControls[i].get("learningStandards")?.value
+                              ?.length === 2
+                              ? "other"
+                              : "others"
+                          }})
+                        </span>
+                      </mat-select-trigger>
+                      <mat-checkbox
+                        class="select-all-checkbox"
+                        [(ngModel)]="allLs"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="toggleAllSelection(allLs, ls)"
+                        >Select All</mat-checkbox
+                      >
+                      <mat-option
+                        *ngFor="let learningStandard of learningStandards"
+                        [value]="learningStandard"
+                        (click)="uncheckAllButton('learningStandards', ls)"
+                      >
+                        {{ learningStandard.description }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <span
+                    class="control"
+                    *ngIf="
+                      (this.formControls[i].get('learningStandards')?.touched ||
+                        this.formControls[i].get('learningStandards')?.dirty) &&
+                      this.formControls[i].get('learningStandards')?.invalid
+                    "
+                  >
+                    <a
+                      class="button is-danger is-medium"
+                      style="font-size: 1.2rem"
+                    >
+                      <i class="fas fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p
+            class="is-family-primary has-text-weight-bold is-size-5 py-3"
+            style="color: #3f81c3"
+          >
+            Pre-Requisite Learning Standards
+          </p>
+
+          <div class="field is-horizontal">
+            <div class="field-body">
+              <div class="column pr-2 pl-0 pt-2">
+                <div class="is-flex">
+                  <mat-form-field
+                    class="form-select select {{
+                      (this.formControls[i].get('prereqDomains')?.touched ||
+                        this.formControls[i].get('prereqDomains')?.dirty) &&
+                      this.formControls[i].get('prereqDomains')?.invalid
+                        ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                        : ''
+                    }}"
+                  >
+                    <label
+                      *ngIf="
+                        this.formControls[i].get('prereqDomains')?.value
+                          ?.length === 0
+                      "
+                      ><strong>Select Domain(s)</strong></label
+                    >
+                    <mat-select
+                      formControlName="prereqDomains"
+                      multiple
+                      #prereqDomains
+                    >
+                      <mat-select-trigger>
+                        {{this.formControls[i].get('prereqDomains')?.value?.[0]?.title || ''}}
+                        <span
+                          *ngIf="
+                            (this.formControls[i].get('prereqDomains')?.value
+                              ?.length || 0) > 1
+                          "
+                          class="additional-selection"
+                        >
+                          (+{{
+                            (this.formControls[i].get("prereqDomains")?.value
+                              ?.length || 0) - 1
+                          }}
+                          {{
+                            this.formControls[i].get("prereqDomains")?.value
+                              ?.length === 2
+                              ? "other"
+                              : "others"
+                          }})
+                        </span>
+                      </mat-select-trigger>
+                      <mat-checkbox
+                        class="select-all-checkbox"
+                        [(ngModel)]="allPrereqDomains"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="
+                          toggleAllSelection(allPrereqDomains, prereqDomains)
+                        "
+                        >Select All</mat-checkbox
+                      >
+                      <mat-option
+                        *ngFor="let unit of units"
+                        [value]="unit"
+                        (click)="
+                          uncheckAllButton('prereqDomains', prereqDomains)
+                        "
+                      >
+                        {{ unit.title }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <span
+                    class="control"
+                    *ngIf="
+                      (this.formControls[i].get('prereqDomains')?.touched ||
+                        this.formControls[i].get('prereqDomains')?.dirty) &&
+                      this.formControls[i].get('prereqDomains')?.invalid
+                    "
+                  >
+                    <a
+                      class="button is-danger is-medium"
+                      style="font-size: 1.2rem"
+                    >
+                      <i class="fas fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+              <div class="column pr-2 pl-0 pt-2">
+                <div class="is-flex">
+                  <mat-form-field
+                    class="form-select select {{
+                      (this.formControls[i].get('prereqLs')?.touched ||
+                        this.formControls[i].get('prereqLs')?.dirty) &&
+                      this.formControls[i].get('prereqLs')?.invalid
+                        ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                        : ''
+                    }}"
+                  >
+                    <label
+                      *ngIf="
+                        this.formControls[i].get('prereqLs')?.value?.length ===
+                        0
+                      "
+                      ><strong>Select Learning Standard(s)</strong></label
+                    >
+                    <mat-select formControlName="prereqLs" multiple #prereqLs>
+                      <mat-select-trigger>
+                        {{this.formControls[i].get('prereqLs')?.value?.[0]?.description || ''}}
+                        <span
+                          *ngIf="
+                            (this.formControls[i].get('prereqLs')?.value
+                              ?.length || 0) > 1
+                          "
+                          class="additional-selection"
+                        >
+                          (+{{
+                            (this.formControls[i].get("prereqLs")?.value
+                              ?.length || 0) - 1
+                          }}
+                          {{
+                            this.formControls[i].get("prereqLs")?.value
+                              ?.length === 2
+                              ? "other"
+                              : "others"
+                          }})
+                        </span>
+                      </mat-select-trigger>
+                      <mat-checkbox
+                        class="select-all-checkbox"
+                        [(ngModel)]="allPrereqLs"
+                        [ngModelOptions]="{ standalone: true }"
+                        (change)="toggleAllSelection(allPrereqLs, prereqLs)"
+                        >Select All</mat-checkbox
+                      >
+                      <mat-option
+                        *ngFor="let learningStandard of learningStandards"
+                        [value]="learningStandard"
+                        (click)="uncheckAllButton('prereqLs', prereqLs)"
+                      >
+                        {{ learningStandard.description }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <span
+                    class="control"
+                    *ngIf="
+                      (this.formControls[i].get('prereqLs')?.touched ||
+                        this.formControls[i].get('prereqLs')?.dirty) &&
+                      this.formControls[i].get('prereqLs')?.invalid
+                    "
+                  >
+                    <a
+                      class="button is-danger is-medium"
+                      style="font-size: 1.2rem"
+                    >
+                      <i class="fas fa-exclamation px-2 is-size-2"></i>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
+</form>

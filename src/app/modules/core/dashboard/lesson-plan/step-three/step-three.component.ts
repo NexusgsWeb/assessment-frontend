@@ -5,10 +5,10 @@ import { MatOption } from '@angular/material/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatSelect } from '@angular/material/select';
 import { Observable, Subscription } from 'rxjs';
-import { LearningStandard } from 'src/app/modules/models/curriculum';
-import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
-import { FuncsService } from 'src/app/modules/_services/funcs.service';
-import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
+import { LearningStandard } from '@models/curriculum';
+import { CurriculumService } from '@services/curriculum.service';
+import { FuncsService } from '@services/funcs.service';
+import { LessonPlanService } from '@services/lesson-plan.service';
 
 @Component({
   selector: 'app-step-three',
@@ -22,6 +22,7 @@ export class StepThreeComponent implements OnInit {
   newSubtitle$ = this._lessonPlanService.newSubtitle$
   lessonPlan$ = this._lessonPlanService.lessonPlan$
   learningStandards$ = this._curriculumService.learningStandards$
+
   subtitleBeingEditedId$ = this._lessonPlanService.subtitleBeingEditedId$
   subtitleBeingDeletedId$ = this._lessonPlanService.subtitleBeingDeletedId$
 

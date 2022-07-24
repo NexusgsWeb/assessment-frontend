@@ -1,0 +1,158 @@
+.learning-path *:not(.mat-icon, i) {
+  font-family: Raleway !important;
+}
+
+.learning-path{
+  margin: 0;
+}
+
+.learning-path input[type=text]:not(.is-danger), .learning-path input[type=date]:not(.is-danger), .learning-path select, .learning-path textarea{
+  width: 98%;
+}
+
+/* .learning-path .mat-step-header:last-child{
+  display: none;
+} */
+
+.learning-path .mat-step-header .mat-step-header-ripple{
+  display: none;
+}
+
+.learning-path .mat-horizontal-stepper-header-container{
+  margin-bottom: 2rem;
+}
+
+.learning-path .mat-vertical-content{
+  padding: 0;
+}
+
+.learning-path .mat-step-header:hover:not([aria-disabled]), .learning-path .mat-step-header:active:not([aria-disabled]), .learning-path .mat-step-header:focus:not([aria-disabled]){
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.learning-path .mat-horizontal-stepper-header .mat-step-icon, .learning-path .mat-vertical-stepper-header .mat-step-icon{
+  display: none;
+}
+
+.learning-path .mat-vertical-stepper-header{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.learning-path .mat-stepper-horizontal-line{
+  display: none;
+}
+
+.learning-path .mat-stepper-vertical-line::before{
+  display: none;
+}
+
+.learning-path .mat-step-label{
+  width: 100%;
+}
+
+.learning-path .mat-horizontal-stepper-header{
+  width:25%;
+  padding-left: 0;
+}
+.learning-path .mat-vertical-content-container {
+  margin-left: 0;
+}
+.learning-path .selected-step {
+  background-color: #3e8ed0 !important;
+  border-color: #3e8ed0 !important;
+  color: #fff !important;
+}
+.learning-path .button.is-info.is-outlined {
+  background-color: rgba(63, 128, 191, 0.05);
+  border-color: rgba(63, 128, 191, 0.05);
+  color: #3f80bf;
+  border-radius: 14px;
+  box-shadow: none;
+}
+.learning-path .button.is-info.is-outlined:hover {
+  background-color: #3e8ed0;
+  border-color: #3e8ed0;
+  color: #fff;
+}
+
+.learning-path .textarea, .learning-path .select select, .learning-path .mat-form-field {
+  border-color: #dbdbdb;
+}
+
+.learning-path input[type=text], .learning-path input[type=date], .learning-path .textarea, .learning-path .select select {
+  background-color: #f3f3f4;
+  border-radius: 4.6px;
+  color: #7c7c7c;
+  box-shadow: none !important;
+}
+
+.learning-path .select:not(.is-multiple) {
+  height: 3rem;
+}
+
+.learning-path .select select:not([multiple]) {
+  padding-right: 2.5em;
+}
+
+.learning-path button {
+  white-space: normal;
+}
+
+.learning-path .button.is-danger, .button.is-danger:hover, .button.is-danger.is-hovered {
+  background-color: #f20000 !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.learning-path-form .form-select{
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: #f3f3f4;
+}
+
+.learning-path-form .form-select .mat-form-field-infix{
+padding-left: .4375em !important;
+}
+
+.learning-path-form .form-select strong{
+color: #7c7c7c;
+font-weight: normal;
+}
+
+.learning-path-form .mat-select-arrow-wrapper{
+display: none;
+}
+
+.learning-path .mat-step-header .button.is-fullwidth{
+  width: 88%;
+}
+
+.learning-path .mat-form-field-type-mat-select{
+  width: 100% !important;
+}
+
+.action-icons{
+  cursor: pointer;
+}
+
+@media(min-width: 800px){
+  .learning-path{
+    margin: 2rem 1.5rem 2rem;
+  }
+  .learning-path .mat-vertical-stepper-header{
+    padding: 24px 24px;
+  }
+
+  .learning-path .delete-resource-button{
+    min-width: unset;
+  }
+  .learning-path input[type=text],   .learning-path input[type=date], .learning-path select, .learning-path textarea{
+    width: 100% !important;
+  }
+}

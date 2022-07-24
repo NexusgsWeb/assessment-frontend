@@ -1,0 +1,179 @@
+<div class="learning-path">
+  <div>
+    <div>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <div class="columns is-mobile">
+        <div class="column px-0 py-0">
+          <div class="section is-large has-background-grey-light pt-3 px-4">
+            <nav
+              class="breadcrumb has-succeeds-separator py-1 mb-3"
+              aria-label="breadcrumbs"
+            >
+              <breadcrumb #parent>
+                <ol>
+                  <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+                    <li
+                      *ngIf="!route.terminal || route.displayName == 'My Home'"
+                    >
+                      <a
+                        href=""
+                        class="is-family-primary has-text-weight-bold is-size-5"
+                        [routerLink]="[route.url]"
+                        >{{ route.displayName }}</a
+                      >
+                    </li>
+                    <li
+                      *ngIf="route.terminal && route.displayName != 'My Home'"
+                    >
+                      <a
+                        aria-current="page"
+                        class="is-active is-family-primary has-text-weight-bold is-size-5"
+                      >
+                        {{ route.displayName }}</a
+                      >
+                    </li>
+                  </ng-template>
+                </ol>
+              </breadcrumb>
+            </nav>
+
+            <!--Adding learning path details and learning path steps-->
+            <div class="columns">
+              <div
+                class="section is-large has-background-white py-5 px-5"
+                style="border-radius: 13px"
+              >
+                <mat-stepper
+                  linear
+                  #stepper
+                  (selectionChange)="onStepChange($event)"
+                >
+                  <mat-step [completed]="step > 0" id="button-details">
+                    <ng-template matStepLabel>
+                      <button
+                        class="button is-info is-outlined is-large is-fullwidth p-0 {{
+                          step === 0 ? 'selected-step' : ''
+                        }}"
+                      >
+                        <span
+                          class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-6-widescreen is-family-primary has-text-weight-semibold pl-0 mr-0"
+                        >
+                          Learning Path Details</span
+                        >
+                      </button>
+                    </ng-template>
+                    <app-learning-path-details
+                      [toLearningPathSteps]="toLearningPathSteps.asObservable()"
+                      (validDetailsForm)="
+                        validateLearningPathDetailsForm($event)
+                      "
+                    >
+                    </app-learning-path-details>
+                  </mat-step>
+
+                  <mat-step [completed]="step > 1">
+                    <ng-template matStepLabel>
+                      <button
+                        class="button is-info is-outlined is-large is-fullwidth p-0 {{
+                          step === 1 ? 'selected-step' : ''
+                        }}"
+                        (click)="step > 0 && nextStep()"
+                      >
+                        <span
+                          class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-6-widescreen is-family-primary has-text-weight-semibold pl-0 mr-0"
+                        >
+                          Learning Path Steps</span
+                        >
+                      </button>
+                    </ng-template>
+                    <app-learning-path-steps
+                      [toSaveAndFinish]="toSaveAndFinish.asObservable()"
+                      (validStepsForm)="validateLearningPathStepsForm($event)"
+                    >
+                    </app-learning-path-steps>
+                  </mat-step>
+                </mat-stepper>
+
+                <div class="column is-12-tablet is-12-desktop is-hidden-mobile">
+                  <div
+                    class="field is-grouped is-grouped-right pb-2 px-2"
+                    *ngIf="!validLearningPathDetailsForm; else lastStepDesktop"
+                  >
+                    <span
+                      class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-6 px-3 py-3"
+                      >Step {{ step + 1 }} of 2</span
+                    >
+                    <div class="control" *ngIf="!learningPathDetailsDone">
+                      <button
+                        class="button is-outlined has-background-white is-fullwidth is-medium"
+                        (click)="cancel()"
+                      >
+                        <span
+                          class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6"
+                          >Cancel</span
+                        >
+                      </button>
+                    </div>
+
+                    <div class="control">
+                      <button
+                        class="button is-outlined has-background-info is-fullwidth is-medium"
+                        (click)="nextStep()"
+                      >
+                        <span
+                          class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+                          >Next</span
+                        >
+                      </button>
+                    </div>
+                  </div>
+                  <ng-template #lastStepDesktop>
+                    <div class="field is-grouped is-grouped-right pb-2 px-2">
+                      <span
+                        class="is-inline-block has-text-info is-family-primary has-text-weight-bold is-size-6 px-3 py-3"
+                        >Step {{ step + 1 }} of 2</span
+                      >
+                      <div class="control">
+                        <button
+                          class="button is-outlined has-background-white is-fullwidth is-medium"
+                          (click)="cancel()"
+                        >
+                          <span
+                            class="btn-return has-text-info has-text-weight-bold is-size-6 ml-1 px-6"
+                            >cancel</span
+                          >
+                        </button>
+                      </div>
+                      <div class="control">
+                        <button
+                          class="button is-outlined has-background-info is-fullwidth is-medium"
+                          (click)="addNewLPStep()"
+                        >
+                          <span
+                            class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-2"
+                            >Save and add new section</span
+                          >
+                        </button>
+                      </div>
+                      <div class="control">
+                        <button
+                          class="button is-outlined has-background-info is-fullwidth is-medium"
+                          (click)="nextStep()"
+                        >
+                          <span
+                            class="btn-return has-text-white has-text-weight-bold is-size-6 ml-1 px-6"
+                            >Save and finish</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

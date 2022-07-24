@@ -1,0 +1,215 @@
+<div class="section lesson-plans-list is-large has-background-white py-5 px-5 " style="border-radius: 13px;">
+    <div class="columns mb-2">
+        <div class="column is-12">
+            <span class="column  is-inline-block is-normal is-fullwidth pt-2">
+          <label class="text-white mb-1" style="margin-right:1.5rem;"><strong>Class(es)</strong></label>
+          <mat-form-field appearance="outline" *ngIf="classes$ | async as classes">
+            <mat-label>Select Class(es)</mat-label>
+            <mat-select class="select" #selectClass multiple (selectionChange)="onSelectChange($event, 'c')">
+              <mat-option *ngFor="let class of classes" [value]="class">
+                {{class.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </span>
+
+            <div class="column is-inline-block pt-4" style="line-height: normal;vertical-align: middle;">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let class of filterVals.class" [removable]="true" (removed)="onSelectElementRemoved(class, selectClass)">
+                        {{ class.title }}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns mb-2">
+        <div class="column is-12">
+            <span class="column  is-inline-block is-normal is-fullwidth pt-2">
+          <label class="text-white mb-1 mr-4"><strong>Subject(s)</strong></label>
+          <mat-form-field appearance="outline" *ngIf="subjects$ | async as subjects">
+            <mat-label>Select Subject(s)</mat-label>
+            <mat-select class="select" #selectSubject multiple (selectionChange)="onSelectChange($event, 'su')">
+              <mat-option *ngFor="let subject of subjects" [value]="subject">
+                {{subject.title}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </span>
+
+            <div class="column is-inline-block pt-4" style="line-height: normal;vertical-align: middle;">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let subject of filterVals.subject" [removable]="true" (removed)="onSelectElementRemoved(subject, selectSubject)">
+                        {{ subject.title }}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+    <div class="columns mb-2">
+        <div class="column is-12">
+            <span class="column  is-inline-block is-normal is-fullwidth pt-2">
+          <label class="text-white mb-1 mr-4"><strong>Status(es)</strong></label>
+          <mat-form-field appearance="outline">
+            <mat-label>Select Status(es)</mat-label>
+            <mat-select class="select" #selectStatus multiple (selectionChange)="onSelectChange($event, 'st')">
+              <mat-option *ngFor="let status of statuses" [value]="status">
+                {{status.status}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </span>
+
+            <div class="column is-inline-block pt-4" style="line-height: normal;vertical-align: middle;">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let status of filterVals.status" [removable]="true" (removed)="onSelectElementRemoved(status, selectStatus)">
+                        {{ status.status }}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+    </div>
+
+    <div class="column is-12 is-flex is-justify-content-center is-align-items-center" style="justify-content: center; align-items: center; border-radius: 4.6px;background-color:rgba(243, 243, 244, 0.5);">
+        <span class="is-inline-block" (click)="decreaseOneMonth()">
+      <button class="button" style="border-radius: 50%; background-color: rgba(126, 180, 228, 0.13); border: none;"><i
+          class="fas fa-arrow-left has-text-info"></i></button>
+    </span>
+        <span class=" is-inline-block is-family-primary has-text-weight-bold has-text-left has-text-dark is-block is-size-4  px-3" data-config-id="text32">{{chosenDate[0].title}}</span>
+        <span class="is-inline-block" (click)="increaseOneMonth()">
+      <button class="button" style="border-radius: 50%; background-color: rgba(126, 180, 228, 0.13); border: none;"><i
+          class="fas fa-arrow-right has-text-info"></i>
+      </button>
+    </span>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="column is-12" *ngIf="myLessonPlans$ | async as myLessonPlans">
+
+        <table class="table lesson-plans-table is-fullwidth px-6 mb-0">
+            <thead class="is-size-6">
+                <tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.16);">
+                    <th class="lesson-plan-header is-family-primary has-text-weight-semibold  px-0" scope="col">Lesson Plan <i class="fa fa-caret-down"></i></th>
+
+                    <th class="lesson-plan-header is-family-primary has-text-weight-semibold px-0" scope="col">Section(s) <i class="fa fa-caret-up"></i></th>
+
+                    <th class="lesson-plan-header td-width-sm is-family-primary has-text-weight-semibold has-text-left px-0" scope="col">Subject <i class="fa fa-caret-up"></i></th>
+                    <th class="lesson-plan-header is-family-primary has-text-weight-semibold has-text-left px-0" scope="col">Start Date <i class="fa fa-caret-up"></i></th>
+                    <th class="lesson-plan-header is-family-primary has-text-weight-semibold has-text-left px-0" scope="col">End Date <i class="fa fa-caret-up"></i></th>
+
+
+                    <th class="lesson-plan-header is-family-primary has-text-weight-semibold  px-0" scope="col" data-config-id="text54">Status</th>
+                    <th class="lesson-plan-header is-family-primary has-text-weight-semibold px-0" scope="col" data-config-id="text55">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody class="is-size-6">
+                <ng-container *ngFor="let myLessonPlan of myLessonPlans | filterSubTitles: filterVals">
+                    <tr class="" style="  border-radius: 8.3px; box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);">
+                        <td class="td-users px-0 ">
+                            <a href="#">
+                                <span class="is-static txt-name is-info has-text-info is-family-primary has-text-weight-normal is-size-6 pl-2" data-config-id="text33">{{myLessonPlan.info.reference}} </span>
+                            </a>
+                        </td>
+                        <td class="td-users has-text-left px-0">
+                            <span class="is-static txt-name is-info is-family-primary has-text-weight-normal is-size-6" data-config-id="text33">
+                            {{myLessonPlan.info.class.title}}
+                          </span>
+                            <span *ngFor="let section of myLessonPlan.info.section; index as i; last as isLast" class="td-content is-static has-text-dark is-info is-family-primary has-text-weight-normal is-size-6" data-config-id="text34">
+                    {{section.title}} <span *ngIf="!isLast">-</span></span>
+                        </td>
+                        <td class="td-users has-text-left px-0">
+                            <span class="td-content is-static has-text-dark is-info is-family-primary has-text-weight-normal is-size-6" data-config-id="text35">{{myLessonPlan.info.subject.title}}</span>
+                        </td>
+                        <td class="td-users has-text-left px-0">
+                            <span class="td-content is-static has-text-dark is-info is-family-primary has-text-weight-normal is-size-6" data-config-id="text36">{{myLessonPlan.info.startDate}}</span>
+                        </td>
+                        <td class="td-users has-text-left px-0">
+                            <span class="td-content is-static has-text-dark is-info is-family-primary has-text-weight-normal is-size-6" data-config-id="text37">{{myLessonPlan.info.endDate}}</span>
+                        </td>
+
+                        <td class="td-users  has-text-left px-0">
+                            <span [ngClass]="{
+                              'green-circle':myLessonPlan.info.status.id  === 2,
+                              'blue-circle':myLessonPlan.info.status.id  === 1,
+                              'yellow-circle':myLessonPlan.info.status.id  === 3
+                            }" class="status-circle is-inline-block" data-config-id="text38">
+        </span>
+                            <span class="td-content is-static has-text-dark is-info  is-family-primary has-text-weight-normal" data-config-id="text39">
+          {{myLessonPlan.info.status.title}}
+        </span>
+                        </td>
+                        <td class="td-users actions is-family-primary has-text-weight-normal  is-size-5 py-2 px-1">
+                            <i class="fas fa-pen px-2" matTooltip="Edit" ></i>
+                            <i class="fas fa-trash-alt px-2"  matTooltip="Delete"></i>
+                            <i class="fas fa-globe pl-2 pr-4"  matTooltip="Publish"></i>
+                            <i class="fas fa-solid fa-book-open" matTooltip="Blended Learning"></i>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="7">
+                            <table class="table table is-hoverable sub-title-table is-fullwidth px-3 mb-0" style="border-collapse: separate;">
+                                <thead class="is-size-6">
+                                    <tr>
+                                        <th class="lesson-plan-header is-family-primary has-text-weight-semibold  px-0" scope="col" style="width:29%;">
+                                            Sub-Title <i class="fa fa-caret-down"></i>
+                                        </th>
+
+                                        <th class="lesson-plan-header is-family-primary has-text-weight-semibold has-text-left px-0" scope="col" style="width:29%;">Period
+                                            <!--<i class="fa fa-caret-up"></i>--></th>
+
+
+                                        <th class="lesson-plan-header is-family-primary has-text-weight-semibold  px-0" scope="col" data-config-id="text56">Status</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let data of myLessonPlan.data">
+                                        <tr class="mx-6" *ngFor="let subtitle of data.subtitles">
+                                            <td class="td-users px-0 ">
+                                                <a href="#">
+                                                    <span class="is-static txt-name is-info has-text-info is-family-primary has-text-weight-normal is-size-6 " data-config-id="text42">{{subtitle.title}} </span>
+
+                                                </a>
+                                            </td>
+
+                                            <td class="td-users has-text-left px-0">
+                                                <span class="td-content is-static has-text-dark is-info is-family-primary has-text-weight-normal is-size-6 " data-config-id="text43">{{data.title}}</span>
+                                            </td>
+
+                                            <td class="td-users  has-text-left px-0">
+                                                <span [ngClass]="{
+                                                  'green-circle':myLessonPlan.info.status.id  === 2,
+                                                  'blue-circle':myLessonPlan.info.status.id  === 1,
+                                                  'yellow-circle':myLessonPlan.info.status.id  === 3
+                                                }"  class="status-circle green-circle is-inline-block" data-config-id="text44">
+
+                    </span>
+
+                                                <span class="td-content is-static has-text-dark is-info is-family-primary has-text-weight-normal" data-config-id="text45">
+                      {{subtitle.status.status}}
+                    </span>
+                                            </td>
+
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { Observable, Subscription } from 'rxjs';
 import { ConfirmDialogService } from 'src/app/shared/components/confirm-dialog/confirm-dialog.service';
-import { Class } from 'src/app/modules/models/curriculum';
-import { Book, Chapter, Section } from 'src/app//modules/models/lesson-plan';
-import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
-import { FuncsService } from 'src/app/modules/_services/funcs.service';
-import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
+import { Class } from '@models/curriculum';
+import { Book, Chapter, Section } from '@models/lesson-plan';
+import { CurriculumService } from '@services/curriculum.service';
+import { FuncsService } from '@services/funcs.service';
+import { LessonPlanService } from '@services/lesson-plan.service';
 
 @Component({
   selector: 'app-step-one',
@@ -46,7 +46,7 @@ export class StepOneComponent implements OnInit {
     class: ["", Validators.required],
     section: ["", Validators.required],
     subject: ["", Validators.required],
-    duration: ["", Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)],
+    duration: [""],
     startDate: ["", Validators.required],
     endDate: ["", Validators.required],
     book: ["", Validators.required],
