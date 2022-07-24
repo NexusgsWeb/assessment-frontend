@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Class, Curriculum, LearningStandard, Subject, Type, Unit } from 'src/app/modules/Models/curriculum';
-import { Section } from 'src/app/modules/Models/lesson-plan';
+import { Class, Curriculum, LearningStandard, Subject, Type, Unit } from '../models/curriculum';
+import { Section } from '../models/lesson-plan';
 
 @Injectable({
   providedIn: 'root'
@@ -134,11 +134,25 @@ export class CurriculumService {
     return of(learningStandards)
   }
 
-  getLearningStandards(classId: number, subjectId: number, typeId: number | undefined): void {
-    const curriculum: Curriculum = this.defaultCurriculums.filter((c: Curriculum) => c.class.id === classId && c.subject.id === subjectId && c.type.id === typeId)[0]
+  getUnits(classId: number, subjectId: number) {
+    const curriculum: Curriculum = this.defaultCurriculums.filter((c: Curriculum) => c.class.id === classId && c.subject.id === subjectId)[0]
+    const units: Unit[] = []
+    if (curriculum)
+      curriculum.units.map((unit: Unit) => units.push(unit))
+    return of(units)
+
+  }
+
+  getLearningStandards(classId: number, subjectId: number, typeId: number | undefined = 0): void {
+    let curriculum: Curriculum
+    if (typeId > 0) {
+      curriculum = this.defaultCurriculums.filter((c: Curriculum) => c.class.id === classId && c.subject.id === subjectId && c.type.id === typeId)[0]
+    } else {
+      curriculum = this.defaultCurriculums.filter((c: Curriculum) => c.class.id === classId && c.subject.id === subjectId)[0]
+    }
     const learningStandards: LearningStandard[] = []
     if (curriculum)
-      curriculum.units.map((unit: Unit) => unit.learningStandards.map((laerningStandard: LearningStandard) => learningStandards.push(laerningStandard)))
+      curriculum.units.map((unit: Unit) => unit.learningStandards.map((learningStandard: LearningStandard) => learningStandards.push(learningStandard)))
     this._learningStandards$.next(learningStandards)
   }
 

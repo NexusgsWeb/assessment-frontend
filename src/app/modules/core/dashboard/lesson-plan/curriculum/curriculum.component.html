@@ -85,7 +85,7 @@
     <!--mat drawer content starts here-->
     <mat-drawer-content>
         <div class="curriculum-mapping">
-          <button class="mb-4" mat-raised-button color="primary" routerLink="/lesson-plan" >create lesson plan</button>
+
             <!--choosing class-->
             <mat-grid-list cols="1">
                 <mat-form-field [floatLabel]="'never'" class="select-custom" *ngIf="classes$ | async as classes">
@@ -116,7 +116,7 @@
                         <span class="labeled">{{ customCurriculum.type.title }}</span>
                     </ng-container>
                     <ng-template #notApplied>
-                        <mat-form-field [floatLabel]="'never'" class="select-basic select-space ml-0" *ngIf="types$ | async as types">
+                        <mat-form-field [floatLabel]="'never'" class="select-basic select-space" *ngIf="types$ | async as types">
                             <mat-label>Select Curriculum</mat-label>
                             <mat-select (selectionChange)="filter();
                     selectedCurriculumType.id != 0

@@ -1,0 +1,59 @@
+<div class="section is-large last-step has-background-white py-5 px-3 " style="border-radius: 13px;">
+    <div class="table-container px-3" *ngIf="lessonPlanPerPeriod$ | async as periods">
+        <table class="table table-lesson-plan is-bordered is-fullwidth" *ngFor="let period of periods.data; let i = index">
+            <thead>
+                <tr>
+                    <th class="is-family-primary has-text-weight-bold has-background-info has-text-white is-size-5 has-text-centered" colspan="3">
+                        {{i + 1}}{{ ((i + 1) === 1 ? 'st' : ((i + 1) === 2 ? 'nd' : ((i + 1) === 3 ? 'rd' : 'th'))) }} Period</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="6" class="sub-title-bg-color px-0" style="vertical-align: inherit;border: none;padding: 0;">
+                        <table *ngFor="let subtitle of period.subtitles; let i = index; ; last as isLast; first as isFirst" style="width:100%;margin-bottom:0;" class="table table-lesson-plan is-bordered is-fullwidth m-0">
+                            <tr>
+                                <td rowspan="6" [ngStyle]="{'border-top':isFirst ? 'none' : '1px solid #d1d1d1' }" class=" sub-title-bg-color" style="word-wrap: anywhere; vertical-align: inherit;width: 120px;">
+                                    <p class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark has-text-centered">
+                                        {{subtitle.title}}
+                                    </p>
+                                    <div class=" is-family-primary has-text-weight-normal has-text-centered is-size-5 py-2 px-1">
+                                        <a class="action-icons" href="#"><i class="fas fa-file  "></i></a>
+                                        <a href="#" class="action-icons"><i class="fas fa-print px-2 "></i></a>
+                                        <a class="action-icons" href="#"><i class="fas fa-trash-alt  "></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr *ngIf="i === 0">
+                                <td [ngStyle]="{'border-top':isFirst ? 'none' : '1px solid #d1d1d1' }" class="is-family-primary has-text-weight-bold  is-size-6 has-text-white has-text-centered grey-bg-color" style="width: 50%;">Description</td>
+                                <td [ngStyle]="{'border-top':isFirst ? 'none' : '1px solid #d1d1d1' }" class="is-family-primary has-text-weight-bold  is-size-6 has-text-white has-text-centered grey-bg-color">Instructional Survey</td>
+                            </tr>
+                            <tr class="tr-bg-color-lesson-plan">
+                                <td class=" td-lesson-plan is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left" style="width: 50%;">{{subtitle.description}}</td>
+                                <td class="td-lesson-plan is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left">{{subtitle.instructional_strategy}}</td>
+                            </tr>
+                            <tr class="tr-bg-color-lesson-plan">
+                                <td class="td-lesson-plan"><span class=" is-family-primary has-text-weight-bold  is-size-5 has-text-dark">Start Page:</span><span class="is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left px-2">{{subtitle.startPage}}</span></td>
+                                <td class="td-lesson-plan"><span class=" is-family-primary has-text-weight-bold  is-size-5 has-text-dark">Time:</span><span class="is-family-primary has-text-weight-medium  is-size-6 has-text-dark has-text-left px-2">{{subtitle.duration}}</span></td>
+                            </tr>
+                            <tr class="tr-bg-color-lesson-plan">
+                                <td class="td-lesson-plan" colspan="2"><span class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark">Resources:</span></td>
+                            </tr>
+                            <tr class="tr-bg-color-lesson-plan">
+                                <td colspan="2" [ngStyle]="{'border-bottom':!isLast ? 'none' : '1px solid #d1d1d1' }">
+                                    <table style="width:100%;" class="table table-lesson-plan is-bordered is-fullwidth">
+                                        <tr *ngFor="let resource of subtitle.resources; let j = index">
+                                            <td class="td-lesson-plan" style="border: none;">
+                                                <p class="is-family-primary has-text-weight-bold  is-size-5 has-text-dark">{{resource.title}}</p>
+                                                <a>{{resource.fileData.name}}</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

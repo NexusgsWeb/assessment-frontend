@@ -3,10 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { Observable, Subscription } from 'rxjs';
 import { ConfirmDialogService } from 'src/app/shared/components/confirm-dialog/confirm-dialog.service';
-import { Class } from 'src/app/modules/Models/curriculum';
-import { Section } from 'src/app/modules/Models/lesson-plan';
+import { Class } from 'src/app/modules/models/curriculum';
+import { Book, Chapter, Section } from 'src/app//modules/models/lesson-plan';
 import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
-import { FuncsService } from 'src/app/shared/services/funcs.service';
+import { FuncsService } from 'src/app/modules/_services/funcs.service';
 import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
 
 @Component({
@@ -35,17 +35,18 @@ export class StepOneComponent implements OnInit {
 
   allSelected: boolean = false
   today: string = new Date().toISOString().split('T')[0]
-  currBookId: number = 0
-  currChapterId: number = 0
+  currBookId?: number
+  currChapterId?: number
   classes: Class[] = []
   sections: Section[] = []
   classSections: Section[] = []
   firstFormGroup: FormGroup = this._formBuilder.group({
+    id: Date.now()+ Math.floor(Math.random() * 100),
     reference: ["", Validators.required],
     class: ["", Validators.required],
     section: ["", Validators.required],
     subject: ["", Validators.required],
-    duration: [""],
+    duration: ["", Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)],
     startDate: ["", Validators.required],
     endDate: ["", Validators.required],
     book: ["", Validators.required],
@@ -66,6 +67,10 @@ export class StepOneComponent implements OnInit {
     this.resetFormSubscription = this.resetForms$?.subscribe((reset: boolean) => reset ? this.firstFormGroup.reset() : null)
     this.classesSubscription = this.classes$?.subscribe((classes: Class[]) => this.classes = classes)
     this.sectionsSubscription = this.sections$?.subscribe((sections: Section[]) => this.sections = sections)
+
+    this.firstFormGroup.valueChanges.subscribe(() => {
+      this.matSections.close()
+    })
   }
 
   ngOnDestroy(): void {
@@ -79,14 +84,16 @@ export class StepOneComponent implements OnInit {
     this.classSections = this.sections.filter((section: Section) => section.classId === event.value.id)
   }
 
-  onBookChange(bookId: any) {
-    this._lessonPlanService.getBookChapters(bookId)
-    this.currBookId = bookId
+  onBookChange(book: Book) {
+    this._lessonPlanService.getBookChapters(book.id)
+    this.currBookId = book.id
+    this.firstFormGroup.controls['chapter'].setValue("")
   }
 
-  onChapterChange(chapterId: any) {
-    this._lessonPlanService.getChapterLessons(chapterId)
-    this.currChapterId = chapterId
+  onChapterChange(chapter: Chapter) {
+    this._lessonPlanService.getChapterLessons(chapter.id)
+    this.currChapterId = chapter.id
+    this.firstFormGroup.controls['lesson'].setValue("")
   }
 
   addBook() {
@@ -106,7 +113,7 @@ export class StepOneComponent implements OnInit {
   }
 
   addChapter() {
-    if (this.currBookId > 0) {
+    if (this.currBookId) {
       const options = {
         title: 'Add New Chapter',
         message: 'chapter',
@@ -127,7 +134,7 @@ export class StepOneComponent implements OnInit {
   }
 
   addLesson() {
-    if (this.currChapterId > 0) {
+    if (this.currChapterId) {
       const options = {
         title: 'Add New Lesson',
         message: 'lesson',
@@ -154,7 +161,7 @@ export class StepOneComponent implements OnInit {
       return
     }
     /** send the form data to the lesson plan behavior subject */
-    this._lessonPlanService.buildLessonPlan(this.firstFormGroup)
+    this._lessonPlanService.buildLessonPlan(this.firstFormGroup, 0)
     this.validFormOne.emit(true)
   }
 

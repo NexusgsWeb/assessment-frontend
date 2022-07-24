@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSelect } from '@angular/material/select';
 import { Observable, Subscription } from 'rxjs';
-import { Class, LearningStandard, Subject, Unit } from 'src/app/modules/Models/curriculum';
+import { Class, LearningStandard, Subject, Unit } from 'src/app/modules/models/curriculum';
 import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
-import { FuncsService } from 'src/app/shared/services/funcs.service';
+import { FuncsService } from 'src/app/modules/_services/funcs.service';
 import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
 
 @Component({
@@ -15,6 +15,8 @@ import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service
 export class StepTwoComponent implements OnInit {
   resetForms$ = this._lessonPlanService.resetForms$
   lessonPlan$ = this._lessonPlanService.lessonPlan$
+  learningStandards$ = this._curriculumService.learningStandards$
+
   currClass?: Class
   currSubject?: Subject
   allDomains: boolean = false
@@ -32,9 +34,10 @@ export class StepTwoComponent implements OnInit {
   @ViewChild('domains') domains!: MatSelect
   @ViewChild('ls') ls!: MatSelect
   @ViewChild('prereqDomains') prereqDomains!: MatSelect
-  @ViewChild('prereqLs') prereprereqLsqDomains!: MatSelect
+  @ViewChild('prereqLs') prereqLs!: MatSelect
 
   secondFormGroup: FormGroup = this._formBuilder.group({
+    id: Date.now()+ Math.floor(Math.random() * 100),
     domains: ["", Validators.required],
     learningStandards: ["", Validators.required],
     prereqDomains: ["", Validators.required],
@@ -48,9 +51,16 @@ export class StepTwoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.lessonPlanSubscription = this.lessonPlan$?.subscribe((lessonPlan) => lessonPlan.length > 0 ? this.getUnitsAndLs(lessonPlan) : null)
+    this.lessonPlanSubscription = this.lessonPlan$?.subscribe((lessonPlan) => Object.keys(lessonPlan).length > 0 ? this.getUnitsAndLs(lessonPlan) : null)
     this.toStepThreeSubscription = this.toStepThree?.subscribe(() => this.nextStep())
     this.resetFormSubscription = this.resetForms$?.subscribe((reset: boolean) => reset ? this.secondFormGroup.reset() : null)
+
+    this.secondFormGroup.valueChanges.subscribe(() => {
+      this.domains.close()
+      this.ls.close()
+      this.prereqDomains.close()
+      this.prereqLs.close()
+    })
   }
 
   ngOnDestroy(): void {
@@ -66,13 +76,19 @@ export class StepTwoComponent implements OnInit {
       return
     }
     /** send the form data to the lesson plan behavior subject */
-    this._lessonPlanService.buildLessonPlan(this.secondFormGroup)
+    this._lessonPlanService.buildLessonPlan(this.secondFormGroup, 1)
     this.validFormTwo.emit(true)
   }
 
   getUnitsAndLs(lessonPlan: any){
-    this._curriculumService.getCustomUnits(lessonPlan.class, lessonPlan.subject).subscribe((units: Unit[]) => this.units = units)
-    this._curriculumService.getCustomLearningStandards(lessonPlan.class, lessonPlan.subject).subscribe((ls: LearningStandard[]) => this.learningStandards = ls)
+    this._curriculumService.getLearningStandards(lessonPlan.formOne.class.id, lessonPlan.formOne.subject.id)
+    this._curriculumService.getUnits(lessonPlan.formOne.class.id, lessonPlan.formOne.subject.id).subscribe((units: Unit[]) => this.units = units)
+    this.learningStandards$.subscribe((learningStandards: LearningStandard[]) => this.learningStandards = learningStandards)
+  /**
+   * the below functions should be used to filter the data of this form based on the chosen class and subject, for now i'm displayin all units and learning standards
+   * */
+   // this._curriculumService.getCustomUnits(lessonPlan.formOne.class, lessonPlan.formOne.subject).subscribe((units: Unit[]) => this.units = units)
+   // this._curriculumService.getCustomLearningStandards(lessonPlan.formOne.class, lessonPlan.formOne.subject).subscribe((ls: LearningStandard[]) => this.learningStandards = ls)
   }
 
   resetForm() {

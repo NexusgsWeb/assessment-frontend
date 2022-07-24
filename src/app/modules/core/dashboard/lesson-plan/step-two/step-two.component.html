@@ -1,126 +1,301 @@
 <form [formGroup]="secondFormGroup" class="lesson-plan-form">
-    <ng-template matStepLabel>2- Select Learning Standards</ng-template>
-    <p class=" is-family-primary has-text-weight-bold is-size-5 py-3" style="color:#3f81c3;">
-        Lesson Plan Standards</p>
+  <ng-template matStepLabel>2- Select Learning Standards</ng-template>
+  <p
+    class="is-family-primary has-text-weight-bold is-size-5 py-3"
+    style="color: #3f81c3"
+  >
+    Lesson Plan Standards
+  </p>
 
-    <div class="field is-horizontal">
-        <div class="field-body">
-            <div class="column  pr-2 pl-0 pt-2">
-                <div class="is-flex">
-                    <mat-form-field class="form-select select {{(secondFormGroup.controls['domains'].touched || secondFormGroup.controls['domains'].dirty) && secondFormGroup.controls['domains'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
-                        <label *ngIf="secondFormGroup.controls['domains'].value?.length===0"><strong>Select Domain(s)</strong></label>
-                        <mat-select formControlName="domains" multiple #domains>
-                            <mat-select-trigger>
-                                {{this.secondFormGroup.controls['domains'].value?.[0]?.title || ''}}
-                                <span *ngIf="(this.secondFormGroup.controls['domains']?.value?.length || 0) > 1" class="additional-selection">
-                              (+{{(this.secondFormGroup.controls['domains'].value?.length || 0) - 1}}
-                                {{this.secondFormGroup.controls['domains'].value?.length === 2 ? 'other' :
-                                'others'}})
-                            </span>
-                            </mat-select-trigger>
-                            <mat-checkbox class="select-all-checkbox" [(ngModel)]="allDomains" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection(allDomains, domains)">Select All</mat-checkbox>
-                            <mat-option *ngFor="let unit of units" [value]="unit" (click)="uncheckAllButton('domains', domains)">
-                                {{unit.title}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <span class="control" *ngIf="(secondFormGroup.controls['domains'].touched || secondFormGroup.controls['domains'].dirty) && secondFormGroup.controls['domains'].invalid">
-                    <a class="button is-danger is-medium" style="font-size: 1.2rem;">
-                        <i class="fas fa-exclamation px-2 is-size-2"></i>
-                    </a>
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="column pr-2 pl-0 pt-2">
+        <div class="is-flex">
+          <mat-form-field
+            class="form-select select {{
+              (secondFormGroup.controls['domains'].touched ||
+                secondFormGroup.controls['domains'].dirty) &&
+              secondFormGroup.controls['domains'].invalid
+                ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                : ''
+            }}"
+          >
+            <label
+              *ngIf="secondFormGroup.controls['domains'].value?.length === 0"
+              ><strong>Select Domain(s)</strong></label
+            >
+            <mat-select formControlName="domains" multiple #domains>
+              <mat-select-trigger>
+                {{this.secondFormGroup.controls['domains'].value?.[0]?.title || ''}}
+                <span
+                  *ngIf="
+                    (this.secondFormGroup.controls['domains']?.value?.length ||
+                      0) > 1
+                  "
+                  class="additional-selection"
+                >
+                  (+{{
+                    (this.secondFormGroup.controls["domains"].value?.length ||
+                      0) - 1
+                  }}
+                  {{
+                    this.secondFormGroup.controls["domains"].value?.length === 2
+                      ? "other"
+                      : "others"
+                  }})
                 </span>
-                </div>
-            </div>
-            <div class="column  pr-2 pl-0 pt-2">
-                <div class="is-flex">
-                    <mat-form-field class="form-select select {{(secondFormGroup.controls['learningStandards'].touched || secondFormGroup.controls['learningStandards'].dirty) && secondFormGroup.controls['learningStandards'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
-                        <label *ngIf="secondFormGroup.controls['learningStandards'].value?.length===0"><strong>Select Learning Standard(s)</strong></label>
-                        <mat-select formControlName="learningStandards" multiple #ls>
-                            <mat-select-trigger>
-                                {{this.secondFormGroup.controls['learningStandards'].value?.[0]?.description || ''}}
-                                <span *ngIf="(this.secondFormGroup.controls['learningStandards']?.value?.length || 0) > 1" class="additional-selection">
-                          (+{{(this.secondFormGroup.controls['learningStandards'].value?.length || 0) - 1}}
-                            {{this.secondFormGroup.controls['learningStandards'].value?.length === 2 ? 'other' :
-                            'others'}})
-                        </span>
-                            </mat-select-trigger>
-                            <mat-checkbox class="select-all-checkbox" [(ngModel)]="allLs" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection(allLs, ls)">Select All</mat-checkbox>
-                            <mat-option *ngFor="let learningStandard of learningStandards" [value]="learningStandard" (click)="uncheckAllButton('learningStandards', ls)">
-                                {{learningStandard.description}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <span class="control" *ngIf="(secondFormGroup.controls['learningStandards'].touched || secondFormGroup.controls['learningStandards'].dirty) && secondFormGroup.controls['learningStandards'].invalid">
-                <a class="button is-danger is-medium" style="font-size: 1.2rem;">
-                    <i class="fas fa-exclamation px-2 is-size-2"></i>
-                </a>
-            </span>
-                </div>
-            </div>
+              </mat-select-trigger>
+              <mat-checkbox
+                class="select-all-checkbox"
+                [(ngModel)]="allDomains"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="toggleAllSelection(allDomains, domains)"
+                >Select All</mat-checkbox
+              >
+              <mat-option
+                *ngFor="let unit of units"
+                [value]="unit"
+                (click)="uncheckAllButton('domains', domains)"
+              >
+                {{ unit.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <span
+            class="control"
+            *ngIf="
+              (secondFormGroup.controls['domains'].touched ||
+                secondFormGroup.controls['domains'].dirty) &&
+              secondFormGroup.controls['domains'].invalid
+            "
+          >
+            <a class="button is-danger is-medium" style="font-size: 1.2rem">
+              <i class="fas fa-exclamation px-2 is-size-2"></i>
+            </a>
+          </span>
         </div>
-    </div>
-
-    <p class=" is-family-primary has-text-weight-bold is-size-5 py-3" style="color:#3f81c3;">
-        Pre-Requisite Learning Standards</p>
-
-    <div class="field is-horizontal">
-        <div class="field-body">
-            <div class="column  pr-2 pl-0 pt-2">
-                <div class="is-flex">
-                    <mat-form-field class="form-select select {{(secondFormGroup.controls['prereqDomains'].touched || secondFormGroup.controls['prereqDomains'].dirty) && secondFormGroup.controls['prereqDomains'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
-                        <label *ngIf="secondFormGroup.controls['prereqDomains'].value?.length===0"><strong>Select Domain(s)</strong></label>
-                        <mat-select formControlName="prereqDomains" multiple #prereqDomains>
-                            <mat-select-trigger>
-                                {{this.secondFormGroup.controls['prereqDomains'].value?.[0]?.title || ''}}
-                                <span *ngIf="(this.secondFormGroup.controls['prereqDomains']?.value?.length || 0) > 1" class="additional-selection">
-                          (+{{(this.secondFormGroup.controls['prereqDomains'].value?.length || 0) - 1}}
-                            {{this.secondFormGroup.controls['prereqDomains'].value?.length === 2 ? 'other' :
-                            'others'}})
-                        </span>
-                            </mat-select-trigger>
-                            <mat-checkbox class="select-all-checkbox" [(ngModel)]="allPrereqDomains" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection(allPrereqDomains, prereqDomains)">Select All</mat-checkbox>
-                            <mat-option *ngFor="let unit of units" [value]="unit" (click)="uncheckAllButton('prereqDomains', prereqDomains)">
-                                {{unit.title}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <span class="control" *ngIf="(secondFormGroup.controls['prereqDomains'].touched || secondFormGroup.controls['prereqDomains'].dirty) && secondFormGroup.controls['prereqDomains'].invalid">
-                <a class="button is-danger is-medium" style="font-size: 1.2rem;">
-                    <i class="fas fa-exclamation px-2 is-size-2"></i>
-                </a>
-            </span>
-                </div>
-            </div>
-            <div class="column  pr-2 pl-0 pt-2">
-                <div class="is-flex">
-                    <mat-form-field class="form-select select {{(secondFormGroup.controls['prereqLs'].touched || secondFormGroup.controls['prereqLs'].dirty) && secondFormGroup.controls['prereqLs'].invalid ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius ' : ''}}">
-                        <label *ngIf="secondFormGroup.controls['prereqLs'].value?.length===0"><strong>Select Domain(s)</strong></label>
-                        <mat-select formControlName="prereqLs" multiple #prereqLs>
-                            <mat-select-trigger>
-                                {{this.secondFormGroup.controls['prereqLs'].value?.[0]?.description || ''}}
-                                <span *ngIf="(this.secondFormGroup.controls['prereqLs']?.value?.length || 0) > 1" class="additional-selection">
-                          (+{{(this.secondFormGroup.controls['prereqLs'].value?.length || 0) - 1}}
-                            {{this.secondFormGroup.controls['prereqLs'].value?.length === 2 ? 'other' :
-                            'others'}})
-                        </span>
-                            </mat-select-trigger>
-                            <mat-checkbox class="select-all-checkbox" [(ngModel)]="allPrereqLs" [ngModelOptions]="{standalone: true}" (change)="toggleAllSelection(allPrereqLs, prereqLs)">Select All</mat-checkbox>
-                            <mat-option *ngFor="let learningStandard of learningStandards" [value]="learningStandard" (click)="uncheckAllButton('prereqLs', prereqLs)">
-                                {{learningStandard.description}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-
-                    <span class="control" *ngIf="(secondFormGroup.controls['prereqLs'].touched || secondFormGroup.controls['prereqLs'].dirty) && secondFormGroup.controls['prereqLs'].invalid">
-                <a class="button is-danger is-medium" style="font-size: 1.2rem;">
-                    <i class="fas fa-exclamation px-2 is-size-2"></i>
-                </a>
-            </span>
-                </div>
-            </div>
+      </div>
+      <div class="column pr-2 pl-0 pt-2">
+        <div class="is-flex">
+          <mat-form-field
+            class="form-select select {{
+              (secondFormGroup.controls['learningStandards'].touched ||
+                secondFormGroup.controls['learningStandards'].dirty) &&
+              secondFormGroup.controls['learningStandards'].invalid
+                ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                : ''
+            }}"
+          >
+            <label
+              *ngIf="
+                secondFormGroup.controls['learningStandards'].value?.length ===
+                0
+              "
+              ><strong>Select Learning Standard(s)</strong></label
+            >
+            <mat-select formControlName="learningStandards" multiple #ls>
+              <mat-select-trigger>
+                {{this.secondFormGroup.controls['learningStandards'].value?.[0]?.description || ''}}
+                <span
+                  *ngIf="
+                    (this.secondFormGroup.controls['learningStandards']?.value
+                      ?.length || 0) > 1
+                  "
+                  class="additional-selection"
+                >
+                  (+{{
+                    (this.secondFormGroup.controls["learningStandards"].value
+                      ?.length || 0) - 1
+                  }}
+                  {{
+                    this.secondFormGroup.controls["learningStandards"].value
+                      ?.length === 2
+                      ? "other"
+                      : "others"
+                  }})
+                </span>
+              </mat-select-trigger>
+              <mat-checkbox
+                class="select-all-checkbox"
+                [(ngModel)]="allLs"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="toggleAllSelection(allLs, ls)"
+                >Select All</mat-checkbox
+              >
+              <mat-option
+                *ngFor="let learningStandard of learningStandards"
+                [value]="learningStandard"
+                (click)="uncheckAllButton('learningStandards', ls)"
+              >
+                {{ learningStandard.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <span
+            class="control"
+            *ngIf="
+              (secondFormGroup.controls['learningStandards'].touched ||
+                secondFormGroup.controls['learningStandards'].dirty) &&
+              secondFormGroup.controls['learningStandards'].invalid
+            "
+          >
+            <a class="button is-danger is-medium" style="font-size: 1.2rem">
+              <i class="fas fa-exclamation px-2 is-size-2"></i>
+            </a>
+          </span>
         </div>
+      </div>
     </div>
+  </div>
 
+  <p
+    class="is-family-primary has-text-weight-bold is-size-5 py-3"
+    style="color: #3f81c3"
+  >
+    Pre-Requisite Learning Standards
+  </p>
+
+  <div class="field is-horizontal">
+    <div class="field-body">
+      <div class="column pr-2 pl-0 pt-2">
+        <div class="is-flex">
+          <mat-form-field
+            class="form-select select {{
+              (secondFormGroup.controls['prereqDomains'].touched ||
+                secondFormGroup.controls['prereqDomains'].dirty) &&
+              secondFormGroup.controls['prereqDomains'].invalid
+                ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                : ''
+            }}"
+          >
+            <label
+              *ngIf="
+                secondFormGroup.controls['prereqDomains'].value?.length === 0
+              "
+              ><strong>Select Domain(s)</strong></label
+            >
+            <mat-select formControlName="prereqDomains" multiple #prereqDomains>
+              <mat-select-trigger>
+                {{this.secondFormGroup.controls['prereqDomains'].value?.[0]?.title || ''}}
+                <span
+                  *ngIf="
+                    (this.secondFormGroup.controls['prereqDomains']?.value
+                      ?.length || 0) > 1
+                  "
+                  class="additional-selection"
+                >
+                  (+{{
+                    (this.secondFormGroup.controls["prereqDomains"].value
+                      ?.length || 0) - 1
+                  }}
+                  {{
+                    this.secondFormGroup.controls["prereqDomains"].value
+                      ?.length === 2
+                      ? "other"
+                      : "others"
+                  }})
+                </span>
+              </mat-select-trigger>
+              <mat-checkbox
+                class="select-all-checkbox"
+                [(ngModel)]="allPrereqDomains"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="toggleAllSelection(allPrereqDomains, prereqDomains)"
+                >Select All</mat-checkbox
+              >
+              <mat-option
+                *ngFor="let unit of units"
+                [value]="unit"
+                (click)="uncheckAllButton('prereqDomains', prereqDomains)"
+              >
+                {{ unit.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <span
+            class="control"
+            *ngIf="
+              (secondFormGroup.controls['prereqDomains'].touched ||
+                secondFormGroup.controls['prereqDomains'].dirty) &&
+              secondFormGroup.controls['prereqDomains'].invalid
+            "
+          >
+            <a class="button is-danger is-medium" style="font-size: 1.2rem">
+              <i class="fas fa-exclamation px-2 is-size-2"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="column pr-2 pl-0 pt-2">
+        <div class="is-flex">
+          <mat-form-field
+            class="form-select select {{
+              (secondFormGroup.controls['prereqLs'].touched ||
+                secondFormGroup.controls['prereqLs'].dirty) &&
+              secondFormGroup.controls['prereqLs'].invalid
+                ? 'border-danger no-border-top-right-radius no-border-bottom-right-radius '
+                : ''
+            }}"
+          >
+            <label
+              *ngIf="secondFormGroup.controls['prereqLs'].value?.length === 0"
+              ><strong>Select Learning Standard(s)</strong></label
+            >
+            <mat-select formControlName="prereqLs" multiple #prereqLs>
+              <mat-select-trigger>
+                {{this.secondFormGroup.controls['prereqLs'].value?.[0]?.description || ''}}
+                <span
+                  *ngIf="
+                    (this.secondFormGroup.controls['prereqLs']?.value?.length ||
+                      0) > 1
+                  "
+                  class="additional-selection"
+                >
+                  (+{{
+                    (this.secondFormGroup.controls["prereqLs"].value?.length ||
+                      0) - 1
+                  }}
+                  {{
+                    this.secondFormGroup.controls["prereqLs"].value?.length ===
+                    2
+                      ? "other"
+                      : "others"
+                  }})
+                </span>
+              </mat-select-trigger>
+              <mat-checkbox
+                class="select-all-checkbox"
+                [(ngModel)]="allPrereqLs"
+                [ngModelOptions]="{ standalone: true }"
+                (change)="toggleAllSelection(allPrereqLs, prereqLs)"
+                >Select All</mat-checkbox
+              >
+              <mat-option
+                *ngFor="let learningStandard of learningStandards"
+                [value]="learningStandard"
+                (click)="uncheckAllButton('prereqLs', prereqLs)"
+              >
+                {{ learningStandard.description }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <span
+            class="control"
+            *ngIf="
+              (secondFormGroup.controls['prereqLs'].touched ||
+                secondFormGroup.controls['prereqLs'].dirty) &&
+              secondFormGroup.controls['prereqLs'].invalid
+            "
+          >
+            <a class="button is-danger is-medium" style="font-size: 1.2rem">
+              <i class="fas fa-exclamation px-2 is-size-2"></i>
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>

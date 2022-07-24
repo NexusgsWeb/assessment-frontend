@@ -5,9 +5,9 @@ import { MatOption } from '@angular/material/core';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatSelect } from '@angular/material/select';
 import { Observable, Subscription } from 'rxjs';
-import { LearningStandard } from 'src/app/modules/Models/curriculum';
+import { LearningStandard } from 'src/app/modules/models/curriculum';
 import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
-import { FuncsService } from 'src/app/shared/services/funcs.service';
+import { FuncsService } from 'src/app/modules/_services/funcs.service';
 import { LessonPlanService } from 'src/app/modules/_services/lesson-plan.service';
 
 @Component({
@@ -21,7 +21,12 @@ export class StepThreeComponent implements OnInit {
   resetForms$ = this._lessonPlanService.resetForms$
   newSubtitle$ = this._lessonPlanService.newSubtitle$
   lessonPlan$ = this._lessonPlanService.lessonPlan$
+  learningStandards$ = this._curriculumService.learningStandards$
+  subtitleBeingEditedId$ = this._lessonPlanService.subtitleBeingEditedId$
+  subtitleBeingDeletedId$ = this._lessonPlanService.subtitleBeingDeletedId$
 
+  private subtitleBeinEditedIdSubscription?: Subscription
+  private subtitleBeiDeletedIdSubscription?: Subscription
   private toStepFourSubscription?: Subscription
   private lessonPlanSubscription?: Subscription
   private newSubTitleSubscription?: Subscription
@@ -33,6 +38,7 @@ export class StepThreeComponent implements OnInit {
   @ViewChildren('checkAll') checkAll!: QueryList<MatCheckbox>
 
   thirdFormGroup: FormGroup = this._formBuilder.group({
+    id: Date.now()+ Math.floor(Math.random() * 100),
     subtitles: this._formBuilder.array([])
   })
 
@@ -48,16 +54,23 @@ export class StepThreeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.lessonPlanSubscription = this.lessonPlan$?.subscribe((lessonPlan) => lessonPlan.length > 0 ? this.getLearningStandards(lessonPlan) : null)
+    this.subtitleBeinEditedIdSubscription = this.subtitleBeingEditedId$?.subscribe((subtitleId: number) => subtitleId > 0 ? this.expandSubtitle(subtitleId) : null)
+    this.subtitleBeiDeletedIdSubscription = this.subtitleBeingDeletedId$?.subscribe((subtitleId: number) => subtitleId > 0 ? this.removeSubtitleById(subtitleId) : null)
+    this.lessonPlanSubscription = this.lessonPlan$?.subscribe((lessonPlan) => Object.keys(lessonPlan).length > 0 ? this.getLearningStandards(lessonPlan) : null)
     this.toStepFourSubscription = this.toStepFour?.subscribe(() => this.nextStep())
     this.newSubTitleSubscription = this.newSubtitle$?.subscribe((newSubtitle: boolean) => newSubtitle ? this.addSubtitle() : null)
     this.resetFormSubscription = this.resetForms$?.subscribe((reset: boolean) => reset ? this.thirdFormGroup.reset() : null)
+    this.subtitles().clear()
     this.addSubtitle()
     this.formControls = (this.thirdFormGroup.get('subtitles') as FormArray).controls
-
+    this.thirdFormGroup.valueChanges.subscribe(() => {
+      this.ls.toArray().map((elem: any)=>elem.close())
+    })
   }
 
   ngOnDestroy(): void {
+    this.subtitleBeinEditedIdSubscription?.unsubscribe()
+    this.subtitleBeiDeletedIdSubscription?.unsubscribe()
     this.toStepFourSubscription?.unsubscribe()
     this.lessonPlanSubscription?.unsubscribe()
     this.newSubTitleSubscription?.unsubscribe()
@@ -70,11 +83,11 @@ export class StepThreeComponent implements OnInit {
 
   createSubtitles(): FormGroup {
     return this._formBuilder.group({
-      id: Date.now(),
+      id: Date.now()+ Math.floor(Math.random() * 100),
       title: [null, Validators.required],
-      duration: [null, Validators.required],
-      startPage: [null],
-      endPage: [null],
+      duration: [null, [Validators.required, Validators.pattern(/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/)] ],
+      startPage: [null, Validators.pattern("^[0-9]*$")],
+      endPage: [null, Validators.pattern("^[0-9]*$")],
       description: [null],
       instructional_strategy: [null, Validators.required],
       learningStandards: [null, Validators.required],
@@ -93,12 +106,17 @@ export class StepThreeComponent implements OnInit {
     this.subtitles().removeAt(i);
   }
 
+  removeSubtitleById(id: number) {
+    this.subtitles().removeAt(this.subtitles().controls.findIndex((control: any) => control.value.id === id))
+  }
+
   resources(subtitle: any) {
     return subtitle.controls.resources.controls
   }
 
   createResource(): FormGroup {
     return this._formBuilder.group({
+      id: Date.now()+ Math.floor(Math.random() * 100),
       file: [null, Validators.required],
       fileData: [null, Validators.required],
       title: ["", Validators.required],
@@ -119,12 +137,14 @@ export class StepThreeComponent implements OnInit {
   handleFileInput(i: number, j: number, event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0]
-      const forma = ((this.thirdFormGroup.get('subtitles') as FormArray).controls[i].get('resources') as FormArray).controls[j].patchValue({ fileData: file })
+      let fileData: any = {name: file.name, size: file.size, type: file.type}
+      const forma = ((this.thirdFormGroup.get('subtitles') as FormArray).controls[i].get('resources') as FormArray).controls[j].patchValue({ fileData: fileData })
     }
   }
 
   getLearningStandards(lessonPlan: any) {
-    this._curriculumService.getCustomLearningStandards(lessonPlan.class, lessonPlan.subject).subscribe((ls: LearningStandard[]) => this.learningStandards = ls)
+    this.learningStandards$.subscribe((learningStandards: LearningStandard[]) => this.learningStandards = learningStandards)
+    // this._curriculumService.getCustomLearningStandards(lessonPlan.formOne.class, lessonPlan.formOne.subject).subscribe((ls: LearningStandard[]) => this.learningStandards = ls)
   }
 
   nextStep() {
@@ -134,8 +154,12 @@ export class StepThreeComponent implements OnInit {
       return
     }
     /** send the form data to the lesson plan behavior subject */
-    this._lessonPlanService.buildLessonPlan(this.thirdFormGroup)
+    this._lessonPlanService.buildLessonPlan(this.thirdFormGroup, 2)
     this.validFormThree.emit(true)
+  }
+
+  expandSubtitle(id: number){
+    this.selectedIndex = id
   }
 
   toggleAllSelection(event: any, counter: number) {

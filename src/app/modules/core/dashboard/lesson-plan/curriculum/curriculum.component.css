@@ -138,7 +138,7 @@
 .curriculum-mapping .select-basic {
   border: 2px solid #ddd;
   border-radius: 5px;
-  width: 150px;
+  width: 175px !important;
 }
 
 .curriculum-mapping .select-basic .mat-form-field-label {
@@ -402,7 +402,7 @@
   }
 
   .select-custom {
-    width: 140px !important;
+    width: 145px !important;
   }
 
   .select-space {
