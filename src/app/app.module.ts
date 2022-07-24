@@ -59,6 +59,7 @@ import { MathjaxModule } from 'mathjax-angular';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { LessonPlanModule } from './modules/core/dashboard/lesson-plan/lesson-plan.module';
 import { ConfirmDialogModule } from './shared/components/confirm-dialog/confirm-dialog.module';
+import { LessonPlanComponent } from './modules/core/dashboard/lesson-plan/lesson-plan.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ConfirmDialogModule } from './shared/components/confirm-dialog/confirm-
     QuestionSettingsUsacirComponent,
     QuestionSettingsBricirComponent,
     DomainLOItemComponent,
+    LessonPlanComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -1,0 +1,163 @@
+.lesson-plan *:not(.mat-icon, i) {
+  font-family: Raleway !important;
+}
+
+.lesson-plan{
+  margin: 0;
+}
+
+.lesson-plan input[type=text]:not(.is-danger), .lesson-plan input[type=date]:not(.is-danger), .lesson-plan select, .lesson-plan textarea{
+  width: 98%;
+}
+
+.lesson-plan .mat-step-text-label{
+  display: flex;
+  justify-content: center;
+}
+
+.lesson-plan .mat-step-header:last-child{
+  display: none;
+}
+
+.lesson-plan .mat-step-header .mat-step-header-ripple{
+  display: none;
+}
+
+.lesson-plan .mat-horizontal-stepper-header-container{
+  margin-bottom: 2rem;
+}
+
+.lesson-plan .mat-vertical-content{
+  padding: 0;
+}
+
+.lesson-plan .mat-step-header:hover:not([aria-disabled]), .lesson-plan .mat-step-header:active:not([aria-disabled]), .lesson-plan .mat-step-header:focus:not([aria-disabled]){
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+}
+
+.lesson-plan .mat-horizontal-stepper-header .mat-step-icon, .lesson-plan .mat-vertical-stepper-header .mat-step-icon{
+  display: none;
+}
+
+.lesson-plan .mat-vertical-stepper-header{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.lesson-plan .mat-stepper-horizontal-line{
+  display: none;
+}
+
+.lesson-plan .mat-stepper-vertical-line::before{
+  display: none;
+}
+
+.lesson-plan .mat-step-label{
+  width: 100%;
+}
+
+.lesson-plan .mat-horizontal-stepper-header{
+  width:25%;
+  padding-left: 0;
+}
+.lesson-plan .mat-vertical-content-container {
+  margin-left: 0;
+}
+.lesson-plan .selected-step {
+  background-color: #3e8ed0 !important;
+  border-color: #3e8ed0 !important;
+  color: #fff !important;
+}
+.lesson-plan .button.is-info.is-outlined {
+  background-color: rgba(63, 128, 191, 0.05);
+  border-color: rgba(63, 128, 191, 0.05);
+  color: #3f80bf;
+  border-radius: 14px;
+  box-shadow: none;
+}
+.lesson-plan .button.is-info.is-outlined:hover {
+  background-color: #3e8ed0;
+  border-color: #3e8ed0;
+  color: #fff;
+}
+
+.lesson-plan .textarea, .lesson-plan .select select, .lesson-plan .mat-form-field {
+  border-color: #dbdbdb;
+}
+
+.lesson-plan input[type=text], .lesson-plan input[type=date], .lesson-plan .textarea, .lesson-plan .select select {
+  background-color: #f3f3f4;
+  border-radius: 4.6px;
+  color: #7c7c7c;
+  box-shadow: none !important;
+}
+
+.lesson-plan .select:not(.is-multiple) {
+  height: 3rem;
+}
+
+.lesson-plan .select select:not([multiple]) {
+  padding-right: 2.5em;
+}
+
+.lesson-plan button {
+  white-space: normal;
+}
+
+.lesson-plan .button.is-danger, .button.is-danger:hover, .button.is-danger.is-hovered {
+  background-color: #f20000 !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.lesson-plan-form .form-select{
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-color: #f3f3f4;
+}
+
+.lesson-plan-form .form-select .mat-form-field-infix{
+padding-left: .4375em !important;
+}
+
+.lesson-plan-form .form-select strong{
+color: #7c7c7c;
+font-weight: normal;
+}
+
+.lesson-plan-form .mat-select-arrow-wrapper{
+display: none;
+}
+
+.lesson-plan .mat-step-header .button.is-fullwidth{
+  width: 88%;
+}
+
+.lesson-plan .mat-form-field-type-mat-select{
+  width: 100% !important;
+}
+
+.action-icons{
+  cursor: pointer;
+}
+
+@media(min-width: 800px){
+  .lesson-plan{
+    margin: 2rem 1.5rem 2rem;
+  }
+  .lesson-plan .mat-vertical-stepper-header{
+    padding: 24px 24px;
+  }
+
+  .lesson-plan .delete-resource-button{
+    min-width: unset;
+  }
+  .lesson-plan input[type=text],   .lesson-plan input[type=date], .lesson-plan select, .lesson-plan textarea{
+    width: 100% !important;
+  }
+}
