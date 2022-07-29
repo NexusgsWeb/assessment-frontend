@@ -58,7 +58,7 @@ export class ConfirmDialogComponent {
     private _lessonPlanService: LessonPlanService,
     private _funcsService: FuncsService
   ) {
-    if (this.data.additionalData) {
+    if (this.data.additionalData && this.data.additionalData.formThree) {
       this.data.additionalData.formThree.subtitles.map((subtitle: any) => this.subtitlesTotalDuration += Number(subtitle.duration))
     }
   }
