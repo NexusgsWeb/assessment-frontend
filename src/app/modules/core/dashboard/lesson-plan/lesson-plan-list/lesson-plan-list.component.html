@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="column is-12 is-flex is-justify-content-center is-align-items-center" style="justify-content: center; align-items: center; border-radius: 4.6px;background-color:rgba(243, 243, 244, 0.5);">
+    <div class="column is-12 is-flex is-justify-content-center is-align-items-center" style="justify-content: center;border-radius: 4.6px;background-color:rgba(243, 243, 244, 0.5);">
         <span class="is-inline-block" (click)="decreaseOneMonth()">
       <button class="button" style="border-radius: 50%; background-color: rgba(126, 180, 228, 0.13); border: none;"><i
           class="fas fa-arrow-left has-text-info"></i></button>
@@ -151,9 +151,9 @@
                         </td>
                         <td class="td-users actions is-family-primary has-text-weight-normal  is-size-5 py-2 px-1">
                             <i class="fas fa-pen px-2" matTooltip="Edit" ></i>
-                            <i class="fas fa-trash-alt px-2"  matTooltip="Delete"></i>
-                            <i class="fas fa-globe pl-2 pr-4"  matTooltip="Publish"></i>
-                            <i class="fas fa-solid fa-book-open" matTooltip="Blended Learning"></i>
+                            <i class="fas fa-trash-alt px-2"  matTooltip="Delete" (click)="removeLessonPlan(myLessonPlan.id)"></i>
+                            <i class="fas fa-globe pl-2 pr-4"  matTooltip="Publish" (click)="publishLessonPlan(myLessonPlan.id)"></i>
+                            <i class="fas fa-solid fa-book-open" matTooltip="Blended Learning" (click)="blendedLearning(myLessonPlan.id)"></i>
                         </td>
 
                     </tr>

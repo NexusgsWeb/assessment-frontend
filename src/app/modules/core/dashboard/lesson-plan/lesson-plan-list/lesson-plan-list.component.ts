@@ -4,6 +4,7 @@ import { MatSelect } from '@angular/material/select';
 import { CurriculumService } from '@services/curriculum.service';
 import { LessonPlanService } from '@services/lesson-plan.service';
 import * as moment from 'moment';
+import { ConfirmDialogService } from 'src/app/shared/components/confirm-dialog/confirm-dialog.service';
 
 @Component({
   selector: 'app-list',
@@ -29,7 +30,7 @@ export class LessonPlansListComponent implements OnInit {
     currDate: moment()
   }]
 
-  constructor(private _curriculumService: CurriculumService, private _lessonPlanService: LessonPlanService) { }
+  constructor(private _curriculumService: CurriculumService, private _lessonPlanService: LessonPlanService, private _confirmDialogService: ConfirmDialogService) { }
 
   ngOnInit(): void {
     this.onSelectChange(null, 'd')
@@ -70,5 +71,29 @@ export class LessonPlansListComponent implements OnInit {
     let newDate: any = moment(this.chosenDate[0].currDate).subtract(1, 'months')
     this.chosenDate = [{id: Number(moment(new Date(newDate)).format('MYYYY')), title: moment(new Date(newDate)).format('MMMM, YYYY'), currDate: moment(new Date(newDate))}]
     this.onSelectChange(null, 'd')
+  }
+
+
+  publishLessonPlan(id: number){
+    this._lessonPlanService.publishLessonPlan(id)
+  }
+
+  blendedLearning(id: number){
+    this._lessonPlanService.blendedLearning(id)
+  }
+
+  removeLessonPlan(id: number){
+    const options = {
+      title: 'Deleting Lesson Plan',
+      message: 'Are you sure you want to delete this lesson plan?',
+      cancelText: 'Cancel',
+      confirmText: 'Delete'
+    }
+    this._confirmDialogService.open(options)
+    this._confirmDialogService.confirmed().subscribe(confirmed => {
+      if (confirmed) {
+        this._lessonPlanService.removeLessonPlan(id)
+      }
+    })
   }
 }

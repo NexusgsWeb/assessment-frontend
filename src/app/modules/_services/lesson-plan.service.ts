@@ -1549,7 +1549,6 @@ export class LessonPlanService {
       summary.formThree.subtitles
     );
     this._lessonPlanPerPeriod$.next(periods);
-    console.log(this._lessonPlanPerPeriod$.value);
   }
 
   private generatePeriods(settings: any, summary: any) {
@@ -1675,5 +1674,36 @@ export class LessonPlanService {
       return period;
     });
     return periods;
+  }
+
+  removeLessonPlan(id: number) {
+    let myLessonPlans: any[] = this._myLessonPlans$.value;
+    myLessonPlans = myLessonPlans.filter(
+      (lessonPlan: any) => lessonPlan.id !== id
+    );
+    this._myLessonPlans$.next(myLessonPlans);
+  }
+
+  publishLessonPlan(id: number) {
+    let LessonPlanPublishStatusForConsoleLogOnly: boolean = false;
+    let myLessonPlans: any[] = this._myLessonPlans$.value;
+    myLessonPlans = myLessonPlans.map((lessonPlan: any) => {
+      if (lessonPlan.id === id) {
+        lessonPlan.info.isPublished = true;
+        LessonPlanPublishStatusForConsoleLogOnly = lessonPlan.info.isPublished;
+      }
+      return lessonPlan;
+    });
+    this._myLessonPlans$.next(myLessonPlans);
+    console.log(
+      `lesson plan with id of ${id} is now  ${
+        LessonPlanPublishStatusForConsoleLogOnly ? 'published' : 'draft'
+      }`
+    );
+  }
+
+  blendedLearning(id: number) {
+    // http call for creating blendedLearning
+    console.log('blended learning created');
   }
 }
