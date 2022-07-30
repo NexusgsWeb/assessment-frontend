@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Class } from 'src/app/modules/Models/Class';
 import { Subject } from 'src/app/modules/Models/Subject';
 import { BlendedLearningService } from 'src/app/modules/_services/blendedLearningService';
-import { LearningPath } from '@models/learningPath';
+import { LearningPath } from 'src/app/modules/Models/learningPath';
 
 @Component({
   selector: 'app-my-learning-path',
@@ -44,7 +44,7 @@ export class MyLearningPathComponent implements OnInit {
 
   classes$ = this._blendedLearningService.classes$;
   subjects$ = this._blendedLearningService.subjects$;
-  learningPath$ = this._blendedLearningService.learningPath$;
+  learningPaths$ = this._blendedLearningService.learningPaths$;
 
   constructor(
     private router: Router,
@@ -54,20 +54,15 @@ export class MyLearningPathComponent implements OnInit {
   ngOnInit(): void {}
 
   didClickNavigate(PATH, _param?) {
-    console.log(PATH);
     this.router.navigateByUrl(PATH);
   }
 
   filter() {
     if (this.selectedClass.id != '' && this.selectedSubject.id != '') {
-      this._blendedLearningService.getLearningPath(
+      this._blendedLearningService.getLearningPaths(
         this.selectedClass,
         this.selectedSubject
       );
     }
-
-    this.learningPath$.subscribe(
-      (learningPath: LearningPath) => (this.learningPath = learningPath)
-    );
   }
 }

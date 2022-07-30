@@ -1,15 +1,17 @@
+import { Section } from './Section';
+
 export interface LearningPath {
-  id?: string;
+  id?: number;
   imgUrl?: string;
   title: string;
-  lastAcitivty?: string;
+  lastActivity?: string;
   comletedActivities?: number;
   inProgressActivities?: number;
   notStartedActivities?: number;
   classId: string;
   subjectId: string;
-  sectionsId: string[];
-  description?: string[];
+  sectionsId: Section[];
+  description?: string;
   lessonExpectedDuration?: number;
   startDate?: Date;
   endDate?: Date;

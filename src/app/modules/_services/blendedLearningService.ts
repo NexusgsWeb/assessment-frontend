@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LearningPath } from '@models/learningPath';
+import { LearningPath } from '../Models/learningPath';
 import { Class } from '../Models/Class';
 import { Section } from '../Models/Section';
 import { Subject } from '../Models/Subject';
@@ -10,7 +9,7 @@ import { Subject } from '../Models/Subject';
 /**
  * in most of this service's functions,
  * im adding the class and subject as paramters to filter the chosen curriculum,
- * when using the API these arguments should be removed since the api will return the required curriculum
+ * when using the API these arguments should be removed since the api will return the required learning path
  * in fact the whole file shoul;d be updated to match the api calls and response
  */
 @Injectable({
@@ -21,18 +20,20 @@ export class BlendedLearningService {
   learningPath: LearningPath;
   learningPaths: LearningPath[] = [];
   emptyLearningPath: LearningPath = {
-    id: '',
+    id: 0,
     imgUrl: '',
     title: '',
-    lastAcitivty: '0',
+    lastActivity: '0',
     comletedActivities: 0,
     inProgressActivities: 0,
     notStartedActivities: 0,
     classId: '',
     subjectId: '',
-    sectionsId: [''],
+    sectionsId: [null],
   };
 
+  private _selectedLearningPathId$: BehaviorSubject<number> =
+    new BehaviorSubject<number>(0);
   private _learningPathSteps$: BehaviorSubject<any> = new BehaviorSubject<any>(
     null
   );
@@ -42,8 +43,16 @@ export class BlendedLearningService {
   private _resetForms$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
+
   private _lPStepsBeingDeletedId$: BehaviorSubject<number> =
     new BehaviorSubject<number>(0);
+
+  private _learningPath$: BehaviorSubject<LearningPath> =
+    new BehaviorSubject<LearningPath>(this.learningPaths[0]);
+
+  private _learningPaths$: BehaviorSubject<LearningPath[]> =
+    new BehaviorSubject<LearningPath[]>([]);
+
   private _classes$: BehaviorSubject<Class[]> = new BehaviorSubject<Class[]>([
     {
       id: '',
@@ -97,8 +106,9 @@ export class BlendedLearningService {
     },
   ]);
 
-  private _learningPath$: BehaviorSubject<LearningPath> =
-    new BehaviorSubject<LearningPath>(this.learningPaths[0]);
+  public get selectedLearningPathId$(): Observable<number> {
+    return this._selectedLearningPathId$;
+  }
 
   public get learningPathSteps$(): Observable<any> {
     return this._learningPathSteps$;
@@ -128,15 +138,19 @@ export class BlendedLearningService {
     return this._learningPath$;
   }
 
+  public get learningPaths$(): Observable<LearningPath[]> {
+    return this._learningPaths$;
+  }
+
   public get sections$(): Observable<Section[]> {
     return this._sections$;
   }
 
   constructor(private _http: HttpClient) {
-    this.getLearningPaths();
+    this.getAllLearningPaths();
   }
 
-  getLearningPaths() {
+  getAllLearningPaths() {
     this._http
       .get<LearningPath[]>(this.baseUrl)
       .subscribe((learningPaths: LearningPath[]) => {
@@ -144,17 +158,25 @@ export class BlendedLearningService {
       });
   }
 
-  getLearningPath(classObj: Class, subject: Subject): any {
+  getLearningPaths(classObj: Class, subject: Subject): any {
     /** TODO get the learningPath() from the api instead of the array of objects above **/
 
     //getting the learning path
-    const learningPath: LearningPath = this.learningPaths.filter(
+    const learningPath: LearningPath[] = this.learningPaths.filter(
       (lP: LearningPath) =>
         lP.classId === classObj.id && lP.subjectId === subject.id
+    );
+
+    if (learningPath) this._learningPaths$.next(learningPath);
+    else this._learningPath$.next(this.emptyLearningPath);
+  }
+
+  getLearningPathById(learningPathId: number) {
+    const learningPath: LearningPath = this.learningPaths.filter(
+      (learningPath: LearningPath) => learningPath.id === learningPathId
     )[0];
 
-    if (learningPath) this._learningPath$.next(learningPath);
-    else this._learningPath$.next(this.emptyLearningPath);
+    this._learningPath$.next(learningPath);
   }
 
   getClasses(): void {
@@ -379,5 +401,9 @@ export class BlendedLearningService {
 
   buildLearningPathSteps(form: any) {
     this._learningPathSteps$.next(form);
+  }
+
+  selectLearningPath(learningpathId: number) {
+    this._selectedLearningPathId$.next(learningpathId);
   }
 }

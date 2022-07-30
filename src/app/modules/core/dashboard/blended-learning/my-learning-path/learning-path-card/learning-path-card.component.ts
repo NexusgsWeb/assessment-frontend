@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { LearningPath } from 'src/app/modules/Models/learningPath';
+import { BlendedLearningService } from 'src/app/modules/_services/blendedLearningService';
 
 @Component({
   selector: 'app-learning-path-card',
@@ -12,7 +15,17 @@ export class LearningPathCardComponent implements OnInit {
   backgroundSpinnerColor: ThemePalette = 'primary';
   backgroundSpinnerValue = 75;
 
-  constructor() {}
+  @Input() cardData: LearningPath;
+
+  constructor(
+    private router: Router,
+    private _blendedLearningService: BlendedLearningService
+  ) {}
 
   ngOnInit(): void {}
+
+  editPath(learningPathId: number) {
+    this._blendedLearningService.selectLearningPath(learningPathId);
+    this.router.navigateByUrl('/blended-learning/new-learning-path');
+  }
 }

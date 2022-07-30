@@ -6,7 +6,7 @@
   />
   <div class="columns">
     <div class="column">
-      <p>Learning Path Title</p>
+      <p>{{ cardData.title }}</p>
       <mat-card-content class="double-progress-spinner-container">
         <div class="double-progress-spinner">
           <mat-progress-spinner
@@ -40,7 +40,9 @@
   </div>
 
   <mat-card-actions class="card-actions">
-    <button mat-icon-button><img src="assets/images/icons/edit.svg" /></button>
+    <button mat-icon-button (click)="editPath(cardData.id)">
+      <img src="assets/images/icons/edit.svg" />
+    </button>
     <button mat-icon-button>
       <img src="assets/images/icons/delete.svg" />
     </button>

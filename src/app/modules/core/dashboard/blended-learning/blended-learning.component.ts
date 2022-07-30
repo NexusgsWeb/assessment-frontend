@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BlendedLearningService } from 'src/app/modules/_services/blendedLearningService';
 
 @Component({

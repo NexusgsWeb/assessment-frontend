@@ -1,0 +1,73 @@
+<div class="columns is-multiline">
+  <div
+    class="column is-12-desktop is-12-tablet is-12-mobile is-pulled-left pl-2 pr-4 pt-0"
+  >
+    <div
+      class="section has-background-white px-5 py-5"
+      style="border-radius: 13px; min-height: 100vh"
+    >
+      <mat-tab-group color="transparent" dynamicHeight>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button
+              class="button btn-white is-outlined is-large is-fullwidth is-focused"
+            >
+              <span
+                class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-family-primary has-text-weight-semibold pl-0 mr-0"
+              >
+                Homework Activity</span
+              >
+            </button>
+          </ng-template>
+          <ng-template matTabContent>
+            <app-homework-activity></app-homework-activity>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button class="button btn-white is-outlined is-large is-fullwidth">
+              <span
+                class="is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-size-5-mobile is-family-primary has-text-weight-semibold pl-0 mr-0"
+              >
+                Online Assessment</span
+              >
+            </button>
+          </ng-template>
+          <ng-template matTabContent>
+            <app-online-assessment></app-online-assessment>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button class="button btn-white is-outlined is-large is-fullwidth">
+              <span
+                class="is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-size-5-mobile is-family-primary has-text-weight-semibold pl-0 mr-0"
+                data-config-id="text35"
+              >
+                External Weblink</span
+              >
+            </button>
+          </ng-template>
+          <ng-template matTabContent>
+            <app-assessment-external-weblink></app-assessment-external-weblink>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button class="button btn-white is-outlined is-large is-fullwidth">
+              <span
+                class="is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-size-5-mobile is-family-primary has-text-weight-semibold pl-0 mr-0"
+                data-config-id="text36"
+              >
+                Classwork Activity</span
+              >
+            </button>
+          </ng-template>
+          <ng-template matTabContent>
+            <app-classwork-activity></app-classwork-activity>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

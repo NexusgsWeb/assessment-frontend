@@ -130,11 +130,11 @@
                 </div>
               </div>
               <div class="section is-small has-background-white my-6">
-                <div *ngIf="learningPath$ | async as learningPath">
+                <div *ngIf="learningPaths$ | async as learningPaths">
                   <!--Displaying no learning path seciton-->
                   <div
                     class="columns"
-                    *ngIf="learningPath.id === ''; else displayPath"
+                    *ngIf="learningPaths.length === 0; else displayPath"
                   >
                     <div class="column is-4"></div>
                     <div class="column">
@@ -143,6 +143,7 @@
                           src="assets/images/blendedLearning/noLearningPath.png"
                           style="height: 367px"
                           data-config-id="image17"
+                          alt="No lerning path"
                         />
                       </figure>
                       <p
@@ -189,11 +190,13 @@
 
                   <!--Displaying path if any-->
                   <ng-template #displayPath>
-                    <div class="colums">
-                      <div class="column is-4">
-                        <app-learning-path-card></app-learning-path-card>
-                      </div>
-                    </div>
+                    <mat-grid-list cols="3" rowHeight="550px">
+                      <mat-grid-tile *ngFor="let learningPath of learningPaths">
+                        <app-learning-path-card
+                          [cardData]="learningPath"
+                        ></app-learning-path-card>
+                      </mat-grid-tile>
+                    </mat-grid-list>
                   </ng-template>
                 </div>
               </div>

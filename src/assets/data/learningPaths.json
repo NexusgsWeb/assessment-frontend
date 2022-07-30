@@ -1,15 +1,170 @@
 [
   {
+    "id": "1",
     "imgUrl": "test",
     "title": "Learning Path 1",
-    "lastAcitivty": "30",
-    "comletedActivities": "30",
-    "inProgressActivities": "20",
-    "notStartedActivities": "10",
     "classId": "testClass",
-    "subjectId": "testSubject"
+    "subjectId": "testSubject",
+    "sectionsId": [
+      {
+        "id": "sectionId1",
+        "code": "",
+        "classOfAcademicYearId": "testClass",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas A"
+      },
+      {
+        "id": "sectionId2",
+        "code": "",
+        "classOfAcademicYearId": "testClass2",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas B"
+      }
+    ],
+    "description": "",
+    "lessonExpectedDuration": "13",
+    "startDate": "2022-07-29",
+    "endDate": "2022-08-29"
   },
   {
+    "id": "2",
+    "imgUrl": "test",
+    "title": "Learning Path 2",
+    "classId": "testClass",
+    "subjectId": "testSubject",
+    "sectionsId": [
+      {
+        "id": "sectionId1",
+        "code": "",
+        "classOfAcademicYearId": "testClass",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas A"
+      },
+      {
+        "id": "sectionId2",
+        "code": "",
+        "classOfAcademicYearId": "testClass2",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas B"
+      }
+    ],
+    "description": "",
+    "lessonExpectedDuration": "13",
+    "startDate": "2022-07-29",
+    "endDate": "2022-08-29"
+  },
+  {
+    "id": "3",
+    "imgUrl": "test",
+    "title": "Learning Path 3",
+    "classId": "testClass",
+    "subjectId": "testSubject",
+    "sectionsId": [
+      {
+        "id": "sectionId1",
+        "code": "",
+        "classOfAcademicYearId": "testClass",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas A"
+      },
+      {
+        "id": "sectionId2",
+        "code": "",
+        "classOfAcademicYearId": "testClass2",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas B"
+      }
+    ],
+    "description": "",
+    "lessonExpectedDuration": "13",
+    "startDate": "2022-07-29",
+    "endDate": "2022-08-29"
+  },
+  {
+    "id": "4",
+    "imgUrl": "test",
+    "title": "Learning Path 4",
+    "classId": "testClass",
+    "subjectId": "testSubject",
+    "sectionsId": [
+      {
+        "id": "sectionId1",
+        "code": "",
+        "classOfAcademicYearId": "testClass",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas A"
+      },
+      {
+        "id": "sectionId2",
+        "code": "",
+        "classOfAcademicYearId": "testClass2",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas B"
+      }
+    ],
+    "description": "",
+    "lessonExpectedDuration": "13",
+    "startDate": "2022-07-29",
+    "endDate": "2022-08-29"
+  },
+  {
+    "id": "5",
     "imgUrl": "test",
     "title": "Learning Path 2",
     "lastAcitivty": "string",
@@ -17,6 +172,40 @@
     "inProgressActivities": "10",
     "notStartedActivities": "5",
     "classId": "testClassTwo",
-    "subjectId": "testSubjectThree"
+    "subjectId": "testSubjectThree",
+    "sectionsId": [
+      {
+        "id": "sectionId1",
+        "code": "",
+        "classOfAcademicYearId": "testClass",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas A"
+      },
+      {
+        "id": "sectionId2",
+        "code": "",
+        "classOfAcademicYearId": "testClass2",
+        "schoolId": "",
+        "maxNumberOfStudents": "0",
+        "minNumberOfStudents": "0",
+        "isActive": false,
+        "createdAt": "",
+        "updatedAt": "",
+        "classOfAcademicYear": null,
+        "school": null,
+        "displayName": "testClas B"
+      }
+    ],
+    "description": "",
+    "lessonExpectedDuration": "13",
+    "startDate": "2022-07-29",
+    "endDate": "2022-08-29"
   }
 ]

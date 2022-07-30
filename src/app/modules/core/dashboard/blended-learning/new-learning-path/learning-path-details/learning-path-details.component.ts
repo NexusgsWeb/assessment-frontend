@@ -16,7 +16,7 @@ import { Class } from 'src/app/modules/Models/Class';
 import { Section } from 'src/app/modules/Models/Section';
 import { BlendedLearningService } from 'src/app/modules/_services/blendedLearningService';
 import { FuncsService } from 'src/app/modules/_services/funcs.service';
-import { LearningPath } from '@models/learningPath';
+import { LearningPath } from 'src/app/modules/Models/learningPath';
 
 @Component({
   selector: 'app-learning-path-details',
@@ -55,11 +55,19 @@ export class LearningPathDetailsComponent implements OnInit {
     ],
   };
 
+  learningPath: LearningPath;
+  selectedLearningPathId: number = 0;
+
+  selectedLearningPathId$ =
+    this._blendedLearningService.selectedLearningPathId$;
+  learningPath$ = this._blendedLearningService.learningPath$;
   classes$ = this._blendedLearningService.classes$;
   subjects$ = this._blendedLearningService.subjects$;
   sections$ = this._blendedLearningService.sections$;
   resetForms$ = this._blendedLearningService.resetForms$;
 
+  private selectedLearningPathIdSubscription?: Subscription;
+  private learningPathSubscription?: Subscription;
   private classesSubscription?: Subscription;
   private sectionsSubscription?: Subscription;
   private toLearningPathStepsSubscription?: Subscription;
@@ -92,6 +100,33 @@ export class LearningPathDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.learningPathSubscription = this.learningPath$?.subscribe(
+      (learningPath: LearningPath) => {
+        if (this.selectedLearningPathId > 0)
+          this.lPDetailsFormGroup.patchValue(learningPath);
+      }
+    );
+
+    this.selectedLearningPathIdSubscription =
+      this.selectedLearningPathId$?.subscribe(
+        (selectedLearningPathId: number) => {
+          if (selectedLearningPathId > 0) {
+            this.selectedLearningPathId = selectedLearningPathId;
+            this.getLearningPathById(selectedLearningPathId);
+          }
+        }
+      );
+
+    this.learningPathSubscription = this.learningPath$.subscribe(
+      (learningPath: LearningPath) => {
+        console.log(learningPath);
+        console.log(this.selectedLearningPathId);
+        if (this.selectedLearningPathId > 0 && learningPath) {
+          this.lPDetailsFormGroup.patchValue(learningPath);
+        }
+      }
+    );
+
     this.toLearningPathStepsSubscription = this.toLearningPathSteps?.subscribe(
       () => this.nextStep()
     );
@@ -122,6 +157,12 @@ export class LearningPathDetailsComponent implements OnInit {
     this.classesSubscription?.unsubscribe();
     this.classChangeSubscription?.unsubscribe();
     this.sectionsSubscription?.unsubscribe();
+    this.selectedLearningPathIdSubscription?.unsubscribe();
+    this.resetFormSubscription.unsubscribe();
+  }
+
+  getLearningPathById(learningPathId: number) {
+    this._blendedLearningService.getLearningPathById(learningPathId);
   }
 
   getSections(event: any) {
@@ -136,25 +177,27 @@ export class LearningPathDetailsComponent implements OnInit {
     }
     /** */
 
-    var sectionId: string[] = [];
+    // var sectionId: string[] = [];
 
-    this.lPDetailsFormGroup.value.section.forEach((sec) => {
-      sectionId.push(sec.id);
-    });
+    // this.lPDetailsFormGroup.value.section.forEach((sec) => {
+    //   sectionId.push(sec.id);
+    // });
 
-    let learningPathForm: LearningPath = {
-      title: this.lPDetailsFormGroup.value.title,
-      classId: this.lPDetailsFormGroup.value.classId,
-      sectionsId: sectionId,
-      subjectId: this.lPDetailsFormGroup.value.subjectId,
-      lessonExpectedDuration:
-        this.lPDetailsFormGroup.value.lessonExpectedDuration,
-      startDate: this.lPDetailsFormGroup.value.startDate,
-      endDate: this.lPDetailsFormGroup.value.endDate,
-      description: this.lPDetailsFormGroup.value.description,
-    };
+    // let learningPathForm: LearningPath = {
+    //   title: this.lPDetailsFormGroup.value.title,
+    //   classId: this.lPDetailsFormGroup.value.classId,
+    //   sectionsId: sectionId,
+    //   subjectId: this.lPDetailsFormGroup.value.subjectId,
+    //   lessonExpectedDuration:
+    //     this.lPDetailsFormGroup.value.lessonExpectedDuration,
+    //   startDate: this.lPDetailsFormGroup.value.startDate,
+    //   endDate: this.lPDetailsFormGroup.value.endDate,
+    //   description: this.lPDetailsFormGroup.value.description,
+    // };
 
-    this._blendedLearningService.buildLearningPathDetails(learningPathForm);
+    this._blendedLearningService.buildLearningPathDetails(
+      this.lPDetailsFormGroup.value
+    );
     this.validDetailsForm.emit(true);
   }
 

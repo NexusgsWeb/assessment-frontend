@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlendedLearningComponent } from './blended-learning.component';
+import { LearningPathComponent } from './learning-path/learning-path.component';
 import { MyLearningPathComponent } from './my-learning-path/my-learning-path.component';
 import { NewLearningPathComponent } from './new-learning-path/new-learning-path.component';
 
 const blendedLearningRoutes: Routes = [
   {
     path: '',
-    component: BlendedLearningComponent,
     children: [
       {
         path: '',
@@ -23,6 +23,10 @@ const blendedLearningRoutes: Routes = [
         path: 'my-learning-path',
         component: MyLearningPathComponent,
         data: { breadcrumb: 'My Learning Path' },
+      },
+      {
+        path: 'my-learning-path/:id',
+        component: LearningPathComponent,
       },
     ],
   },

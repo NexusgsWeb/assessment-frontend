@@ -1,0 +1,119 @@
+[
+  {
+    "id": "1",
+    "learningPathId": "1",
+    "title": "Learning path step 1",
+    "expectedDuration": {
+      "duration": "12",
+      "unitOfTime": "d"
+    },
+    "startDate": null,
+    "endDate": null,
+    "description": "test",
+    "domains": [{ "id": 7, "code": "5", "title": "الجاذبية" }],
+    "learningStandards": [
+      {
+        "id": 1,
+        "unitId": 1,
+        "code": "1.1",
+        "description": "الدرس الاول",
+        "relatedto": []
+      },
+      {
+        "id": 2,
+        "unitId": 1,
+        "code": "1.2",
+        "description": "الدرس الثاني",
+        "relatedto": []
+      }
+    ],
+    "prereqDomains": [{ "id": 7, "code": "5", "title": "الجاذبية" }],
+    "prereqLs": [
+      {
+        "id": 1,
+        "unitId": 1,
+        "code": "1.1",
+        "description": "الدرس الاول",
+        "relatedto": []
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "learningPathId": "1",
+    "title": "Learning path step 2",
+    "expectedDuration": {
+      "duration": "12",
+      "unitOfTime": "d"
+    },
+    "startDate": null,
+    "endDate": null,
+    "description": "test",
+    "domains": [{ "id": 7, "code": "5", "title": "الجاذبية" }],
+    "learningStandards": [
+      {
+        "id": 1,
+        "unitId": 1,
+        "code": "1.1",
+        "description": "الدرس الاول",
+        "relatedto": []
+      },
+      {
+        "id": 2,
+        "unitId": 1,
+        "code": "1.2",
+        "description": "الدرس الثاني",
+        "relatedto": []
+      }
+    ],
+    "prereqDomains": [{ "id": 7, "code": "5", "title": "الجاذبية" }],
+    "prereqLs": [
+      {
+        "id": 1,
+        "unitId": 1,
+        "code": "1.1",
+        "description": "الدرس الاول",
+        "relatedto": []
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "learningPathId": "2",
+    "title": "Learning path step 2",
+    "expectedDuration": {
+      "duration": "12",
+      "unitOfTime": "d"
+    },
+    "startDate": null,
+    "endDate": null,
+    "description": "test",
+    "domains": [{ "id": 7, "code": "5", "title": "الجاذبية" }],
+    "learningStandards": [
+      {
+        "id": 1,
+        "unitId": 1,
+        "code": "1.1",
+        "description": "الدرس الاول",
+        "relatedto": []
+      },
+      {
+        "id": 2,
+        "unitId": 1,
+        "code": "1.2",
+        "description": "الدرس الثاني",
+        "relatedto": []
+      }
+    ],
+    "prereqDomains": [{ "id": 7, "code": "5", "title": "الجاذبية" }],
+    "prereqLs": [
+      {
+        "id": 1,
+        "unitId": 1,
+        "code": "1.1",
+        "description": "الدرس الاول",
+        "relatedto": []
+      }
+    ]
+  }
+]

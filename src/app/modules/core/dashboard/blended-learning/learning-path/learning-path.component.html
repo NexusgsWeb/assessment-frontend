@@ -1,0 +1,240 @@
+<div class="section is-large has-background-grey-light pt-3 px-4">
+  <nav
+    class="breadcrumb has-succeeds-separator py-1 mb-3"
+    aria-label="breadcrumbs"
+  >
+    <ul>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 px-2"
+          data-config-id="text42"
+          >My Home</a
+        >
+      </li>
+      <li>
+        <a
+          href="#"
+          class="is-family-primary has-text-weight-bold is-size-5 px-2"
+          data-config-id="text43"
+          >Blended Learning</a
+        >
+      </li>
+      <li
+        class="is-active is-family-primary has-text-weight-bold is-size-5 px-2"
+      >
+        <a
+          href="#"
+          aria-current="page"
+          class="is-family-primary has-text-weight-bold is-size-6"
+          data-config-id="text44"
+          >Learning Path Title</a
+        >
+      </li>
+    </ul>
+  </nav>
+  <div class="hero-head px-0 py-0">
+    <aside
+      class="column is-3-desktop is-3-widescreen is-3-tablet is-12-mobile has-text-centered is-pulled-left pt-0 mr-2"
+      id="aside2"
+    >
+      <div
+        class="box has-text-dark px-0 py-4"
+        style="border-radius: 13px; min-height: 100vh; height: 120vh"
+      >
+        <div class="column is-12">
+          <div class="columns pb-5">
+            <div class="column px-4">
+              <p
+                class="text is-family-primary has-text-weight-bold has-text-info has-text-left is-size-5 pt-1"
+                data-config-id="text14"
+              >
+                Learning Path Title
+              </p>
+            </div>
+            <div
+              class="column has-text-right pr-4"
+              style="display: flex; flex-direction: row; justify-content: end"
+            >
+              <a
+                class="edit"
+                style="color: #505050"
+                (click)="addLearningPathStep()"
+                ><i class="fas fa-solid fa-plus pr-2"></i
+              ></a>
+              <a class="edit" href="#" style="color: #505050"
+                ><i class="fas fa-solid fa-pen pr-2"></i
+              ></a>
+              <a href="#" class="" style="color: #505050">
+                <i class="fas fa-solid fa-trash"></i>
+              </a>
+            </div>
+          </div>
+          <div class="columns pb-5">
+            <div
+              class="column px-4"
+              *ngIf="learningPathStepsDetails$ | async as learningPathSteps"
+            >
+              <mat-accordion>
+                <ng-container>
+                  <mat-expansion-panel
+                    accordion
+                    (opened)="onAccordionChange(learningPathStep.id)"
+                    [expanded]="selectedIndex === learningPathStep.id"
+                    *ngFor="
+                      let learningPathStep of learningPathSteps;
+                      let i = index
+                    "
+                  >
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        {{ learningPathStep.title }}
+                      </mat-panel-title>
+                      <mat-panel-description
+                        class="is-justify-content-flex-end"
+                        style="justify-content: flex-end"
+                      >
+                        <mat-icon>add</mat-icon>
+                        <mat-icon>edit</mat-icon>
+                        <mat-icon color="warn">delete</mat-icon>
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div
+                      *ngFor="let activity of learningPathStep.activities"
+                      class="columns activity-columns py-2 mx-0 my-0"
+                    >
+                      <div
+                        class="column is-10 activity-column has-text-left px-4"
+                        (click)="onActivityClick(activity.id)"
+                      >
+                        <span class="">
+                          <span
+                            class="is-family-primary has-text-weight-medium has-text-left is-size-5"
+                            style="
+                              line-height: 1.06;
+                              font-stretch: normal;
+                              font-style: normal;
+                            "
+                            data-config-id="text27"
+                            >{{ activity.title }}</span
+                          >
+                        </span>
+                      </div>
+                      <div
+                        class="column has-text-right py-2 pr-4"
+                        style="
+                          display: flex;
+                          flex-direction: row;
+                          justify-content: end;
+                          font-size: 12px;
+                        "
+                      >
+                        <div class="columns is-block">
+                          <div
+                            class="column has-text-weight-semibold has-text-centered is-size-5"
+                            style="
+                              opacity: 0.9;
+                              font-family: OpenSans;
+                              font-stretch: normal;
+                              font-style: normal;
+                              line-height: 0.86;
+                              letter-spacing: normal;
+                            "
+                          >
+                            {{ activity.full }}
+                          </div>
+                          <div
+                            class="column has-text-weight-semibold has-text-left is-size-7 py-0"
+                            style="
+                              opacity: 0.9;
+                              font-family: OpenSans;
+                              font-size: 22px;
+                              font-stretch: normal;
+                              font-style: normal;
+                              line-height: 0.86;
+                              letter-spacing: normal;
+                            "
+                          >
+                            PTS
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-expansion-panel>
+                </ng-container>
+              </mat-accordion>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="column remove-border-bottom">
+      <mat-tab-group color="transparent" dynamicHeight>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button
+              class="button is-info is-outlined is-large is-fullwidth is-focused"
+            >
+              <span
+                class="is-size-5-mobile is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-family-primary has-text-weight-semibold pl-0 mr-0"
+                data-config-id="text30"
+              >
+                Add Content Activity</span
+              >
+            </button>
+          </ng-template>
+          <ng-template matTabContent>
+            <app-content-activity></app-content-activity>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button
+              class="button is-info is-outlined is-large is-fullwidth is-focused"
+            >
+              <span
+                class="is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-size-5-mobile is-family-primary has-text-weight-semibold pl-0 mr-0"
+              >
+                Add Social/Engagement Activity</span
+              >
+            </button>
+          </ng-template>
+          <ng-template matTabContent>
+            <app-social-activity></app-social-activity>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button
+              class="button is-info is-outlined is-large is-fullwidth is-focused"
+            >
+              <span
+                class="is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-size-5-mobile is-family-primary has-text-weight-semibold pl-0 mr-0"
+              >
+                Add Evaluation Activity</span
+              >
+            </button>
+          </ng-template>
+          <app-evaluation-activity></app-evaluation-activity
+        ></mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <button
+              class="button is-info is-outlined is-large is-fullwidth is-focused"
+            >
+              <span
+                class="is-size-7-tablet is-size-6-desktop is-size-5-widescreen is-size-5-mobile is-family-primary has-text-weight-semibold pl-0 mr-0"
+              >
+                Add Assessment Activity</span
+              >
+            </button>
+          </ng-template>
+
+          <app-assessment-activity></app-assessment-activity
+        ></mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

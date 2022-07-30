@@ -15,7 +15,7 @@ import { LearningStandard, Unit } from 'src/app/modules/Models/Curriculum';
 import { BlendedLearningService } from 'src/app/modules/_services/blendedLearningService';
 import { CurriculumService } from 'src/app/modules/_services/curriculum.service';
 import { FuncsService } from 'src/app/modules/_services/funcs.service';
-import { LearningPath } from '@models/learningPath';
+import { LearningPath } from 'src/app/modules/Models/learningPath';
 
 @Component({
   selector: 'app-learning-path-steps',

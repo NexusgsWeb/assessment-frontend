@@ -61,6 +61,7 @@ import { LessonPlanModule } from './modules/core/dashboard/lesson-plan/lesson-pl
 import { ConfirmDialogModule } from './shared/components/confirm-dialog/confirm-dialog.module';
 import { BlendedLearningModule } from './modules/core/dashboard/blended-learning/blended-learning.module';
 import { LessonPlanComponent } from './modules/core/dashboard/lesson-plan/lesson-plan.component';
+import { BlendedLearningComponent } from './modules/core/dashboard/blended-learning/blended-learning.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { LessonPlanComponent } from './modules/core/dashboard/lesson-plan/lesson
     QuestionSettingsBricirComponent,
     DomainLOItemComponent,
     LessonPlanComponent,
+    BlendedLearningComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

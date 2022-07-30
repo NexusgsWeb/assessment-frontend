@@ -8,7 +8,11 @@ import { CreateLessonPlanComponent } from './create/create-lesson-plan.component
 const lessonPlanRoutes: Routes = [
   {
     path: '',
-    children: [{ path: 'curriculum', component: CurriculumComponent }, { path: 'list', component: LessonPlansListComponent }, { path: 'create', component: CreateLessonPlanComponent }],
+    children: [
+      { path: 'curriculum', component: CurriculumComponent },
+      { path: 'list', component: LessonPlansListComponent },
+      { path: 'create', component: CreateLessonPlanComponent },
+    ],
   },
 ];
 
